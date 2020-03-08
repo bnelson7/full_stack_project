@@ -20,15 +20,17 @@ class SignupForm extends React.Component {
     }
 
     render() {
-        // console.log(this.props)
+        console.log(this.props)
         return (
-            <div className="session-form">
-                <h1>SIGN IN</h1>
+            <div className="signup-container">
+                <h1>Create an account</h1>
                 <h3>to continue to AdTube</h3>
                 <form onSubmit={this.handleSubmit}>
-                    <label>email: 
-                        <input type="text" value={this.state.email} onChange={this.update("email")} />
-                    </label>
+                    <div className="signup-form">
+                        <p><input type="text" placeholder="username" value={this.state.username} onChange={this.update("username")} /></p>
+                        <p><input type="text" placeholder="email" value={this.state.email} onChange={this.update("email")} /></p>
+                        <p><input type="text" placeholder="password" value={this.state.password} onChange={this.update("password")} /></p>
+                    </div>
                     <button onClick={this.handleSubmit}>SIGN IN</button>
                 </form>
             </div>   
