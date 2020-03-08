@@ -1,11 +1,17 @@
 import React from "react"
-import SigninContainer from "./session/signup_container"
-import { HashRouter, Route } from "react-router-dom"
+import SignupContainer from "./session/signup_container"
+import { HashRouter, Route, Link, Switch } from "react-router-dom"
+import NavBarContainer from "./nav_bar/nav_bar_container"
+import LoginContainer from './session/login_container'
+import { AuthRoute } from '../util/custom_route_util'
 
 const App = () => (
     <div>
-        <h1>welcome to AdTube</h1>
-        <SigninContainer />
+        <Switch>
+            <AuthRoute path="/login" component={LoginContainer} />
+            <AuthRoute path="/signup" component={SignupContainer} />
+            <Route exact path="/" component={NavBarContainer} />
+        </Switch>
     </div>
 )
 
