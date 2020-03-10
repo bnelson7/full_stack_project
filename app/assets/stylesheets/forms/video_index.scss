@@ -1,0 +1,22 @@
+.index-container {
+    display: flex;
+    background-color: #fafafb;
+    // overflow: hidden;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    height: 100%;
+    position: relative;
+    flex-direction: row;
+    margin-left: 100px;
+    overflow: auto;
+    font-family: 'Roboto', sans-serif;
+}
+
+.index-item-container {
+   
+    
+}
+
+img {
+    width: 250px;
+}

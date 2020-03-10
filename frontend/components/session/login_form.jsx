@@ -30,7 +30,7 @@ class LoginForm extends React.Component {
                         <h1>Sign In</h1>
                         <h3>to continue to AdTube</h3>
                         <input type="text" placeholder="Email" value={this.state.email} onChange={this.update("email")} className="login-input"/>
-                        <p>Don't have an account?</p>
+                        <p id='p1'>Don't have an account?</p>
                         <p><Link to="/">login as demo user</Link></p> 
                         {this.props.signUpLink}
                     </div>
