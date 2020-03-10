@@ -1,25 +1,32 @@
 h1, h3 {
     font-weight: 500;
+    line-height: 10%;
+    
 }
 
 a {
     text-decoration: none;
     padding: 10px;
-    color: blue;
-    font-weight: bold;
+    color: #0066ff;
+    font-weight: 500;
+}
+
+#p1 {
+    line-height: 10%;
+    text-align: left;
 }
 
 button {
-    background-color: blue;
+    background-color: #0066ff;
     border-radius: 8px;
     margin-top: 20px;
     padding: 10px;
     color: white;
     text-align: center;
     width: 100px;
-    border: 1px solid blue;
+    border: 1px solid #0066ff;
     font-size: inherit;
-    font-weight: 600;
+    font-weight: 500;
     // font-family: inherit;
 }
 
@@ -44,7 +51,7 @@ button {
     text-align: center;
     align-items: center;
     flex-direction: column;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: 'Roboto', sans-serif;
     /* font-size: 10px; */
     font-weight: 300;
 }
@@ -64,7 +71,7 @@ input[type=text] {
 }
 
 input[type=text]:focus {
-    border: 2px solid blue;
+    border: 2px solid #0066ff;
 }
 
 

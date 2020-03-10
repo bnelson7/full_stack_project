@@ -1,0 +1,46 @@
+#h1 {
+    line-height: 40%;
+}
+// #h3 {
+//     line-height: 30%;
+// }
+
+.signup-container {
+    position: absolute;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    width: 900px;
+    height: 500px;
+    position: relative;
+    border: 1px solid lightgray;
+    margin: auto;
+    margin-top: 200px;
+    border-radius: 5px;
+}
+
+.signup-form {
+    position: relative;
+    // justify-content: center;
+    // text-align: center;
+    // align-items: center;
+    left: 100px;
+
+}
+
+.signup-title {
+    position: relative;
+    left: 10px;
+    text-align: left;
+    padding: 5px;
+}
+
+.signup-input[type=text] {
+
+}
+
+.signup-btn {
+    position: relative;
+    left: 220px;
+}
