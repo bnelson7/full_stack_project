@@ -20,6 +20,18 @@ class LoginForm extends React.Component {
         this.props.loginUser(this.state)
     }
 
+    renderErrors() {
+        return (
+            <ul>
+                {this.props.errors.map((err, i) => (
+                    <li key={`err-${i}`}>
+                        {err}
+                    </li>
+                    ))}
+            </ul>
+        )
+    }
+
     render() {
         // const { errors } = this.props
         return (
@@ -30,6 +42,7 @@ class LoginForm extends React.Component {
                         <h1>Sign In</h1>
                         <h3>to continue to AdTube</h3>
                         <input type="text" placeholder="Email" value={this.state.email} onChange={this.update("email")} className="login-input"/>
+                        {this.renderErrors()}
                         <p id='p1'>Don't have an account?</p>
                         <p><Link to="/">login as demo user</Link></p> 
                         {this.props.signUpLink}

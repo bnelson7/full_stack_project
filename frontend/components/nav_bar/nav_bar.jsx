@@ -3,15 +3,31 @@ import { Link } from 'react-router-dom'
 
 const NavBar = ({ currentUser, logout }) => {
     return (
-        <div>
+        <div className="main-nav-container">
             <nav className="nav-bar-container">
-                <button className="hamburger"><i className="fa fa-bars"></i></button>
-                    <img className="logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRBQz_TgYdSCUxHRe6X4rIxU1TBohn1WfMNfSBWgvBnMAgXKZFF" />
-                    <form className="search" action="action_page.php" method="GET">
-                        <input type="text" placeholder="Search" name="search" />
-                            {/* <button type="submit"><i className="fa fa-search"></i></button> */}
-                    </form>
-                    <Link className="button" to="/login">SIGN IN</Link>
+                
+                <div className="left-container">
+                    <div className="hamburger"><i className="fas fa-bars"></i></div>
+                    <div className="youtube-logo"><i class="fab fa-youtube"></i><Link to="/"></Link></div>
+                    {/* <div className="ad-icon"><i className="fas fa-ad"></i></div> */}
+                    <div className="title">AdTube</div>
+                </div>
+
+                    <div className="mid-container">
+                        <form action="">
+                            <div className="search-bar">
+                                <input type="text" className="search-input" placeholder="Search"/>
+                                <button type="submit" className="search-button"><i class="fa fa-search"></i></button>
+                            </div>
+                        </form>
+                    </div>
+
+                <div className="right-container">
+                    <div><i class="fas fa-video"></i></div>
+                    <div><i class="fas fa-th"></i></div>
+                    <div><i class="fas fa-ellipsis-v"></i></div>
+                    <div><Link className="signin-button" to="/login"><span className="profile-icon"><i className="fas fa-user-circle"></i></span>SIGN IN</Link></div>
+                </div>
             </nav>
         </div>
     )

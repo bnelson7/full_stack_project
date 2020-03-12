@@ -8,14 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const root = document.getElementById("root")
     // const store = configureStore()
 
-    // testing
-    // window.signup = signup
-    // window.login = login
-    // window.logout = logout
     
-    // window.getState = store.getState
-    // window.dispatch = store.dispatch
-
     let store = {};
     if (window.currentUser) {
         const preloadedState = {
@@ -29,7 +22,14 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
         store = configureStore();
     }
-
+    
+    // testing
+    // window.signup = signup
+    // window.login = login
+    // window.logout = logout
+    
+    // window.getState = store.getState
+    // window.dispatch = store.dispatch
     
     ReactDOM.render(<Root store={store} />, root)
 })

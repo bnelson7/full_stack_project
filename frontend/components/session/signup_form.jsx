@@ -20,6 +20,18 @@ class SignupForm extends React.Component {
         this.props.createNewUser(this.state)
     }
 
+    // renderErrors() {
+    //     return (
+    //         <ul>
+    //             {this.props.errors.map((err, i) => (
+    //                 <li key={`err-${i}`}>
+    //                     {err}
+    //                 </li>
+    //             ))}
+    //         </ul>
+    //     )
+    // }
+
     render() {
         // console.log(this.props)
         return (
@@ -34,6 +46,7 @@ class SignupForm extends React.Component {
                         <p><input type="text" placeholder="email" value={this.state.email} onChange={this.update("email")} /></p>
                         <p><input type="text" placeholder="password" value={this.state.password} onChange={this.update("password")} /></p>
                     </div>
+                    {/* {this.renderErrors()} */}
                     <p>Forgot you already had an account?</p>
                     <Link to="/login">Sign In</Link> 
                         <button onClick={this.handleSubmit} className="signup-btn">SIGN UP</button>
