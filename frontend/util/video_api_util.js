@@ -4,3 +4,11 @@ export const fetchVideos = () => (
         method: "GET"
     })
 )
+
+export const fetchVideo = id => (
+    $.ajax({
+        url: `/api/videos/${id}`,
+        method: "GET"
+    })
+)
+
