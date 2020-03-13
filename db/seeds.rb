@@ -11,10 +11,10 @@ require 'open-uri'
 Video.destroy_all
 User.destroy_all
 
-diabeetus = Video.create(title: 'diabeetus', description: "wilford brimley", views: 203, user_id: 14, upload_date: '3 years ago' )
-file = open('https://adtube-aa-dev.s3-us-west-1.amazonaws.com/diabeetus3.jpg')
+piano_cat = Video.create(title: "Charlie Schmidt's Keyboard Cat! - THE ORIGINAL!", description: "WATCH: Keyboard Cat meets Grumpy Cat!", views: 203, user_id: 14, upload_date: '3 years ago' )
+file = open('https://adtube-aa-dev.s3-us-west-1.amazonaws.com/piano_cat.jpg')
 # file20 = open('https://adtube-aa-dev.s3-us-west-1.amazonaws.com/diabeetus.mp4')
-diabeetus.photo.attach(io: file, filename: 'diabeetus3.jpg')
+piano_cat.photo.attach(io: file, filename: 'piano_cat.jpg')
 # diabeetus.upload.attach(io: file20, filename: 'diabeetus.mp4')
 
 chill = Video.create(title: 'midnight aura. [lofi/jazzhop/chill mix]', description: "for those serene moments at the end of a long day", views: 35, user_id: 25, upload_date: '4 days ago' )
@@ -49,9 +49,9 @@ event_loop = Video.create(title: 'What the heck is the event loop anyway? | Phil
 file8 = open('https://adtube-aa-dev.s3-us-west-1.amazonaws.com/event_loop.jpg')
 event_loop.photo.attach(io: file8, filename: 'event_loop.jpg')
 
-mouse = Video.create(title: 'shes a wolf in mouse clothing', description: "mouse looks like a wolf", views: 89, user_id: 2, upload_date: '5 days ago' )
-file9 = open('https://adtube-aa-dev.s3-us-west-1.amazonaws.com/mouse.jpeg')
-mouse.photo.attach(io: file9, filename: 'mouse.jpeg')
+rogan = Video.create(title: 'Joe Rogan Experience #1169 - Elon Musk', description: "Elon Musk is a business magnet, investor and engineer.", views: 89, user_id: 2, upload_date: '5 days ago' )
+file9 = open('https://adtube-aa-dev.s3-us-west-1.amazonaws.com/rogan.jpeg')
+rogan.photo.attach(io: file9, filename: 'rogan.jpeg')
 
 game = Video.create(title: 'funniest game show answers of all time', description: "funny game show answers", views: 389, user_id: 3, upload_date: '13 hours ago' )
 file10 = open('https://adtube-aa-dev.s3-us-west-1.amazonaws.com/game3.jpeg')
