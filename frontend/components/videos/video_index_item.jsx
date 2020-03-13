@@ -5,7 +5,7 @@ const VideoIndexItem = props => {
 
     return (
         <div>
-            <div className="video-image"><Link to={`/videos/${props.video.id}`}><img src={props.video.uploadUrl} /></Link></div>
+            <div className="video-image"><Link to={`/videos/${props.video.id}`}><img src={props.video.photoUrl} /></Link></div>
 
             <div className="video-info">
                 <div className="video-title">{props.video.title}</div>

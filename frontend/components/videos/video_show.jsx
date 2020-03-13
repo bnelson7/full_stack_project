@@ -15,7 +15,7 @@ class VideoShow extends React.Component {
                 <div className="video-show-container">
 
                     <div className="video-container">
-
+                        {/* <video src={video.upload.uploadUrl}></video> */}
                     </div>
 
                     <div className="video-title-container">
@@ -30,20 +30,12 @@ class VideoShow extends React.Component {
 
                     </div>
 
-                    <div className="">
+                    <div className="related-videos-container">
 
                     </div>
 
                     {/* <h1>{video.title}</h1> */}
                 
-                {/* <div className="video-container">
-                    <div className="video-desciption">
-
-                    </div>
-                </div>
-                    <div className="recommended-videos">
-
-                    </div> */}
                 </div>
             </div>
         )

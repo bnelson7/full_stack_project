@@ -7,7 +7,7 @@
     min-height: 100%;
     flex-direction: row;
     margin-left: 75px;
-    overflow-y: auto;
+    overflow-y: hidden;
     font-family: 'Roboto', sans-serif;
     position: absolute;
     justify-content: space-evenly;
@@ -31,9 +31,10 @@
     min-height: 100%;
     width: 100%;
     margin-top: 100px;
-    margin-left: 10px;
+    margin-left: -10%;
     margin-right: 75px;
     // justify-content: space-evenly;
+    overflow-y: hidden;
 }
 
 .index-item {
@@ -41,7 +42,7 @@
     // border: 1px solid black;
     // background: yellow;
     // position: relative;
-    width: 275px;
+    width: 320px;
     height: 300px;
     float: left;
     padding: 10px;
