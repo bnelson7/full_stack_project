@@ -12,7 +12,7 @@ const VideoIndexItem = props => {
                 {/* <div className="video-user">{props.video.userId}</div> */}
                 {/* <div className="video-profile-pic">{props.video.userId.avatar}</div> */}
                 <div className="video-views">{props.video.views}K views<i class="fas fa-dot-circle"></i></div>
-                {/* <div className="video-date">{props.video.upload_date}</div> */}
+                <div className="video-date">{props.video.upload_date}</div>
             </div>
 
             <div className="profile-thumbnail"><i class="far fa-user-circle"></i></div>

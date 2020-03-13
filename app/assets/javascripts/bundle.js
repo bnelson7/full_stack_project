@@ -935,7 +935,9 @@ var VideoIndexItem = function VideoIndexItem(props) {
     className: "video-views"
   }, props.video.views, "K views", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
     "class": "fas fa-dot-circle"
-  }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "video-date"
+  }, props.video.upload_date)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "profile-thumbnail"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
     "class": "far fa-user-circle"
@@ -994,9 +996,21 @@ var VideoShow = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      console.log(this.props);
+      // console.log(this.props)
       var video = this.props.video;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, video.title));
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "video-show-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "video-container"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "video-title-container"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "video-description-container"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "upnext-video-container"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: ""
+      })));
     }
   }]);
 
