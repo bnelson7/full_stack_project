@@ -926,7 +926,7 @@ var VideoIndexItem = function VideoIndexItem(props) {
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
     to: "/videos/".concat(props.video.id)
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-    src: props.video.uploadUrl
+    src: props.video.photoUrl
   }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "video-info"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -1009,7 +1009,7 @@ var VideoShow = /*#__PURE__*/function (_React$Component) {
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "upnext-video-container"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: ""
+        className: "related-videos-container"
       })));
     }
   }]);
@@ -1039,7 +1039,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var mSTP = function mSTP(state, ownProps) {
   return {
-    video: state.entities.videos[ownProps.match.params.videoId]
+    video: state.entities.videos[ownProps.match.params.videoId],
+    videos: Object.values(state.entities.videos)
   };
 };
 
