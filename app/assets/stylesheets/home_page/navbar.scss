@@ -1,0 +1,142 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    text-align: center;
+    padding: 8px;
+    // position: fixed;
+    // background: chartreuse;
+}
+
+.left-navbar {
+    display: flex;
+    // justify-content: space-around;
+    align-items: center;
+    // flex-direction: row;
+    font-size: larger;
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+    // background: chocolate;
+}
+
+.right-navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    width: 250px;
+    cursor: pointer;
+    // background: burlywood;
+}
+
+.menu {
+    position: relative;
+    left: 22px;
+    top: 5px;
+    font-size: 25px;
+    color: #696969;  
+}
+
+.title {
+    position: relative;
+    font-weight: 600;
+    font-stretch: condensed;
+    left: 50px;
+    letter-spacing: -1px;
+    color: 	#404040;
+}
+
+.logo {
+    position: relative;
+    color: red;
+    top: 3px;
+    left: 50px;
+    font-size: 26px;
+}
+
+.mid-navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    // background: cornflowerblue;
+    height: 20px;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    width: 550px;
+    font-family: 'Roboto', sans-serif;
+    // background: crimson;
+}
+
+.search-input {
+    text-align: left;
+    height: 1px;
+    border-radius: 1px;
+}
+
+.search-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: 	#707070;
+    cursor: pointer;
+    background: #F8F8F8;
+    border: 1px solid #D8D8D8;
+    border-radius: 1px;
+    font-size: 20px;
+    height: 30px;
+    width: 60px;
+}
+
+.search-button:hover {
+    background: #E8E8E8;
+    opacity: 0.7;
+}
+
+.video-icon {
+    font-size: 24px;
+    color: #696969;
+}
+
+.apps-icon {
+    font-size: 24px;
+    color: #696969;
+}
+
+.settings-icon {
+    font-size: 24px;
+    color: #696969;
+}
+
+.signin-button {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 5px;
+    border-radius: 3px;
+    float: right;
+    border: 0.5px solid #0066CC;
+    font-size: 14px;
+    text-decoration: none;
+    color: #0066CC;
+    text-align: center;
+    justify-content: center;
+    font-weight: 600;
+    font-family: 'Roboto', sans-serif;
+    position: relative;
+    width: 100px;
+}
+
+.profile-icon {
+    position: relative;
+    right: 5px;
+    font-size: x-large;
+}
+
+
+
+

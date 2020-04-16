@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { FaUserCircle } from 'react-icons/fa'
 
 class LoginForm extends React.Component {
     constructor(props) {
@@ -36,18 +37,28 @@ class LoginForm extends React.Component {
         // const { errors } = this.props
         return (
             <div className="login-container">
-                <form onSubmit={this.handleSubmit} className="login-box">
-                    <div className="login-form">
-                        {/* <i className="fas fa-ad"></i> */}
-                        <h1>Sign In</h1>
-                        <h3>to continue to AdTube</h3>
-                        <input type="text" placeholder="Email" value={this.state.email} onChange={this.update("email")} className="login-input"/>
-                        {this.renderErrors()}
-                        <p id='p1'>Don't have an account?</p>
-                        <p><Link to="/">login as demo user</Link></p> 
-                        {this.props.signUpLink}
+            
+                <div className="login-header">
+                    <img src="https://www.finsmes.com/wp-content/uploads/2016/09/google.jpg" className="google-logo" />
+                    <div className="login-icon"><FaUserCircle /></div>
+                    <h1>Sign in with your Google account</h1>
+                </div>
+                
+                <br/>
+                <form onSubmit={this.handleSubmit}>
+                    <div className="input-container">
+                        <div className="input">
+                            <input type="text" placeholder="Enter your email" value={this.state.email} onChange={this.update("email")}/>
+                        </div>
+                                {this.renderErrors()}
+                                <br/>
+                                <p>Don't have an account?</p>
+                                <p id="p1"><Link to="/">Login as demo user</Link></p> 
                     </div>
-                    <button>Sign In</button>
+                    <div className="login-links">
+                        <p id="p1">{this.props.signUpLink}</p>
+                        <button className="session-button">Next</button>
+                    </div>
                 </form>
             </div>
         )

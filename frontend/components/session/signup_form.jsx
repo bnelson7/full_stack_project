@@ -38,8 +38,9 @@ class SignupForm extends React.Component {
             <div className="signup-container">
                 <form onSubmit={this.handleSubmit} className="signup-form">
                     <div className="signup-title">
-                        <h1 id="h1">Create an account</h1>
-                        <h3 id="h3">to continue to AdTube</h3>
+                        {/* <img src="https://www.finsmes.com/wp-content/uploads/2016/09/google.jpg" className="google-logo" /> */}
+                        <h1>Create your Google Account</h1>
+                        <h3>to continue to AdTube</h3>
                     </div>
                     <div className="signup-input">
                         <p><input type="text" placeholder="username" value={this.state.username} onChange={this.update("username")} /></p>
@@ -48,8 +49,11 @@ class SignupForm extends React.Component {
                     </div>
                     {/* {this.renderErrors()} */}
                     <p>Forgot you already had an account?</p>
-                    <Link to="/login">Sign In</Link> 
-                        <button onClick={this.handleSubmit} className="signup-btn">SIGN UP</button>
+                    <Link to="/login">Sign in Instead</Link> 
+                    <button onClick={this.handleSubmit} className="session-btn">Next</button>
+                    {/* <div className="one-account-logo">
+                        <img src="https://www.pikpng.com/pngl/b/136-1367487_google-account-products-icons-use-my-google-account.png" />
+                    </div> */}
                 </form>
             </div>   
         )

@@ -6,10 +6,7 @@ import LoginForm from './login_form'
 
 const mSTP = ({ errors }) => ({
     errors: errors.session,
-    signUpLink: <NavLink
-     to="/signup"
-     className=""
-     >Create an account</NavLink>
+    signUpLink: <NavLink to="/signup">Create account</NavLink>
 })
 
 const mDTP = dispatch => ({
