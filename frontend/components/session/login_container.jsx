@@ -4,9 +4,9 @@ import { Link, NavLink } from 'react-router-dom'
 import { login } from '../../actions/session_actions'
 import LoginForm from './login_form'
 
-const mSTP = ({ errors }) => ({
-    errors: errors.session,
-    signUpLink: <NavLink to="/signup">Create account</NavLink>
+const mSTP = state => ({
+    currentUser: state.entities.users[state.session.id],
+    errors: state.errors.session
 })
 
 const mDTP = dispatch => ({

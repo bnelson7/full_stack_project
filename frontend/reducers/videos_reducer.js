@@ -1,8 +1,8 @@
 import { RECEIVE_VIDEOS, RECEIVE_VIDEO } from '../actions/video_actions'
 
-const videosReducer = (defaultState = {}, action) => {
-    Object.freeze(defaultState)
-    let newState = Object.assign({}, defaultState)
+const videosReducer = (prevState = {}, action) => {
+    Object.freeze(prevState)
+    let newState = Object.assign({}, prevState)
 
     switch (action.type) {
         case RECEIVE_VIDEOS:
@@ -11,7 +11,7 @@ const videosReducer = (defaultState = {}, action) => {
             newState[action.video.id] = action.video
             return newState
         default:
-            return defaultState
+            return prevState
     }
 }
 

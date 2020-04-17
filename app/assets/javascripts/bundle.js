@@ -107,10 +107,10 @@ var RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER';
 var LOGOUT_CURRENT_USER = 'LOGOUT_CURRENT_USER';
 var RECEIVE_SESSION_ERRORS = 'RECEIVE_SESSION_ERRORS';
 
-var receiveCurrentUser = function receiveCurrentUser(user) {
+var receiveCurrentUser = function receiveCurrentUser(currentUser) {
   return {
     type: RECEIVE_CURRENT_USER,
-    user: user
+    currentUser: currentUser
   };
 };
 
@@ -131,8 +131,8 @@ var signup = function signup(user) {
   return function (dispatch) {
     return _util_session_api_util__WEBPACK_IMPORTED_MODULE_0__["signup"](user).then(function (user) {
       return dispatch(receiveCurrentUser(user));
-    }, function (errors) {
-      return dispatch(receiveSessionErrors(errors.responseJSON));
+    }, function (err) {
+      return dispatch(receiveSessionErrors(err.responseJSON));
     });
   };
 };
@@ -140,8 +140,8 @@ var login = function login(user) {
   return function (dispatch) {
     return _util_session_api_util__WEBPACK_IMPORTED_MODULE_0__["login"](user).then(function (user) {
       return dispatch(receiveCurrentUser(user));
-    }, function (errors) {
-      return dispatch(receiveSessionErrors(errors.responseJSON));
+    }, function (err) {
+      return dispatch(receiveSessionErrors(err.responseJSON));
     });
   };
 };
@@ -217,52 +217,46 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _util_session_api_util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./util/session_api_util */ "./frontend/util/session_api_util.js");
-/* harmony import */ var _components_root__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/root */ "./frontend/components/root.jsx");
-/* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./store/store */ "./frontend/store/store.js");
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+/* harmony import */ var _components_root__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/root */ "./frontend/components/root.jsx");
+/* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./store/store */ "./frontend/store/store.js");
+/* harmony import */ var _util_session_api_util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util/session_api_util */ "./frontend/util/session_api_util.js");
 
 
 
 
 
 document.addEventListener("DOMContentLoaded", function () {
-  var root = document.getElementById("root"); // const store = configureStore()
+  var root = document.getElementById("root");
+  var store = Object(_store_store__WEBPACK_IMPORTED_MODULE_3__["default"])(); // let store = {};
+  // if (window.currentUser) {
+  //     const preloadedState = {
+  //         entities: {
+  //             users: { [window.currentUser.id]: window.currentUser }
+  //         },
+  //         session: { id: window.currentUser.id }
+  //     };
+  //     store = configureStore(preloadedState);
+  //     delete window.currentUser;
+  // } else {
+  //     store = configureStore();
+  // }
+  // testing
 
-  var store = {};
-
-  if (window.currentUser) {
-    var preloadedState = {
-      entities: {
-        users: _defineProperty({}, window.currentUser.id, window.currentUser)
-      },
-      session: {
-        id: window.currentUser.id
-      }
-    };
-    store = Object(_store_store__WEBPACK_IMPORTED_MODULE_4__["default"])(preloadedState);
-    delete window.currentUser;
-  } else {
-    store = Object(_store_store__WEBPACK_IMPORTED_MODULE_4__["default"])();
-  } // testing
-  // window.signup = signup
-  // window.login = login
-  // window.logout = logout
-  // window.getState = store.getState
-  // window.dispatch = store.dispatch
-
-
-  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_root__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  window.signup = _util_session_api_util__WEBPACK_IMPORTED_MODULE_4__["signup"];
+  window.login = _util_session_api_util__WEBPACK_IMPORTED_MODULE_4__["login"];
+  window.logout = _util_session_api_util__WEBPACK_IMPORTED_MODULE_4__["logout"];
+  window.getState = store.getState;
+  window.dispatch = store.dispatch;
+  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_root__WEBPACK_IMPORTED_MODULE_2__["default"], {
     store: store
   }), root);
 });
 
 /***/ }),
 
-/***/ "./frontend/components/App.jsx":
+/***/ "./frontend/components/app.jsx":
 /*!*************************************!*\
-  !*** ./frontend/components/App.jsx ***!
+  !*** ./frontend/components/app.jsx ***!
   \*************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -437,7 +431,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./App */ "./frontend/components/App.jsx");
+/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./app */ "./frontend/components/app.jsx");
 
 
 
@@ -447,7 +441,7 @@ var Root = function Root(_ref) {
   var store = _ref.store;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_redux__WEBPACK_IMPORTED_MODULE_1__["Provider"], {
     store: store
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["HashRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_App__WEBPACK_IMPORTED_MODULE_3__["default"], null)));
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["HashRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_app__WEBPACK_IMPORTED_MODULE_3__["default"], null)));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Root);
@@ -475,13 +469,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var mSTP = function mSTP(_ref) {
-  var errors = _ref.errors;
+var mSTP = function mSTP(state) {
   return {
-    errors: errors.session,
-    signUpLink: react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["NavLink"], {
-      to: "/signup"
-    }, "Create account")
+    currentUser: state.entities.users[state.session.id],
+    errors: state.errors.session
   };
 };
 
@@ -510,6 +501,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var react_icons_fa__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-icons/fa */ "./node_modules/react-icons/fa/index.esm.js");
+/* harmony import */ var react_icons_md__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-icons/md */ "./node_modules/react-icons/md/index.esm.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -534,6 +526,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var LoginForm = /*#__PURE__*/function (_React$Component) {
   _inherits(LoginForm, _React$Component);
 
@@ -544,7 +537,7 @@ var LoginForm = /*#__PURE__*/function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(LoginForm).call(this, props));
     _this.state = {
-      email: ""
+      password: ""
     };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     return _this;
@@ -560,24 +553,35 @@ var LoginForm = /*#__PURE__*/function (_React$Component) {
       };
     }
   }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      if (this.props.errors.length !== prevProps.errors.length) {
+        this.setState({
+          password: ""
+        });
+      } // toggle input class to different style when errors present ie: red border no text in input and text on top left border
+
+    }
+  }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
       e.preventDefault();
-      this.props.loginUser(this.state);
+      var user = Object.assign({}, this.state);
+      this.props.loginUser(user);
     }
   }, {
     key: "renderErrors",
     value: function renderErrors() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.errors.map(function (err, i) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          className: "login-errors",
           key: "err-".concat(i)
-        }, err);
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_icons_md__WEBPACK_IMPORTED_MODULE_3__["MdError"], null)), "  ", err);
       }));
     }
   }, {
     key: "render",
     value: function render() {
-      // const { errors } = this.props
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "login-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -595,10 +599,10 @@ var LoginForm = /*#__PURE__*/function (_React$Component) {
         className: "input"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
-        placeholder: "Enter your email",
-        value: this.state.email,
-        onChange: this.update("email")
-      })), this.renderErrors(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Don't have an account?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        placeholder: "Enter your password",
+        value: this.state.password,
+        onChange: this.update("password")
+      })), this.renderErrors(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Don't have an account?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         id: "p1"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "/"
@@ -606,7 +610,9 @@ var LoginForm = /*#__PURE__*/function (_React$Component) {
         className: "login-links"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         id: "p1"
-      }, this.props.signUpLink), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        to: "/signup"
+      }, "Create account")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "session-button"
       }, "Next"))));
     }
@@ -1079,13 +1085,13 @@ var mDTP = function mDTP(dispatch) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
-/* harmony import */ var _user_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./user_reducer */ "./frontend/reducers/user_reducer.js");
+/* harmony import */ var _users_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./users_reducer */ "./frontend/reducers/users_reducer.js");
 /* harmony import */ var _videos_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./videos_reducer */ "./frontend/reducers/videos_reducer.js");
 
 
 
 var entitiesReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
-  user: _user_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
+  users: _users_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
   videos: _videos_reducer__WEBPACK_IMPORTED_MODULE_2__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (entitiesReducer);
@@ -1130,8 +1136,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var rootReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
-  session: _session_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
   entities: _entities_reducer__WEBPACK_IMPORTED_MODULE_2__["default"],
+  session: _session_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
   errors: _errors_reducer__WEBPACK_IMPORTED_MODULE_3__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (rootReducer);
@@ -1151,19 +1157,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var sessionErrorsReducer = function sessionErrorsReducer() {
-  var defaultState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var prevState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
   var action = arguments.length > 1 ? arguments[1] : undefined;
-  Object.freeze(defaultState);
+  Object.freeze(prevState);
 
   switch (action.type) {
-    case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_CURRENT_USER"]:
+    case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_SESSION_ERRORS"]:
       return action.errors;
 
-    case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_SESSION_ERRORS"]:
+    case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_CURRENT_USER"]:
       return [];
 
     default:
-      return defaultState;
+      return prevState;
   }
 };
 
@@ -1181,29 +1187,28 @@ var sessionErrorsReducer = function sessionErrorsReducer() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
- // setup default state
 
-var _nullSession = {
-  currentUser: null
-};
+
+var _nullUser = Object.freeze({
+  id: null
+});
 
 var sessionReducer = function sessionReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _nullSession;
+  var prevState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _nullUser;
   var action = arguments.length > 1 ? arguments[1] : undefined;
-  Object.freeze(state);
+  Object.freeze(prevState);
 
   switch (action.type) {
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_CURRENT_USER"]:
-      var currentUser = action.user;
-      return Object.assign({}, {
-        currentUser: currentUser
-      });
+      return {
+        id: action.currentUser.id
+      };
 
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["LOGOUT_CURRENT_USER"]:
-      return _nullSession;
+      return _nullUser;
 
     default:
-      return state;
+      return prevState;
   }
 };
 
@@ -1211,10 +1216,10 @@ var sessionReducer = function sessionReducer() {
 
 /***/ }),
 
-/***/ "./frontend/reducers/user_reducer.js":
-/*!*******************************************!*\
-  !*** ./frontend/reducers/user_reducer.js ***!
-  \*******************************************/
+/***/ "./frontend/reducers/users_reducer.js":
+/*!********************************************!*\
+  !*** ./frontend/reducers/users_reducer.js ***!
+  \********************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1225,21 +1230,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var userReducer = function userReducer() {
-  var defaultState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+var usersReducer = function usersReducer() {
+  var prevState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
-  Object.freeze(defaultState);
+  Object.freeze(prevState);
 
   switch (action.type) {
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_CURRENT_USER"]:
-      return Object.assign({}, defaultState, _defineProperty({}, action.user.id, action.user));
+      return Object.assign({}, prevState, _defineProperty({}, action.user.id, action.user));
 
     default:
-      return defaultState;
+      return prevState;
   }
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (userReducer);
+/* harmony default export */ __webpack_exports__["default"] = (usersReducer);
 
 /***/ }),
 
@@ -1256,10 +1261,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var videosReducer = function videosReducer() {
-  var defaultState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var prevState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
-  Object.freeze(defaultState);
-  var newState = Object.assign({}, defaultState);
+  Object.freeze(prevState);
+  var newState = Object.assign({}, prevState);
 
   switch (action.type) {
     case _actions_video_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_VIDEOS"]:
@@ -1270,7 +1275,7 @@ var videosReducer = function videosReducer() {
       return newState;
 
     default:
-      return defaultState;
+      return prevState;
   }
 };
 

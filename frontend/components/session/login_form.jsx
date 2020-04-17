@@ -1,12 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { FaUserCircle } from 'react-icons/fa'
+import { MdError } from 'react-icons/md'
 
 class LoginForm extends React.Component {
     constructor(props) {
         super(props)
 
-        this.state = { email: "" }
+        this.state = { password: "" }
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
@@ -16,25 +17,32 @@ class LoginForm extends React.Component {
         }
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.errors.length !== prevProps.errors.length) {
+            this.setState( { password: "" })
+        }
+
+        // toggle input class to different style when errors present ie: red border no text in input and text on top left border
+    }
+
     handleSubmit(e) {
         e.preventDefault()
-        this.props.loginUser(this.state)
+        const user = Object.assign({}, this.state)
+        this.props.loginUser(user)
     }
 
     renderErrors() {
         return (
-            <ul>
+            <ul >
                 {this.props.errors.map((err, i) => (
-                    <li key={`err-${i}`}>
-                        {err}
-                    </li>
-                    ))}
+                    <li className="login-errors" key={`err-${i}`}>
+                            <span><MdError /></span>  {err}
+                    </li>))}
             </ul>
         )
     }
 
     render() {
-        // const { errors } = this.props
         return (
             <div className="login-container">
             
@@ -48,15 +56,14 @@ class LoginForm extends React.Component {
                 <form onSubmit={this.handleSubmit}>
                     <div className="input-container">
                         <div className="input">
-                            <input type="text" placeholder="Enter your email" value={this.state.email} onChange={this.update("email")}/>
+                            <input type="text" placeholder="Enter your password" value={this.state.password} onChange={this.update("password")}/>
                         </div>
-                                {this.renderErrors()}
-                                <br/>
-                                <p>Don't have an account?</p>
-                                <p id="p1"><Link to="/">Login as demo user</Link></p> 
+                        {this.renderErrors()}
+                        <p>Don't have an account?</p>
+                        <p id="p1"><Link to="/">Login as demo user</Link></p> 
                     </div>
                     <div className="login-links">
-                        <p id="p1">{this.props.signUpLink}</p>
+                        <p id="p1"><Link to="/signup">Create account</Link></p>
                         <button className="session-button">Next</button>
                     </div>
                 </form>
