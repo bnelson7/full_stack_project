@@ -66,10 +66,8 @@ class NavBar extends React.Component {
             </div>
 
             <div className="mid-navbar">
-                <div className="search-bar">
-                  <input type="text" className="search-input" placeholder="Search"/>
-                </div>
-                  <button type="submit" className="search-button"><MdSearch /></button>
+                <input type="text" className="search-bar" placeholder="Search"/>
+                <button type="submit" className="search-button"><MdSearch /></button>
             </div>
             
             {currentUser ? loggedInNav : notLoggedInNav}

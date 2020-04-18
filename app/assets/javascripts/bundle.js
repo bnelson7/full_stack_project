@@ -405,13 +405,11 @@ var NavBar = /*#__PURE__*/function (_React$Component) {
         className: "title"
       }, "AdTube")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "mid-navbar"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "search-bar"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
-        className: "search-input",
+        className: "search-bar",
         placeholder: "Search"
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "submit",
         className: "search-button"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_icons_md__WEBPACK_IMPORTED_MODULE_3__["MdSearch"], null))), currentUser ? loggedInNav : notLoggedInNav));
