@@ -87,7 +87,7 @@
 .right-navbar {
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-evenly;
     background: white;
     width: 15vw;
     height: 5vh;
@@ -124,7 +124,9 @@
 }
 
 .user-icon {
-    font-size: x-large;
+    display: flex;
+    align-items: center;
+    font-size: 35px;
     color: #330066;
 }
 

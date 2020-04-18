@@ -41,11 +41,9 @@ class NavBar extends React.Component {
           </div>
           <div>
             <Link className="signin-button" to="/login">
-              <span className="profile-icon">
-                <FaUserCircle />
-              </span>
+              <span className="profile-icon"><FaUserCircle /></span>
               SIGN IN
-                </Link>
+            </Link>
           </div>
       </div>
     )
