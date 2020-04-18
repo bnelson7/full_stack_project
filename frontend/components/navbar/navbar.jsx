@@ -7,6 +7,11 @@ class NavBar extends React.Component {
   constructor(props) {
     super(props)
 
+    this.handleLogout = this.handleLogout.bind(this)
+  }
+
+  handleLogout() {
+      this.props.logout()
   }
 
   render() {
@@ -23,7 +28,7 @@ class NavBar extends React.Component {
           <div className="right-nav-icon">
             <MdNotifications />
           </div>
-          <div className="user-icon">
+          <div className="user-icon" onClick={this.handleLogout}>
             <FaCircle />
           </div>
       </div>
@@ -59,8 +64,8 @@ class NavBar extends React.Component {
                 <div className="logo">
                   <FaYoutube />
                   <Link to="/"></Link>
-                </div>
                 <span className="title">AdTube</span>
+                </div>
             </div>
 
             <div className="mid-navbar">
