@@ -40,13 +40,15 @@
     padding: 10px;
 }
 
-input[type=text] {
-    // box-sizing: border-box;
-    // width: 100%;
+.login-input {
     border-radius: 5px;
+    padding: 15px;
+    min-width: 150%;
+    border: 1px solid lightgray; 
+    font-size: inherit;
 }
 
-input[type=text]:focus {
+.login-input:focus {
     border: 1.5px solid #0066ff;
 }
 

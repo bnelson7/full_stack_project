@@ -1,7 +1,6 @@
 import { connect } from 'react-redux'
 import React from 'react'
-import { Link, NavLink } from 'react-router-dom'
-import { login } from '../../actions/session_actions'
+import { login, loginDemoUser } from '../../actions/session_actions'
 import LoginForm from './login_form'
 
 const mSTP = state => ({
@@ -10,7 +9,8 @@ const mSTP = state => ({
 })
 
 const mDTP = dispatch => ({
-    loginUser: user => dispatch(login(user))
+    loginUser: user => dispatch(login(user)),
+    loginDemoUser: () => dispatch(loginDemoUser())
 })
 
 export default connect(mSTP, mDTP)(LoginForm)

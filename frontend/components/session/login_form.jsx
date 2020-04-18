@@ -7,8 +7,9 @@ class LoginForm extends React.Component {
     constructor(props) {
         super(props)
 
-        this.state = { password: "" }
+        this.state = { email: "" }
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleDemoLogin = this.handleDemoLogin.bind(this)
     }
 
     update(field) {
@@ -19,16 +20,24 @@ class LoginForm extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.errors.length !== prevProps.errors.length) {
-            this.setState( { password: "" })
+            this.setState( { email: "" })
         }
 
         // toggle input class to different style when errors present ie: red border no text in input and text on top left border
     }
 
     handleSubmit(e) {
-        e.preventDefault()
+        e.preventDefault();
         const user = Object.assign({}, this.state)
         this.props.loginUser(user)
+    }
+
+    handleDemoLogin(e) {
+        e.preventDefault(e);
+        this.props.loginDemoUser()
+        .then(() => {
+            this.props.history.push('/')
+        })
     }
 
     renderErrors() {
@@ -55,12 +64,12 @@ class LoginForm extends React.Component {
                 <br/>
                 <form onSubmit={this.handleSubmit}>
                     <div className="input-container">
-                        <div className="input">
-                            <input type="text" placeholder="Enter your password" value={this.state.password} onChange={this.update("password")}/>
+                        <div>
+                            <input type="text" className="login-input" placeholder="Enter your email" value={this.state.email} onChange={this.update("email")}/>
                         </div>
                         {this.renderErrors()}
                         <p>Don't have an account?</p>
-                        <p id="p1"><Link to="/">Login as demo user</Link></p> 
+                        <button id="p1" onClick={this.handleDemoLogin}>Login as demo user</button> 
                     </div>
                     <div className="login-links">
                         <p id="p1"><Link to="/signup">Create account</Link></p>
