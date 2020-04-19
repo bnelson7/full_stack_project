@@ -1,39 +1,77 @@
-
 .signup-container {
     position: absolute;
-    display: flex;
-    text-align: center;
-    align-items: center;
-    font-family: 'Roboto', sans-serif;
-    width: 900px;
-    height: 500px;
-    position: relative;
-    border: 1px solid lightgray;
-    margin: auto;
-    margin-top: 200px;
-    border-radius: 5px;
-}
-
-.signup-form {
-    position: relative;
-    // justify-content: center;
-    // text-align: center;
-    // align-items: center;
-    left: 100px;
-
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 45vw;
+    height: 50vh;
+    padding: 2vw;
+    border: 2px solid lightgray;
+    border-radius: 15px;
+    font-family: 'Roboto','Noto Sans Myanmar UI',arial,sans-serif;
 }
 
 .signup-title {
-    position: relative;
-    left: 10px;
-    text-align: left;
-    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 1.5vh;
 }
 
-.signup-input[type=text] {
-
+.signup-title img {
+    width: 5vw;
+    height: 5vh;
 }
 
-// .one-account-logo {
-//     font-size: 10px;
-// }
+.signup-title h1 {
+    font-size: 30px;
+    font-weight: 500;
+}
+
+.signup-title h3 {
+    font-size: 22px;
+    font-weight: 400;
+}
+
+.signup-input {
+    display: flex;
+    flex-direction: column;
+}
+
+.signup-input div {
+    padding: 1.5vh;
+}
+
+.signup-input p {
+    padding-left: 1.5vh;
+}
+
+.signup-input input {
+    display: flex;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 10px;
+    width: 22.5vw;
+}
+
+.signup-input input:focus {
+    border: 1.5px solid #0066ff;
+}
+
+#p1 {
+    padding-left: 1.5vh;
+    padding-top: 1.5vh;
+}
+
+.signup-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1.5vh;
+    width: 22.5vw;
+}
+
+.signup-links p {
+    display: flex;
+    align-self: center;
+}

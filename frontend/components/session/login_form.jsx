@@ -33,7 +33,7 @@ class LoginForm extends React.Component {
     }
 
     handleDemoLogin(e) {
-        e.preventDefault(e);
+        e.preventDefault();
         this.props.loginDemoUser()
         .then(() => {
             this.props.history.push('/')
@@ -69,11 +69,11 @@ class LoginForm extends React.Component {
                         </div>
                         {this.renderErrors()}
                         <p>Don't have an account?</p>
-                        <button id="p1" onClick={this.handleDemoLogin}>Login as demo user</button> 
+                        <button className="session-nav" onClick={this.handleDemoLogin}>Login as demo user</button> 
                     </div>
                     <div className="login-links">
-                        <p id="p1"><Link to="/signup">Create account</Link></p>
-                        <button className="session-button">Next</button>
+                        <p className="session-nav"><Link to="/signup">Create account</Link></p>
+                        <button className="session-btn">Next</button>
                     </div>
                 </form>
             </div>

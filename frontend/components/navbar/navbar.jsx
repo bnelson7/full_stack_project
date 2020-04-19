@@ -10,7 +10,8 @@ class NavBar extends React.Component {
     this.handleLogout = this.handleLogout.bind(this)
   }
 
-  handleLogout() {
+  handleLogout(e) {
+      e.preventDefault()
       this.props.logout()
   }
 

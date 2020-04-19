@@ -1,14 +1,13 @@
 import { connect } from "react-redux"
 import { signup } from "../../actions/session_actions"
 import SignupForm from "./signup_form"
-import React from 'react'
 
-// const mSTP = state => ({
-//     errors: errors.session
-// })
-
-const mDTP = dispatch => ({
-    createNewUser: formUser => dispatch(signup(formUser))
+const mSTP = state => ({
+    errors: state.errors.session
 })
 
-export default connect(null, mDTP)(SignupForm)
+const mDTP = dispatch => ({
+    createNewUser: newUser => dispatch(signup(newUser))
+})
+
+export default connect(mSTP, mDTP)(SignupForm)
