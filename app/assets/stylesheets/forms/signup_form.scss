@@ -9,6 +9,13 @@
     border: 2px solid lightgray;
     border-radius: 15px;
     font-family: 'Roboto','Noto Sans Myanmar UI',arial,sans-serif;
+    display: flex;
+    flex-direction: row;
+}
+
+.signup-left {
+    display: flex;
+    flex-direction: column;
 }
 
 .signup-title {
@@ -29,8 +36,8 @@
 }
 
 .signup-title h3 {
-    font-size: 22px;
-    font-weight: 400;
+    font-size: 20px;
+    font-weight: 300;
 }
 
 .signup-input {
@@ -44,6 +51,7 @@
 
 .signup-input p {
     padding-left: 1.5vh;
+    font-size: 14px;
 }
 
 .signup-input input {
@@ -61,6 +69,7 @@
 #p1 {
     padding-left: 1.5vh;
     padding-top: 1.5vh;
+    font-size: 14px;
 }
 
 .signup-links {
@@ -74,4 +83,23 @@
 .signup-links p {
     display: flex;
     align-self: center;
+}
+
+.signup-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    // background: orchid;
+}
+
+.signup-right img {
+//    flex: 1;
+}
+
+.signup-right p {
+    font-size: 20px;
+    font-weight: light;
 }
