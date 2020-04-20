@@ -12,8 +12,8 @@ const Auth = ({ component: Component, path, userLoggedIn, exact }) => (
         )} />
 );
 
-const mSTP = state => (
-     { userLoggedIn: Boolean(state.session.id) } 
-);
+const mSTP = state => ({ 
+    userLoggedIn: Boolean(state.session.id) 
+});
 
 export const AuthRoute = withRouter(connect(mSTP, null)(Auth));

@@ -18,6 +18,10 @@ class LoginForm extends React.Component {
         }
     }
 
+    componentDidMount() {
+        this.props.clearSessionErrors();
+    }
+
     componentDidUpdate(prevProps) {
         if (this.props.errors.length !== prevProps.errors.length) {
             this.setState( { email: "" })
@@ -41,10 +45,11 @@ class LoginForm extends React.Component {
     }
 
     renderErrors() {
+        const { errors } = this.props
         return (
             <ul >
-                {this.props.errors.map((err, i) => (
-                    <li className="login-errors" key={`err-${i}`}>
+                {errors.map((err, i) => (
+                    <li className="session-errors" key={`err-${i}`}>
                             <span><MdError /></span>  {err}
                     </li>))}
             </ul>
@@ -68,8 +73,12 @@ class LoginForm extends React.Component {
                             <input type="text" className="login-input" placeholder="Enter your email" value={this.state.email} onChange={this.update("email")}/>
                         </div>
                         {this.renderErrors()}
-                        <p>Don't have an account?</p>
-                        <button className="session-nav" onClick={this.handleDemoLogin}>Login as demo user</button> 
+                        <div className="login-demo">
+                            <p>Don't have an account?</p>
+                            <button className="session-nav" onClick={this.handleDemoLogin}>Login as demo user</button>
+                        </div>
+                        <p>Not your computer? Use guest mode to sign in privately.
+                        <br></br><span className="session-nav">Learn more</span></p>
                     </div>
                     <div className="login-links">
                         <p className="session-nav"><Link to="/signup">Create account</Link></p>

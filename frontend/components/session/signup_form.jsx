@@ -1,5 +1,6 @@
 import React from "react"
 import { Link } from 'react-router-dom'
+import { MdError } from 'react-icons/md'
 
 class SignupForm extends React.Component {
     constructor(props) {
@@ -13,6 +14,10 @@ class SignupForm extends React.Component {
 
         this.handleSubmit = this.handleSubmit.bind(this)
     }
+    
+    componentDidMount() {
+        this.props.clearSessionErrors();
+    }
 
     update(field) {
         return e => this.setState({
@@ -25,20 +30,8 @@ class SignupForm extends React.Component {
         this.props.createNewUser(this.state)
     }
 
-    // renderErrors() {
-    //     return (
-    //         <ul>
-    //             {this.props.errors.map((err, i) => (
-    //                 <li key={`err-${i}`}>
-    //                     {err}
-    //                 </li>
-    //             ))}
-    //         </ul>
-    //     )
-    // }
-
     render() {
-        // console.log(this.props)
+        const { errors } = this.props
         return (
             <div className="signup-container">
                 <div className="signup-left">
@@ -50,13 +43,14 @@ class SignupForm extends React.Component {
                         </div>
                         <div className="signup-input">
                             <div><input type="text" placeholder="Username" value={this.state.username} onChange={this.update("username")} /></div>
+                            {errors.slice(0,1).map((err, i) => (<li className="session-errors" key={`err-${i}`}><span><MdError /></span>  {err}</li>))}
                             <div><input type="text" placeholder="Your email address" value={this.state.email} onChange={this.update("email")} /></div>
+                            {errors.slice(1,2).map((err, i) => (<li className="session-errors" key={`err-${i}`}><span><MdError /></span>  {err}</li>))}
                             <div><input type="text" placeholder="Password" value={this.state.password} onChange={this.update("password")} /></div>
+                            {errors.slice(2).map((err, i) => (<li className="session-errors" key={`err-${i}`}><span><MdError /></span>  {err}</li>))}
                             <p>Use 6 or more characters with a mix of letters, numbers, & 
                             <br></br>symbols</p>
                         </div>
-                        {/* {this.renderErrors()} */}
-                        {/* <p id="p1">Forgot you already had an account?</p> */}
                         <div className="signup-links">
                             <p className="session-nav"><Link to="/login">Sign in instead</Link></p> 
                             <button className="session-btn">Next</button>

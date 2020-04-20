@@ -50,6 +50,11 @@
     border: 1.5px solid #0066ff;
 }
 
+.login-demo {
+    display: flex;
+    flex-direction: column;
+}
+
 .login-links {
     display: flex;
     flex-direction: row;
@@ -80,15 +85,14 @@
     font-size: 15px;
 }
 
-.login-errors {
+.session-errors {
     display: flex;
-    align-items: flex-end;
     color: red;
-    padding: 2px;
+    // padding: 2px;
     font-size: 13px;
 }
 
-.login-errors span {
+.session-errors span {
     display: flex;
     align-items: flex-end;
     padding-right: 5px;
