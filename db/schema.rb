@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_12_205130) do
+ActiveRecord::Schema.define(version: 2020_04_20_070354) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,16 +43,18 @@ ActiveRecord::Schema.define(version: 2020_03_12_205130) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "email", null: false
+    t.index ["username", "email", "session_token"], name: "index_users_on_username_and_email_and_session_token", unique: true
   end
 
   create_table "videos", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.integer "creator_id", null: false
     t.string "title", null: false
     t.string "description"
-    t.integer "views"
+    t.integer "views", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "upload_date"
+    t.index ["creator_id", "title"], name: "index_videos_on_creator_id_and_title"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
