@@ -12,9 +12,9 @@ class VideoShow extends React.Component {
     }
 
     render() {
-        const { video } = this.props
+            const { video } = this.props
         return (
-            <div className= "background">
+            <div className="background">
                     <div className="video-container">
                         {/* <video src={video.upload.uploadUrl}></video> */}
                     </div>

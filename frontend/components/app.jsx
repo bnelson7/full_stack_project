@@ -14,8 +14,8 @@ const App = () => (
     {/* <Switch> */}
         <AuthRoute path="/login" component={LoginContainer} />
         <AuthRoute path="/signup" component={SignupContainer} />
-        <Route exact path="/videos/:videoId" component={VideoShowContainer} />
         <Route exact path="/videos/:videoId" component={NavBarContainer} />
+        <Route exact path="/videos/:videoId" component={VideoShowContainer} />
         <div className="main-container">
             <Route exact path="/" component={Sidebar} />
             <Route exact path="/" component={VideoIndexContainer}/>
