@@ -1,7 +1,6 @@
 .header {
     display: flex;
-    justify-content: space-around;
-    min-width: 100%;
+    min-width: 100vw;
 }
 
 .navbar {
@@ -9,8 +8,8 @@
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
-    padding: 0.3vw 1vw 0.3vw 1vw;
-    width: 100%;
+    padding: 0.3vw .5vw 0.3vw .5vw;
+    min-width: 100vw;
 }
 
 .left-navbar {
@@ -110,7 +109,6 @@
     align-items: center;
     justify-content: space-evenly;
     background-color: white;
-    padding: 7px;
     border-radius: 2px;
     border: 0.5px solid #0066CC;
     font-size: 14px;
@@ -118,8 +116,9 @@
     color: #0066CC;
     font-weight: 600;
     font-family: 'Roboto', sans-serif;
-    width: 5vw;
-    height: 2.75vh;
+    width: 5.5vw;
+    height: 4vh;
+    padding: .25vw;
 }
 
 .user-icon {

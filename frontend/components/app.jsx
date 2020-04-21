@@ -6,6 +6,7 @@ import LoginContainer from './session/login_container'
 import VideoIndexContainer from './videos/video_index_container'
 import VideoShowContainer from './videos/video_show_container'
 import { AuthRoute } from '../util/route_util'
+import Sidebar from "./sidebar/sidebar"
 
 const App = () => (
     <div>
@@ -15,7 +16,10 @@ const App = () => (
         <AuthRoute path="/signup" component={SignupContainer} />
         <Route exact path="/videos/:videoId" component={VideoShowContainer} />
         <Route exact path="/videos/:videoId" component={NavBarContainer} />
-        {/* <Route exact path="/" component={VideoIndexContainer}/> */}
+        <div className="main-container">
+            <Route exact path="/" component={Sidebar} />
+            <Route exact path="/" component={VideoIndexContainer}/>
+        </div>
     {/* </Switch> */}
     </div>
 )

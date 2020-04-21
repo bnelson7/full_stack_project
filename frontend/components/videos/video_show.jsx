@@ -2,18 +2,19 @@ import React from 'react'
 
 
 class VideoShow extends React.Component {
+    constructor(props) {
+        super(props)
+        
+    }
 
     componentDidMount() {
         this.props.requestVideo(this.props.match.params.videoId)
     }
 
     render() {
-        // console.log(this.props)
         const { video } = this.props
-        return(
-            <div>
-                <div className="video-show-container">
-
+        return (
+            <div className= "background">
                     <div className="video-container">
                         {/* <video src={video.upload.uploadUrl}></video> */}
                     </div>
@@ -35,11 +36,9 @@ class VideoShow extends React.Component {
                     </div>
 
                     {/* <h1>{video.title}</h1> */}
-                
-                </div>
             </div>
         )
     }
 }
 
-export default VideoShow
+export default VideoShow;

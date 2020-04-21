@@ -14,9 +14,9 @@ span, article, footer, time, small {
   text-align: inherit;
   text-decoration: inherit;
   vertical-align: inherit;
-  box-sizing: inherit;
+  box-sizing: border-box;
   background: transparent;
-  // font-family: 'Roboto','Arial', sans-serif;
+  font-family: 'Roboto', Arial, sans-serif;
 }
 
 ol, ul {
