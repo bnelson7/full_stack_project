@@ -4,7 +4,7 @@ import React from 'react'
 class VideoShow extends React.Component {
     constructor(props) {
         super(props)
-        
+ 
     }
 
     componentDidMount() {
@@ -12,15 +12,17 @@ class VideoShow extends React.Component {
     }
 
     render() {
-            const { video } = this.props
+        const { video } = this.props
         return (
             <div className="background">
-                    <div className="video-container">
-                        {/* <video src={video.upload.uploadUrl}></video> */}
+                    <div>
+                        <video className="video-container" controls autoPlay >
+                            <source type="video/mp4" src={video.videoUrl} />
+                        </video>
                     </div>
 
                     <div className="video-title-container">
-
+            
                     </div>
 
                     <div className="video-description-container">

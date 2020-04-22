@@ -10,10 +10,16 @@
 }
 
 .video-container {
-    background: coral;
+    // background: coral;
     margin-top: 2vh;
     margin-left: 2.7vw;
     height: 70vh;
     width: 69vw;
     border: 1px solid black;
+}
+
+.video-container source {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 }
