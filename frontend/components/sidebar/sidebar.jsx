@@ -15,14 +15,14 @@ class Sidebar extends React.Component {
                     <FaFire />
                     <span>Trending</span>
                 </div>
-                <div className="sidebar-icon">
+                {/* <div className="sidebar-icon">
                     <MdSubscriptions />
                     <span>Subscriptions</span>
                 </div>
                 <div className="sidebar-icon">
                     <MdVideoLibrary />
                     <span>Library</span>
-                </div>
+                </div> */}
                 <div className="sidebar-icon">
                     < MdHistory />
                     <span>History</span>
