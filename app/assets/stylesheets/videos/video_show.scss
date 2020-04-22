@@ -1,25 +1,37 @@
-.video-show-container {
-    // margin-top: 75px;
-    // position: fixed;
-    // top: 0;
-    // left: 0;
-    // bottom: 0;
-    // right: 0;
-    // overflow: auto;
-    // background: #F5F5F5;
+.page-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+}
+
+.show-container {
+    flex: 3;
+}
+
+.related-container {
+    flex: 1;
 }
 
 .video-container {
-    // background: coral;
     margin-top: 2vh;
     margin-left: 2.7vw;
     height: 70vh;
     width: 69vw;
-    border: 1px solid black;
+    // border: 1px solid black;
 }
 
 .video-container source {
     height: 100%;
     width: 100%;
     object-fit: cover;
+}
+
+//grid container
+.suggested-videos {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(19, 35vh);
+    grid-gap: 1rem;
+    border: 1px solid black;
 }
