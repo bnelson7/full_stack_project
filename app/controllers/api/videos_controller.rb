@@ -4,7 +4,7 @@ class Api::VideosController < ApplicationController
         @video = Video.find(params[:id])
         @video.views += 1
         @video.save
-
+        
         render :show
     end
 

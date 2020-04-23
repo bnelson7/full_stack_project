@@ -1,6 +1,11 @@
 @videos.each do |video|
     json.set! video.id do 
-        json.extract! video, :id, :title, :description, :views, :upload_date, :creator_id
-        json.photoUrl url_for(video.photo)
+        json.partial! 'video', video: video
+    end
+
+    json.users do
+        json.set! video.creator_id do
+            json.partial! 'api/users/user', user: video.creator
+        end
     end
 end

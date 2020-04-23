@@ -8,11 +8,17 @@ class NavBar extends React.Component {
     super(props)
 
     this.handleLogout = this.handleLogout.bind(this)
+    this.handleSearch = this.handleSearch.bind(this)
   }
 
   handleLogout(e) {
       e.preventDefault()
       this.props.logout()
+  }
+
+  handleSearch(e) {
+    e.preventDefault()
+    this.props.history.push('/search')
   }
 
   render() {
@@ -62,18 +68,19 @@ class NavBar extends React.Component {
                 <div className="menu">
                   <MdMenu />
                 </div>
-                <div className="logo">
-                  <FaYoutube />
-                  <Link to="/"></Link>
-                <span className="title">AdTube</span>
-                </div>
+                <Link to="/">
+                  <div className="logo">
+                      <FaYoutube />
+                      <span className="title">AdTube</span>
+                  </div>
+                </Link>
             </div>
-
-            <div className="mid-navbar">
-                <input type="text" className="search-bar" placeholder="Search"/>
-                <button type="submit" className="search-button"><MdSearch /></button>
-            </div>
-            
+            <form onSubmit={this.handleSearch}>
+              <div className="mid-navbar">
+                  <input type="text" className="search-bar" placeholder="Search"/>
+                  <button type="submit" className="search-button"><MdSearch /></button>
+              </div>
+            </form>
             {currentUser ? loggedInNav : notLoggedInNav}
 
           </div>
