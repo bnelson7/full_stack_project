@@ -4,7 +4,8 @@ class Api::VideosController < ApplicationController
         @video = Video.find(params[:id])
         @video.views += 1
         @video.save
-        
+
+        @videos = Video.all
         render :show
     end
 
@@ -16,7 +17,7 @@ class Api::VideosController < ApplicationController
     private
 
     def video_params
-        params.require(:video).permit(:title, :photo, :video)
+        params.require(:video).permit(:title, :thumbnail, :clip)
     end
 
 end

@@ -1,12 +1,11 @@
-json.partial! 'video', video: @video
-json.videoUrl url_for(@video.video)
+json.partial! 'api/videos/video', video: @video
+json.clipUrl url_for(@video.clip)
 
-if @videos 
-    json.videos do
-        @videos.each do |video|
-            json.set! video.id do 
-                json.partial! 'video', video: video
-            end
-        end
+
+@videos.each do |video|
+    json.set! video.id do 
+        json.partial! 'api/videos/video', video: video
     end
+end
+
 

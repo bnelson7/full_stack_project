@@ -3,6 +3,7 @@ import { requestVideo, requestVideos } from '../../actions/video_actions'
 import VideoShow from './video_show'
 
 const mSTP = (state, ownProps) => {
+    debugger
     return {
         videoId: ownProps.match.params.videoId,
         video: state.entities.videos[ownProps.match.params.videoId],

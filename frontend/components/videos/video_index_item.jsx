@@ -8,7 +8,7 @@ const VideoIndexItem = props => {
     const indexGrid = (
         <div className="grid-index-container">
             <div className="video-thumbnail">
-                <Link to={`/videos/${props.video.id}`}><img src={props.video.photoUrl} /></Link>
+                <Link to={`/videos/${props.video.id}`}><img src={props.video.thumbnailUrl} /></Link>
             </div>
             <div className="video-info-container">
                 <div className="profile-thumbnail">
@@ -18,23 +18,23 @@ const VideoIndexItem = props => {
                     <h1>{props.video.title}</h1>
                     <div className="views-date">
                         {/* <h1>{props.video.username}</h1> */}
-                        <span>{props.video.views}K views&nbsp;<span><GoPrimitiveDot /></span>&nbsp;{props.video.upload_date}</span>
+                        <span>{props.video.views}K views&nbsp;<span><GoPrimitiveDot /></span>&nbsp;{props.video.created_at}</span>
                     </div>
                 </div>
             </div>
         </div>
     )
     const showGrid = (
-        <div className="grid-show-container">
+        <div className="grid-item-container">
             <div className="video-thumbnail">
-                <Link to={`/videos/${props.video.id}`}><img src={props.video.photoUrl} /></Link>
+                <Link to={`/videos/${props.video.id}`}><img src={props.video.thumbnailUrl} /></Link>
             </div>
             <div className="video-info-container">
                 <div className="video-info">
                     <h1>{props.video.title}</h1>
                     <div className="views-date">
                         {/* <h1>{props.video.username}</h1> */}
-                        <span>{props.video.views}K views&nbsp;<span><GoPrimitiveDot /></span>&nbsp;{props.video.upload_date}</span>
+                        <span>{props.video.views}K views&nbsp;<span><GoPrimitiveDot /></span>&nbsp;{props.video.created_at}</span>
                     </div>
                 </div>
             </div>

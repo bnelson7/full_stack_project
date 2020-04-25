@@ -1,2 +1,2 @@
-json.extract! video, :id, :title, :description, :views, :upload_date, :creator_id
-json.photoUrl url_for(video.photo)
+json.extract! video, :id, :title, :description, :views, :created_at, :creator_id
+json.thumbnailUrl url_for(video.thumbnail)

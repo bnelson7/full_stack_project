@@ -4,7 +4,7 @@
     display: flex;
     border: 1px solid black;
 }
-
+// toggle this to expand show more ie: change 20vh to like 40 or 50vh and have another div with more info
 .show-container {
     display: grid;
     grid-template-rows: 70vh 10vh 20vh;
@@ -15,6 +15,12 @@
     margin-top: 2vh;
     margin-left: 2.7vw;
     width: 69vw;
+}
+
+video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     border: 1px solid black;
 }
 
@@ -30,23 +36,41 @@
     margin-left: 2.7vw;
 }
 
-.video-container source {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-}
-
 .related-container {
-    flex: 1;
 }
 
 //grid container
 .suggested-videos {
+    flex: 1;
     margin-top: 3vh;
-    margin-right: 1rem;
+    margin-left: 1rem;
     display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    grid-template-rows: repeat(19, 35vh);
+    grid-template-rows: repeat(10, 15vh);
     grid-gap: 1rem;
     border: 1px solid black;
+}
+
+.suggested-grid-item {
+    border: 1px solid black;
+}
+
+.grid-item-container {
+    display: flex;
+}
+
+.video-thumbnail {
+    flex: 1;
+}
+
+.video-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.video-info-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
