@@ -31,3 +31,11 @@ export const requestVideo = id => dispatch => {
         .then(video => dispatch(receiveVideo(video)))
     )
 }
+
+export const createVideo = video => dispatch => {
+
+    return (
+        VideoAPIUtil.createVideo(video)
+        .then(video => dispatch(receiveVideo(video)))
+    )
+}

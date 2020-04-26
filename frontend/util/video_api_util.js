@@ -15,3 +15,16 @@ export const fetchVideo = id => {
     )
 }
 
+export const createVideo = video => {
+
+    return (
+        $.ajax({
+            url: '/api/videos',
+            method: 'POST',
+            data: video,
+            contentType: false,
+            processData: false
+        })
+    )
+}
+

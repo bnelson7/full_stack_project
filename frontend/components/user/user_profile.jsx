@@ -19,16 +19,29 @@ class UserProfile extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
-    handlePhoto() {
+    // componentDidMount() {
+    //     this.props.requestUser()
+    // }
 
-    }
+    // handlePhoto(e) {
+    //     e.preventDefault();
+    //     this.props.updateUser()
+    // }
 
-    handleUpload() {
-
+    handleUpload(field) {
+        return e => {
+            this.setState({ [field]: e.currentTarget.files[0]})
+        }
     }
 
     handleSubmit(e) {
         e.preventDefault();
+        const video = new FormData();
+        video.append('video[title]', this.state.title);
+        video.append('video[description]', this.state.description);
+        video.append('video[clipFile]', this.state.clipFile);
+        video.append('video[thumbnailFile]', this.state.thumbnailFile);
+        this.props.createVideo(video)
     }
 
     update(field) {
@@ -38,13 +51,24 @@ class UserProfile extends React.Component {
     }
 
     render() {
+        // const profilePhoto = 
+        // <div className="profile-photo">
+        //     <img src={this.props.currentUser.photoUrl}/>
+        // </div>
+
+        // this.props.currentUser.photoUrl ? profilePhoto : form
+
         return (
             <div className="background">
                 <div className="profile-background">
                     <div className="profile-header">
-                        <div className="profile-photo" onClick={this.handlePhoto}>
+                        <form onSubmit={this.handlePhoto}></form>
+                        <div className="profile-photo">
                             <FaCamera className="avatar"/>
                         </div>
+                        <input type="file" name="file" id="file" className="file" onChange={this.handleUpload('photoFile')} />
+                        <label for="file">Add a profile picture</label>
+
                         <div className="profile-nav">
                             <button className="profile-nav-item">HOME</button>
                             <button className="profile-nav-item">VIDEOS</button>
@@ -67,10 +91,22 @@ class UserProfile extends React.Component {
                                     <label> Title: 
                                         <input type="text" value={this.state.title} onChange={this.update('title')} />
                                     </label>
-                                    <input type="file" onChange={this.handleUpload}/>
-                                    <label> Desciption: 
-                                        <textarea value={this.state.desciption} onChange={this.update('desciption')}/>
+
+                                    <label> Desciption:
+                                        <textarea value={this.state.desciption} onChange={this.update('description')} />
                                     </label>
+                                    
+                                    <input type="file" name="file1" id="file1" className="file1" onChange={this.handleUpload('clipFile')}/>
+                                    <label for="file1">UPLOAD VIDEO</label>
+                                    
+                                    <br/>
+                                    <h1>Thumbnail</h1>
+                                    <p>Upload a picture that shows what's in your video. A good thumbnail stands out
+                                    <br></br>and draws viewers' attention.</p>
+
+                                    <input type="file" name="file2" id="file2" className="file2" onChange={this.handleUpload('thumbnailFile')} />
+                                    <label for="file2">Upload thumbnail</label>
+                                    <br/>
                                     <button className="upload-btn">UPLOAD VIDEO</button>
                                 </div>
                             </form>
