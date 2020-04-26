@@ -24,6 +24,10 @@ video {
     border: 1px solid black;
 }
 
+video:focus {
+    outline: none;
+}
+
 .video-title {
     border: 1px solid black;
     width: 69vw;

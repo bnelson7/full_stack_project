@@ -1,5 +1,10 @@
 class Api::VideosController < ApplicationController
 
+    def index
+        @videos = Video.all
+        render :index
+    end
+    
     def show
         @video = Video.find(params[:id])
         @video.views += 1
@@ -9,15 +14,14 @@ class Api::VideosController < ApplicationController
         render :show
     end
 
-    def index
-        @videos = Video.all
-        render :index
+    def create
+        @video = Video.new(video_params)
     end
 
     private
 
     def video_params
-        params.require(:video).permit(:title, :thumbnail, :clip)
+        params.require(:video).permit(:title, :description, :thumbnail, :clip)
     end
 
 end
