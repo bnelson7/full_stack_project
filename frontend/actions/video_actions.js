@@ -33,7 +33,7 @@ export const requestVideo = id => dispatch => {
 }
 
 export const createVideo = video => dispatch => {
-
+    debugger
     return (
         VideoAPIUtil.createVideo(video)
         .then(video => dispatch(receiveVideo(video)))

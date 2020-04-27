@@ -14,6 +14,9 @@ class NavBar extends React.Component {
   handleLogout(e) {
       e.preventDefault()
       this.props.logout()
+      // .then(res => {
+      //   this.props.history.push('/')
+      // })
   }
 
   handleSearch(e) {
@@ -36,7 +39,9 @@ class NavBar extends React.Component {
             <MdNotifications />
           </div>
           <div className="user-icon" onClick={this.handleLogout}>
-            <FaCircle />
+            <div className="profile-photo-nav">
+                <img src={currentUser.photoUrl} />
+            </div>
           </div>
       </div>
     )

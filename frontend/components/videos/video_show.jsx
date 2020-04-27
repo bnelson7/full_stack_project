@@ -22,9 +22,6 @@ class VideoShow extends React.Component {
             this.props.requestVideo(this.props.match.params.videoId)
         }
 
-        if (this.props.videos.length !== 10) {
-            this.props.requestVideos()
-        }
     }
 
     render() {

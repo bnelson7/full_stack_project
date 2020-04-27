@@ -16,7 +16,7 @@ export const fetchVideo = id => {
 }
 
 export const createVideo = video => {
-
+    debugger
     return (
         $.ajax({
             url: '/api/videos',

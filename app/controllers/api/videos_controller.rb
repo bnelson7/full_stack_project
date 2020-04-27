@@ -16,12 +16,31 @@ class Api::VideosController < ApplicationController
 
     def create
         @video = Video.new(video_params)
-
+        @video.views = 0
+        @video.creator_id = current_user.id
+        debugger
         if @video.save
-            render json: { message: "successfully uploaded video!!!" }
+            render :show
         else
             render json: @video.errors.full_messages, status: 422
         end
+    end
+
+    def update
+        @video = Video.find_by(id: params[:id])
+
+        if @video.update(video_params)
+            render :show
+        else
+            render json: @video.errors.full_messages, status: 422
+        end
+    end
+
+    def destroy
+        @video = Video.find_by(id: params[:id])
+        debugger
+        @video.destroy
+        render :show
     end
 
     private

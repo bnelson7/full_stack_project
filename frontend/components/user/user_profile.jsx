@@ -1,6 +1,7 @@
 import React from 'react'
 import { FaCamera } from 'react-icons/fa'
 import { MdSearch } from 'react-icons/md'
+import ProfilePhotoContainer from './user_profile_photo_container'
 
 class UserProfile extends React.Component {
     constructor(props) {
@@ -8,29 +9,26 @@ class UserProfile extends React.Component {
 
         this.state = {
             title: "",
-            desciption: "",
-            photoFile: null,
+            description: "",
             clipFile: null,
-            thumbnailFile: null
+            thumbnailFile: null,
+            selected: "home"
         }
 
-        this.handlePhoto = this.handlePhoto.bind(this)
         this.handleUpload = this.handleUpload.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleToggle = this.handleToggle.bind(this)
     }
 
     // componentDidMount() {
-    //     this.props.requestUser()
-    // }
-
-    // handlePhoto(e) {
-    //     e.preventDefault();
-    //     this.props.updateUser()
+    //     this.props.requestVideos()
     // }
 
     handleUpload(field) {
+        debugger
         return e => {
             this.setState({ [field]: e.currentTarget.files[0]})
+            debugger
         }
     }
 
@@ -39,44 +37,61 @@ class UserProfile extends React.Component {
         const video = new FormData();
         video.append('video[title]', this.state.title);
         video.append('video[description]', this.state.description);
-        video.append('video[clipFile]', this.state.clipFile);
-        video.append('video[thumbnailFile]', this.state.thumbnailFile);
+        video.append('video[clip]', this.state.clipFile);
+        video.append('video[thumbnail]', this.state.thumbnailFile);
+        debugger
         this.props.createVideo(video)
     }
 
     update(field) {
+        debugger
         return e => {
             this.setState({ [field]: e.currentTarget.value })
         } 
     }
 
+    handleToggle(e) {
+        e.target.classList.toggle("selected-profile-nav-item")
+        newSelect.classList.toggle("selected-profile-nav-item")
+    }
+
+    handleClick(field) {
+        this.setState({ selected: field })
+    }
+
+    selectedRender() {
+        const { selected } = this.state
+        switch (selected === "home") {
+            case (selected === "video"):
+                return (
+                    <div>
+
+                    </div>
+                )
+                break;
+            default:
+                break;
+        }
+    }
+
     render() {
-        // const profilePhoto = 
-        // <div className="profile-photo">
-        //     <img src={this.props.currentUser.photoUrl}/>
-        // </div>
-
-        // this.props.currentUser.photoUrl ? profilePhoto : form
-
+        const { currentUser, videos } = this.props
+        console.log(this.state)
         return (
             <div className="background">
                 <div className="profile-background">
                     <div className="profile-header">
-                        <form onSubmit={this.handlePhoto}></form>
-                        <div className="profile-photo">
-                            <FaCamera className="avatar"/>
-                        </div>
-                        <input type="file" name="file" id="file" className="file" onChange={this.handleUpload('photoFile')} />
-                        <label for="file">Add a profile picture</label>
-
+                        {currentUser.username}
+                        No Subscribers
+                       <ProfilePhotoContainer />
                         <div className="profile-nav">
-                            <button className="profile-nav-item">HOME</button>
-                            <button className="profile-nav-item">VIDEOS</button>
-                            <button className="profile-nav-item">PLAYLISTS</button>
-                            <button className="profile-nav-item">CHANNELS</button>
-                            <button className="profile-nav-item">DISCUSSION</button>
-                            <button className="profile-nav-item">ABOUT</button>
-                            <button className="profile-nav-item"><MdSearch /></button>
+                            <button onClick={() => this.handleClick("home")} className="selected-profile-nav-item">HOME</button>
+                            <button onClick={() => this.handleClick("videos")} className="profile-nav-item">VIDEOS</button>
+                            <button onClick={() => this.handleClick("playlists")} className="profile-nav-item">PLAYLISTS</button>
+                            <button onClick={() => this.handleClick("channels")} className="profile-nav-item">CHANNELS</button>
+                            <button onClick={() => this.handleClick("discussion")} className="profile-nav-item">DISCUSSION</button>
+                            <button onClick={() => this.handleClick("about")} className="profile-nav-item">ABOUT</button>
+                            <button onClick={() => this.handleClick("search")} className="profile-nav-item"><MdSearch /></button>
                         </div>
                     </div>
                     <div className="profile-container">
@@ -93,11 +108,11 @@ class UserProfile extends React.Component {
                                     </label>
 
                                     <label> Desciption:
-                                        <textarea value={this.state.desciption} onChange={this.update('description')} />
+                                        <textarea value={this.state.description} onChange={this.update('description')} />
                                     </label>
                                     
                                     <input type="file" name="file1" id="file1" className="file1" onChange={this.handleUpload('clipFile')}/>
-                                    <label for="file1">UPLOAD VIDEO</label>
+                                    <label htmlFor="file1">UPLOAD VIDEO</label>
                                     
                                     <br/>
                                     <h1>Thumbnail</h1>
@@ -105,11 +120,15 @@ class UserProfile extends React.Component {
                                     <br></br>and draws viewers' attention.</p>
 
                                     <input type="file" name="file2" id="file2" className="file2" onChange={this.handleUpload('thumbnailFile')} />
-                                    <label for="file2">Upload thumbnail</label>
+                                    <label htmlFor="file2">Upload thumbnail</label>
                                     <br/>
                                     <button className="upload-btn">UPLOAD VIDEO</button>
                                 </div>
                             </form>
+{/* 
+                            <div>
+                                {videos.filter(video => <li>{video.creator_id === currentUser.id}</li>)}
+                            </div> */}
 
                         </div>
                     </div>
