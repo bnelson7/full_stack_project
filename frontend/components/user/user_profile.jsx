@@ -41,18 +41,19 @@ class UserProfile extends React.Component {
         const formData = new FormData();
         formData.append('video[title]', this.state.title);
         formData.append('video[description]', this.state.description);
-        formData.append('video[clip]', this.state.clipFile);
+        if (this.state.clipFile) formData.append('video[clip]', this.state.clipFile);
         formData.append('video[thumbnail]', this.state.thumbnailFile);
         debugger
         !this.state.edit ? this.props.createVideo(formData) : this.props.updateVideo(formData, this.state.videoId)
     }
 
     handleEdit(video) {
+        debugger
         this.setState({ 
             title: video.title,
             description: video.description,
-            thumbnailFile: video.thumbnailUrl,
             selected: "home",
+            thumbnailFile: video.thumbnailUrl,
             edit: true,
             videoId: video.id
         })

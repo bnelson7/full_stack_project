@@ -11,10 +11,13 @@ const receiveVideos = videos => ({
     videos 
 })
 
-const receiveVideo = video => ({
-    type: RECEIVE_VIDEO,
-    video 
-})
+const receiveVideo = video => {
+    debugger
+    return {
+        type: RECEIVE_VIDEO,
+        video 
+    }
+}
 
 const removeVideo = videoId => ({
     type: REMOVE_VIDEO,
@@ -46,10 +49,10 @@ export const createVideo = video => dispatch => {
     )
 }
 
-export const updateVideo = video => dispatch => {
+export const updateVideo = (formData, videoId) => dispatch => {
     debugger
     return (
-        VideoAPIUtil.updateVideo(video)
+        VideoAPIUtil.updateVideo(formData, videoId)
         .then(video => dispatch(receiveVideo(video)))
     )
 }

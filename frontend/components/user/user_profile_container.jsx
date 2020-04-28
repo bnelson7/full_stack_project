@@ -16,7 +16,7 @@ const mDTP = dispatch => {
         createVideo: video => dispatch(createVideo(video)),
         requestVideos: () => dispatch(requestVideos()),
         deleteVideo: videoId => dispatch(deleteVideo(videoId)),
-        updateVideo: video => dispatch(updateVideo(video))
+        updateVideo: (formData, videoId) => dispatch(updateVideo(formData, videoId))
     }
 }
 

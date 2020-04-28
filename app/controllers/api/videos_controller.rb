@@ -28,6 +28,7 @@ class Api::VideosController < ApplicationController
 
     def update
         @video = Video.find(params[:id])
+
         debugger
         if @video.update(video_params)
             render :show
