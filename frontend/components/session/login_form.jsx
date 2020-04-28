@@ -7,7 +7,10 @@ class LoginForm extends React.Component {
     constructor(props) {
         super(props)
 
-        this.state = { email: "" }
+        this.state = { 
+            email: "",
+            password: "password" 
+        }
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleDemoLogin = this.handleDemoLogin.bind(this)
     }

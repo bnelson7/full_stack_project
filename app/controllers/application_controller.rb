@@ -18,6 +18,7 @@ class ApplicationController < ActionController::Base
         user.reset_session_token!
         session[:session_token] = user.session_token
         @current_user = user
+        debugger
     end
 
     def logout

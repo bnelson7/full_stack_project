@@ -33,7 +33,7 @@ export const signup = user => dispatch => (
 );
 
 export const login = user => dispatch => {
-    
+    debugger
     return (
         SessionAPIUtil.login(user)
         .then(user => (
@@ -56,7 +56,7 @@ export const loginDemoUser = () => dispatch => {
 }
 
 export const logout = () => dispatch => {
- 
+    debugger
     return (
         SessionAPIUtil.logout()
         .then(user => (
