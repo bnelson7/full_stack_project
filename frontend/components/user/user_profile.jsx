@@ -39,12 +39,19 @@ class UserProfile extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         const formData = new FormData();
-        formData.append('video[title]', this.state.title);
-        formData.append('video[description]', this.state.description);
-        if (this.state.clipFile) formData.append('video[clip]', this.state.clipFile);
-        formData.append('video[thumbnail]', this.state.thumbnailFile);
         debugger
-        !this.state.edit ? this.props.createVideo(formData) : this.props.updateVideo(formData, this.state.videoId)
+        if (!this.state.edit) {
+            formData.append('video[title]', this.state.title);
+            formData.append('video[description]', this.state.description);
+            formData.append('video[clip]', this.state.clipFile);
+            formData.append('video[thumbnail]', this.state.thumbnailFile);
+            this.props.createVideo(formData) 
+        } else {
+            formData.append('video[title]', this.state.title);
+            formData.append('video[description]', this.state.description);
+            debugger
+            this.props.updateVideo(formData, this.state.videoId)
+        }
     }
 
     handleEdit(video) {
@@ -53,6 +60,7 @@ class UserProfile extends React.Component {
             title: video.title,
             description: video.description,
             selected: "home",
+            clipFile: video.clipUrl,
             thumbnailFile: video.thumbnailUrl,
             edit: true,
             videoId: video.id
