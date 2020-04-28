@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { requestVideos } from '../../actions/video_actions'
+import { requestVideos, deleteVideo } from '../../actions/video_actions'
 import VideoIndex from './video_index'
 
 const mSTP = (state, ownProps) => ({
@@ -7,8 +7,12 @@ const mSTP = (state, ownProps) => ({
     path: ownProps.location.pathname
 })
 
-const mDTP = dispatch => ({
-    requestVideos: videos => dispatch(requestVideos(videos))
-})
+const mDTP = dispatch => {
+    debugger
+    return ({
+        requestVideos: videos => dispatch(requestVideos(videos)),
+        deleteVideo: videoId => dispatch(deleteVideo(videoId))
+    })
+}
 
 export default connect(mSTP, mDTP)(VideoIndex)

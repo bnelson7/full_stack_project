@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import UserProfile from './user_profile'
-import { createVideo, requestVideos } from '../../actions/video_actions'
+import { createVideo, requestVideos, deleteVideo, updateVideo } from '../../actions/video_actions'
 
 const mSTP = state => {
     debugger
@@ -10,9 +10,14 @@ const mSTP = state => {
     })
 }
 
-const mDTP = dispatch => ({
-    createVideo: video => dispatch(createVideo(video)),
-    requestVideos: () => dispatch(requestVideos())
-})
+const mDTP = dispatch => {
+    debugger 
+    return {
+        createVideo: video => dispatch(createVideo(video)),
+        requestVideos: () => dispatch(requestVideos()),
+        deleteVideo: videoId => dispatch(deleteVideo(videoId)),
+        updateVideo: video => dispatch(updateVideo(video))
+    }
+}
 
 export default connect(mSTP, mDTP)(UserProfile)

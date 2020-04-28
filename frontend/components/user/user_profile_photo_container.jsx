@@ -7,7 +7,7 @@ const mstp = state => ({
 })
 
 const mdtp = dispatch => ({
-    updateUser: user =>dispatch(updateUser(user))
+    updateUser: user => dispatch(updateUser(user))
 })
 
 export default connect(mstp, mdtp)(ProfilePhoto)

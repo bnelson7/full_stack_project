@@ -9,7 +9,7 @@ class Api::VideosController < ApplicationController
         @video = Video.find(params[:id])
         @video.views += 1
         @video.save
-
+    
         @videos = Video.all
         render :show
     end
@@ -27,8 +27,8 @@ class Api::VideosController < ApplicationController
     end
 
     def update
-        @video = Video.find_by(id: params[:id])
-
+        @video = Video.find(params[:id])
+        debugger
         if @video.update(video_params)
             render :show
         else
@@ -37,7 +37,7 @@ class Api::VideosController < ApplicationController
     end
 
     def destroy
-        @video = Video.find_by(id: params[:id])
+        @video = Video.find(params[:id])
         debugger
         @video.destroy
         render :show

@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom'
 import { FaUserCircle } from 'react-icons/fa'
 import { GoPrimitiveDot } from 'react-icons/go'
 import { IoIosCheckmarkCircleOutline } from 'react-icons/io'
+import { deleteVideo } from '../../actions/video_actions'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
 const VideoIndexItem = props => {
     const indexGrid = (
@@ -17,7 +20,7 @@ const VideoIndexItem = props => {
                 <div className="video-info">
                     <h1>{props.video.title}</h1>
                     <div className="views-date">
-                        {/* <h1>{props.video.username}</h1> */}
+                        {/* <h1>{props.video.creator.username}</h1> */}
                         <span>{props.video.views}K views&nbsp;<span><GoPrimitiveDot /></span>&nbsp;{props.video.created_at}</span>
                     </div>
                 </div>
@@ -42,8 +45,7 @@ const VideoIndexItem = props => {
     )
     return (
         props.path === '/' ? indexGrid : showGrid
-    )
-    
+    )   
 }
 
-export default VideoIndexItem
+export default VideoIndexItem;
