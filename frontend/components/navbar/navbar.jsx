@@ -15,23 +15,16 @@ class NavBar extends React.Component {
       e.preventDefault()
       debugger
       this.props.logout()
-      // .then(res => {
-      //   this.props.history.push('/')
-      // })
+      .then(() => {
+        this.props.history.push('/')
+      })
   }
 
-  handleSearch(e) {
-    e.preventDefault()
-    this.props.history.push('/search')
-  }
-
-  render() {
-    const { currentUser } = this.props
-    
-    const loggedInNav = (
+  loggedInNav() {
+    return (
       <div className="right-navbar">
           <div className="right-nav-icon">
-                <MdVideoCall />
+            <MdVideoCall />
           </div>
           <div className="right-nav-icon">
             <MdApps />
@@ -41,13 +34,16 @@ class NavBar extends React.Component {
           </div>
           <div className="user-icon" onClick={this.handleLogout}>
             <div className="profile-photo-nav">
-                <img src={currentUser.photoUrl} />
+              <img src={this.props.currentUser.photoUrl} />
             </div>
           </div>
       </div>
     )
-    const notLoggedInNav = (
-      <div className="right-navbar">
+  }
+
+  notLoggedInNav() {
+    return (
+       <div className="right-navbar">
           <div className="right-nav-icon">
                 <MdVideoCall />
           </div>
@@ -65,7 +61,17 @@ class NavBar extends React.Component {
           </div>
       </div>
     )
-  
+  }
+
+  handleSearch(e) {
+    e.preventDefault()
+    this.props.history.push('/search')
+  }
+
+  render() {
+    const { currentUser } = this.props
+    debugger
+    
     return (
       <div className="header">
           <div className="navbar">
@@ -87,8 +93,7 @@ class NavBar extends React.Component {
                   <button type="submit" className="search-button"><MdSearch /></button>
               </div>
             </form>
-            {currentUser ? loggedInNav : notLoggedInNav}
-
+            {!currentUser ? this.notLoggedInNav() : this.loggedInNav()}
           </div>
       </div>
     );

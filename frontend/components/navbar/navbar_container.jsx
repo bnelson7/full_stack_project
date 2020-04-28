@@ -3,9 +3,12 @@ import NavBar from './navbar'
 import { logout } from '../../actions/session_actions'
 import { withRouter } from 'react-router-dom'
 
-const mSTP = state => ({
-    currentUser: state.entities.users[state.session.id]
-})
+const mSTP = state => {
+debugger
+    return {
+        currentUser: state.entities.users[state.session.id]
+    }
+}
 
 const mDTP = dispatch => ({
     logout: () => dispatch(logout())
