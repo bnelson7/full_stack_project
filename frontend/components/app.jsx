@@ -11,8 +11,8 @@ const App = () => (
     <div>
         <Route exact path="/videos/:videoId" component={VideoShowContainer} />
         <div className="main-container">
-            <Route path="/search" component={Sidebar} />
-            <Route path="/search" component={SearchContainer} />
+            <Route path="/results" component={Sidebar} />
+            <Route path="/results" component={SearchContainer} />
             <ProtectedRoute exact path="/users/:userId" component={Sidebar} />
             <ProtectedRoute exact path="/users/:userId" component={UserProfileContainer} />
             <Route exact path="/" component={Sidebar} />

@@ -68,13 +68,13 @@ class NavBar extends React.Component {
   }
 
   handleSearch(e) {
-    e.preventDefault()
-    this.props.history.push(`/search?q=${this.state.queryString}`)
+    e.preventDefault();
+    this.props.history.push(`/results?search_query=${this.state.queryString}`)
     debugger
-    
   }
-
+  
   getQueryString(e) {
+    localStorage.setItem('recentSearch', this.state.queryString)
     debugger
     return e => {
       this.setState({ queryString: e.currentTarget.value })

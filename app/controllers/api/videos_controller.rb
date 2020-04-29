@@ -1,23 +1,23 @@
 class Api::VideosController < ApplicationController
 
     def index
-        @videos = Video.all.shuffle
+        @videos = Video.all.with_attached_thumbnail.shuffle
         render :index
     end
     
     def show
-     debugger
-        if params[:q]
+        if params[:search_query]
             @videos = Video.where("lower(title) LIKE ? OR lower(description) LIKE ?", 
-            "%#{params[:q].downcase}%", "%#{params[:q].downcase}%")
-            debugger
+            "%#{params[:search_query].downcase}%", 
+            "%#{params[:search_query].downcase}%")
+
             render :index
         else
-            @video = Video.find(params[:id])
+            @video = Video.with_attached_clip.find(params[:id])
             @video.views += 1
             @video.save
 
-            @videos = Video.all
+            @videos = Video.all.with_attached_thumbnail.shuffle
 
             render :show
         end
@@ -36,7 +36,7 @@ class Api::VideosController < ApplicationController
     end
 
     def update
-        @video = Video.find(params[:id])
+        @video = Video.with_attached_clip.find(params[:id])
 
         debugger
         if @video.update(video_params)
@@ -47,7 +47,7 @@ class Api::VideosController < ApplicationController
     end
 
     def destroy
-        @video = Video.find(params[:id])
+        @video = Video.with_attached_clip.find(params[:id])
         debugger
         @video.destroy
         render :show

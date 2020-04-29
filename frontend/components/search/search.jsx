@@ -17,9 +17,9 @@ class Search extends React.Component {
     componentDidMount() {
         debugger
         this.props.requestQueriedVideos(this.props.location.search)
-        .then(matched => {
+        .then(results => {
             debugger
-            this.setState({ videos: [matched.videos] })
+            this.setState({ videos: [results.videos] })
         });
     }
 

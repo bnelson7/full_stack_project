@@ -58,7 +58,7 @@ export const fetchQueriedVideos = queryString => {
     debugger
     return (
         $.ajax({
-            url: `/api/videos/search${queryString}`,
+            url: `/api/videos/results${queryString}`,
             method: 'GET'
         })
     )
