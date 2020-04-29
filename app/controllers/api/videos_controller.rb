@@ -7,10 +7,11 @@ class Api::VideosController < ApplicationController
     
     def show
      debugger
-        if params[:title]
-            @video = Video.find_by(title: params[:title])
+        if params[:q]
+            @videos = Video.where("lower(title) LIKE ? OR lower(description) LIKE ?", 
+            "%#{params[:q].downcase}%", "%#{params[:q].downcase}%")
             debugger
-            # render :index
+            render :index
         else
             @video = Video.find(params[:id])
             @video.views += 1
@@ -18,8 +19,8 @@ class Api::VideosController < ApplicationController
 
             @videos = Video.all
 
+            render :show
         end
-        render :show
     end
 
     def create

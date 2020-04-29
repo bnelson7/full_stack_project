@@ -69,7 +69,7 @@ class NavBar extends React.Component {
 
   handleSearch(e) {
     e.preventDefault()
-    this.props.history.push(`/search?title=${this.state.queryString}`)
+    this.props.history.push(`/search?q=${this.state.queryString}`)
     debugger
     
   }

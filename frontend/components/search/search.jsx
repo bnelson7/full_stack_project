@@ -17,9 +17,9 @@ class Search extends React.Component {
     componentDidMount() {
         debugger
         this.props.requestQueriedVideos(this.props.location.search)
-        .then(matchedVideos => {
+        .then(matched => {
             debugger
-            this.setState({ videos: [matchedVideos.videos] })
+            this.setState({ videos: [matched.videos] })
         });
     }
 
@@ -32,7 +32,7 @@ class Search extends React.Component {
                 <div className="search-background">
                     <h1><FaSlidersH />FILTER</h1>
                     <hr/>
-                    {this.state.videos.length >= 1 ? this.state.videos.map(video => <li className="grid-item"><VideoIndexItem key={video.id} video={video} /></li>) : null}
+                    {this.state.videos.length >= 1 ? this.state.videos.map(video => <li className="grid-item"><VideoIndexItem key={video.id} video={video} /></li>) : <p>No videos match your Search</p>}
                 </div>
             </div>
         )
