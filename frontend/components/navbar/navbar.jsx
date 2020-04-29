@@ -8,7 +8,7 @@ class NavBar extends React.Component {
     super(props)
 
     this.state = {
-      query: ""
+      queryString: ""
     }
 
     this.handleLogout = this.handleLogout.bind(this)
@@ -69,7 +69,7 @@ class NavBar extends React.Component {
 
   handleSearch(e) {
     e.preventDefault()
-    this.props.history.push(`/search?title=${this.state.query}`)
+    this.props.history.push(`/search?title=${this.state.queryString}`)
     debugger
     
   }
@@ -77,7 +77,7 @@ class NavBar extends React.Component {
   getQueryString(e) {
     debugger
     return e => {
-      this.setState({ query: e.currentTarget.value })
+      this.setState({ queryString: e.currentTarget.value })
     }
   }
 
@@ -102,7 +102,7 @@ class NavBar extends React.Component {
             </div>
             <form onSubmit={this.handleSearch}>
               <div className="mid-navbar">
-                  <input type="text" className="search-bar" placeholder="Search" value={this.state.query} onChange={this.getQueryString('query')}/>
+                  <input type="text" className="search-bar" placeholder="Search" value={this.state.queryString} onChange={this.getQueryString('queryString')}/>
                   <button onClick={this.handleSearch} type="submit" className="search-button"><MdSearch /></button>
               </div>
             </form>

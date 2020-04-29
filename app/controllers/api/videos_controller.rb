@@ -1,16 +1,16 @@
 class Api::VideosController < ApplicationController
 
     def index
-        @videos = Video.all
+        @videos = Video.all.shuffle
         render :index
     end
     
     def show
      debugger
         if params[:title]
-            @videos = Video.find_by(title: params[:title]).videos
+            @video = Video.find_by(title: params[:title])
             debugger
-            render :index
+            # render :index
         else
             @video = Video.find(params[:id])
             @video.views += 1
@@ -18,8 +18,8 @@ class Api::VideosController < ApplicationController
 
             @videos = Video.all
 
-            render :show
         end
+        render :show
     end
 
     def create

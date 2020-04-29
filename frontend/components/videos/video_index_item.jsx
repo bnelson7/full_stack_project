@@ -43,8 +43,9 @@ const VideoIndexItem = props => {
             </div>
         </div>
     )
+    debugger
     return (
-        props.path === '/' ? indexGrid : showGrid
+        props.path === `/videos/${props.video.id}` ? showGrid : indexGrid
     )   
 }
 
