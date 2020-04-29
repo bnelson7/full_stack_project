@@ -6,12 +6,20 @@ class Api::VideosController < ApplicationController
     end
     
     def show
-        @video = Video.find(params[:id])
-        @video.views += 1
-        @video.save
-    
-        @videos = Video.all
-        render :show
+     debugger
+        if params[:title]
+            @videos = Video.find_by(title: params[:title]).videos
+            debugger
+            render :index
+        else
+            @video = Video.find(params[:id])
+            @video.views += 1
+            @video.save
+
+            @videos = Video.all
+
+            render :show
+        end
     end
 
     def create

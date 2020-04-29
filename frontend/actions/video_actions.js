@@ -28,10 +28,13 @@ export const clearVideoErrors = () => ({
     type: CLEAR_VIDEO_ERRORS
 })
 
-export const requestVideos = () => dispatch => (
-    VideoAPIUtil.fetchVideos()
-    .then(videos => dispatch(receiveVideos(videos)))
-)
+export const requestVideos = () => dispatch => {
+    debugger
+    return (
+        VideoAPIUtil.fetchVideos()
+        .then(videos => dispatch(receiveVideos(videos)))
+    )
+}
 
 export const requestVideo = id => dispatch => {
     debugger
@@ -58,9 +61,17 @@ export const updateVideo = (formData, videoId) => dispatch => {
 }
 
 export const deleteVideo = videoId => dispatch => {
-debugger
-return (
-    VideoAPIUtil.deleteVideo(videoId)
-    .then(() => dispatch(removeVideo(videoId)))
-)
+    debugger
+    return (
+        VideoAPIUtil.deleteVideo(videoId)
+        .then(() => dispatch(removeVideo(videoId)))
+    )
+}
+
+export const requestQueriedVideos = queryString => dispatch => {
+    debugger
+    return (
+        VideoAPIUtil.fetchQueriedVideos(queryString)
+        .then(videos => dispatch(receiveVideos(videos)))
+    )
 }

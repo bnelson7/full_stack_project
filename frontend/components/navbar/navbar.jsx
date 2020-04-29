@@ -7,6 +7,10 @@ class NavBar extends React.Component {
   constructor(props) {
     super(props)
 
+    this.state = {
+      query: ""
+    }
+
     this.handleLogout = this.handleLogout.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
   }
@@ -65,13 +69,22 @@ class NavBar extends React.Component {
 
   handleSearch(e) {
     e.preventDefault()
-    this.props.history.push('/search')
+    this.props.history.push(`/search?title=${this.state.query}`)
+    debugger
+    
+  }
+
+  getQueryString(e) {
+    debugger
+    return e => {
+      this.setState({ query: e.currentTarget.value })
+    }
   }
 
   render() {
     const { currentUser } = this.props
     debugger
-    
+    console.log(this.state)
     return (
       <div className="header">
           <div className="navbar">
@@ -89,8 +102,8 @@ class NavBar extends React.Component {
             </div>
             <form onSubmit={this.handleSearch}>
               <div className="mid-navbar">
-                  <input type="text" className="search-bar" placeholder="Search"/>
-                  <button type="submit" className="search-button"><MdSearch /></button>
+                  <input type="text" className="search-bar" placeholder="Search" value={this.state.query} onChange={this.getQueryString('query')}/>
+                  <button onClick={this.handleSearch} type="submit" className="search-button"><MdSearch /></button>
               </div>
             </form>
             {!currentUser ? this.notLoggedInNav() : this.loggedInNav()}

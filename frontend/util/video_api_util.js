@@ -1,9 +1,12 @@
-export const fetchVideos = () => (
-    $.ajax({
-        url: "/api/videos",
-        method: "GET"
-    })
-)
+export const fetchVideos = () => {
+debugger    
+    return (
+        $.ajax({
+            url: "/api/videos",
+            method: "GET"
+        })
+    )
+}
 
 export const fetchVideo = id => {
     debugger
@@ -51,3 +54,12 @@ export const deleteVideo = videoId => {
     )
 }
 
+export const fetchQueriedVideos = queryString => {
+    debugger
+    return (
+        $.ajax({
+            url: `/api/videos/search${queryString}`,
+            method: 'GET'
+        })
+    )
+}
