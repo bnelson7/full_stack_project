@@ -19,7 +19,15 @@ class VideoIndex extends React.Component {
                     <h1>Recommended</h1>
                 </div>
                 <div className="grid-container">
-                    {videos.map(video => <li className="grid-item"><VideoIndexItem key={video.id} video={video} path={path} deleteVideo={deleteVideo}/></li>)}
+                    {videos.map(video => {
+                        debugger
+                        return (
+                            <li className="grid-item">
+                                <VideoIndexItem key={video.id} video={video} path={path} deleteVideo={deleteVideo}/>
+                            </li>
+                            )
+                        }
+                    )}
                 </div>
             </div>
 

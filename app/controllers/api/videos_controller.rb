@@ -17,8 +17,8 @@ class Api::VideosController < ApplicationController
             @video.views += 1
             @video.save
 
-            @videos = Video.all.with_attached_thumbnail.shuffle
-
+            @videos = Video.where.not(id: params[:id]).all.with_attached_thumbnail.order('RANDOM()')
+    
             render :show
         end
     end

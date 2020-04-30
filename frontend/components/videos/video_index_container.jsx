@@ -2,10 +2,13 @@ import { connect } from 'react-redux'
 import { requestVideos, deleteVideo } from '../../actions/video_actions'
 import VideoIndex from './video_index'
 
-const mSTP = (state, ownProps) => ({
-    videos: Object.values(state.entities.videos),
-    path: ownProps.location.pathname
-})
+const mSTP = (state, ownProps) => {
+debugger
+    return {
+        videos: Object.values(state.entities.videos),
+        path: ownProps.location.pathname
+    }
+}
 
 const mDTP = dispatch => {
     debugger

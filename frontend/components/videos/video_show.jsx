@@ -14,6 +14,10 @@ class VideoShow extends React.Component {
     componentDidMount() {
         debugger
         this.props.requestVideo(this.props.match.params.videoId)
+        // .then(videos => {
+        //     debugger
+        //     this.setState({ videos: [videos] })
+        // })
     }
 
     componentDidUpdate(prevProps) {
@@ -44,7 +48,7 @@ class VideoShow extends React.Component {
                         </div>
                         <div className="video-description">
                             <div className="profile-thumbnail">
-                                <span><FaUserCircle /></span>
+                                <span><img src={video.creator.photoUrl} /></span>
                             </div>
                             {/* {video.username} */}
                             {video.description}
