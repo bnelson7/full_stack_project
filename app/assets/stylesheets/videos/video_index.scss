@@ -25,7 +25,7 @@
     grid-template-columns: repeat(auto-fill, minmax(30vh, 1fr));
     grid-template-rows: repeat(4, 30vh);
     column-gap: 1rem;
-    row-gap: 2.5rem;
+    row-gap: 1.5rem;
 }
 
 .grid-item {
@@ -49,10 +49,10 @@
     object-fit: cover;
 }
 
-.video-info-container {
+.video-info-container[role='group'] {
     display: flex;
+    flex-direction: row;
     height: 40%;
-    // margin-left: 50px;
 }
 
 .video-info {
@@ -60,7 +60,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    align-items: flex-start;  
+    align-items: flex-start;
 }
 
 .video-info h1 {
@@ -81,21 +81,41 @@
     color: green;
 }
 
+.profile-thumbnail img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
 .views-date {
     display: flex;
     flex-direction: column;
+    margin-bottom: 3vh;
+}
+
+.views-date h1 {
+    display: flex;
+    align-items: center;
+    font-size: 1.7vh;
+    font-weight: 300;
+    color: #696969;
 }
 
 .views-date span {
     display: flex;
     align-items: center;
-    font-size: 1.5vh;
-    font-weight: 400;
+    font-size: 1.4vh;
+    font-weight: 300;
     color: #696969	;
 }
 
 .views-date span span {
     font-size: .8vh;
+}
+
+.verified {
+    color: #696969
 }
 
 

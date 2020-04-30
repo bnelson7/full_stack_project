@@ -13,14 +13,14 @@ const VideoIndexItem = props => {
             <div className="video-thumbnail">
                 <Link to={`/videos/${props.video.id}`}><img src={props.video.thumbnailUrl} /></Link>
             </div>
-            <div className="video-info-container">
+            <div className="video-info-container" role="group">
                 <div className="profile-thumbnail">
-                    <span><FaUserCircle /></span>
+                    <span><img src={props.video.creator.photoUrl} /></span>
                 </div>
                 <div className="video-info">
                     <h1>{props.video.title}</h1>
                     <div className="views-date">
-                        {/* <h1>{props.video.creator.username}</h1> */}
+                        <h1>{props.video.creator.username}&nbsp;<span className="verified"><IoIosCheckmarkCircleOutline /></span></h1>
                         <span>{props.video.views}K views&nbsp;<span><GoPrimitiveDot /></span>&nbsp;{props.video.created_at}</span>
                     </div>
                 </div>
@@ -36,7 +36,7 @@ const VideoIndexItem = props => {
                 <div className="video-info">
                     <h1>{props.video.title}</h1>
                     <div className="views-date">
-                        {/* <h1>{props.video.username}</h1> */}
+                        <h1>{props.video.creator.username}</h1>
                         <span>{props.video.views}K views&nbsp;<span><GoPrimitiveDot /></span>&nbsp;{props.video.created_at}</span>
                     </div>
                 </div>
