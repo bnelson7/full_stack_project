@@ -19,8 +19,18 @@ class Search extends React.Component {
         this.props.requestQueriedVideos(this.props.location.search)
         .then(results => {
             debugger
-            this.setState({ videos: [results.videos] })
+            this.setState({ videos: Object.values(results.videos) })
         });
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.location.search !== this.props.location.search) {
+            this.props.requestQueriedVideos(this.props.location.search)
+            .then(results => {
+                debugger
+                this.setState({ videos: Object.values(results.videos) })
+            })
+        }
     }
 
     render() {

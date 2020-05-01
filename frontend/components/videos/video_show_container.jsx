@@ -7,7 +7,8 @@ const mSTP = (state, ownProps) => {
     return {
         videoId: ownProps.match.params.videoId,
         video: state.entities.videos[ownProps.match.params.videoId],
-        videos: Object.values(state.entities.videos)
+        videos: Object.values(state.entities.videos),
+        path: ownProps.location.pathname
     }
 }
 

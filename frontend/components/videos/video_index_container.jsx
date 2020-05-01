@@ -6,6 +6,7 @@ const mSTP = (state, ownProps) => {
 debugger
     return {
         videos: Object.values(state.entities.videos),
+        video: state.entities.videos[ownProps.match.params.videoId],
         path: ownProps.location.pathname
     }
 }
