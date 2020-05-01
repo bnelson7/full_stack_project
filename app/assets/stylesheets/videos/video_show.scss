@@ -2,7 +2,6 @@
     width: 100%;
     height: 100%;
     display: flex;
-    border: 1px solid black;
 }
 // toggle this to expand show more ie: change 20vh to like 40 or 50vh and have another div with more info
 .show-container {
@@ -12,8 +11,8 @@
 }
 
 .video-container {
-    margin-top: 2vh;
-    margin-left: 2.7vw;
+    margin-top: 1.5vh;
+    margin-left: 2.4vw;
     width: 69vw;
 }
 
@@ -30,7 +29,7 @@ video:focus {
 .video-title {
     display: flex;
     width: 69vw;
-    margin-left: 2.7vw;
+    margin-left: 2.4vw;
 }
 
 .video-title-info {
@@ -103,7 +102,7 @@ video:focus {
     border-left-style: none;
     border-right-style: none;
     width: 69vw;
-    margin-left: 2.7vw;
+    margin-left: 2.4vw;
 }
 
 .profile-thumbnail-show {
@@ -163,50 +162,98 @@ video:focus {
 .subscribe-btn {
     background: #CC0000;
     color: #FFFFFF;
-    font-weight: 500;
+    font-weight: bold;
     align-self: flex-start;
     padding: 1vh 1.6vh;
     border-radius: 2px;
     margin-top: 2.5vh;
+    font-size: 1.4vh;
     font-family: 'Roboto', 'Noto', sans-serif;
     cursor: pointer;
 }
 
 .related-container {
+    flex: 1;
+}
+
+.upnext-video {
+    margin-top: 2vh;
+}
+
+.upnext-video h1 {
+    font-size: 1.6vh;
+    font-weight: 500;
+    color: #030303;
+    padding-bottom: 1.2vh;
 }
 
 //grid container
 .suggested-videos {
-    flex: 1;
-    margin-top: 3vh;
-    margin-left: 1rem;
+    margin-top: 2vh;
     display: grid;
-    grid-template-rows: repeat(10, 15vh);
-    grid-gap: 1rem;
-    border: 1px solid black;
+    grid-template-rows: repeat(10, 10vh);
+    grid-gap: .5rem;
 }
 
 .suggested-grid-item {
-    border: 1px solid black;
+
 }
 
 .grid-item-container {
     display: flex;
+    height: 100%;
 }
 
-.video-thumbnail {
+.video-thumbnail-show {
     flex: 1;
+    height: 100%;
 }
 
-.video-thumbnail img {
+.video-thumbnail-show img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.video-info-container {
-    flex: 1;
+.video-show-info-container {
+    flex: 1.5;
+}
+
+.video-show-info {
+    margin-left: .3vw;
+    height: 75%;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
 }
+
+#show-title {
+    font-size: 1.4vh;
+    font-weight: 600;
+    color: #030303;
+}
+
+#show-user {
+    display: flex;
+    font-size: 1.4vh;
+    font-weight: 500;
+    color: #606060;
+}
+
+#views-date-show {
+    display: flex;
+    align-items: center;
+    font-size: 1.3vh;
+    font-weight: 400;
+    color: #606060;
+}
+
+#views-date-show span {
+    font-size: .8vh;
+}
+
+#related-hr {
+    margin-top: 2vh;
+    border-top: 1px solid #DCDCDC;
+} 
+

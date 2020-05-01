@@ -89,15 +89,16 @@ class VideoShow extends React.Component {
                             <button className="subscribe-btn">SUBSCRIBE</button>
                         </div>
                     </div>
-                    {/* <div className="related-container"> */}
-                        {/* <div className="upnext-video">
-
-                        </div> */}
-                        <div className="suggested-videos">
-                            Up next
-                            {videos.filter(video => video.id !== videoId).map(video => <li className="suggested-grid-item"><VideoIndexItem key={video.id} video={video} /></li>)}
+                    <div className="related-container">
+                        <div className="upnext-video">
+                            <h1>Up next</h1>
+                            {videos.slice(0, 1).map(video => <li className="suggested-grid-item"><VideoIndexItem key={video.id} video={video} /></li>)}
                         </div>
-                    {/* </div> */}
+                        <hr id="related-hr"/>
+                        <div className="suggested-videos">
+                            {videos.filter(video => video.id !== videoId).slice(1).map(video => <li className="suggested-grid-item"><VideoIndexItem key={video.id} video={video} /></li>)}
+                        </div>
+                    </div>
                 </div>
             </div>
         )

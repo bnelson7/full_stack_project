@@ -29,16 +29,16 @@ const VideoIndexItem = props => {
     )
     const showGrid = (
         <div className="grid-item-container">
-            <div className="video-thumbnail">
+            <div className="video-thumbnail-show">
                 <Link to={`/videos/${props.video.id}`}><img src={props.video.thumbnailUrl} /></Link>
             </div>
-            <div className="video-info-container">
-                <div className="video-info">
-                    <h1>{props.video.title}</h1>
-                    <div className="views-date">
-                        <h1>{props.video.creator.username}</h1>
-                        <span>{props.video.views}K views&nbsp;<span><GoPrimitiveDot /></span>&nbsp;{props.video.created_at}</span>
+            <div className="video-show-info-container">
+                <div className="video-show-info">
+                    <h1 id="show-title">{props.video.title}</h1>
+                    <div className="views-date-show">
+                        <h1 id="show-user">{props.video.creator.username}&nbsp;<span className="verified"><MdCheckCircle /></span></h1>
                     </div>
+                    <span id="views-date-show">{props.video.views}K views&nbsp;<span><GoPrimitiveDot /></span>&nbsp;{props.video.created_at}</span>
                 </div>
             </div>
         </div>
