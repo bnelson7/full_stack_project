@@ -8,7 +8,7 @@ import SearchContainer from './search/search_container'
 import { ProtectedRoute } from '../util/route_util'
 
 const App = () => (
-    <div>
+    <div className="root-container">
         <Route exact path="/videos/:videoId" component={VideoShowContainer} />
         <div className="main-container">
             <Route path="/results" component={Sidebar} />

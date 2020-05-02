@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import { requestVideos, deleteVideo } from '../../actions/video_actions'
 import VideoIndex from './video_index'
+import { withRouter } from 'react-router-dom'
 
 const mSTP = (state, ownProps) => {
 debugger
@@ -19,4 +20,4 @@ const mDTP = dispatch => {
     })
 }
 
-export default connect(mSTP, mDTP)(VideoIndex)
+export default withRouter(connect(mSTP, mDTP)(VideoIndex))

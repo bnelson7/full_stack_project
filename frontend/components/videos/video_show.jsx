@@ -30,7 +30,7 @@ class VideoShow extends React.Component {
     }
 
     render() {
-        const { video, videos, videoId } = this.props
+        const { video, videos, videoId, path } = this.props
         debugger
         if (!video || !video.clipUrl) return null
         debugger
@@ -92,11 +92,11 @@ class VideoShow extends React.Component {
                     <div className="related-container">
                         <div className="upnext-video">
                             <h1>Up next</h1>
-                            {videos.slice(0, 1).map(video => <li className="suggested-grid-item"><VideoIndexItem key={video.id} video={video} /></li>)}
+                            {videos.slice(0, 1).map(video => <li className="suggested-grid-item"><VideoIndexItem key={video.id} video={video} path={path}/></li>)}
                         </div>
                         <hr id="related-hr"/>
                         <div className="suggested-videos">
-                            {videos.filter(video => video.id !== videoId).slice(1).map(video => <li className="suggested-grid-item"><VideoIndexItem key={video.id} video={video} /></li>)}
+                            {videos.filter(video => video.id !== videoId).slice(1).map(video => <li className="suggested-grid-item"><VideoIndexItem key={video.id} video={video} path={path}/></li>)}
                         </div>
                     </div>
                 </div>

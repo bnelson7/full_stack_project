@@ -34,15 +34,20 @@ class Search extends React.Component {
     }
 
     render() {
+        const { path } = this.props
         debugger
         if (!this.state.videos) return null
         console.log(this.state.videos)
         return(
             <div className="background">
                 <div className="search-background">
-                    <h1><FaSlidersH />FILTER</h1>
-                    <hr/>
-                    {this.state.videos.length >= 1 ? this.state.videos.map(video => <li className="grid-item"><VideoIndexItem key={video.id} video={video} /></li>) : <p>No videos match your Search</p>}
+                    <div className="search-filter">
+                        <span><FaSlidersH /></span><h1>FILTER</h1>
+                    </div>
+                    <hr id="search-hr"/>
+                    <div className="search-grid-container">
+                        {this.state.videos.map(video => <li className="search-grid-item"><VideoIndexItem key={video.id} video={video} path={path}/></li>)}
+                    </div>
                 </div>
             </div>
         )

@@ -65,7 +65,7 @@ const VideoIndexItem = props => {
                     </div>
                 </div>
             </div>
-        ) : (
+        ) : props.path.includes('/videos') ? (
             <div className="grid-item-container">
                 <div className="video-thumbnail-show">
                     <Link to={`/videos/${props.video.id}`}><img src={props.video.thumbnailUrl} /></Link>
@@ -77,6 +77,23 @@ const VideoIndexItem = props => {
                             <h1 id="show-user">{props.video.creator.username}&nbsp;<span className="verified"><MdCheckCircle /></span></h1>
                         </div>
                         <span id="views-date-show">{props.video.views}K views&nbsp;<span><GoPrimitiveDot /></span>&nbsp;{props.video.created_at}</span>
+                    </div>
+                </div>
+            </div>
+        ) : (
+            <div className="grid-item-search-container">
+                <div className="video-thumbnail-search">
+                    <Link to={`/videos/${props.video.id}`}><img src={props.video.thumbnailUrl} /></Link>
+                </div>
+                <div className="video-search-info-container">
+                    <div className="video-search-info">
+                        <div className="title-user-search">
+                            <h1 id="search-title">{props.video.title}</h1>
+                            <h1 id="search-user">{props.video.creator.username}&nbsp;<span className="verified"><MdCheckCircle /></span>&nbsp;&nbsp;<span id="title-user-search">{props.video.views}K views&nbsp;<span><GoPrimitiveDot /></span>&nbsp;{props.video.created_at}</span></h1>
+                        </div>
+                        <div >
+                            <span id="description-search">{props.video.description}</span>
+                        </div>
                     </div>
                 </div>
             </div>
