@@ -11,10 +11,13 @@ const receiveComments = comments => ({
     comments
 })
 
-const receiveComment = comment => ({
-    type: RECEIVE_COMMENT,
-    comment
-})
+const receiveComment = comment => {
+    debugger
+    return {
+        type: RECEIVE_COMMENT,
+        comment
+    }
+}
 
 const removeComment = commentId => ({
     type: REMOVE_COMMENT,
@@ -24,3 +27,39 @@ const removeComment = commentId => ({
 export const clearCommentErrors = () => ({
     type: CLEAR_COMMENT_ERRORS
 })
+
+export const requestComments = () => dispatch => {
+    return (
+        CommentAPIUtil.fetchComments()
+        .then(comments => dispatch(receiveComments(comments)))
+    )
+}
+
+export const requestComment = id => dispatch => {
+    return (
+        CommentAPIUtil.fetchComment()
+        .then(comment => dispatch(receiveComment(comment)))
+    )
+}
+
+export const createComment = comment => dispatch => {
+    debugger
+    return (
+        CommentAPIUtil.createComment(comment)
+        .then(comment => dispatch(receiveComment(comment)))
+    )
+}
+
+export const editComment = comment => dispatch => {
+    return (
+        CommentAPIUtil.updateComment(comment)
+        .then(comment => dispatch(receiveComment(comment)))
+    )
+}
+
+export const deleteComment = id => dispatch => {
+    return (
+        CommentAPIUtil.deleteComment(id)
+        .then(() => dispatch(removeComment()))
+    )
+}

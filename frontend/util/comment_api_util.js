@@ -1,7 +1,7 @@
-export const fetchComments = () => {
+export const fetchComments = (videoId) => {
     return (
         $.ajax({
-            url: `/api/video/${videoId}/comments`,
+            url: `/api/videos/${videoId}/comments`,
             method: 'GET'
         })
     )
@@ -10,18 +10,19 @@ export const fetchComments = () => {
 export const fetchComment = (id) => {
     return (
         $.ajax({
-            url: `/api/video/${videoId}/comments/${id}`,
+            url: `/api/comments/${id}`,
             method: 'GET'
         })
     )
 }
 
-export const createComment = (comment) => {
+export const createComment = comment => {
+    debugger
     return (
         $.ajax({
-            url: `/api/video/${videoId}/comments`,
+            url: `/api/videos/${comment.videoId}/comments`,
             method: 'POST',
-            data: { comment }
+            data: { comment } 
         })
     )
 }
@@ -29,7 +30,7 @@ export const createComment = (comment) => {
 export const updateComment = (comment) => {
     return (
         $.ajax({
-            url: `/api/video/${videoId}/comments/${comment.id}`,
+            url: `/api/comments/${comment.id}`,
             method: 'PATCH',
             data: { comment }
         })
@@ -39,7 +40,7 @@ export const updateComment = (comment) => {
 export const deleteComment = (id) => {
     return (
         $.ajax({
-            url: `/api/video/${videoId}/comments/${id}`,
+            url: `/api/comments/${id}`,
             method: 'DELETE'
         })
     )

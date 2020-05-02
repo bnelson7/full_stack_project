@@ -4,10 +4,13 @@
     display: flex;
 }
 // toggle this to expand show more ie: change 20vh to like 40 or 50vh and have another div with more info
+.show-comment-container {
+    flex: 3;
+}
+
 .show-container {
     display: grid;
-    grid-template-rows: 70vh 10vh 20vh;
-    flex: 3;
+    grid-template-rows: 70vh 9vh 20vh;
 }
 
 .video-container {

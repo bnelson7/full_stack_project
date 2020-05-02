@@ -4,13 +4,21 @@ class Api::CommentsController < ApplicationController
         @comments = Comment.all
     end
 
+    def show
+
+    end
+
     def create
         @comment = Comment.new(comment_params)
-
+        @comment.author_id = current_user.id
+        @comment.video_id = params[:comment][:videoId]
+        debugger
+    
         if @comment.save
+            debugger
             render :index
         else
-
+            render json: @comment.errors.full_messages, status: 422
         end
     end
 

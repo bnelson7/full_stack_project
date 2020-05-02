@@ -15,7 +15,7 @@ debugger
 const mDTP = dispatch => {
     debugger
     return ({
-        requestVideos: videos => dispatch(requestVideos(videos)),
+        requestVideos: () => dispatch(requestVideos()),
         deleteVideo: videoId => dispatch(deleteVideo(videoId))
     })
 }

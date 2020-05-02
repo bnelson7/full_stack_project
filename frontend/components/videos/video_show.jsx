@@ -4,6 +4,8 @@ import { FaUserCircle } from 'react-icons/fa'
 import VideoIndexItem from './video_index_item'
 import { IoMdThumbsUp, IoMdThumbsDown, IoMdShareAlt } from 'react-icons/io'
 import { MdPlaylistAdd, MdMoreHoriz, MdCheckCircle } from 'react-icons/md'
+import CommentFormContainer from '../comments/comment_form_container'
+import CommentIndexContainer from '../comments/comment_index_container'
 
 class VideoShow extends React.Component {
     constructor(props) {
@@ -37,56 +39,62 @@ class VideoShow extends React.Component {
         return (
             <div className="background">
                 <div className="page-container">
-                    <div className="show-container">
-                        <div className="video-container">
-                            <video controls autoPlay >
-                                <source type="video/mp4" src={video.clipUrl} />
-                            </video>
+                    <div className="show-comment-container">
+                        <div className="show-container">
+                            <div className="video-container">
+                                <video controls autoPlay >
+                                    <source type="video/mp4" src={video.clipUrl} />
+                                </video>
+                            </div>
+                            <div className="video-title">
+                                <div className="video-title-info">
+                                    <h1>{video.title}</h1>
+                                    <span>{video.views}K views&nbsp;<span><GoPrimitiveDot /></span>&nbsp;{video.created_at}</span>
+                                </div>
+                                <div className="video-title-icons">
+                                    <div>
+                                        <button>
+                                            <span id="video-title-icon"><IoMdThumbsUp /></span>
+                                            <span id="video-title-text">14K</span>
+                                        </button>
+                                        <button>
+                                            <span id="video-title-icon"><IoMdThumbsDown /></span>
+                                            <span id="video-title-text">1K</span>
+                                        </button>
+                                        <button>
+                                            <span id="video-title-icon"><IoMdShareAlt /></span>
+                                            <span id="video-title-text">SHARE</span>
+                                        </button>
+                                        <button>
+                                            <span id="video-title-icon"><MdPlaylistAdd /></span>
+                                            <span id="video-title-text">SAVE</span>
+                                        </button>
+                                    </div>
+                                        <button className="horiz-dots">
+                                            <span id="video-title-icon"><MdMoreHoriz /></span>
+                                        </button>
+                                </div>
+                            </div>
+                            <div className="video-description-container">
+                                <div className="profile-thumbnail-show">
+                                    <span><img src={video.creator.photoUrl} /></span>
+                                </div>
+                                <div className="video-description-text">
+                                    <div className="video-description-title">
+                                        <h1>{video.creator.username}&nbsp;<span className="verified"><MdCheckCircle /></span></h1>
+                                        <p>no subscribers</p>
+                                    </div>
+                                    <div className="video-description">
+                                        {video.description}
+                                        <br/><span>SHOW MORE</span>
+                                    </div>
+                                </div>
+                                <button className="subscribe-btn">SUBSCRIBE</button>
+                            </div>
                         </div>
-                        <div className="video-title">
-                            <div className="video-title-info">
-                                <h1>{video.title}</h1>
-                                <span>{video.views}K views&nbsp;<span><GoPrimitiveDot /></span>&nbsp;{video.created_at}</span>
-                            </div>
-                            <div className="video-title-icons">
-                                <div>
-                                    <button>
-                                        <span id="video-title-icon"><IoMdThumbsUp /></span>
-                                        <span id="video-title-text">14K</span>
-                                    </button>
-                                    <button>
-                                        <span id="video-title-icon"><IoMdThumbsDown /></span>
-                                        <span id="video-title-text">1K</span>
-                                    </button>
-                                    <button>
-                                        <span id="video-title-icon"><IoMdShareAlt /></span>
-                                        <span id="video-title-text">SHARE</span>
-                                    </button>
-                                    <button>
-                                        <span id="video-title-icon"><MdPlaylistAdd /></span>
-                                        <span id="video-title-text">SAVE</span>
-                                    </button>
-                                </div>
-                                    <button className="horiz-dots">
-                                        <span id="video-title-icon"><MdMoreHoriz /></span>
-                                    </button>
-                            </div>
-                        </div>
-                        <div className="video-description-container">
-                            <div className="profile-thumbnail-show">
-                                <span><img src={video.creator.photoUrl} /></span>
-                            </div>
-                            <div className="video-description-text">
-                                <div className="video-description-title">
-                                    <h1>{video.creator.username}&nbsp;<span className="verified"><MdCheckCircle /></span></h1>
-                                    <p>no subscribers</p>
-                                </div>
-                                <div className="video-description">
-                                    {video.description}
-                                    <br/><span>SHOW MORE</span>
-                                </div>
-                            </div>
-                            <button className="subscribe-btn">SUBSCRIBE</button>
+                        <div className="comment-container">
+                            <CommentFormContainer />
+                            <CommentIndexContainer />
                         </div>
                     </div>
                     <div className="related-container">
