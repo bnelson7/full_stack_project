@@ -6,8 +6,7 @@ import { withRouter } from 'react-router-dom'
 const mstp = (state, ownProps) => {
     debugger
     return {
-        comments: Object.values(state.entities.comments),
-        // comment: state.entities.comments[ownProps.match.params.commentId]
+        comments: Object.values(state.entities.comments)
     }
 }
 

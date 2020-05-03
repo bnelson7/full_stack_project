@@ -52,6 +52,7 @@ export const createComment = comment => dispatch => {
 }
 
 export const editComment = comment => dispatch => {
+    debugger
     return (
         CommentAPIUtil.updateComment(comment)
         .then(comment => dispatch(receiveComment(comment)))
@@ -59,6 +60,7 @@ export const editComment = comment => dispatch => {
 }
 
 export const deleteComment = id => dispatch => {
+    debugger
     return (
         CommentAPIUtil.deleteComment(id)
         .then(() => dispatch(removeComment()))

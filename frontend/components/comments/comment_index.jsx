@@ -14,7 +14,7 @@ class CommentIndex extends React.Component {
     }
 
     render() {
-        const { comments } = this.props
+        const { comments, editComment, deleteComment } = this.props
         debugger
         return (
             <div className="comment-index-container">
@@ -22,7 +22,7 @@ class CommentIndex extends React.Component {
                 {comments.map(comment => {
                  return (
                      <li>
-                         <CommentIndexItem key={comment.id} comment={comment} />
+                         <CommentIndexItem key={comment.id} comment={comment} editComment={editComment} deleteComment={deleteComment}/>
                      </li>
                  )   
                 })}

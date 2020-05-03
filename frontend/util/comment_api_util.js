@@ -29,6 +29,7 @@ export const createComment = comment => {
 }
 
 export const updateComment = (comment) => {
+    debugger
     return (
         $.ajax({
             url: `/api/comments/${comment.id}`,
@@ -39,6 +40,7 @@ export const updateComment = (comment) => {
 }
 
 export const deleteComment = (id) => {
+    debugger
     return (
         $.ajax({
             url: `/api/comments/${id}`,

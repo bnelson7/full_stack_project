@@ -8,11 +8,13 @@ class CommentForm extends React.Component {
 
         this.state = {
             body: "",
-            videoId: this.props.match.params.videoId
+            videoId: this.props.match.params.videoId,
+            typing: false
         }
 
         this.handleComment = this.handleComment.bind(this)
         this.handleRedirect = this.handleRedirect.bind(this)
+        this.handleCancel = this.handleCancel.bind(this)
     }
 
     handleComment(e) {
@@ -23,6 +25,11 @@ class CommentForm extends React.Component {
         .then(() => {
             this.setState({ body: "" })
         })
+    }
+
+    handleCancel(e) {
+        this.setState({ typing: false })
+        e.stopPropagation();
     }
 
     update(e) {
@@ -38,7 +45,9 @@ class CommentForm extends React.Component {
         const { currentUser, history } = this.props
         if (!currentUser) {
             history.push("/login")
-        } 
+        } else {
+            this.setState({ typing: true })
+        }
     }
 
     render() {
@@ -56,10 +65,11 @@ class CommentForm extends React.Component {
                         </div>
                         <input type="text" placeholder="Add a public comment..." value={this.state.body} onChange={this.update("body")} onClick={this.handleRedirect} />
                     </div>
+                    {this.state.typing ?
                     <div className="comment-form-btns1">    
-                        <button className="cancel-btn">CANCEL</button>
-                        <button className="comment-btn">COMMENT</button>
-                    </div>
+                        <button className="cancel-btn" onClick={this.handleCancel}>CANCEL</button>
+                        <button className="comment-btn" onClick={this.handleComment}>COMMENT</button>
+                    </div> : null}
                 </form>
             </div>
         )
