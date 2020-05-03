@@ -1,4 +1,5 @@
 import React from 'react'
+import { MdSort } from "react-icons/md";
 
 class CommentForm extends React.Component {
     constructor(props) {
@@ -45,6 +46,9 @@ class CommentForm extends React.Component {
         console.log(this.state)
         return (
             <div className="comment-form-container" >
+                <div className="comment-form-info">
+                    {this.props.comments.length}&nbsp;Comments<span><MdSort />SORT BY</span>
+                </div>
                 <form onSubmit={this.handleComment}>
                     <div className="comment-form">
                         <div className="profile-thumbnail-comment">

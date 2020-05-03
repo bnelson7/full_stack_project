@@ -2,7 +2,9 @@
     margin: 2vh 1.5rem 3vh 2.4vw;
     // margin: 0 1.5rem 0 2.4vw;
     display: flex;
+    flex-direction: column;
     width: 69vw;
+    border: 1px solid black;
 }
 
 .comment-form {
@@ -73,5 +75,6 @@
     border-radius: 2px;
     color: #606060;
     font-weight: 500;
+    margin-right: .5vw;
 }
 

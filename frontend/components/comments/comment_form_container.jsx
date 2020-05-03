@@ -7,7 +7,7 @@ const mstp = state => {
     debugger
     return {
         currentUser: state.entities.users[state.session.id],
-        comments: state.entities.comments
+        comments: Object.values(state.entities.comments)
     }
 }
 

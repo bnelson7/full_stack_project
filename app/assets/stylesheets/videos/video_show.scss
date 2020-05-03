@@ -8,7 +8,7 @@
 .show-comment-container {
     flex: 3;
     display: grid;
-    grid-template-rows: 70vh 9vh 20vh 10vh auto;
+    grid-template-rows: 70vh 9vh 20vh minmax(15vh, auto) auto;
 }
 
 .video-container {
