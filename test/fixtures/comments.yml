@@ -2,13 +2,14 @@
 #
 # Table name: comments
 #
-#  id         :bigint           not null, primary key
-#  body       :string           not null
-#  author_id  :integer          not null
-#  video_id   :integer          not null
-#  replies    :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id                :bigint           not null, primary key
+#  body              :string           not null
+#  author_id         :integer          not null
+#  video_id          :integer          not null
+#  replies           :integer
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  parent_comment_id :integer
 #
 
 # This model initially had no columns defined. If you add columns to the

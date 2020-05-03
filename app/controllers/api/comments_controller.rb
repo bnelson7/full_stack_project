@@ -13,10 +13,15 @@ class Api::CommentsController < ApplicationController
         @comment = Comment.new(comment_params)
         @comment.author_id = current_user.id
         @comment.video_id = params[:comment][:videoId]
+        if @comment.parent_comment_id.nil?
+            @comment.parent_comment_id = @comment.id
+        end 
+        debugger
     
         if @comment.save
             render :show
         else
+            debugger
             render json: @comment.errors.full_messages, status: 422
         end
     end

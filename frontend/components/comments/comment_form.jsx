@@ -26,7 +26,9 @@ class CommentForm extends React.Component {
 
     update(e) {
         return e => {
-            this.setState({ body: e.currentTarget.value })
+            this.setState({ 
+                body: e.currentTarget.value
+            })
         }
     }
 
@@ -35,17 +37,25 @@ class CommentForm extends React.Component {
         const { currentUser, history } = this.props
         if (!currentUser) {
             history.push("/login")
-        }
+        } 
     }
 
     render() {
         debugger
         console.log(this.state)
         return (
-            <div className="comment-form-container">
+            <div className="comment-form-container" >
                 <form onSubmit={this.handleComment}>
-                    <input type="text" placeholder="Add a public comment..." value={this.state.body} onChange={this.update("body")} onClick={this.handleRedirect}/>
-                    <button>create comment</button>
+                    <div className="comment-form">
+                        <div className="profile-thumbnail-comment">
+                            <img src={this.props.currentUser.photoUrl} />
+                        </div>
+                        <input type="text" placeholder="Add a public comment..." value={this.state.body} onChange={this.update("body")} onClick={this.handleRedirect} />
+                    </div>
+                    <div className="comment-form-btns1">    
+                        <button className="cancel-btn">CANCEL</button>
+                        <button className="comment-btn">COMMENT</button>
+                    </div>
                 </form>
             </div>
         )
