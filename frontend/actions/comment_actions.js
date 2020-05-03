@@ -28,9 +28,10 @@ export const clearCommentErrors = () => ({
     type: CLEAR_COMMENT_ERRORS
 })
 
-export const requestComments = () => dispatch => {
+export const requestComments = (videoId) => dispatch => {
+    debugger
     return (
-        CommentAPIUtil.fetchComments()
+        CommentAPIUtil.fetchComments(videoId)
         .then(comments => dispatch(receiveComments(comments)))
     )
 }

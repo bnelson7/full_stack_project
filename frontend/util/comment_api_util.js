@@ -1,4 +1,5 @@
 export const fetchComments = (videoId) => {
+    debugger
     return (
         $.ajax({
             url: `/api/videos/${videoId}/comments`,

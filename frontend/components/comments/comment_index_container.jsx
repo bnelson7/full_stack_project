@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import { requestComment, requestComments, deleteComment, editComment } from "../../actions/comment_actions";
 import CommentIndex from './comment_index'
+import { withRouter } from 'react-router-dom'
 
 const mstp = (state, ownProps) => {
     debugger
@@ -12,11 +13,11 @@ const mstp = (state, ownProps) => {
 
 const mdtp = dispatch => {
     return {
-        requestComments: () => dispatch(requestComments()),
+        requestComments: videoId => dispatch(requestComments(videoId)),
         requestComment: commentId => dispatch(requestComment(commentId)),
         deleteComment: commentId => dispatch(deleteComment(commentId)),
         editComment: commentId => dispatch(editComment(commentId))
     }
 }
 
-export default connect(mstp, mdtp)(CommentIndex)
+export default withRouter(connect(mstp, mdtp)(CommentIndex))

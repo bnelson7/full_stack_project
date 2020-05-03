@@ -2,6 +2,7 @@ class Api::CommentsController < ApplicationController
 
     def index
         @comments = Comment.all
+        render :index
     end
 
     def show
@@ -12,11 +13,9 @@ class Api::CommentsController < ApplicationController
         @comment = Comment.new(comment_params)
         @comment.author_id = current_user.id
         @comment.video_id = params[:comment][:videoId]
-        debugger
     
         if @comment.save
-            debugger
-            render :index
+            render :show
         else
             render json: @comment.errors.full_messages, status: 422
         end

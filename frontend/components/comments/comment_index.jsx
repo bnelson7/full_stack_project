@@ -5,11 +5,12 @@ class CommentIndex extends React.Component {
     constructor(props) {
         debugger
         super(props)
+
     }
 
     componentDidMount() {
         debugger
-        this.props.requestComments()
+        this.props.requestComments(this.props.match.params.videoId)
     }
 
     render() {
@@ -20,7 +21,7 @@ class CommentIndex extends React.Component {
                 comment index
                 {comments.map(comment => {
                  return (
-                     <li className="grid-item">
+                     <li>
                          <CommentIndexItem key={comment.id} comment={comment} />
                      </li>
                  )   
