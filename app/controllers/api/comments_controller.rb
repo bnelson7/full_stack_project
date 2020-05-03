@@ -35,8 +35,9 @@ class Api::CommentsController < ApplicationController
 
     def destroy
         @comment = Comment.find_by(id: params[:id])
+        debugger
         @comment.destroy
-        render :index
+        render :show
     end
 
     def comment_params

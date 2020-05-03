@@ -19,10 +19,13 @@ const receiveComment = comment => {
     }
 }
 
-const removeComment = commentId => ({
-    type: REMOVE_COMMENT,
-    commentId
-})
+const removeComment = comment => {
+    debugger
+    return {
+        type: REMOVE_COMMENT,
+        comment
+    }
+}
 
 export const clearCommentErrors = () => ({
     type: CLEAR_COMMENT_ERRORS
@@ -59,10 +62,10 @@ export const editComment = comment => dispatch => {
     )
 }
 
-export const deleteComment = id => dispatch => {
+export const deleteComment = commentId => dispatch => {
     debugger
     return (
-        CommentAPIUtil.deleteComment(id)
-        .then(() => dispatch(removeComment()))
+        CommentAPIUtil.deleteComment(commentId)
+        .then(() => dispatch(removeComment(commentId)))
     )
 }

@@ -16,6 +16,7 @@ class CommentIndexItem extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleEdit = this.handleEdit.bind(this)
         this.handleCancel = this.handleCancel.bind(this)
+        this.handleDelete = this.handleDelete.bind(this)
     }
 
     handleSubmit() {
@@ -31,7 +32,7 @@ class CommentIndexItem extends React.Component {
     }
 
     handleDelete() {
-        this.props.deleteComment()
+        this.props.deleteComment(this.props.comment.id)
     }
 
     handleEdit(e) {
@@ -71,6 +72,9 @@ class CommentIndexItem extends React.Component {
                             <button className="comment-btn" onClick={this.handleSubmit}>SAVE</button>
                         </div>
                     </form> : null}
+                    <div>
+                        <button onClick={this.handleDelete}>delete</button>
+                    </div>
                 </div>
             </div>
         )
