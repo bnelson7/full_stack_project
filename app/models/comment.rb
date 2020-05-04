@@ -31,7 +31,7 @@ class Comment < ApplicationRecord
         class_name: :Comment,
         optional: true
 
-    has_many :replies,
+    has_many :child_comments,
         primary_key: :id,
         foreign_key: :parent_comment_id,
         class_name: :Comment

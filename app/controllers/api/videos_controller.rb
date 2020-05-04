@@ -1,7 +1,7 @@
 class Api::VideosController < ApplicationController
 
     def index
-        @videos = Video.all.with_attached_thumbnail.shuffle
+        @videos = Video.all.with_attached_thumbnail.order(Arel.sql('RANDOM()'))
         render :index
     end
     
@@ -17,8 +17,8 @@ class Api::VideosController < ApplicationController
             @video.views += 1
             @video.save
 
-            @videos = Video.where.not(id: params[:id]).all.with_attached_thumbnail.order('RANDOM()')
-    
+            @videos = Video.where.not(id: params[:id]).all.with_attached_thumbnail.order(Arel.sql('RANDOM()'))
+            debugger
             render :show
         end
     end

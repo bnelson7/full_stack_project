@@ -15,7 +15,7 @@ const receiveVideo = payload => {
     debugger
     return {
         type: RECEIVE_VIDEO,
-        payload 
+        payload
     }
 }
 

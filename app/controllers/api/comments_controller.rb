@@ -1,7 +1,8 @@
 class Api::CommentsController < ApplicationController
 
     def index
-        @comments = Comment.all
+        @comments = Comment.all.where(video_id: params[:video_id])
+        debugger
         render :index
     end
 
@@ -9,12 +10,18 @@ class Api::CommentsController < ApplicationController
         @comment = Comment.new(comment_params)
         @comment.author_id = current_user.id
         @comment.video_id = params[:comment][:videoId]
-        # if @comment.parent_comment_id.nil?
-        #     @comment.parent_comment_id = @comment.id
-        # end 
+        if @comment.parent_comment_id.nil?
+            @comment.parent_comment_id = params[:comment][:id]
+            parent = Comment.find_by(id: @comment.parent_comment_id)
+            debugger
+            parent.replies += 1
+            parent.save
+            debugger
+        end 
         debugger
     
         if @comment.save
+            debugger 
             render :show
         else
             debugger

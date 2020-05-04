@@ -9,26 +9,39 @@ class CommentIndexItem extends React.Component {
         this.state = {
             body: this.props.comment.body,
             id: this.props.comment.id,
+            videoId: this.props.videoId,
             edited: false,
-            editing: false
+            editing: false,
+            replying: false
         }
 
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleEdit = this.handleEdit.bind(this)
         this.handleCancel = this.handleCancel.bind(this)
         this.handleDelete = this.handleDelete.bind(this)
+        this.handleReply = this.handleReply.bind(this)
     }
 
     handleSubmit() {
-        const editedComment = Object.assign({}, this.state)
-        debugger
-        this.props.editComment(editedComment)
-        .then(() => {
-            this.setState({
-                edited: true, 
-                editing: false 
+        if (!this.state.replying) {
+            const editedComment = Object.assign({}, this.state)
+            debugger
+            this.props.editComment(editedComment)
+            .then(() => {
+                this.setState({
+                    edited: true, 
+                    editing: false 
+                })
             })
-        })
+        } else {
+            const reply = Object.assign({}, this.state)
+            debugger
+            this.props.createComment(reply).then(() => {
+                this.setState({
+                  editing: false
+                })
+            })
+        }
     }
 
     handleDelete() {
@@ -41,6 +54,14 @@ class CommentIndexItem extends React.Component {
 
     handleCancel(e) {
         this.setState({ editing: false})
+    }
+
+    handleReply() {
+        this.setState({ 
+            body: "",
+            editing: true,
+            replying: true
+        })
     }
 
     update(e) {
@@ -58,6 +79,9 @@ class CommentIndexItem extends React.Component {
                 <div>
                     <div onClick={this.handleEdit}>
                         {this.props.comment.body} {this.state.edited ? <span>(edited)</span> : null}
+                        <div>
+                            <button onClick={this.handleReply}>REPLY</button>
+                        </div>
                     </div>
                     {this.state.editing ?
                     <form onSubmit={this.handleSubmit}>
@@ -69,7 +93,7 @@ class CommentIndexItem extends React.Component {
                         </div>
                         <div className="comment-form-btns1">
                             <button className="cancel-btn" onClick={this.handleCancel}>CANCEL</button>
-                            <button className="comment-btn" onClick={this.handleSubmit}>SAVE</button>
+                            <button className="comment-btn" onClick={this.handleSubmit}>{(this.state.editing && this.state.replying) ? "REPLY" : "SAVE"}</button>
                         </div>
                     </form> : null}
                     <div>

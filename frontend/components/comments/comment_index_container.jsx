@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { requestComment, requestComments, deleteComment, editComment } from "../../actions/comment_actions";
+import { requestComment, requestComments, deleteComment, editComment, createComment } from "../../actions/comment_actions";
 import CommentIndex from './comment_index'
 import { withRouter } from 'react-router-dom'
 
@@ -15,7 +15,8 @@ const mdtp = dispatch => {
         requestComments: videoId => dispatch(requestComments(videoId)),
         requestComment: commentId => dispatch(requestComment(commentId)),
         deleteComment: commentId => dispatch(deleteComment(commentId)),
-        editComment: commentId => dispatch(editComment(commentId))
+        editComment: commentId => dispatch(editComment(commentId)),
+        createComment: comment => dispatch(createComment(comment))
     }
 }
 

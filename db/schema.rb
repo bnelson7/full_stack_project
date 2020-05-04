@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_03_035033) do
+ActiveRecord::Schema.define(version: 2020_05_04_043648) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 2020_05_03_035033) do
     t.string "body", null: false
     t.integer "author_id", null: false
     t.integer "video_id", null: false
-    t.integer "replies"
+    t.integer "replies", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "parent_comment_id"

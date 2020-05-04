@@ -5,5 +5,7 @@
         json.creator do
             json.partial! 'api/users/user', user: video.creator
         end
+
+        json.comments video.comments, partial: 'api/comments/comment', as: :comment
     end
 end

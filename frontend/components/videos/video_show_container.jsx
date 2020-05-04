@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import { requestVideo, requestVideos } from '../../actions/video_actions'
+import { requestComments } from '../../actions/comment_actions'
 import VideoShow from './video_show'
 
 const mSTP = (state, ownProps) => {
@@ -14,7 +15,8 @@ const mSTP = (state, ownProps) => {
 
 const mDTP = dispatch => ({
     requestVideo: id => dispatch(requestVideo(id)),
-    requestVideos: () => dispatch(requestVideos())
+    requestVideos: () => dispatch(requestVideos()),
+    requestComments: videoId => dispatch(requestComments(videoId))
 })
 
 export default connect(mSTP, mDTP)(VideoShow)
