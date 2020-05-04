@@ -19,7 +19,6 @@ class CommentIndex extends React.Component {
         debugger
         return (
             <div className="comment-index-container">
-                comment index
                 {comments.map(comment => {
                  return (
                      <li>

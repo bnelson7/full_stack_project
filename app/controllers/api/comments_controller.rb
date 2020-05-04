@@ -31,6 +31,7 @@ class Api::CommentsController < ApplicationController
 
     def update
         @comment = Comment.find_by(id: params[:id])
+        @comment.edited = true if !@comment.edited
         debugger
         if @comment.update(comment_params)
             render :show

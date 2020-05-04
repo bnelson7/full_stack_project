@@ -1,5 +1,6 @@
 import React from 'react'
 import { MdSort } from "react-icons/md";
+import { FaUserCircle } from 'react-icons/fa'
 
 class CommentForm extends React.Component {
     constructor(props) {
@@ -61,7 +62,7 @@ class CommentForm extends React.Component {
                 <form onSubmit={this.handleComment}>
                     <div className="comment-form">
                         <div className="profile-thumbnail-comment">
-                            <img src={this.props.currentUser.photoUrl} />
+                            {this.props.currentUser ? <img src={this.props.currentUser.photoUrl} /> : <span><FaUserCircle /></span>}
                         </div>
                         <input type="text" placeholder="Add a public comment..." value={this.state.body} onChange={this.update("body")} onClick={this.handleRedirect} />
                     </div>

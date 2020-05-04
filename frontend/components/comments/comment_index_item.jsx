@@ -10,7 +10,7 @@ class CommentIndexItem extends React.Component {
             body: this.props.comment.body,
             id: this.props.comment.id,
             videoId: this.props.videoId,
-            edited: false,
+            edited: this.props.comment.edited,
             editing: false,
             replying: false
         }
@@ -29,7 +29,7 @@ class CommentIndexItem extends React.Component {
             this.props.editComment(editedComment)
             .then(() => {
                 this.setState({
-                    edited: true, 
+                    edited: this.props.comment.edited, 
                     editing: false 
                 })
             })
@@ -78,7 +78,13 @@ class CommentIndexItem extends React.Component {
             <div>
                 <div>
                     <div onClick={this.handleEdit}>
-                        {this.props.comment.body} {this.state.edited ? <span>(edited)</span> : null}
+                        <div className="profile-thumbnail-comment">
+                            <img src={comment.author.photoUrl} />
+                        </div>
+                        {comment.author.username} {!this.state.edited ? <span>{comment.created_at}</span> : <span>{comment.updated_at}</span>} {this.state.edited ? <span>(edited)</span> : null}
+                        <div>
+                            {comment.body}
+                        </div>
                         <div>
                             <button onClick={this.handleReply}>REPLY</button>
                         </div>
