@@ -98,7 +98,7 @@ class UserProfile extends React.Component {
                 return (
                     <div>
                         <h1>Uploads</h1>
-                        {videos.filter(video => video.creator_id === currentUser.id).map(video => {
+                        {videos.filter(video => video.creatorId === currentUser.id).map(video => {
                             debugger
                             return (
                                 <li className="grid-item"><VideoIndexItem key={video.id} video={video} />
@@ -132,7 +132,7 @@ class UserProfile extends React.Component {
                 return (
                     <div>
                         Stats
-                        Joined {currentUser.created_at}
+                        Joined {currentUser.createdAt}
                     </div>
                 )
             case "search":

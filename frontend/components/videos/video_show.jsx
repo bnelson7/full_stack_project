@@ -49,7 +49,7 @@ class VideoShow extends React.Component {
                         <div className="video-title">
                             <div className="video-title-info">
                                 <h1>{video.title}</h1>
-                                <span>{video.views}K views&nbsp;<span><GoPrimitiveDot /></span>&nbsp;{video.created_at}</span>
+                                <span>{video.views}K views&nbsp;<span><GoPrimitiveDot /></span>&nbsp;{video.createdAt}</span>
                             </div>
                             <div className="video-title-icons">
                                 <div>

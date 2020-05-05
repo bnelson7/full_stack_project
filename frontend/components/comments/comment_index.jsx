@@ -6,6 +6,7 @@ class CommentIndex extends React.Component {
         debugger
         super(props)
 
+        this.mapNestedComments = this.mapNestedComments.bind(this)
     }
 
     componentDidMount() {
@@ -13,22 +14,36 @@ class CommentIndex extends React.Component {
         this.props.requestComments(this.props.match.params.videoId)
     }
 
-    render() {
-        const { comments, editComment, deleteComment, createComment } = this.props
+    mapNestedComments(comments) {
+        const { editComment, deleteComment, createComment } = this.props
         const { videoId } = this.props.match.params
+        let commentsAndReplies = comments.map(comment => {
+            return (
+                <div className="comment-index-grid-item">
+                    <CommentIndexItem
+                        key={comment.id}
+                        comment={comment}
+                        editComment={editComment}
+                        deleteComment={deleteComment}
+                        createComment={createComment}
+                        videoId={videoId} />
+                    {comment.childComments && this.mapNestedComments(comment.childComments)}
+                </div>
+            )
+        })
+        return commentsAndReplies
+    }
+
+    render() {
+        const { comments } = this.props
         debugger
         return (
             <div className="comment-index-grid-container">
-                {comments.map(comment => {
-                 return (
-                     <li className="comment-index-grid-item">
-                         <CommentIndexItem key={comment.id} comment={comment} editComment={editComment} deleteComment={deleteComment} createComment={createComment} videoId={videoId}/>
-                     </li>
-                 )   
-                })}
+                {this.mapNestedComments(comments)}
             </div>
         )
     }
 }
 
 export default CommentIndex;
+

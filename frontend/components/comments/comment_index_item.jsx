@@ -25,10 +25,6 @@ class CommentIndexItem extends React.Component {
         this.handleReply = this.handleReply.bind(this)
     }
 
-    // componentWillReceiveProps(nextProps) {
-
-    // }
-
     handleSubmit(e) {
         e.preventDefault();
         if (!this.state.replying) {
@@ -95,7 +91,6 @@ class CommentIndexItem extends React.Component {
     }
 
     renderEdit() {
-        const { comment } = this.props
         return (        
             this.state.editing && !this.state.replying ?
             <form onSubmit={this.handleSubmit}>
@@ -132,19 +127,19 @@ class CommentIndexItem extends React.Component {
     }
 
     render() {
-        debugger
         const { comment } = this.props
+        debugger
         console.log(this.state)
         return (
             <div className="comment-container">
                 <div className="profile-thumbnail-comment-item">
-                    <img src={comment.author.photoUrl} />
+                    {/* <img src={comment.author.photoUrl} /> */}
                 </div>
                 <div className="comment-info-container">
                     <div className="comment-info" >
                         <div>
                             <div className="comment-author-date">
-                                {comment.author.username} {!this.state.edited ? <span>{comment.created_at}</span> : <span>{comment.updated_at}</span>} {this.state.edited ? <span>(edited)</span> : null}
+                                {/* {comment.author.username} {!this.state.edited ? <span>{comment.createdAt}</span> : <span>{comment.updatedAt}</span>} {this.state.edited ? <span>(edited)</span> : null} */}
                             </div>
                             <div className="comment-body" onClick={this.handleEdit}>
                                 {!this.state.editing ? comment.body : null}
@@ -159,9 +154,9 @@ class CommentIndexItem extends React.Component {
                         </div>
                         {this.renderReply()}
                     </div>
-                    {/* <div>
+                    <div>
                         <button onClick={this.handleDelete}>delete</button>
-                    </div> */}
+                    </div>
                 </div>
             </div>
         )
