@@ -18,7 +18,6 @@ class Api::VideosController < ApplicationController
             @video.save
 
             @videos = Video.where.not(id: params[:id]).all.with_attached_thumbnail.order(Arel.sql('RANDOM()'))
-            debugger
             render :show
         end
     end

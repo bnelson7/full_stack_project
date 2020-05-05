@@ -10,7 +10,7 @@ class CommentForm extends React.Component {
         this.state = {
             body: "",
             videoId: this.props.match.params.videoId,
-            typing: false
+            clicked: false
         }
 
         this.handleComment = this.handleComment.bind(this)
@@ -29,14 +29,15 @@ class CommentForm extends React.Component {
     }
 
     handleCancel(e) {
-        this.setState({ typing: false })
-        e.stopPropagation();
+        e.preventDefault();
+        this.setState({ clicked: false })
     }
 
     update(e) {
+        debugger
         return e => {
             this.setState({ 
-                body: e.currentTarget.value
+                body: e.currentTarget.value,
             })
         }
     }
@@ -47,7 +48,7 @@ class CommentForm extends React.Component {
         if (!currentUser) {
             history.push("/login")
         } else {
-            this.setState({ typing: true })
+            this.setState({ clicked: true })
         }
     }
 
@@ -55,21 +56,27 @@ class CommentForm extends React.Component {
         debugger
         console.log(this.state)
         return (
-            <div className="comment-form-container" >
+            <div className="comment-form-container">
                 <div className="comment-form-info">
-                    {this.props.comments.length}&nbsp;Comments<span><MdSort />SORT BY</span>
+                    <div className="comment-length">
+                        {this.props.comments.length}&nbsp;Comments
+                    </div>
+                    <div className="comment-sort">
+                        <span><MdSort /></span>SORT BY
+                    </div>
                 </div>
                 <form onSubmit={this.handleComment}>
                     <div className="comment-form">
                         <div className="profile-thumbnail-comment">
                             {this.props.currentUser ? <img src={this.props.currentUser.photoUrl} /> : <span><FaUserCircle /></span>}
                         </div>
-                        <input type="text" placeholder="Add a public comment..." value={this.state.body} onChange={this.update("body")} onClick={this.handleRedirect} />
+                        {!this.state.clicked ? <input className="comment-form-input" type="text" placeholder="Add a public comment..." value={this.state.body} onChange={this.update("body")} onClick={this.handleRedirect} />
+                        : <input className="comment-form-input-clicked" type="text" placeholder="Add a public comment..." value={this.state.body} onChange={this.update("body")} onClick={this.handleRedirect} />}
                     </div>
-                    {this.state.typing ?
+                    {this.state.clicked ?
                     <div className="comment-form-btns1">    
                         <button className="cancel-btn" onClick={this.handleCancel}>CANCEL</button>
-                        <button className="comment-btn" onClick={this.handleComment}>COMMENT</button>
+                        {this.state.body.length > 0 ? <button className="comment-btn-typing" onClick={this.handleComment}>COMMENT</button> : <button className="comment-btn" onClick={this.handleComment}>COMMENT</button>}
                     </div> : null}
                 </form>
             </div>

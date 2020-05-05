@@ -18,10 +18,10 @@ class CommentIndex extends React.Component {
         const { videoId } = this.props.match.params
         debugger
         return (
-            <div className="comment-index-container">
+            <div className="comment-index-grid-container">
                 {comments.map(comment => {
                  return (
-                     <li>
+                     <li className="comment-index-grid-item">
                          <CommentIndexItem key={comment.id} comment={comment} editComment={editComment} deleteComment={deleteComment} createComment={createComment} videoId={videoId}/>
                      </li>
                  )   

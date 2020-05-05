@@ -2,7 +2,6 @@ class Api::CommentsController < ApplicationController
 
     def index
         @comments = Comment.all.where(video_id: params[:video_id])
-        debugger
         render :index
     end
 
