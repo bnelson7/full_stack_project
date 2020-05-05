@@ -6,6 +6,7 @@ class CommentIndexItem extends React.Component {
     constructor(props) {
         debugger
         super(props)
+        console.log(props)
 
         this.state = {
             body: this.props.comment.body,
@@ -23,6 +24,10 @@ class CommentIndexItem extends React.Component {
         this.handleDelete = this.handleDelete.bind(this)
         this.handleReply = this.handleReply.bind(this)
     }
+
+    // componentWillReceiveProps(nextProps) {
+
+    // }
 
     handleSubmit(e) {
         e.preventDefault();
