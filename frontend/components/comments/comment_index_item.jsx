@@ -33,15 +33,17 @@ class CommentIndexItem extends React.Component {
             .then(() => {
                 this.setState({
                     edited: this.props.comment.edited, 
-                    editing: false 
+                    editing: false
                 })
             })
         } else {
             const reply = Object.assign({}, this.state)
             debugger
-            this.props.createComment(reply).then(() => {
+            this.props.createComment(reply)
+            .then(() => {
                 this.setState({
-                  editing: false
+                  editing: false,
+                  replying: false
                 })
             })
         }

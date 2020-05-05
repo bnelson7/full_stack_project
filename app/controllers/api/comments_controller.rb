@@ -9,7 +9,7 @@ class Api::CommentsController < ApplicationController
         @comment = Comment.new(comment_params)
         @comment.author_id = current_user.id
         @comment.video_id = params[:comment][:videoId]
-        if @comment.parent_comment_id.nil?
+        if @comment.parent_comment_id.nil? && params[:comment][:id]
             @comment.parent_comment_id = params[:comment][:id]
             parent = Comment.find_by(id: @comment.parent_comment_id)
             debugger
