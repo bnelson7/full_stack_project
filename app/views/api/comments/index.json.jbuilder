@@ -1,9 +1,8 @@
 @comments.each do |comment|
     json.set! comment.id do 
         json.partial! "/api/comments/comment", comment: comment
-    debugger
+  
         if !comment.child_comments.empty? 
-        debugger
             json.child_comments comment.child_comments, partial: 'api/comments/comment', as: :comment
 
             json.extract! comment, :parent_comment_id

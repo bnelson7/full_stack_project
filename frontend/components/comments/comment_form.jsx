@@ -67,7 +67,6 @@ class CommentForm extends React.Component {
                     })
                 }
             }
-            console.log(sum.length)
             return sum.length
         });
         return commentsSum;

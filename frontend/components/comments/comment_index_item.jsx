@@ -1,7 +1,7 @@
 import React from 'react'
 import CommentFormContainer from './comment_form_container'
 import { IoMdThumbsUp, IoMdThumbsDown } from 'react-icons/io'
-import { FaCaretDown, FaCaretUp } from 'react-icons/fa'
+
 
 class CommentIndexItem extends React.Component {
     constructor(props) {
@@ -16,8 +16,7 @@ class CommentIndexItem extends React.Component {
             edited: this.props.comment.edited,
             editing: false,
             replying: false,
-            clicked: false,
-            expanded: false
+            clicked: false
         }
 
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -165,10 +164,6 @@ class CommentIndexItem extends React.Component {
                             </div>
                             <button onClick={this.handleReply}>REPLY</button>
                         </div>
-                        {comment.childComments ? 
-                        <div className="replies-dropdown">
-                            {this.state.expanded ? <FaCaretUp/> : <FaCaretDown/>} {comment.childComments.length === 1 ? <span>View reply</span> : <span>View {comment.childComments.length} replies</span>}
-                        </div> : null}
                         {this.renderReply()}
                     </div>
                     {/* <div>
