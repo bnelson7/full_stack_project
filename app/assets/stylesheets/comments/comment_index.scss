@@ -3,9 +3,18 @@
     grid-auto-rows: minmax(10vh, auto);
     row-gap: 1rem;
     margin: 0 1.5rem 0 2.4vw;
+    border: 1px solid black;
 }
 
-.comment-index-grid-item {
+.comment-replies-index-grid-item {
+    border: 1px solid black;
+}
+
+.replies-index-grid-container {
+    display: grid;
+    grid-auto-rows: minmax(7vh, auto);
+    row-gap: 1rem;
+    border: 1px solid black;
 }
 
 .comment-container {

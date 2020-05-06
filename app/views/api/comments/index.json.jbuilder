@@ -1,15 +1,11 @@
 @comments.each do |comment|
-    if comment.parent_comment_id.nil?
-        json.set! comment.id do 
-            json.partial! "/api/comments/comment", comment: comment
+    json.set! comment.id do 
+        json.partial! "/api/comments/comment", comment: comment
 
-            if comment.child_comments.length > 0
-                json.child_comments comment.child_comments, partial: 'api/comments/comment', as: :comment
-            end
+        if !comment.child_comments.empty? 
+            json.child_comments comment.child_comments, partial: 'api/comments/comment', as: :comment
 
-            json.author do 
-                json.partial! "/api/users/user", user: comment.author
-            end
+            json.extract! comment, :parent_comment_id
         end
     end
 end

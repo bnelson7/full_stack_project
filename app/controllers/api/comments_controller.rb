@@ -1,7 +1,7 @@
 class Api::CommentsController < ApplicationController
 
     def index
-        @comments = Comment.all.where(video_id: params[:video_id])
+        @comments = Comment.order('id ASC').all.where(video_id: 14, parent_comment_id: nil)
         render :index
     end
 
