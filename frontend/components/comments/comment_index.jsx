@@ -9,7 +9,7 @@ class CommentIndex extends React.Component {
 
         this.state = {
             expanded: false,
-            parent: null
+            parentId: null
         }
 
         this.mapNestedComments = this.mapNestedComments.bind(this)
@@ -26,7 +26,7 @@ class CommentIndex extends React.Component {
         e.preventDefault();
         this.setState({ 
             expanded: !this.state.expanded, 
-            parent: e.currentTarget.value
+            parentId: e.currentTarget.value
         })
     }
 
@@ -37,7 +37,7 @@ class CommentIndex extends React.Component {
             debugger
             return (
                 <div className="comment-index-grid-container">
-                    <div className="comment-replies-index-grid-item">
+                    <div className="comment-replies-index-grid-item" id={comment.id}>
                         <CommentIndexItem
                             key={comment.id}
                             comment={comment}
@@ -46,13 +46,17 @@ class CommentIndex extends React.Component {
                             createComment={createComment}
                             videoId={videoId} />
                     {comment.childComments ?
-                        <div className="replies-dropdown" onClick={this.handleReplies} value={comment.id}>
-                            {this.state.expanded ? <FaCaretUp /> : <FaCaretDown />} 
-                            {comment.childComments.length === 1 ? <span>{this.state.expanded ? "Hide" : "View"} reply</span> : <span>{this.state.expanded ? "Hide" : "View"} {comment.childComments.length} replies</span>}
+                        <div className="replies-dropdown">
+                            <button onClick={this.handleReplies} value={comment.id}>
+                                <span className="replies-dropdown-caret">{this.state.expanded ? <FaCaretUp /> : <FaCaretDown />}</span> 
+                                {comment.childComments.length === 1 ? <span>{this.state.expanded ? "Hide" : "View"} reply</span> : <span>{this.state.expanded ? "Hide" : "View"} {comment.childComments.length} replies</span>}
+                            </button>
                         </div> : null}
                     </div>
-                    {comment.childComments && this.state.expanded && comment.id === comment.childComments[0].parentCommentId ?
+                    {console.log(this.state.parentId)}
+                    {comment.childComments && this.state.expanded || (this.state.expanded && this.state.parentId === comment.parentCommentId) ?
                     <div className="replies-index-grid-container">
+                    {console.log(comment.childComments[0].parentCommentId)}
                         {this.mapNestedComments(comment.childComments)}
                     </div> : null}
                 </div>

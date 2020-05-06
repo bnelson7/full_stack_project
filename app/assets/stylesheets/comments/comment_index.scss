@@ -8,6 +8,7 @@
 
 .comment-replies-index-grid-item {
     border: 1px solid black;
+    display: flex;
 }
 
 .replies-index-grid-container {
@@ -68,6 +69,10 @@
     justify-content: space-evenly;
 }
 
+.comment-info {
+
+}
+
 .comment-author-date {
     font-size: 1.35vh;
     font-weight: bold;
@@ -113,6 +118,17 @@
 }
 
 .replies-dropdown {
-    background: orange;
+    display: flex;
+    margin-left: 3.8vw;
+    height: 3.8vh;
+    width: 6vw;
+    font-size: 1.4vh;
+    font-weight: bold;
+    color: #065fd4;
     cursor: pointer;
+}
+
+.replies-dropdown-caret {
+    margin-right: 0.4vw;
+    font-size: 1.2vh;
 }

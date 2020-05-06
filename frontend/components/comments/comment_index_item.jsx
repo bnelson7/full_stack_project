@@ -149,7 +149,7 @@ class CommentIndexItem extends React.Component {
                 </div>}
                 <div className="comment-info-container">
                     <div className="comment-info" >
-                        <div>
+                        <div className="comment-info-info">
                             <div className="comment-author-date">
                                 {comment.author.username} {!this.state.edited ? <span>{comment.createdAt}</span> : <span>{comment.updatedAt}</span>} {this.state.edited ? <span>(edited)</span> : null}
                             </div>
