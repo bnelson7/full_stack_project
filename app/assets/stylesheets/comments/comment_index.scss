@@ -38,6 +38,22 @@
     cursor: pointer;
 }
 
+.profile-thumbnail-reply-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1vh;
+    width: 4vw;
+    margin-top: 1vh;
+}
+
+.profile-thumbnail-reply-item img {
+    width: 5vh;
+    height: 5vh;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
 .comment-info-container {
     display: flex;
     flex-direction: column;
@@ -94,4 +110,8 @@
     color: #606060;
     font-weight: bold;
     font-size: 1.3vh;
+}
+
+.replies-dropdown {
+    cursor: pointer;
 }

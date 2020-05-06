@@ -16,6 +16,7 @@ class CommentForm extends React.Component {
         this.handleComment = this.handleComment.bind(this)
         this.handleRedirect = this.handleRedirect.bind(this)
         this.handleCancel = this.handleCancel.bind(this)
+        this.totalComments = this.totalComments.bind(this)
     }
 
     handleComment(e) {
@@ -52,14 +53,35 @@ class CommentForm extends React.Component {
         }
     }
 
+    totalComments(comments) {
+        debugger
+        let commentsSum = comments.forEach(comment => {
+            let sum = []
+           if (!comment.child_comments) {
+                sum.push(comment) 
+            } else {
+                while (comment.child_comments) {
+                    comment.child_comments.forEach(child => {
+                        sum.push(child)
+                        this.totalComments(child.child_comments)
+                    })
+                }
+            }
+            console.log(sum.length)
+            return sum.length
+        });
+        return commentsSum;
+    }
+
     render() {
         debugger
+        const { comments } = this.props
         console.log(this.state)
         return (
             <div className="comment-form-container">
                 <div className="comment-form-info">
                     <div className="comment-length">
-                        {this.props.comments.length}&nbsp;Comments
+                        {this.totalComments(comments)}&nbsp;Comments
                     </div>
                     <div className="comment-sort">
                         <span><MdSort /></span>SORT BY

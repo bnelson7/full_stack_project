@@ -1,6 +1,7 @@
 import React from 'react'
 import CommentFormContainer from './comment_form_container'
 import { IoMdThumbsUp, IoMdThumbsDown } from 'react-icons/io'
+import { FaCaretDown, FaCaretUp } from 'react-icons/fa'
 
 class CommentIndexItem extends React.Component {
     constructor(props) {
@@ -15,7 +16,8 @@ class CommentIndexItem extends React.Component {
             edited: this.props.comment.edited,
             editing: false,
             replying: false,
-            clicked: false
+            clicked: false,
+            expanded: false
         }
 
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -90,6 +92,17 @@ class CommentIndexItem extends React.Component {
         }
     }
 
+    renderProfileThumbnail() {
+        const { comment } = this.props
+        {comment.parentCommentId ? 
+        <div className="profile-thumbnail-comment-item">
+            <img src={comment.author.photoUrl} />
+        </div> :
+        <div className="profile-thumbnail-reply-item">
+            <img src={comment.author.photoUrl} />
+        </div>}
+    }
+
     renderEdit() {
         return (        
             this.state.editing && !this.state.replying ?
@@ -132,9 +145,9 @@ class CommentIndexItem extends React.Component {
         console.log(this.state)
         return (
             <div className="comment-container">
-                <div className="profile-thumbnail-comment-item">
+                {<div className="profile-thumbnail-comment-item">
                     <img src={comment.author.photoUrl} />
-                </div>
+                </div>}
                 <div className="comment-info-container">
                     <div className="comment-info" >
                         <div>
@@ -152,11 +165,15 @@ class CommentIndexItem extends React.Component {
                             </div>
                             <button onClick={this.handleReply}>REPLY</button>
                         </div>
+                        {comment.childComments ? 
+                        <div className="replies-dropdown">
+                            {this.state.expanded ? <FaCaretUp/> : <FaCaretDown/>} {comment.childComments.length === 1 ? <span>View reply</span> : <span>View {comment.childComments.length} replies</span>}
+                        </div> : null}
                         {this.renderReply()}
                     </div>
-                    <div>
+                    {/* <div>
                         <button onClick={this.handleDelete}>delete</button>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         )
