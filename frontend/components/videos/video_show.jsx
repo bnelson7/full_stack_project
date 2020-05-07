@@ -55,11 +55,11 @@ class VideoShow extends React.Component {
                                 <div>
                                     <button>
                                         <span id="video-title-icon"><IoMdThumbsUp /></span>
-                                        <span id="video-title-text">14K</span>
+                                        <span id="video-title-text"></span>
                                     </button>
                                     <button>
                                         <span id="video-title-icon"><IoMdThumbsDown /></span>
-                                        <span id="video-title-text">1K</span>
+                                        <span id="video-title-text"></span>
                                     </button>
                                     <button>
                                         <span id="video-title-icon"><IoMdShareAlt /></span>

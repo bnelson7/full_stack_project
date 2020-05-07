@@ -28,4 +28,16 @@ class Video < ApplicationRecord
         primary_key: :id,
         foreign_key: :video_id,
         class_name: :Comment
+
+    has_many :likes,
+        as: :likeable
+
+    def number_liked(id)
+        Like.all.where(liked: true, likeable_type: "Video", likeable_id: id).length
+    end
+
+    def number_disliked(id)
+        Like.all.where(disliked: true, likeable_type: "Video", likeable_id: id).length
+    end
+
 end

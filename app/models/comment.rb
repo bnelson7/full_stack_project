@@ -6,10 +6,10 @@
 #  body              :string           not null
 #  author_id         :integer          not null
 #  video_id          :integer          not null
-#  replies           :integer
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  parent_comment_id :integer
+#  edited            :boolean          default("false")
 #
 class Comment < ApplicationRecord
 
@@ -36,5 +36,16 @@ class Comment < ApplicationRecord
         foreign_key: :parent_comment_id,
         class_name: :Comment,
         dependent: :destroy
+
+    has_many :likes,
+        as: :likeable
+
+    def number_liked(id)
+        Like.all.where(liked: true, likeable_type: "Comment", likeable_id: id).length
+    end
+
+    def number_disliked(id)
+        Like.all.where(disliked: true, likeable_type: "Comment", likeable_id: id).length
+    end
 
 end

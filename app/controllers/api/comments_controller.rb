@@ -11,10 +11,6 @@ class Api::CommentsController < ApplicationController
         @comment.video_id = params[:comment][:videoId]
         if @comment.parent_comment_id.nil? && params[:comment][:id]
             @comment.parent_comment_id = params[:comment][:id]
-            parent = Comment.find_by(id: @comment.parent_comment_id)
-            debugger
-            parent.replies += 1
-            parent.save
             debugger
         end 
         debugger

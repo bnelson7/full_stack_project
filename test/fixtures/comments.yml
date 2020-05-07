@@ -6,10 +6,10 @@
 #  body              :string           not null
 #  author_id         :integer          not null
 #  video_id          :integer          not null
-#  replies           :integer
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  parent_comment_id :integer
+#  edited            :boolean          default("false")
 #
 
 # This model initially had no columns defined. If you add columns to the

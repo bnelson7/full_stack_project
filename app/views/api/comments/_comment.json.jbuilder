@@ -1,4 +1,11 @@
-json.extract! comment, :id, :author_id, :video_id, :body, :replies, :created_at, :updated_at, :edited
+json.extract! comment, :id, :author_id, :video_id, :body, :created_at, :updated_at, :edited
+
+if !comment.likes.empty?
+    json.likes do
+        json.like comment.number_liked(comment.id)
+        json.dislike comment.number_disliked(comment.id)
+    end
+end
 
 if !comment.parent_comment_id.nil?
     json.extract! comment, :parent_comment_id

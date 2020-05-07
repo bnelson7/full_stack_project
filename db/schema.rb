@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_04_205258) do
+ActiveRecord::Schema.define(version: 2020_05_07_071212) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,11 +40,22 @@ ActiveRecord::Schema.define(version: 2020_05_04_205258) do
     t.string "body", null: false
     t.integer "author_id", null: false
     t.integer "video_id", null: false
-    t.integer "replies", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "parent_comment_id"
     t.boolean "edited", default: false
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.integer "liker_id", null: false
+    t.string "likeable_type", null: false
+    t.bigint "likeable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "liked", default: false, null: false
+    t.boolean "disliked", default: false, null: false
+    t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable_type_and_likeable_id"
+    t.index ["liker_id"], name: "index_likes_on_liker_id"
   end
 
   create_table "users", force: :cascade do |t|
