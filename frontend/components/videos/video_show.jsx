@@ -16,7 +16,10 @@ class VideoShow extends React.Component {
             collapsed: true,
             liked: false,
             disliked: false,
-            alreadyLiked: false
+            alreadyLiked: false,
+            likeId: null,
+            likeableId: this.props.match.params.videoId,
+            likeableType: 'Video'
         }
         console.log(this.state)
         this.handleLike = this.handleLike.bind(this)
@@ -35,24 +38,21 @@ class VideoShow extends React.Component {
         }
 
         if ((prevState.liked !== this.state.liked) || prevState.disliked !== this.state.disliked) {
-            const likedVideo = new FormData
+            // const likedVideo = new FormData
             if (this.state.alreadyLiked) {
-                likedVideo.append('video[liked]', this.state.liked)
-                likedVideo.append('video[disliked]', this.state.disliked)
-                likedVideo.append('video[alreadyLiked]', this.state.alreadyLiked)
+                // likedVideo.append('video[liked]', this.state.liked)
+                // likedVideo.append('video[disliked]', this.state.disliked)
+                // likedVideo.append('video[alreadyLiked]', this.state.alreadyLiked)
+                const likedVideo = Object.assign({}, this.state)
                 console.log(likedVideo)
                 debugger
-                this.props.updateVideo(likedVideo, this.props.match.params.videoId)
-                    .then(() => {
-                        debugger
-                        this.setState({
-                            alreadyLiked: false
-                        })
-                    })
+                this.props.deleteVideoLike(likedVideo, this.props.match.params.videoId)
             } else {
-                likedVideo.append('video[liked]', this.state.liked)
-                likedVideo.append('video[disliked]', this.state.disliked)
-                this.props.updateVideo(likedVideo, this.props.match.params.videoId)
+                // likedVideo.append('video[liked]', this.state.liked)
+                // likedVideo.append('video[disliked]', this.state.disliked)
+                const likedVideo = Object.assign({}, this.state)
+                debugger
+                this.props.createVideoLike(likedVideo)
                     .then(() => {
                         debugger
                         this.setState({

@@ -40,11 +40,11 @@ class Api::VideosController < ApplicationController
         debugger
         if params[:video][:alreadyLiked]
             debugger
-            like = Like.where(liker_id: current_user.id, likeable_type: "Video", likeable_id: params[:id])
-            like.destroy_all
+            @like = Like.where(liker_id: current_user.id, likeable_type: "Video", likeable_id: params[:id])
+            @like.destroy_all
         else
-            like = Like.create(liker_id: current_user.id, likeable_type: "Video", likeable_id: params[:id], liked: params[:video][:liked], disliked: params[:video][:disliked])
-            current_user.add_video_like(like.id)
+            @like = Like.create(liker_id: current_user.id, likeable_type: "Video", likeable_id: params[:id], liked: params[:video][:liked], disliked: params[:video][:disliked])
+            current_user.add_video_like(@like.id)
         end
 
         debugger

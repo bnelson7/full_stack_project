@@ -1,5 +1,5 @@
 json.videos do
-
+debugger
     json.set! @video.id do 
         json.partial! 'api/videos/video', video: @video
         json.clipUrl url_for(@video.clip)
