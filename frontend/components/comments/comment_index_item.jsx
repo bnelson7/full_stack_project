@@ -160,7 +160,7 @@ class CommentIndexItem extends React.Component {
                         {this.renderEdit()}
                         <div className="comment-icons">
                             <div className="comment-icons-icons">
-                                <span><IoMdThumbsUp /></span><span><IoMdThumbsDown /></span>
+                                <span><IoMdThumbsUp />{comment.likes.like ? comment.likes.like : null}</span><span><IoMdThumbsDown />{comment.likes.dislike ? comment.likes.dislike : null}</span>
                             </div>
                             <button onClick={this.handleReply}>REPLY</button>
                         </div>

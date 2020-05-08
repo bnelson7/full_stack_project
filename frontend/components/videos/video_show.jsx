@@ -13,9 +13,13 @@ class VideoShow extends React.Component {
         super(props)
 
         this.state = {
-            collapsed: true
+            collapsed: true,
+            liked: false,
+            disliked: false,
+            alreadyLiked: false
         }
-
+        console.log(this.state)
+        this.handleLike = this.handleLike.bind(this)
     }
 
     componentDidMount() {
@@ -23,13 +27,52 @@ class VideoShow extends React.Component {
         this.props.requestVideo(this.props.match.params.videoId)
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps, prevState) {
         debugger
         if (prevProps.match.params.videoId !== this.props.match.params.videoId) {
             this.props.requestVideo(this.props.match.params.videoId)
             this.props.requestComments(this.props.match.params.videoId)
         }
 
+        if ((prevState.liked !== this.state.liked) || prevState.disliked !== this.state.disliked) {
+            const likedVideo = new FormData
+            if (this.state.alreadyLiked) {
+                likedVideo.append('video[liked]', this.state.liked)
+                likedVideo.append('video[disliked]', this.state.disliked)
+                likedVideo.append('video[alreadyLiked]', this.state.alreadyLiked)
+                console.log(likedVideo)
+                debugger
+                this.props.updateVideo(likedVideo, this.props.match.params.videoId)
+                    .then(() => {
+                        debugger
+                        this.setState({
+                            alreadyLiked: false
+                        })
+                    })
+            } else {
+                likedVideo.append('video[liked]', this.state.liked)
+                likedVideo.append('video[disliked]', this.state.disliked)
+                this.props.updateVideo(likedVideo, this.props.match.params.videoId)
+                    .then(() => {
+                        debugger
+                        this.setState({
+                            alreadyLiked: true
+                        })
+                    })
+            }
+        }
+    }
+
+    handleLike(e) {
+        debugger
+        e.preventDefault();
+        const { currentUser, history } = this.props
+        if (currentUser) {
+            debugger
+            e.currentTarget.value === "liked" ? this.setState({ liked: !this.state.liked }) : this.setState({ disliked: !this.state.disliked })
+        } else {
+            history.push("/login")
+        }
     }
 
     render() {
@@ -53,13 +96,13 @@ class VideoShow extends React.Component {
                             </div>
                             <div className="video-title-icons">
                                 <div>
-                                    <button>
+                                    <button onClick={this.handleLike} value="liked">
                                         <span id="video-title-icon"><IoMdThumbsUp /></span>
-                                        <span id="video-title-text"></span>
+                                        <span id="video-title-text">{video.likes.like ? video.likes.like : null}</span>
                                     </button>
-                                    <button>
+                                    <button onClick={this.handleLike} value="disliked">
                                         <span id="video-title-icon"><IoMdThumbsDown /></span>
-                                        <span id="video-title-text"></span>
+                                        <span id="video-title-text">{video.likes.dislike ? video.likes.dislike : null}</span>
                                     </button>
                                     <button>
                                         <span id="video-title-icon"><IoMdShareAlt /></span>

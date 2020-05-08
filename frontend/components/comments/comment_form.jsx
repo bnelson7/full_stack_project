@@ -25,7 +25,10 @@ class CommentForm extends React.Component {
         debugger
         this.props.createComment(comment)
         .then(() => {
-            this.setState({ body: "" })
+            this.setState({ 
+                body: "",
+                clicked: false
+            })
         })
     }
 

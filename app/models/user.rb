@@ -52,6 +52,16 @@ class User < ApplicationRecord
         self.session_token
     end
 
+    def add_video_like(id)
+        likes = []
+        likes.push(id)
+    end
+
+    def add_comment_like(id)
+        likes = []
+        likes.push(id)
+    end
+
     private
 
     def ensure_session_token

@@ -10,13 +10,11 @@ json.videos do
 
         json.comments @video.comments, partial: 'api/comments/comment', as: :comment
 
-        if !@video.likes.empty?
-            json.likes do
-                json.like @video.number_liked(@video.id)
-                json.dislike @video.number_disliked(@video.id)
-            end
+        json.likes do
+            json.like @video.number_liked(@video.id)
+            json.dislike @video.number_disliked(@video.id)
         end
-
+        
     end
 
     @videos.each do |video|
