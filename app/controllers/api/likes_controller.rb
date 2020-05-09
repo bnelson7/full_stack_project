@@ -5,9 +5,11 @@ class Api::LikesController < ApplicationController
         
         debugger
         if @like.likeable_type == 'Video'
+            @video = Video.find_by(id: @like.likeable_id)
             debugger
             render :show
         elsif @like.likeable_type == 'Comment'
+            @comment = Comment.find_by(id: @like.likeable_id)
             render :show
         else
             render json: @like.errors.full_messages, status: 422

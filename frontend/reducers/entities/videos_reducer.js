@@ -9,8 +9,8 @@ const videosReducer = (prevState = {}, action) => {
             return action.videos;
         case RECEIVE_VIDEO:
             debugger
-            // nextState[action.video.id] = action.video
-            return action.payload.videos;
+            nextState[action.video.id] = action.video
+            return nextState;
         case REMOVE_VIDEO:
             debugger
             delete nextState[action.videoId]
