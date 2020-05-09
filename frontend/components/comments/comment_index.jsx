@@ -4,7 +4,7 @@ import { FaCaretDown, FaCaretUp } from 'react-icons/fa'
 
 class CommentIndex extends React.Component {
     constructor(props) {
-        debugger
+        
         super(props)
 
         this.state = {
@@ -18,30 +18,30 @@ class CommentIndex extends React.Component {
     }
 
     componentDidMount() {
-        debugger
+        
         this.props.requestComments(this.props.match.params.videoId)
     }
 
     handleReplies(e) {
-        debugger
+        
         e.preventDefault();
         if (!this.state.expanded) {
             let parents = {["id"]: parseInt(e.currentTarget.value, 10)}
-            debugger
+            
             console.log(parents)
             this.setState({ 
                 expanded: !this.state.expanded, 
                 parentIds: Object.values(parents),
                 expandedId: e.currentTarget.value
             })
-            debugger
+            
         } else {
             let parents = {}
             for (let i = 0; i < this.state.parentIds.length; i++) {
                 parents.i = this.state.parentIds[i];
             }
             parents.id = parseInt(e.currentTarget.value, 10)
-            debugger
+            
             console.log(this.state.parentIds)
             console.log(e.currentTarget.value)
             this.setState({
@@ -56,9 +56,9 @@ class CommentIndex extends React.Component {
         const { editComment, deleteComment, createComment, deleteCommentLike, createCommentLike } = this.props
         const { videoId } = this.props.match.params
         let commentsAndReplies = comments.map(comment => {
-            debugger
+            
             if (!this.state.expanded && this.state.expandedId === comment.id) {
-                debugger
+                
                 return (
                     <div className="comment-index-grid-container">
                         <div className="comment-replies-index-grid-item" id={comment.id}>
@@ -82,7 +82,7 @@ class CommentIndex extends React.Component {
                     </div>
                 )
             } else {
-                debugger
+                
                 return (
                     <div className="comment-index-grid-container">
                         <div className="comment-replies-index-grid-item" id={comment.id}>
@@ -119,7 +119,7 @@ class CommentIndex extends React.Component {
     render() {
         const { comments } = this.props
         console.log(this.state)
-        debugger
+        
         return (
             <div>
                 {this.mapNestedComments(comments)}

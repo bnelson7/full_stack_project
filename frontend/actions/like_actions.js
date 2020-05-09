@@ -38,7 +38,7 @@ export const deleteVideoLike = likeId => dispatch => {
 }
 
 export const createCommentLike = like => dispatch => {
-    debugger
+    
     return (
         LikeAPIUtil.createCommentLike(like)
         .then(like => dispatch(receiveLike(like)))
@@ -46,7 +46,7 @@ export const createCommentLike = like => dispatch => {
 }
 
 export const deleteCommentLike = likeId => dispatch => {
-    debugger
+    
     return (
         LikeAPIUtil.deleteCommentLike(likeId)
         .then(likeId => dispatch(removeLike(likeId)))

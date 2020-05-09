@@ -13,7 +13,7 @@ class Api::UsersController < ApplicationController
 
     def update
         @user = current_user
-        debugger
+        
         if @user.update(user_params)
             render :show
         else

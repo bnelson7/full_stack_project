@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
 const VideoIndexItem = props => {
-    // debugger
+    // 
     // const indexGrid = (
     //     <div className="grid-index-container">
     //         <div className="video-thumbnail">
@@ -44,7 +44,7 @@ const VideoIndexItem = props => {
     //         </div>
     //     </div>
     // )
-    debugger
+    
     console.log(props.path)
     return (
         props.path === `/` ? (

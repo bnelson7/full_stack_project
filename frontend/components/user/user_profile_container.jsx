@@ -3,7 +3,7 @@ import UserProfile from './user_profile'
 import { createVideo, requestVideos, deleteVideo, updateVideo } from '../../actions/video_actions'
 
 const mSTP = state => {
-    debugger
+    
     return ({
         currentUser: state.entities.users[state.session.id],
         videos: Object.values(state.entities.videos)
@@ -11,7 +11,7 @@ const mSTP = state => {
 }
 
 const mDTP = dispatch => {
-    debugger 
+     
     return {
         createVideo: video => dispatch(createVideo(video)),
         requestVideos: () => dispatch(requestVideos()),

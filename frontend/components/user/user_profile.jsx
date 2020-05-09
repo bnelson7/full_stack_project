@@ -6,7 +6,7 @@ import VideoIndexItem from '../videos/video_index_item'
 
 class UserProfile extends React.Component {
     constructor(props) {
-        debugger
+        
         super(props)
 
         this.state = {
@@ -39,7 +39,7 @@ class UserProfile extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         const formData = new FormData();
-        debugger
+        
         if (!this.state.edit) {
             formData.append('video[title]', this.state.title);
             formData.append('video[description]', this.state.description);
@@ -49,13 +49,13 @@ class UserProfile extends React.Component {
         } else {
             formData.append('video[title]', this.state.title);
             formData.append('video[description]', this.state.description);
-            debugger
+            
             this.props.updateVideo(formData, this.state.videoId)
         }
     }
 
     handleEdit(video) {
-        debugger
+        
         this.setState({ 
             title: video.title,
             description: video.description,
@@ -68,7 +68,7 @@ class UserProfile extends React.Component {
     }
 
     handleDelete(videoId) {
-        debugger
+        
         e.preventDefault();
         this.props.deleteVideo(videoId)
     }
@@ -91,15 +91,15 @@ class UserProfile extends React.Component {
     renderSelected() {
         const { selected } = this.state
         const { videos, currentUser } = this.props
-        debugger
+        
         switch (selected) {
             case "videos":
-                debugger
+                
                 return (
                     <div>
                         <h1>Uploads</h1>
                         {videos.filter(video => video.creatorId === currentUser.id).map(video => {
-                            debugger
+                            
                             return (
                                 <li className="grid-item"><VideoIndexItem key={video.id} video={video} />
                                     <button onClick={() => this.handleDelete(video.id)}>delete video</button>
@@ -181,7 +181,7 @@ class UserProfile extends React.Component {
     render() {
         const { currentUser, videos } = this.props
         console.log(this.state)
-        debugger
+        
         return (
             <div className="background">
                 <div className="profile-background">

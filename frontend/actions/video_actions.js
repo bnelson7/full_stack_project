@@ -29,7 +29,7 @@ export const clearVideoErrors = () => ({
 })
 
 export const requestVideos = () => dispatch => {
-    debugger
+    
     return (
         VideoAPIUtil.fetchVideos()
         .then(videos => dispatch(receiveVideos(videos)))
@@ -37,7 +37,7 @@ export const requestVideos = () => dispatch => {
 }
 
 export const requestVideo = id => dispatch => {
-    debugger
+    
     return (
         VideoAPIUtil.fetchVideo(id)
         .then(video => dispatch(receiveVideo(video)))
@@ -45,7 +45,7 @@ export const requestVideo = id => dispatch => {
 }
 
 export const createVideo = video => dispatch => {
-    debugger
+    
     return (
         VideoAPIUtil.createVideo(video)
         .then(video => dispatch(receiveVideo(video)))
@@ -53,7 +53,7 @@ export const createVideo = video => dispatch => {
 }
 
 export const updateVideo = (formData, videoId) => dispatch => {
-    debugger
+    
     return (
         VideoAPIUtil.updateVideo(formData, videoId)
         .then(video => dispatch(receiveVideo(video)))
@@ -61,7 +61,7 @@ export const updateVideo = (formData, videoId) => dispatch => {
 }
 
 export const deleteVideo = videoId => dispatch => {
-    debugger
+    
     return (
         VideoAPIUtil.deleteVideo(videoId)
         .then(() => dispatch(removeVideo(videoId)))
@@ -69,7 +69,7 @@ export const deleteVideo = videoId => dispatch => {
 }
 
 export const requestQueriedVideos = queryString => dispatch => {
-    debugger
+    
     return (
         VideoAPIUtil.fetchQueriedVideos(queryString)
         .then(videos => dispatch(receiveVideos(videos)))

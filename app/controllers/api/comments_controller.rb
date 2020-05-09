@@ -11,15 +11,15 @@ class Api::CommentsController < ApplicationController
         @comment.video_id = params[:comment][:videoId]
         if @comment.parent_comment_id.nil? && params[:comment][:id]
             @comment.parent_comment_id = params[:comment][:id]
-            debugger
+            
         end 
-        debugger
+        
     
         if @comment.save
-            debugger 
+             
             render :show
         else
-            debugger
+            
             render json: @comment.errors.full_messages, status: 422
         end
     end
@@ -27,18 +27,18 @@ class Api::CommentsController < ApplicationController
     def update
         @comment = Comment.find_by(id: params[:id])
         @comment.edited = true if !@comment.edited
-        debugger
+        
         if @comment.update(comment_params)
             render :show
         else
-            debugger
+            
             render json: @comment.errors.full_messages, status: 422
         end
     end
 
     def destroy
         @comment = Comment.find_by(id: params[:id])
-        debugger
+        
         @comment.destroy
         render :show
     end

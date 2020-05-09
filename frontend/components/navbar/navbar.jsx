@@ -17,7 +17,7 @@ class NavBar extends React.Component {
 
   handleLogout(e) {
       e.preventDefault()
-      debugger
+      
       this.props.logout()
       .then(() => {
         this.props.history.push('/')
@@ -70,12 +70,12 @@ class NavBar extends React.Component {
   handleSearch(e) {
     e.preventDefault();
     this.props.history.push(`/results?search_query=${this.state.queryString}`)
-    debugger
+    
   }
   
   getQueryString(e) {
     localStorage.setItem('recentSearch', this.state.queryString)
-    debugger
+    
     return e => {
       this.setState({ queryString: e.currentTarget.value })
     }
@@ -83,7 +83,7 @@ class NavBar extends React.Component {
 
   render() {
     const { currentUser } = this.props
-    debugger
+    
     console.log(this.state)
     return (
       <div className="header">

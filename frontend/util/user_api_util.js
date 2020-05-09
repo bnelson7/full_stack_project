@@ -1,5 +1,5 @@
 export const updateUser = (formData, id) => {
-    debugger
+    
     return (
         $.ajax({
             url: `/api/users/${id}`,

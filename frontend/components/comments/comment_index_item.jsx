@@ -5,7 +5,7 @@ import { IoMdThumbsUp, IoMdThumbsDown } from 'react-icons/io'
 
 class CommentIndexItem extends React.Component {
     constructor(props) {
-        debugger
+        
         super(props)
         console.log(props)
 
@@ -30,7 +30,7 @@ class CommentIndexItem extends React.Component {
         e.preventDefault();
         if (!this.state.replying) {
             const editedComment = Object.assign({}, this.state)
-            debugger
+            
             this.props.editComment(editedComment)
             .then(() => {
                 this.setState({
@@ -40,7 +40,7 @@ class CommentIndexItem extends React.Component {
             })
         } else {
             const reply = Object.assign({}, this.state)
-            debugger
+            
             this.props.createComment(reply)
             .then(() => {
                 this.setState({
@@ -56,7 +56,7 @@ class CommentIndexItem extends React.Component {
     }
 
     handleEdit(e) {
-        debugger
+        
         e.preventDefault();
         this.setState({ 
             body: this.props.comment.body,
@@ -67,7 +67,7 @@ class CommentIndexItem extends React.Component {
     }
 
     handleCancel(e) {
-        debugger
+        
         e.preventDefault();
         this.setState({ 
             editing: false,
@@ -140,7 +140,7 @@ class CommentIndexItem extends React.Component {
 
     render() {
         const { comment } = this.props
-        debugger
+        
         console.log(this.state)
         return (
             <div className="comment-container">

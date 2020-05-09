@@ -20,7 +20,7 @@ class VideoIndex extends React.Component {
                 </div>
                 <div className="grid-container">
                     {videos.map(video => {
-                        debugger
+                        
                         return (
                             <li className="grid-item">
                                 <VideoIndexItem key={video.id} video={video} path={path} deleteVideo={deleteVideo}/>

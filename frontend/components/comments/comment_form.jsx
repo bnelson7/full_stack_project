@@ -4,7 +4,7 @@ import { FaUserCircle } from 'react-icons/fa'
 
 class CommentForm extends React.Component {
     constructor(props) {
-        debugger
+        
         super(props)
 
         this.state = {
@@ -22,7 +22,7 @@ class CommentForm extends React.Component {
     handleComment(e) {
         e.preventDefault();
         const comment = Object.assign({}, this.state)
-        debugger
+        
         this.props.createComment(comment)
         .then(() => {
             this.setState({ 
@@ -38,7 +38,7 @@ class CommentForm extends React.Component {
     }
 
     update(e) {
-        debugger
+        
         return e => {
             this.setState({ 
                 body: e.currentTarget.value,
@@ -57,7 +57,7 @@ class CommentForm extends React.Component {
     }
 
     totalComments(comments) {
-        debugger
+        
         let commentsSum = comments.forEach(comment => {
             let sum = []
            if (!comment.child_comments) {
@@ -76,7 +76,7 @@ class CommentForm extends React.Component {
     }
 
     render() {
-        debugger
+        
         const { comments } = this.props
         console.log(this.state)
         return (

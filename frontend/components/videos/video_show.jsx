@@ -16,7 +16,6 @@ class VideoShow extends React.Component {
             collapsed: true,
             liked: false,
             disliked: false,
-            alreadyLiked: false,
             likeId: null,
             likeableId: this.props.match.params.videoId,
             likeableType: 'Video'
@@ -38,27 +37,30 @@ class VideoShow extends React.Component {
         }
 
         if ((prevState.liked !== this.state.liked) || prevState.disliked !== this.state.disliked) {
-            // const likedVideo = new FormData
-            if (this.state.alreadyLiked) {
-                // likedVideo.append('video[liked]', this.state.liked)
-                // likedVideo.append('video[disliked]', this.state.disliked)
-                // likedVideo.append('video[alreadyLiked]', this.state.alreadyLiked)
-                const likedVideo = Object.assign({}, this.state)
-                console.log(likedVideo)
+            if (this.state.likeId) {
+                const deleteLike = Object.assign({}, this.state.likeId)
+                console.log(deleteLike)
+                console.log(this.state.likeId)
                 debugger
-                this.props.deleteVideoLike(likedVideo, this.props.match.params.videoId)
+                this.props.deleteVideoLike(this.state.likeId)
+                .then(() => {
+                    debugger
+                    this.setState({ likeId: null })
+                    const formData = new FormData()
+                    formData.append('video[likes]', null)
+                    this.props.updateVideo(formData, this.props.match.params.videoId)
+                })
             } else {
-                // likedVideo.append('video[liked]', this.state.liked)
-                // likedVideo.append('video[disliked]', this.state.disliked)
                 const likedVideo = Object.assign({}, this.state)
                 debugger
                 this.props.createVideoLike(likedVideo)
-                    .then(() => {
-                        debugger
-                        this.setState({
-                            alreadyLiked: true
-                        })
-                    })
+                .then(like => {
+                    debugger
+                    this.setState({ likeId: like.like.id })
+                    const formData = new FormData()
+                    formData.append('video[likes]', like.like)
+                    this.props.updateVideo(formData, like.like.likeableId)
+                })
             }
         }
     }
@@ -68,7 +70,6 @@ class VideoShow extends React.Component {
         e.preventDefault();
         const { currentUser, history } = this.props
         if (currentUser) {
-            debugger
             e.currentTarget.value === "liked" ? this.setState({ liked: !this.state.liked }) : this.setState({ disliked: !this.state.disliked })
         } else {
             history.push("/login")
@@ -77,7 +78,7 @@ class VideoShow extends React.Component {
 
     render() {
         const { video, videos, videoId, path } = this.props
-        debugger
+        
         if (!video || !video.clipUrl) return null
         debugger
         return (

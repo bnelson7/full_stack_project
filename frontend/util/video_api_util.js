@@ -1,5 +1,5 @@
 export const fetchVideos = () => {
-debugger    
+    
     return (
         $.ajax({
             url: "/api/videos",
@@ -9,7 +9,7 @@ debugger
 }
 
 export const fetchVideo = id => {
-    debugger
+    
     return (
         $.ajax({
             url: `/api/videos/${id}`,
@@ -19,7 +19,7 @@ export const fetchVideo = id => {
 }
 
 export const createVideo = video => {
-    debugger
+    
     return (
         $.ajax({
             url: '/api/videos',
@@ -45,7 +45,7 @@ export const updateVideo = (formData, videoId) => {
 }
 
 export const deleteVideo = videoId => {
-    debugger
+    
     return (
         $.ajax({
             url: `/api/videos/${videoId}`,
@@ -55,7 +55,7 @@ export const deleteVideo = videoId => {
 }
 
 export const fetchQueriedVideos = queryString => {
-    debugger
+    
     return (
         $.ajax({
             url: `/api/videos/results${queryString}`,

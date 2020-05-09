@@ -16,7 +16,7 @@ class Api::VideosController < ApplicationController
             @video = Video.with_attached_clip.find(params[:id])
             @video.views += 1
             @video.save
-
+     
             @videos = Video.where.not(id: params[:id]).all.with_attached_thumbnail.order(Arel.sql('RANDOM()'))
             render :show
         end
@@ -26,7 +26,7 @@ class Api::VideosController < ApplicationController
         @video = Video.new(video_params)
         @video.views = 0
         @video.creator_id = current_user.id
-        debugger
+        
         if @video.save
             render :show
         else
@@ -35,11 +35,11 @@ class Api::VideosController < ApplicationController
     end
 
     def update
+        debugger
         @video = Video.with_attached_clip.find(params[:id])
         @videos = Video.where.not(id: params[:id]).all.with_attached_thumbnail.order(Arel.sql('RANDOM()'))
-        debugger
         # if params[:video][:alreadyLiked]
-        #     debugger
+        #     
         #     @like = Like.where(liker_id: current_user.id, likeable_type: "Video", likeable_id: params[:id])
         #     @like.destroy_all
         # else
@@ -47,17 +47,21 @@ class Api::VideosController < ApplicationController
         #     current_user.add_video_like(@like.id)
         # end
 
-        debugger
-        if @video.update(video_params)
+        
+        if params[:video][:likes]
+            debugger
+            render :show
+        elsif @video.update(video_params)
             render :show
         else
             render json: @video.errors.full_messages, status: 422
         end
+
     end
 
     def destroy
         @video = Video.with_attached_clip.find(params[:id])
-        debugger
+        
         @video.destroy
         render :show
     end
@@ -65,8 +69,8 @@ class Api::VideosController < ApplicationController
     private
 
     def video_params
-        debugger
-        params.require(:video).permit(:title, :description, :thumbnail, :clip)
+        
+        params.require(:video).permit(:title, :description, :thumbnail, :clip, :likes)
     end
 
 end

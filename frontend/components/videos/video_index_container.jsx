@@ -4,7 +4,7 @@ import VideoIndex from './video_index'
 import { withRouter } from 'react-router-dom'
 
 const mSTP = (state, ownProps) => {
-debugger
+
     return {
         videos: Object.values(state.entities.videos),
         video: state.entities.videos[ownProps.match.params.videoId],
@@ -13,7 +13,7 @@ debugger
 }
 
 const mDTP = dispatch => {
-    debugger
+    
     return ({
         requestVideos: () => dispatch(requestVideos()),
         deleteVideo: videoId => dispatch(deleteVideo(videoId))

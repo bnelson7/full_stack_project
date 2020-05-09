@@ -2,8 +2,8 @@ class Api::LikesController < ApplicationController
 
     def create
         @like = Like.create(liker_id: current_user.id, likeable_type: params[:like][:likeableType], likeable_id: params[:like][:likeableId], liked: params[:like][:liked], disliked: params[:like][:disliked])
-        
         debugger
+        
         if @like.likeable_type == 'Video'
             @video = Video.find_by(id: @like.likeable_id)
             debugger
@@ -17,8 +17,10 @@ class Api::LikesController < ApplicationController
     end
 
     def destroy
-        @like.find_by(id: params[:id])
+        debugger
+        @like = Like.find_by(id: params[:id])
         @like.destroy
+        render :show
     end
 
     def like_params

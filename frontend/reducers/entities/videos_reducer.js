@@ -12,7 +12,7 @@ const videosReducer = (prevState = {}, action) => {
             // nextState[action.video.id] = action.video
             return action.payload.videos;
         case REMOVE_VIDEO:
-            debugger
+            
             delete nextState[action.videoId]
             return nextState;
         default:

@@ -1,5 +1,5 @@
 export const fetchComments = (videoId) => {
-    debugger
+    
     return (
         $.ajax({
             url: `/api/videos/${videoId}/comments`,
@@ -18,7 +18,7 @@ export const fetchComment = (id) => {
 }
 
 export const createComment = comment => {
-    debugger
+    
     return (
         $.ajax({
             url: `/api/videos/${comment.videoId}/comments`,
@@ -29,7 +29,7 @@ export const createComment = comment => {
 }
 
 export const updateComment = (comment) => {
-    debugger
+    
     return (
         $.ajax({
             url: `/api/comments/${comment.id}`,
@@ -40,7 +40,7 @@ export const updateComment = (comment) => {
 }
 
 export const deleteComment = (id) => {
-    debugger
+    
     return (
         $.ajax({
             url: `/api/comments/${id}`,

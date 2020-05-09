@@ -12,7 +12,7 @@ const receiveComments = comments => ({
 })
 
 const receiveComment = comment => {
-    debugger
+    
     return {
         type: RECEIVE_COMMENT,
         comment
@@ -20,7 +20,7 @@ const receiveComment = comment => {
 }
 
 const removeComment = comment => {
-    debugger
+    
     return {
         type: REMOVE_COMMENT,
         comment
@@ -32,7 +32,7 @@ export const clearCommentErrors = () => ({
 })
 
 export const requestComments = (videoId) => dispatch => {
-    debugger
+    
     return (
         CommentAPIUtil.fetchComments(videoId)
         .then(comments => dispatch(receiveComments(comments)))
@@ -47,7 +47,7 @@ export const requestComment = id => dispatch => {
 }
 
 export const createComment = comment => dispatch => {
-    debugger
+    
     return (
         CommentAPIUtil.createComment(comment)
         .then(comment => dispatch(receiveComment(comment)))
@@ -55,7 +55,7 @@ export const createComment = comment => dispatch => {
 }
 
 export const editComment = comment => dispatch => {
-    debugger
+    
     return (
         CommentAPIUtil.updateComment(comment)
         .then(comment => dispatch(receiveComment(comment)))
@@ -63,7 +63,7 @@ export const editComment = comment => dispatch => {
 }
 
 export const deleteComment = commentId => dispatch => {
-    debugger
+    
     return (
         CommentAPIUtil.deleteComment(commentId)
         .then(() => dispatch(removeComment(commentId)))

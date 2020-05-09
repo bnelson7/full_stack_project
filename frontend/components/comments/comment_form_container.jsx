@@ -4,7 +4,7 @@ import CommentForm from './comment_form'
 import { withRouter } from 'react-router-dom'
 
 const mstp = state => {
-    debugger
+    
     return {
         currentUser: state.entities.users[state.session.id],
         comments: Object.values(state.entities.comments)
@@ -12,7 +12,7 @@ const mstp = state => {
 }
 
 const mdtp = dispatch => {
-    debugger
+    
     return {
         createComment: comment => dispatch(createComment(comment))
     }

@@ -11,7 +11,8 @@ const mSTP = (state, ownProps) => {
         video: state.entities.videos[ownProps.match.params.videoId],
         videos: Object.values(state.entities.videos),
         path: ownProps.location.pathname,
-        currentUser: state.entities.users[state.session.id]
+        currentUser: state.entities.users[state.session.id],
+        likes: Object.values(state.entities.likes)
     }
 }
 
@@ -19,6 +20,7 @@ const mDTP = dispatch => ({
     requestVideo: id => dispatch(requestVideo(id)),
     requestVideos: () => dispatch(requestVideos()),
     requestComments: videoId => dispatch(requestComments(videoId)),
+    updateVideo: (like, videoId) => dispatch(updateVideo(like, videoId)),
     createVideoLike: like => dispatch(createVideoLike(like)),
     deleteVideoLike: id => dispatch(deleteVideoLike(id))
 })
