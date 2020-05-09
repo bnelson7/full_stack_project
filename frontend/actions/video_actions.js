@@ -11,11 +11,11 @@ const receiveVideos = videos => ({
     videos 
 })
 
-const receiveVideo = video => {
+const receiveVideo = payload => {
     debugger
     return {
         type: RECEIVE_VIDEO,
-        video
+        payload
     }
 }
 
