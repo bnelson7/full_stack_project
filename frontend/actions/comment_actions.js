@@ -32,7 +32,7 @@ export const clearCommentErrors = () => ({
 })
 
 export const requestComments = (videoId) => dispatch => {
-    
+    debugger
     return (
         CommentAPIUtil.fetchComments(videoId)
         .then(comments => dispatch(receiveComments(comments)))

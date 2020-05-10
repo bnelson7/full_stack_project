@@ -35,7 +35,6 @@ class VideoShow extends React.Component {
         debugger
         if (prevProps.match.params.videoId !== this.props.match.params.videoId) {
             this.props.requestVideo(this.props.match.params.videoId)
-            this.props.requestComments(this.props.match.params.videoId)
         }
 
         if ((prevState.liked !== this.state.liked) || prevState.disliked !== this.state.disliked) {
