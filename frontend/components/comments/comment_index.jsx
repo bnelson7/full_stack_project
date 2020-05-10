@@ -4,11 +4,10 @@ import { FaCaretDown, FaCaretUp } from 'react-icons/fa'
 
 class CommentIndex extends React.Component {
     constructor(props) {
-        
+        debugger
         super(props)
 
         this.state = {
-            expanded: false,
             expandedId: null,
             parentIds: []
         }
@@ -18,34 +17,44 @@ class CommentIndex extends React.Component {
     }
 
     componentDidMount() {
-        
+        debugger
         this.props.requestComments(this.props.match.params.videoId)
     }
 
     handleReplies(e) {
-        
         e.preventDefault();
-        if (!this.state.expanded) {
+ 
+        if (!this.state.expandedId && this.state.parentIds.length === 0) {
             let parents = {["id"]: parseInt(e.currentTarget.value, 10)}
-            
-            console.log(parents)
-            this.setState({ 
-                expanded: !this.state.expanded, 
+    
+            this.setState({  
                 parentIds: Object.values(parents),
-                expandedId: e.currentTarget.value
+                expandedId: parseInt(e.currentTarget.value, 10)
             })
             
+        } else if (this.state.parentIds.includes(parseInt(e.currentTarget.value, 10))) {
+            let removeIdx = this.state.parentIds.indexOf(parseInt(e.currentTarget.value, 10))
+            let parentsLeft = this.state.parentIds.slice(0, removeIdx)
+         
+            let parents = {}
+            for (let i = 0; i < parentsLeft.length; i++) {
+                parents.i = parentsLeft[i];
+            }
+            let newParents = Object.values(parents)
+            let last = newParents[newParents.length - 1]
+            
+            this.setState({ 
+                parentIds: newParents,
+                expandedId: last
+            })
         } else {
             let parents = {}
             for (let i = 0; i < this.state.parentIds.length; i++) {
                 parents.i = this.state.parentIds[i];
             }
             parents.id = parseInt(e.currentTarget.value, 10)
-            
-            console.log(this.state.parentIds)
-            console.log(e.currentTarget.value)
+          
             this.setState({
-                expanded: !this.state.expanded,
                 parentIds: Object.values(parents),
                 expandedId: e.currentTarget.value
             })
@@ -56,9 +65,9 @@ class CommentIndex extends React.Component {
         const { editComment, deleteComment, createComment, deleteCommentLike, createCommentLike } = this.props
         const { videoId } = this.props.match.params
         let commentsAndReplies = comments.map(comment => {
-            
-            if (!this.state.expanded && this.state.expandedId === comment.id) {
-                
+            debugger
+            if (!this.state.parentIds.length === 0) {
+                debugger
                 return (
                     <div className="comment-index-grid-container">
                         <div className="comment-replies-index-grid-item" id={comment.id}>
@@ -74,15 +83,15 @@ class CommentIndex extends React.Component {
                             {comment.childComments ?
                                 <div className="replies-dropdown">
                                     <button onClick={this.handleReplies} value={comment.id}>
-                                        <span className="replies-dropdown-caret">{this.state.expanded ? <FaCaretUp /> : <FaCaretDown />}</span>
-                                        {comment.childComments.length === 1 ? <span>{this.state.expanded ? "Hide" : "View"} reply</span> : <span>{this.state.expanded ? "Hide" : "View"} {comment.childComments.length} replies</span>}
+                                        <span className="replies-dropdown-caret"><FaCaretDown /></span>
+                                        {comment.childComments.length === 1 ? <span>View reply</span> : <span>View {comment.childComments.length} replies</span>}
                                     </button>
                                 </div> : null}
                         </div>
                     </div>
                 )
             } else {
-                
+                debugger
                 return (
                     <div className="comment-index-grid-container">
                         <div className="comment-replies-index-grid-item" id={comment.id}>
@@ -98,13 +107,13 @@ class CommentIndex extends React.Component {
                         {comment.childComments ?
                             <div className="replies-dropdown">
                                 <button onClick={this.handleReplies} value={comment.id}>
-                                    <span className="replies-dropdown-caret">{this.state.expanded && comment.id === this.state.expandedId ? <FaCaretDown /> : <FaCaretUp />}</span> 
-                                    {comment.childComments.length === 1 ? <span>{this.state.expanded && comment.id === this.state.expandedId ? "Hide" : "View"} reply</span> : <span>{this.state.expanded ? "Hide" : "View"} {comment.childComments.length} replies</span>}
+                                    {console.log(this.state)}
+                                    {console.log(comment.id)}
+                                    <span className="replies-dropdown-caret">{this.state.parentIds.includes(comment.id) ? <FaCaretUp /> : <FaCaretDown />}</span> 
+                                    {comment.childComments.length === 1 ? <span>{this.state.parentIds.includes(comment.id) ? "Hide" : "View"} reply</span> : <span>{this.state.parentIds.includes(comment.id) ? "Hide" : "View"} {comment.childComments.length} replies</span>}
                                 </button>
                             </div> : null}
                         </div>
-                        {console.log(this.state.parentIds)}
-                        
                         {comment.childComments && this.state.parentIds.includes(comment.childComments[0].parentCommentId) ?
                         <div className="replies-index-grid-container">
                             {this.mapNestedComments(comment.childComments)}
@@ -118,7 +127,6 @@ class CommentIndex extends React.Component {
 
     render() {
         const { comments } = this.props
-        console.log(this.state)
         
         return (
             <div>

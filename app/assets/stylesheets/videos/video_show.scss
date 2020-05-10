@@ -8,7 +8,7 @@
 .show-comment-container {
     flex: 3;
     display: grid;
-    grid-template-rows: 70vh 9vh 20vh minmax(15vh, auto) auto;
+    grid-template-rows: 70vh 9vh minmax(20vh, auto) minmax(15vh, auto) auto;
 }
 
 .video-container {
@@ -59,7 +59,7 @@ video:focus {
 }
 
 .video-title-icons {
-    flex: 1;
+    flex: .5;
     display: flex;
     align-items: flex-end;
 }
@@ -67,7 +67,7 @@ video:focus {
 .video-title-icons div {
     width: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .video-title-icons div button {
@@ -83,18 +83,6 @@ video:focus {
     justify-content: center;
     width: 4vw;
     height: 4.5vh;
-}
-
-#video-title-icon {
-    color: 	#909090;
-    font-size: 2.2vh;
-    filter: contrast(10%);
-}
-
-#video-title-text {
-    color: 	#505050;
-    font-size: 1.3vh;
-    font-weight: bold;
 }
 
 .video-description-container {
@@ -153,7 +141,7 @@ video:focus {
     height: 5vh;
 }
 
-.video-description span {
+.video-description button {
     font-size: 1.3vh;
     font-weight: bold;
     color: #606060;
@@ -258,3 +246,71 @@ video:focus {
     border-top: 1px solid #DCDCDC;
 } 
 
+#video-title-icon {
+    color: 	#909090;
+    font-size: 2.2vh;
+    filter: contrast(10%);
+}
+
+#video-title-text {
+    color: 	#505050;
+    font-size: 1.3vh;
+    font-weight: bold;
+}
+
+#video-title-icon-liked {
+    color: #065FD4;
+    font-size: 2.2vh;
+}
+
+#video-title-text-liked {
+    color: #065FD4;
+    font-size: 1.3vh;
+    font-weight: bold;
+}
+
+.liked-btns-border {
+    display: inline-block;
+    position: relative;
+}
+
+.liked-btns-border:after {
+    position: absolute;
+    content: '';
+    border-bottom: 2px solid #909090;
+    width: 40%;
+    bottom: 0;
+    left: 5%;
+}
+
+.liked-btns-border-liked {
+    display: inline-block;
+    position: relative;
+}
+
+.liked-btns-border-liked:after {
+    position: absolute;
+    content: '';
+    border-bottom: 2px solid #065FD4;
+    width: 40%;
+    bottom: 0;
+    left: 5%;
+}
+
+.info-category-container {
+ 
+}
+
+.info-category {
+    display: flex;
+    justify-content: space-between;
+    padding: 1vh 0 1vh 0;
+    width: 10vw;
+    font-size: 1.4vh;
+    color: #606060;
+}
+
+.info-category span {
+    color: #065FD4;
+    font-weight: bold;
+}

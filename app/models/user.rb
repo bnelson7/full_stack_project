@@ -22,7 +22,7 @@ class User < ApplicationRecord
 
     has_one_attached :photo
 
-    has_many :videos,
+    has_many :uploads,
         primary_key: :id,
         foreign_key: :creator_id,
         class_name: :Video
@@ -31,6 +31,11 @@ class User < ApplicationRecord
         primary_key: :id,
         foreign_key: :author_id,
         class_name: :Comment
+    
+    has_many :likes,
+        primary_key: :id,
+        foreign_key: :liker_id,
+        class_name: :Like
 
     def self.find_by_credentials(email, password)
         user = User.find_by(email: email)

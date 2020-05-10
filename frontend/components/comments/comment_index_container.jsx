@@ -5,7 +5,7 @@ import CommentIndex from './comment_index'
 import { withRouter } from 'react-router-dom'
 
 const mstp = (state, ownProps) => {
-    
+    debugger
     return {
         comments: Object.values(state.entities.comments)
     }

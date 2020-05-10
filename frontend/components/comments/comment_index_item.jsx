@@ -5,10 +5,8 @@ import { IoMdThumbsUp, IoMdThumbsDown } from 'react-icons/io'
 
 class CommentIndexItem extends React.Component {
     constructor(props) {
-        
         super(props)
-        console.log(props)
-
+   
         this.state = {
             body: this.props.comment.body,
             id: this.props.comment.id,
@@ -93,13 +91,19 @@ class CommentIndexItem extends React.Component {
 
     renderProfileThumbnail() {
         const { comment } = this.props
-        {comment.parentCommentId ? 
-        <div className="profile-thumbnail-comment-item">
-            <img src={comment.author.photoUrl} />
-        </div> :
-        <div className="profile-thumbnail-reply-item">
-            <img src={comment.author.photoUrl} />
-        </div>}
+        if (comment.parentCommentId) {
+            return (
+                <div className="profile-thumbnail-reply-item">
+                    <img src={comment.author.photoUrl} />
+                </div>
+            )
+        } else {
+            return (
+                <div className="profile-thumbnail-comment-item">
+                    <img src={comment.author.photoUrl} />
+                </div>
+            )
+        }
     }
 
     renderEdit() {
@@ -141,12 +145,9 @@ class CommentIndexItem extends React.Component {
     render() {
         const { comment } = this.props
         
-        console.log(this.state)
         return (
             <div className="comment-container">
-                {<div className="profile-thumbnail-comment-item">
-                    <img src={comment.author.photoUrl} />
-                </div>}
+                {this.renderProfileThumbnail()}
                 <div className="comment-info-container">
                     <div className="comment-info" >
                         <div className="comment-info-info">

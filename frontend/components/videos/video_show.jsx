@@ -22,6 +22,8 @@ class VideoShow extends React.Component {
         }
         console.log(this.state)
         this.handleLike = this.handleLike.bind(this)
+        this.toggleLike = this.toggleLike.bind(this)
+        this.handleInfo = this.handleInfo.bind(this)
     }
 
     componentDidMount() {
@@ -76,6 +78,97 @@ class VideoShow extends React.Component {
         }
     }
 
+    toggleLike() {
+        const { video } = this.props
+        if (this.state.likeId && this.state.liked) {
+           return (
+               <div className="video-title-icons">
+                   <div>
+                    <div className="liked-btns-border-liked">
+                        <button onClick={this.handleLike} value="liked">
+                            <span id="video-title-icon-liked"><IoMdThumbsUp /></span>
+                            <span id="video-title-text-liked">{video.likes.like ? video.likes.like : null}</span>
+                        </button>
+                        <button onClick={this.handleLike} value="disliked">
+                            <span id="video-title-icon"><IoMdThumbsDown /></span>
+                            <span id="video-title-text">{video.likes.dislike ? video.likes.dislike : null}</span>
+                        </button>
+                        <button>
+                            <span id="video-title-icon"><IoMdShareAlt /></span>
+                            <span id="video-title-text">SHARE</span>
+                        </button>
+                        <button>
+                            <span id="video-title-icon"><MdPlaylistAdd /></span>
+                            <span id="video-title-text">SAVE</span>
+                        </button>
+                    </div>
+                    <button className="horiz-dots">
+                        <span id="video-title-icon"><MdMoreHoriz /></span>
+                    </button>
+                   </div>
+               </div>
+           )
+        } else if (this.state.likeId && this.state.disliked) {
+            return (
+                <div className = "video-title-icons" >
+                    <div className="liked-btns-border-liked">
+                        <button onClick={this.handleLike} value="liked">
+                            <span id="video-title-icon"><IoMdThumbsUp /></span>
+                            <span id="video-title-text">{video.likes.like ? video.likes.like : null}</span>
+                        </button>
+                        <button onClick={this.handleLike} value="disliked">
+                            <span id="video-title-icon-liked"><IoMdThumbsDown /></span>
+                            <span id="video-title-text-liked">{video.likes.dislike ? video.likes.dislike : null}</span>
+                        </button>
+                        <button>
+                            <span id="video-title-icon"><IoMdShareAlt /></span>
+                            <span id="video-title-text">SHARE</span>
+                        </button>
+                        <button>
+                            <span id="video-title-icon"><MdPlaylistAdd /></span>
+                            <span id="video-title-text">SAVE</span>
+                        </button>
+                    </div>
+                    <button className="horiz-dots">
+                        <span id="video-title-icon"><MdMoreHoriz /></span>
+                    </button>
+               </div>
+            )
+        } else {
+            debugger
+            return (
+                <div className="video-title-icons">
+                    <div className="liked-btns-border">
+                        <button onClick={this.handleLike} value="liked">
+                            <span className="liked" id="video-title-icon"><IoMdThumbsUp /></span>
+                            <span className="liked" id="video-title-text">{video.likes.like ? video.likes.like : null}</span>
+                        </button>
+                        <button onClick={this.handleLike} value="disliked">
+                            <span id="video-title-icon"><IoMdThumbsDown /></span>
+                            <span id="video-title-text">{video.likes.dislike ? video.likes.dislike : null}</span>
+                        </button>
+                        <button>
+                            <span id="video-title-icon"><IoMdShareAlt /></span>
+                            <span id="video-title-text">SHARE</span>
+                        </button>
+                        <button>
+                            <span id="video-title-icon"><MdPlaylistAdd /></span>
+                            <span id="video-title-text">SAVE</span>
+                        </button>
+                    </div>
+                    <button className="horiz-dots">
+                        <span id="video-title-icon"><MdMoreHoriz /></span>
+                    </button>
+                </div>
+            )
+        }
+    }
+
+    handleInfo(e) {
+        e.preventDefault();
+        this.setState({ collapsed: !this.state.collapsed })
+    }
+
     render() {
         const { video, videos, videoId, path } = this.props
         
@@ -95,29 +188,7 @@ class VideoShow extends React.Component {
                                 <h1>{video.title}</h1>
                                 <span>{video.views}K views&nbsp;<span><GoPrimitiveDot /></span>&nbsp;{video.createdAt}</span>
                             </div>
-                            <div className="video-title-icons">
-                                <div>
-                                    <button onClick={this.handleLike} value="liked">
-                                        <span id="video-title-icon"><IoMdThumbsUp /></span>
-                                        <span id="video-title-text">{video.likes.like ? video.likes.like : null}</span>
-                                    </button>
-                                    <button onClick={this.handleLike} value="disliked">
-                                        <span id="video-title-icon"><IoMdThumbsDown /></span>
-                                        <span id="video-title-text">{video.likes.dislike ? video.likes.dislike : null}</span>
-                                    </button>
-                                    <button>
-                                        <span id="video-title-icon"><IoMdShareAlt /></span>
-                                        <span id="video-title-text">SHARE</span>
-                                    </button>
-                                    <button>
-                                        <span id="video-title-icon"><MdPlaylistAdd /></span>
-                                        <span id="video-title-text">SAVE</span>
-                                    </button>
-                                </div>
-                                    <button className="horiz-dots">
-                                        <span id="video-title-icon"><MdMoreHoriz /></span>
-                                    </button>
-                            </div>
+                            {this.toggleLike()}
                         </div>
                         <div className="video-description-container">
                             <div className="profile-thumbnail-show">
@@ -130,7 +201,14 @@ class VideoShow extends React.Component {
                                 </div>
                                 <div className="video-description">
                                     {video.description}
-                                    <br/><span>SHOW MORE</span>
+                                    {this.state.collapsed ? 
+                                    <button onClick={this.handleInfo}>SHOW MORE</button> :
+                                    <div className="info-category-container">
+                                        <div className="info-category">
+                                            Category<span>Advertising</span>
+                                        </div>
+                                        <button onClick={this.handleInfo}>SHOW LESS</button>
+                                    </div>}
                                 </div>
                             </div>
                             <button className="subscribe-btn">SUBSCRIBE</button>
