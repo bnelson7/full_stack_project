@@ -9,68 +9,67 @@ import CommentIndexContainer from '../comments/comment_index_container'
 
 class VideoShow extends React.Component {
     constructor(props) {
-        debugger
         super(props)
-
+        
         this.state = {
             collapsed: true,
             liked: false,
             disliked: false,
-            likeId: null,
             likeableId: this.props.match.params.videoId,
             likeableType: 'Video'
         }
-        console.log(this.state)
+        
         this.handleLike = this.handleLike.bind(this)
         this.toggleLike = this.toggleLike.bind(this)
         this.handleInfo = this.handleInfo.bind(this)
     }
 
     componentDidMount() {
-        debugger
         this.props.requestVideos()
         .then(() => {
             this.props.requestVideo(this.props.match.params.videoId)
         })
+        .then(() => {
+            debugger
+            this.props.requestUser(this.props.currentUser.id)
+        })
     }
 
     componentDidUpdate(prevProps, prevState) {
-        debugger
         if (prevProps.match.params.videoId !== this.props.match.params.videoId) {
             this.props.requestVideo(this.props.match.params.videoId)
         }
 
         if ((prevState.liked !== this.state.liked) || prevState.disliked !== this.state.disliked) {
-            if (this.state.likeId) {
-                const deleteLike = Object.assign({}, this.state.likeId)
-                console.log(deleteLike)
-                console.log(this.state.likeId)
+            if (this.props.alreadyLiked) {
                 debugger
-                this.props.deleteVideoLike(this.state.likeId)
+                // const deleteLike = Object.assign({}, this.state.likeId)
+                this.props.deleteVideoLike(this.props.currentUser.id, this.props.match.params.videoId)
                 .then(() => {
                     debugger
-                    this.setState({ likeId: null })
+                    // this.setState({ likeId: null })
                     const formData = new FormData()
                     formData.append('video[likes]', null)
                     this.props.updateVideo(formData, this.props.match.params.videoId)
+                    this.props.updateUser(formData, this.props.currentUser.id)
                 })
             } else {
                 const likedVideo = Object.assign({}, this.state)
-                debugger
                 this.props.createVideoLike(likedVideo)
                 .then(like => {
-                    debugger
-                    this.setState({ likeId: like.like.id })
+                    // this.setState({ likeId: like.like.id })
                     const formData = new FormData()
+                    const user = new FormData()
                     formData.append('video[likes]', like.like)
+                    formData.append('user[likes]', like.like)
                     this.props.updateVideo(formData, like.like.likeableId)
+                    this.props.updateUser(user, this.props.currentUser.id)
                 })
             }
         }
     }
 
     handleLike(e) {
-        debugger
         e.preventDefault();
         const { currentUser, history } = this.props
         if (currentUser) {
@@ -170,11 +169,12 @@ class VideoShow extends React.Component {
         e.preventDefault();
         this.setState({ collapsed: !this.state.collapsed })
     }
-
+ 
     render() {
-        const { video, videos, videoId, path } = this.props
-        
+        const { video, videos, videoId, path} = this.props
         if (!video || !video.clipUrl) return null
+  
+        console.log(this.state)
         debugger
         return (
             <div className="background">
@@ -221,11 +221,11 @@ class VideoShow extends React.Component {
                     <div className="related-container">
                         <div className="upnext-video">
                             <h1>Up next</h1>
-                            {videos.slice(0, 1).map(video => <li className="suggested-grid-item"><VideoIndexItem key={video.id} video={video} path={path}/></li>)}
+                            {videos.slice(0, 1).map(video => <li className="suggested-grid-item" key={video.id}><VideoIndexItem video={video} path={path}/></li>)}
                         </div>
                         <hr id="related-hr"/>
                         <div className="suggested-videos">
-                            {videos.filter(video => video.id !== videoId).slice(1).map(video => <li className="suggested-grid-item"><VideoIndexItem key={video.id} video={video} path={path}/></li>)}
+                            {videos.filter(video => video.id !== videoId).slice(1).map(video => <li className="suggested-grid-item" key={video.id}><VideoIndexItem video={video} path={path}/></li>)}
                         </div>
                     </div>
                 </div>

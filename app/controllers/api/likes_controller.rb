@@ -17,8 +17,8 @@ class Api::LikesController < ApplicationController
     end
 
     def destroy
+        @like = Like.find_by(liker_id: params[:user_id], likeable_id: params[:id])
         debugger
-        @like = Like.find_by(id: params[:id])
         @like.destroy
         render :show
     end

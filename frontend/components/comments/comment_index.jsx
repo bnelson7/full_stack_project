@@ -4,7 +4,6 @@ import { FaCaretDown, FaCaretUp } from 'react-icons/fa'
 
 class CommentIndex extends React.Component {
     constructor(props) {
-        debugger
         super(props)
 
         this.state = {
@@ -17,7 +16,6 @@ class CommentIndex extends React.Component {
     }
 
     componentDidMount() {
-        debugger
         this.props.requestComments(this.props.match.params.videoId)
     }
 
@@ -26,7 +24,6 @@ class CommentIndex extends React.Component {
  
         if (!this.state.expandedId && this.state.parentIds.length === 0) {
             let parents = {["id"]: parseInt(e.currentTarget.value, 10)}
-    
             this.setState({  
                 parentIds: Object.values(parents),
                 expandedId: parseInt(e.currentTarget.value, 10)
@@ -35,14 +32,12 @@ class CommentIndex extends React.Component {
         } else if (this.state.parentIds.includes(parseInt(e.currentTarget.value, 10))) {
             let removeIdx = this.state.parentIds.indexOf(parseInt(e.currentTarget.value, 10))
             let parentsLeft = this.state.parentIds.slice(0, removeIdx)
-         
             let parents = {}
             for (let i = 0; i < parentsLeft.length; i++) {
                 parents.i = parentsLeft[i];
             }
             let newParents = Object.values(parents)
             let last = newParents[newParents.length - 1]
-            
             this.setState({ 
                 parentIds: newParents,
                 expandedId: last
@@ -53,7 +48,6 @@ class CommentIndex extends React.Component {
                 parents.i = this.state.parentIds[i];
             }
             parents.id = parseInt(e.currentTarget.value, 10)
-          
             this.setState({
                 parentIds: Object.values(parents),
                 expandedId: e.currentTarget.value
@@ -65,62 +59,33 @@ class CommentIndex extends React.Component {
         const { editComment, deleteComment, createComment, deleteCommentLike, createCommentLike } = this.props
         const { videoId } = this.props.match.params
         let commentsAndReplies = comments.map(comment => {
-            debugger
-            if (!this.state.parentIds.length === 0) {
-                debugger
-                return (
-                    <div className="comment-index-grid-container">
-                        <div className="comment-replies-index-grid-item" id={comment.id}>
-                            <CommentIndexItem
-                                key={comment.id}
-                                comment={comment}
-                                editComment={editComment}
-                                createComment={createComment}
-                                deleteComment={deleteComment}
-                                createCommentLike={createCommentLike}
-                                deleteCommentLike={deleteCommentLike}
-                                videoId={videoId} />
-                            {comment.childComments ?
-                                <div className="replies-dropdown">
-                                    <button onClick={this.handleReplies} value={comment.id}>
-                                        <span className="replies-dropdown-caret"><FaCaretDown /></span>
-                                        {comment.childComments.length === 1 ? <span>View reply</span> : <span>View {comment.childComments.length} replies</span>}
-                                    </button>
-                                </div> : null}
-                        </div>
-                    </div>
-                )
-            } else {
-                debugger
-                return (
-                    <div className="comment-index-grid-container">
-                        <div className="comment-replies-index-grid-item" id={comment.id}>
-                            <CommentIndexItem
-                                key={comment.id}
-                                comment={comment}
-                                editComment={editComment}
-                                createComment={createComment}
-                                deleteComment={deleteComment}
-                                createCommentLike={createCommentLike}
-                                deleteCommentLike={deleteCommentLike}
-                                videoId={videoId} />
-                        {comment.childComments ?
-                            <div className="replies-dropdown">
-                                <button onClick={this.handleReplies} value={comment.id}>
-                                    {console.log(this.state)}
-                                    {console.log(comment.id)}
-                                    <span className="replies-dropdown-caret">{this.state.parentIds.includes(comment.id) ? <FaCaretUp /> : <FaCaretDown />}</span> 
-                                    {comment.childComments.length === 1 ? <span>{this.state.parentIds.includes(comment.id) ? "Hide" : "View"} reply</span> : <span>{this.state.parentIds.includes(comment.id) ? "Hide" : "View"} {comment.childComments.length} replies</span>}
-                                </button>
-                            </div> : null}
-                        </div>
-                        {comment.childComments && this.state.parentIds.includes(comment.childComments[0].parentCommentId) ?
-                        <div className="replies-index-grid-container">
-                            {this.mapNestedComments(comment.childComments)}
+            return (
+                <div className="comment-index-grid-container" key={comment.id}>
+                    <div className="comment-replies-index-grid-item" id={comment.id}>
+                        <CommentIndexItem
+                            comment={comment}
+                            editComment={editComment}
+                            createComment={createComment}
+                            deleteComment={deleteComment}
+                            createCommentLike={createCommentLike}
+                            deleteCommentLike={deleteCommentLike}
+                            videoId={videoId} />
+                    {comment.childComments ?
+                        <div className="replies-dropdown">
+                            <button onClick={this.handleReplies} value={comment.id}>
+                                {console.log(this.state)}
+                                {console.log(comment.id)}
+                                <span className="replies-dropdown-caret">{this.state.parentIds.includes(comment.id) ? <FaCaretUp /> : <FaCaretDown />}</span> 
+                                {comment.childComments.length === 1 ? <span>{this.state.parentIds.includes(comment.id) ? "Hide" : "View"} reply</span> : <span>{this.state.parentIds.includes(comment.id) ? "Hide" : "View"} {comment.childComments.length} replies</span>}
+                            </button>
                         </div> : null}
                     </div>
-                )
-            }
+                    {comment.childComments && this.state.parentIds.includes(comment.childComments[0].parentCommentId) ?
+                    <div className="replies-index-grid-container">
+                        {this.mapNestedComments(comment.childComments)}
+                    </div> : null}
+                </div>
+            )
         })
         return commentsAndReplies
     }

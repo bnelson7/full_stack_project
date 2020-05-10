@@ -3,7 +3,9 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { formats: :json } do 
 
-    resources :users, only: [:create, :update]
+    resources :users, only: [:create, :update, :show] do
+      resources :likes, only: [:destroy], defaults: { id: nil }
+    end
     resource :session, only: [:create, :destroy, :show]
     resources :videos, only: [:show, :index, :create, :destroy, :update] do
       resources :comments, only: [:index, :create]
@@ -14,7 +16,7 @@ Rails.application.routes.draw do
       resources :likes, only: [:create]
     end
 
-    resources :likes, only: [:destroy]
+    
   end
 
   root to: 'static_pages#root'

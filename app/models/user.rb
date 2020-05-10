@@ -57,14 +57,12 @@ class User < ApplicationRecord
         self.session_token
     end
 
-    def add_video_like(id)
-        likes = []
-        likes.push(id)
+    def video_likes
+        self.likes.where(likeable_type: "Video")
     end
 
-    def add_comment_like(id)
-        likes = []
-        likes.push(id)
+    def comment_likes
+        self.likes.where(likeable_type: "Comment")
     end
 
     private
