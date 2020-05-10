@@ -28,7 +28,10 @@ class VideoShow extends React.Component {
 
     componentDidMount() {
         debugger
-        this.props.requestVideo(this.props.match.params.videoId)
+        this.props.requestVideos()
+        .then(() => {
+            this.props.requestVideo(this.props.match.params.videoId)
+        })
     }
 
     componentDidUpdate(prevProps, prevState) {
