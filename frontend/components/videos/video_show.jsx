@@ -10,13 +10,13 @@ import CommentIndexContainer from '../comments/comment_index_container'
 class VideoShow extends React.Component {
     constructor(props) {
         super(props)
-        
+        debugger
         this.state = {
             collapsed: true,
-            liked: false,
-            disliked: false,
-            likeableId: this.props.match.params.videoId,
-            likeableType: 'Video'
+            // liked: this.props.liked,
+            // disliked: this.props.disliked,
+            // likeableId: this.props.match.params.videoId,
+            // likeableType: 'Video'
         }
         
         this.handleLike = this.handleLike.bind(this)
@@ -27,61 +27,76 @@ class VideoShow extends React.Component {
     componentDidMount() {
         this.props.requestVideos()
         .then(() => {
+            this.props.currentUser && this.props.requestUser(this.props.currentUser.id)
             this.props.requestVideo(this.props.match.params.videoId)
-        })
-        .then(() => {
-            debugger
-            this.props.requestUser(this.props.currentUser.id)
         })
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         if (prevProps.match.params.videoId !== this.props.match.params.videoId) {
             this.props.requestVideo(this.props.match.params.videoId)
         }
+    }
 
-        if ((prevState.liked !== this.state.liked) || prevState.disliked !== this.state.disliked) {
-            if (this.props.alreadyLiked) {
+    handleLike(e) {
+        e.preventDefault();
+        const { currentUser, history, match, liked, disliked } = this.props
+        const createLike = (liked, disliked) => {
+            let like = { likeableId:  match.params.videoId, likeableType: 'Video', liked: liked, disliked: disliked}
+            return like
+        }
+        if (currentUser) {
+            let clicked = e.currentTarget.value
+            console.log(this.state)
+            if ((clicked === 'liked' || clicked === 'disliked') && !liked && !disliked) {
+                let likedVideo = clicked === 'liked' ? createLike(true, false) : createLike(false, true)
                 debugger
-                // const deleteLike = Object.assign({}, this.state.likeId)
+                this.props.createVideoLike(likedVideo)
+                .then(like => {
+                    debugger
+                    const formData = new FormData()
+                    const user = new FormData()
+                    formData.append('video[likes]', like.like)
+                    formData.append('user[likes]', like.like)
+                    this.props.updateVideo(formData, this.props.match.params.videoId)
+                    this.props.updateUser(user, this.props.currentUser.id)
+                })
+            } else if ((clicked === 'liked' && liked) || (clicked === 'disliked' && disliked)) {
+                debugger
                 this.props.deleteVideoLike(this.props.currentUser.id, this.props.match.params.videoId)
                 .then(() => {
                     debugger
-                    // this.setState({ likeId: null })
                     const formData = new FormData()
                     formData.append('video[likes]', null)
                     this.props.updateVideo(formData, this.props.match.params.videoId)
                     this.props.updateUser(formData, this.props.currentUser.id)
                 })
             } else {
-                const likedVideo = Object.assign({}, this.state)
-                this.props.createVideoLike(likedVideo)
-                .then(like => {
-                    // this.setState({ likeId: like.like.id })
-                    const formData = new FormData()
-                    const user = new FormData()
-                    formData.append('video[likes]', like.like)
-                    formData.append('user[likes]', like.like)
-                    this.props.updateVideo(formData, like.like.likeableId)
-                    this.props.updateUser(user, this.props.currentUser.id)
+                debugger
+                this.props.deleteVideoLike(this.props.currentUser.id, this.props.match.params.videoId)
+                .then(() => {
+                    debugger
+                    let likedVideo = (clicked === 'liked') ? createLike(true, false) : createLike(false, true)
+                    this.props.createVideoLike(likedVideo)
+                    .then(like => {
+                        debugger
+                        const formData = new FormData()
+                        const user = new FormData()
+                        formData.append('video[likes]', like.like)
+                        formData.append('user[likes]', like.like)
+                        this.props.updateVideo(formData, this.props.match.params.videoId)
+                        this.props.updateUser(user, this.props.currentUser.id)
+                    })
                 })
             }
-        }
-    }
-
-    handleLike(e) {
-        e.preventDefault();
-        const { currentUser, history } = this.props
-        if (currentUser) {
-            e.currentTarget.value === "liked" ? this.setState({ liked: !this.state.liked }) : this.setState({ disliked: !this.state.disliked })
         } else {
             history.push("/login")
         }
     }
 
     toggleLike() {
-        const { video } = this.props
-        if (this.state.likeId && this.state.liked) {
+        const { video, liked, disliked } = this.props
+        if (liked) {
            return (
                <div className="video-title-icons">
                    <div>
@@ -109,7 +124,7 @@ class VideoShow extends React.Component {
                    </div>
                </div>
            )
-        } else if (this.state.likeId && this.state.disliked) {
+        } else if (disliked) {
             return (
                 <div className = "video-title-icons" >
                     <div className="liked-btns-border-liked">
@@ -171,10 +186,9 @@ class VideoShow extends React.Component {
     }
  
     render() {
-        const { video, videos, videoId, path} = this.props
+        const { video, videos, videoId, path, like} = this.props
         if (!video || !video.clipUrl) return null
   
-        console.log(this.state)
         debugger
         return (
             <div className="background">

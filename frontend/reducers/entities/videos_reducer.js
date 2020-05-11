@@ -8,11 +8,9 @@ const videosReducer = (prevState = {}, action) => {
         case RECEIVE_VIDEOS:
             return action.videos;
         case RECEIVE_VIDEO:
-            debugger
             nextState[action.video.id] = action.video
             return nextState;
         case REMOVE_VIDEO:
-            
             delete nextState[action.videoId]
             return nextState;
         default:

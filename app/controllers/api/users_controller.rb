@@ -2,7 +2,7 @@ class Api::UsersController < ApplicationController
 
     def show
         @user = User.find_by(id: params[:id])
-        debugger
+  
         if @user
             render :show
         else
@@ -23,7 +23,7 @@ class Api::UsersController < ApplicationController
 
     def update
         @user = current_user
-        debugger
+
         # if params[:user][:likes]
         #     debugger
         #     render :show

@@ -13,11 +13,11 @@ const receiveLike = like => {
     }
 }
 
-const removeLike = likeId => {
+const removeLike = like => {
     debugger
     return {
         type: REMOVE_LIKE,
-        likeId
+        like
     }
 }
 
@@ -33,7 +33,7 @@ export const deleteVideoLike = (userId, videoId) => dispatch => {
     debugger
     return (
         LikeAPIUtil.deleteVideoLike(userId, videoId)
-        .then(() => dispatch(removeLike(likeId)))
+        .then(like => dispatch(removeLike(like)))
     )
 }
 

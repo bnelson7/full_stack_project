@@ -35,12 +35,10 @@ class Api::VideosController < ApplicationController
     end
 
     def update
-        debugger
         @video = Video.with_attached_clip.find(params[:id])
         @videos = Video.where.not(id: params[:id]).all.with_attached_thumbnail.order(Arel.sql('RANDOM()'))
         
         if params[:video][:likes]
-            debugger
             render :show
         elsif @video.update(video_params)
             render :show

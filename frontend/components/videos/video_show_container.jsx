@@ -9,14 +9,23 @@ const mSTP = (state, ownProps) => {
     debugger
     let videoId = ownProps.match.params.videoId
     let currentUser = state.entities.users[state.session.id]
-    let alreadyLiked = currentUser.liked && currentUser.liked.videos.includes(parseInt(videoId, 10)) ? true : false
+    let like = currentUser && currentUser.liked && currentUser.liked.videos[videoId]
+    if (like) {
+        var liked = like.liked 
+        var disliked = like.disliked   
+    } else {
+        var liked = false
+        var disliked = false
+    }
     return {
         videoId: videoId,
         video: state.entities.videos[ownProps.match.params.videoId],
         videos: Object.values(state.entities.videos),
         path: ownProps.location.pathname,
         currentUser: currentUser,
-        alreadyLiked: alreadyLiked
+        like: like,
+        liked: liked,
+        disliked: disliked
     }
 }
 

@@ -2,7 +2,7 @@ export const createVideoLike = like => {
     debugger
     return (
         $.ajax({
-            url: `/api/videos/${like.videoId}/likes`,
+            url: `/api/videos/${like.likeableId}/likes`,
             method: 'POST',
             data: { like }
         })
@@ -23,7 +23,7 @@ export const createCommentLike = like => {
     
     return (
         $.ajax({
-            url: `/api/videos/${like.commentId}/likes`,
+            url: `/api/videos/${like.likeableId}/likes`,
             method: 'POST',
             data: { like }
         })

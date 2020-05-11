@@ -2,14 +2,8 @@ class Api::LikesController < ApplicationController
 
     def create
         @like = Like.create(liker_id: current_user.id, likeable_type: params[:like][:likeableType], likeable_id: params[:like][:likeableId], liked: params[:like][:liked], disliked: params[:like][:disliked])
-        debugger
         
-        if @like.likeable_type == 'Video'
-            @video = Video.find_by(id: @like.likeable_id)
-            debugger
-            render :show
-        elsif @like.likeable_type == 'Comment'
-            @comment = Comment.find_by(id: @like.likeable_id)
+        if @like
             render :show
         else
             render json: @like.errors.full_messages, status: 422
@@ -18,7 +12,9 @@ class Api::LikesController < ApplicationController
 
     def destroy
         @like = Like.find_by(liker_id: params[:user_id], likeable_id: params[:id])
-        debugger
+        @video = Video.find_by(id: @like.likeable_id)
+     
+        params[:id] = @like.id
         @like.destroy
         render :show
     end
