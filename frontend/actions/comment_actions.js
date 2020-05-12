@@ -12,7 +12,7 @@ const receiveComments = comments => ({
 })
 
 const receiveComment = comment => {
-    
+    debugger
     return {
         type: RECEIVE_COMMENT,
         comment
@@ -41,7 +41,7 @@ export const requestComments = (videoId) => dispatch => {
 
 export const requestComment = id => dispatch => {
     return (
-        CommentAPIUtil.fetchComment()
+        CommentAPIUtil.fetchComment(id)
         .then(comment => dispatch(receiveComment(comment)))
     )
 }

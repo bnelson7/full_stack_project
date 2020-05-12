@@ -92,23 +92,53 @@
 .comment-icons {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 6.5vw;
 }
 
 .comment-icons-icons {
     display: flex;
     justify-content: flex-start;
+    align-items: center;
     width: 4.5vw;
     color: #909090;
-}
-
-.comment-icons-icons span {
-    padding-right: 1vw;
     font-size: 1.7vh;
     cursor: pointer;
 }
 
-.comment-icons button {
+.comment-like-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.comment-dislike-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.comment-like-btn-liked {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    color: #065fd4;
+}
+
+.comment-dislike-btn-liked {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    color: #065fd4;
+}
+
+.comment-icons-icons span{
+    margin-left: 0.3vw;
+    font-size: 1.35vh;
+    color: #606060;
+}
+
+.comment-reply-btn {
     color: #606060;
     font-weight: bold;
     font-size: 1.3vh;

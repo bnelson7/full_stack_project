@@ -6,10 +6,9 @@ import { updateUser, requestUser } from '../../actions/user_actions'
 import VideoShow from './video_show'
 
 const mSTP = (state, ownProps) => {
-    debugger
     let videoId = ownProps.match.params.videoId
     let currentUser = state.entities.users[state.session.id]
-    let like = currentUser && currentUser.liked && currentUser.liked.videos[videoId]
+    let like = currentUser && currentUser.liked && currentUser.liked.videos ? currentUser.liked.videos[videoId] : null
     if (like) {
         var liked = like.liked 
         var disliked = like.disliked   

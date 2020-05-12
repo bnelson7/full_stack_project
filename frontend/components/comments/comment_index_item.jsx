@@ -6,7 +6,9 @@ import { IoMdThumbsUp, IoMdThumbsDown } from 'react-icons/io'
 class CommentIndexItem extends React.Component {
     constructor(props) {
         super(props)
-   
+   console.log(this.props.like)
+   console.log(this.props.liked)
+   console.log(this.props.disliked)
         this.state = {
             body: this.props.comment.body,
             id: this.props.comment.id,
@@ -22,13 +24,13 @@ class CommentIndexItem extends React.Component {
         this.handleCancel = this.handleCancel.bind(this)
         this.handleDelete = this.handleDelete.bind(this)
         this.handleReply = this.handleReply.bind(this)
+        this.handleLike = this.handleLike.bind(this)
     }
 
     handleSubmit(e) {
         e.preventDefault();
         if (!this.state.replying) {
             const editedComment = Object.assign({}, this.state)
-            
             this.props.editComment(editedComment)
             .then(() => {
                 this.setState({
@@ -38,7 +40,6 @@ class CommentIndexItem extends React.Component {
             })
         } else {
             const reply = Object.assign({}, this.state)
-            
             this.props.createComment(reply)
             .then(() => {
                 this.setState({
@@ -54,7 +55,6 @@ class CommentIndexItem extends React.Component {
     }
 
     handleEdit(e) {
-        
         e.preventDefault();
         this.setState({ 
             body: this.props.comment.body,
@@ -65,7 +65,6 @@ class CommentIndexItem extends React.Component {
     }
 
     handleCancel(e) {
-        
         e.preventDefault();
         this.setState({ 
             editing: false,
@@ -74,13 +73,58 @@ class CommentIndexItem extends React.Component {
         })
     }
 
-    handleReply() {
+    handleReply(e) {
+        e.preventDefault();
         this.setState({ 
             body: "",
             editing: false,
             replying: true,
             clicked: true
         })
+    }
+
+    handleLike(e) {
+        e.preventDefault();
+        const { currentUser, history, liked, disliked, comment, like, videoId } = this.props
+  
+        const createLike = (liked, disliked) => {
+            let like = { likeableId:  comment.id, likeableType: 'Comment', liked: liked, disliked: disliked}
+            return like
+        }
+        if (currentUser) {
+            let clicked = e.currentTarget.value
+    
+            if ((clicked === 'liked' || clicked === 'disliked') && !liked && !disliked) {
+                let likedComment = clicked === 'liked' ? createLike(true, false) : createLike(false, true)
+                debugger
+                this.props.createCommentLike(likedComment)
+                .then(() => {
+                    this.props.requestComments(videoId)
+                    this.props.requestUser(this.props.currentUser.id)
+                })
+            } else if ((clicked === 'liked' && liked) || (clicked === 'disliked' && disliked)) {
+                debugger
+                this.props.deleteCommentLike(like.id)
+                .then(() => {
+                    this.props.requestComments(videoId)
+                    this.props.requestUser(this.props.currentUser.id)
+                })
+            } else {
+                debugger
+                this.props.deleteCommentLike(like.id)
+                .then(() => {
+                    debugger
+                    let likedComment = (clicked === 'liked') ? createLike(true, false) : createLike(false, true)
+                    this.props.createCommentLike(likedComment)
+                    .then(() => {
+                        this.props.requestComments(videoId)
+                        this.props.requestUser(this.props.currentUser.id)
+                    })
+                })
+            }
+        } else {
+            history.push("/login")
+        }
     }
 
     update(e) {
@@ -160,10 +204,32 @@ class CommentIndexItem extends React.Component {
                         </div>
                         {this.renderEdit()}
                         <div className="comment-icons">
-                            <div className="comment-icons-icons">
-                                <span><IoMdThumbsUp />{comment.likes.like ? comment.likes.like : null}</span><span><IoMdThumbsDown />{comment.likes.dislike ? comment.likes.dislike : null}</span>
-                            </div>
-                            <button onClick={this.handleReply}>REPLY</button>
+                            {this.props.liked ? 
+                                <div className="comment-icons-icons">
+                                    <button className="comment-like-btn-liked" onClick={this.handleLike} value="liked">
+                                        <IoMdThumbsUp /><span>{comment.likes.like ? comment.likes.like : null}</span>
+                                    </button >
+                                    <button className="comment-dislike-btn" onClick={this.handleLike} value="disliked">
+                                        <IoMdThumbsDown /><span>{comment.likes.dislike ? comment.likes.dislike : null}</span>
+                                    </button> 
+                                </div> : this.props.disliked ?
+                                <div className="comment-icons-icons">
+                                    <button className="comment-like-btn" onClick={this.handleLike} value="liked">
+                                        <IoMdThumbsUp /><span>{comment.likes.like ? comment.likes.like : null}</span>
+                                    </button >
+                                    <button className="comment-dislike-btn-liked" onClick={this.handleLike} value="disliked">
+                                        <IoMdThumbsDown /><span>{comment.likes.dislike ? comment.likes.dislike : null}</span>
+                                    </button> 
+                                </div> : 
+                                <div className="comment-icons-icons">
+                                    <button className="comment-like-btn" onClick={this.handleLike} value="liked">
+                                        <IoMdThumbsUp /><span>{comment.likes.like ? comment.likes.like : null}</span>
+                                    </button >
+                                    <button className="comment-dislike-btn" onClick={this.handleLike} value="disliked">
+                                        <IoMdThumbsDown /><span>{comment.likes.dislike ? comment.likes.dislike : null}</span>
+                                    </button>
+                                </div>}
+                            <button className="comment-reply-btn" onClick={this.handleReply}>REPLY</button>
                         </div>
                         {this.renderReply()}
                     </div>

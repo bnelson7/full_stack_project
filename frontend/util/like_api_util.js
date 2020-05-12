@@ -9,11 +9,11 @@ export const createVideoLike = like => {
     )
 }
 
-export const deleteVideoLike = (userId, videoId) => {
+export const deleteVideoLike = id => {
     debugger
     return (
         $.ajax({
-            url: `/api/users/${userId}/likes/${videoId}`,
+            url: `/api/likes/${id}`,
             method: 'DELETE'
         })
     )
@@ -23,7 +23,7 @@ export const createCommentLike = like => {
     
     return (
         $.ajax({
-            url: `/api/videos/${like.likeableId}/likes`,
+            url: `/api/comments/${like.likeableId}/likes`,
             method: 'POST',
             data: { like }
         })

@@ -10,13 +10,9 @@ import CommentIndexContainer from '../comments/comment_index_container'
 class VideoShow extends React.Component {
     constructor(props) {
         super(props)
-        debugger
+
         this.state = {
-            collapsed: true,
-            // liked: this.props.liked,
-            // disliked: this.props.disliked,
-            // likeableId: this.props.match.params.videoId,
-            // likeableType: 'Video'
+            collapsed: true
         }
         
         this.handleLike = this.handleLike.bind(this)
@@ -63,7 +59,7 @@ class VideoShow extends React.Component {
                 })
             } else if ((clicked === 'liked' && liked) || (clicked === 'disliked' && disliked)) {
                 debugger
-                this.props.deleteVideoLike(this.props.currentUser.id, this.props.match.params.videoId)
+                this.props.deleteVideoLike(this.props.like.id)
                 .then(() => {
                     debugger
                     const formData = new FormData()
@@ -73,7 +69,7 @@ class VideoShow extends React.Component {
                 })
             } else {
                 debugger
-                this.props.deleteVideoLike(this.props.currentUser.id, this.props.match.params.videoId)
+                this.props.deleteVideoLike(this.props.like.id)
                 .then(() => {
                     debugger
                     let likedVideo = (clicked === 'liked') ? createLike(true, false) : createLike(false, true)
