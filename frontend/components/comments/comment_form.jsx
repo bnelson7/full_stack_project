@@ -58,21 +58,21 @@ class CommentForm extends React.Component {
 
     totalComments(comments) {
         
-        let commentsSum = comments.forEach(comment => {
-            let sum = []
-           if (!comment.child_comments) {
-                sum.push(comment) 
-            } else {
-                while (comment.child_comments) {
-                    comment.child_comments.forEach(child => {
-                        sum.push(child)
-                        this.totalComments(child.child_comments)
-                    })
-                }
-            }
-            return sum.length
-        });
-        return commentsSum;
+        // let commentsSum = comments.forEach(comment => {
+        //     let sum = []
+        //    if (!comment.replies) {
+        //         sum.push(comment) 
+        //     } else {
+        //         while (comment.replies) {
+        //             comment.replies.forEach(child => {
+        //                 sum.push(child)
+        //                 this.totalComments(child.replies)
+        //             })
+        //         }
+        //     }
+        //     return sum.length
+        // });
+        // return commentsSum;
     }
 
     render() {
@@ -83,7 +83,8 @@ class CommentForm extends React.Component {
             <div className="comment-form-container">
                 <div className="comment-form-info">
                     <div className="comment-length">
-                        {this.totalComments(comments)}&nbsp;Comments
+                        {/* {this.totalComments(comments)}&nbsp;Comments */}
+                        &nbsp;Comments
                     </div>
                     <div className="comment-sort">
                         <span><MdSort /></span>SORT BY
@@ -92,7 +93,7 @@ class CommentForm extends React.Component {
                 <form onSubmit={this.handleComment}>
                     <div className="comment-form">
                         <div className="profile-thumbnail-comment">
-                            {this.props.currentUser ? <img src={this.props.currentUser.photoUrl} /> : <span><FaUserCircle /></span>}
+                            {this.props.currentUser ? <img src={this.props.currentUser.photoUrl} /> : <img src="https://s.ytimg.com/yts/img/avatar_48-vfllY0UTT.png"/>}
                         </div>
                         {!this.state.clicked ? <input className="comment-form-input" type="text" placeholder="Add a public comment..." value={this.state.body} onChange={this.update("body")} onClick={this.handleRedirect} />
                         : <input className="comment-form-input-clicked" type="text" placeholder="Add a public comment..." value={this.state.body} onChange={this.update("body")} onClick={this.handleRedirect} />}

@@ -1,4 +1,7 @@
-json.extract! comment, :id, :author_id, :video_id, :body, :created_at, :updated_at, :edited
+json.extract! comment, :id, :author_id, :video_id, :body, :edited
+
+json.created_at time_ago_in_words(comment.created_at)
+json.updated_at time_ago_in_words(comment.updated_at)
 
 json.likes do
     json.like comment.number_liked(comment.id)
@@ -9,8 +12,8 @@ if !comment.parent_comment_id.nil?
     json.extract! comment, :parent_comment_id
 end
 
-if !comment.child_comments.empty? 
-    json.child_comments comment.child_comments, partial: 'api/comments/comment', as: :comment
+if !comment.replies.empty? 
+    json.replies comment.replies, partial: 'api/comments/comment', as: :comment
 end
 
 json.author do

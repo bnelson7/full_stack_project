@@ -60,7 +60,7 @@ const VideoIndexItem = props => {
                         <h1>{props.video.title}</h1>
                         <div className="views-date">
                             <h1>{props.video.creator.username}&nbsp;<span className="verified"><MdCheckCircle /></span></h1>
-                            <span>{props.video.views}K views&nbsp;<span><GoPrimitiveDot /></span>&nbsp;{props.video.createdAt}</span>
+                            <span>{props.video.views}K views&nbsp;<span><GoPrimitiveDot /></span>&nbsp;{props.video.createdAt} ago</span>
                         </div>
                     </div>
                 </div>
@@ -76,7 +76,7 @@ const VideoIndexItem = props => {
                         <div className="views-date-show">
                             <h1 id="show-user">{props.video.creator.username}&nbsp;<span className="verified"><MdCheckCircle /></span></h1>
                         </div>
-                        <span id="views-date-show">{props.video.views}K views&nbsp;<span><GoPrimitiveDot /></span>&nbsp;{props.video.createdAt}</span>
+                        <span id="views-date-show">{props.video.views}K views&nbsp;<span><GoPrimitiveDot /></span>&nbsp;{props.video.createdAt} ago</span>
                     </div>
                 </div>
             </div>
@@ -89,7 +89,7 @@ const VideoIndexItem = props => {
                     <div className="video-search-info">
                         <div className="title-user-search">
                             <h1 id="search-title">{props.video.title}</h1>
-                            <h1 id="search-user">{props.video.creator.username}&nbsp;<span className="verified"><MdCheckCircle /></span>&nbsp;&nbsp;<span id="title-user-search">{props.video.views}K views&nbsp;<span><GoPrimitiveDot /></span>&nbsp;{props.video.createdAt}</span></h1>
+                            <h1 id="search-user">{props.video.creator.username}&nbsp;<span className="verified"><MdCheckCircle /></span>&nbsp;&nbsp;<span id="title-user-search">{props.video.views}K views&nbsp;<span><GoPrimitiveDot /></span>&nbsp;{props.video.createdAt} ago</span></h1>
                         </div>
                         <div >
                             <span id="description-search">{props.video.description}</span>

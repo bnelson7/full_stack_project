@@ -18,6 +18,7 @@ class VideoShow extends React.Component {
         this.handleLike = this.handleLike.bind(this)
         this.toggleLike = this.toggleLike.bind(this)
         this.handleInfo = this.handleInfo.bind(this)
+        this.getDate = this.getDate.bind(this)
     }
 
     componentDidMount() {
@@ -99,11 +100,11 @@ class VideoShow extends React.Component {
                     <div className="liked-btns-border-liked">
                         <button onClick={this.handleLike} value="liked">
                             <span id="video-title-icon-liked"><IoMdThumbsUp /></span>
-                            <span id="video-title-text-liked">{video.likes.like ? video.likes.like : null}</span>
+                            <span id="video-title-text-liked">{video.likes.like}</span>
                         </button>
                         <button onClick={this.handleLike} value="disliked">
                             <span id="video-title-icon"><IoMdThumbsDown /></span>
-                            <span id="video-title-text">{video.likes.dislike ? video.likes.dislike : null}</span>
+                            <span id="video-title-text">{video.likes.dislike}</span>
                         </button>
                         <button>
                             <span id="video-title-icon"><IoMdShareAlt /></span>
@@ -126,11 +127,11 @@ class VideoShow extends React.Component {
                     <div className="liked-btns-border-liked">
                         <button onClick={this.handleLike} value="liked">
                             <span id="video-title-icon"><IoMdThumbsUp /></span>
-                            <span id="video-title-text">{video.likes.like ? video.likes.like : null}</span>
+                            <span id="video-title-text">{video.likes.like}</span>
                         </button>
                         <button onClick={this.handleLike} value="disliked">
                             <span id="video-title-icon-liked"><IoMdThumbsDown /></span>
-                            <span id="video-title-text-liked">{video.likes.dislike ? video.likes.dislike : null}</span>
+                            <span id="video-title-text-liked">{video.likes.dislike}</span>
                         </button>
                         <button>
                             <span id="video-title-icon"><IoMdShareAlt /></span>
@@ -153,11 +154,11 @@ class VideoShow extends React.Component {
                     <div className="liked-btns-border">
                         <button onClick={this.handleLike} value="liked">
                             <span className="liked" id="video-title-icon"><IoMdThumbsUp /></span>
-                            <span className="liked" id="video-title-text">{video.likes.like ? video.likes.like : null}</span>
+                            <span className="liked" id="video-title-text">{video.likes.like}</span>
                         </button>
                         <button onClick={this.handleLike} value="disliked">
                             <span id="video-title-icon"><IoMdThumbsDown /></span>
-                            <span id="video-title-text">{video.likes.dislike ? video.likes.dislike : null}</span>
+                            <span id="video-title-text">{video.likes.dislike}</span>
                         </button>
                         <button>
                             <span id="video-title-icon"><IoMdShareAlt /></span>
@@ -180,12 +181,24 @@ class VideoShow extends React.Component {
         e.preventDefault();
         this.setState({ collapsed: !this.state.collapsed })
     }
+
+    getDate() {
+        const { video } = this.props
+        // let date = (video.createdAt === video.updatedAt) ? new Date(`${video.createdAt}`) : new Date(`${video.updatedAt}`)
+        let date = new Date(`${video.createdAt}`)
+        let month = date.getMonth()
+        let day = date.getDate()
+        let year = date.getFullYear()
+        const options = { year: 'numeric', month: 'long', day: 'numeric'}
+        let uploadDateformatted = new Date(year, month, day)
+        const newDateTimeFormat = Intl.DateTimeFormat('en-US', options)
+        return newDateTimeFormat.format(uploadDateformatted)
+    }
  
     render() {
         const { video, videos, videoId, path, like} = this.props
         if (!video || !video.clipUrl) return null
-  
-        debugger
+        console.log(this.props.videos)
         return (
             <div className="background">
                 <div className="page-container">
@@ -198,7 +211,7 @@ class VideoShow extends React.Component {
                         <div className="video-title">
                             <div className="video-title-info">
                                 <h1>{video.title}</h1>
-                                <span>{video.views}K views&nbsp;<span><GoPrimitiveDot /></span>&nbsp;{video.createdAt}</span>
+                                <span>{video.views}K views&nbsp;<span><GoPrimitiveDot /></span>&nbsp;{this.getDate()}</span>
                             </div>
                             {this.toggleLike()}
                         </div>
@@ -235,7 +248,7 @@ class VideoShow extends React.Component {
                         </div>
                         <hr id="related-hr"/>
                         <div className="suggested-videos">
-                            {videos.filter(video => video.id !== videoId).slice(1).map(video => <li className="suggested-grid-item" key={video.id}><VideoIndexItem video={video} path={path}/></li>)}
+                            {videos.slice(1).map(video => <li className="suggested-grid-item" key={video.id}><VideoIndexItem video={video} path={path}/></li>)}
                         </div>
                     </div>
                 </div>

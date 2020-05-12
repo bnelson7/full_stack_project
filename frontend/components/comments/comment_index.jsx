@@ -77,20 +77,17 @@ class CommentIndex extends React.Component {
                             liked={likes && likes[comment.id] ? likes[comment.id].liked : false}
                             disliked={likes && likes[comment.id] ? likes[comment.id].disliked : false}
                             />
-                        {console.log(likes)}
-                    {comment.childComments ?
+                    {comment.replies ?
                         <div className="replies-dropdown">
                             <button onClick={this.handleReplies} value={comment.id}>
-                                {console.log(this.state)}
-                                {console.log(comment.id)}
                                 <span className="replies-dropdown-caret">{this.state.parentIds.includes(comment.id) ? <FaCaretUp /> : <FaCaretDown />}</span> 
-                                {comment.childComments.length === 1 ? <span>{this.state.parentIds.includes(comment.id) ? "Hide" : "View"} reply</span> : <span>{this.state.parentIds.includes(comment.id) ? "Hide" : "View"} {comment.childComments.length} replies</span>}
+                                {comment.replies.length === 1 ? <span>{this.state.parentIds.includes(comment.id) ? "Hide" : "View"} reply</span> : <span>{this.state.parentIds.includes(comment.id) ? "Hide" : "View"} {comment.replies.length} replies</span>}
                             </button>
                         </div> : null}
                     </div>
-                    {comment.childComments && this.state.parentIds.includes(comment.childComments[0].parentCommentId) ?
+                    {comment.replies && this.state.parentIds.includes(comment.replies[0].parentCommentId) ?
                     <div className="replies-index-grid-container">
-                        {this.mapNestedComments(comment.childComments)}
+                        {this.mapNestedComments(comment.replies)}
                     </div> : null}
                 </div>
             )
