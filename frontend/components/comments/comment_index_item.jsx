@@ -1,14 +1,12 @@
 import React from 'react'
 import CommentFormContainer from './comment_form_container'
 import { IoMdThumbsUp, IoMdThumbsDown } from 'react-icons/io'
-
+import { MdMoreVert } from 'react-icons/md'
 
 class CommentIndexItem extends React.Component {
     constructor(props) {
         super(props)
-   console.log(this.props.like)
-   console.log(this.props.liked)
-   console.log(this.props.disliked)
+
         this.state = {
             body: this.props.comment.body,
             id: this.props.comment.id,
@@ -194,12 +192,19 @@ class CommentIndexItem extends React.Component {
                 {this.renderProfileThumbnail()}
                 <div className="comment-info-container">
                     <div className="comment-info" >
-                        <div className="comment-info-info">
-                            <div className="comment-author-date">
-                                {comment.author.username} {!this.state.edited ? <span>{comment.createdAt}</span> : <span>{comment.updatedAt}</span>} {this.state.edited ? <span>(edited)</span> : null}
+                        <div className="comment-info-info-container">
+                            <div className="comment-info-info">
+                                <div className="comment-author-date">
+                                    {comment.author.username} {!this.state.edited ? <span>{comment.createdAt}</span> : <span>{comment.updatedAt}</span>} {this.state.edited ? <span>(edited)</span> : null}
+                                </div>
+                                <div className="comment-body" onClick={this.handleEdit}>
+                                    {!this.state.editing ? comment.body : null}
+                                </div>
                             </div>
-                            <div className="comment-body" onClick={this.handleEdit}>
-                                {!this.state.editing ? comment.body : null}
+                            <div className="comment-dropdown-container">
+                                <button className="comment-dropdown">
+                                    <MdMoreVert />
+                                </button>
                             </div>
                         </div>
                         {this.renderEdit()}

@@ -83,8 +83,7 @@ class NavBar extends React.Component {
 
   render() {
     const { currentUser } = this.props
-    
-    console.log(this.state)
+
     return (
       <div className="header">
           <div className="navbar">
