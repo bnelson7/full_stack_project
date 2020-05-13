@@ -5,7 +5,6 @@ import { withRouter } from 'react-router-dom'
 import { requestVideos } from '../../actions/video_actions'
 
 const mSTP = state => {
-
     return {
         currentUser: state.entities.users[state.session.id]
     }
