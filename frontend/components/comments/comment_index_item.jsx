@@ -14,7 +14,8 @@ class CommentIndexItem extends React.Component {
             edited: this.props.comment.edited,
             editing: false,
             replying: false,
-            clicked: false
+            clicked: false,
+            commentDropdown: false
         }
 
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -23,6 +24,7 @@ class CommentIndexItem extends React.Component {
         this.handleDelete = this.handleDelete.bind(this)
         this.handleReply = this.handleReply.bind(this)
         this.handleLike = this.handleLike.bind(this)
+        this.handleDropdown = this.handleDropdown.bind(this)
     }
 
     handleSubmit(e) {
@@ -125,6 +127,11 @@ class CommentIndexItem extends React.Component {
         }
     }
 
+    handleDropdown(e) {
+        e.preventDefault();
+        this.setState({ commentDropdown: true })
+    }
+
     update(e) {
         return e => {
             this.setState({ body: e.currentTarget.value })
@@ -185,7 +192,7 @@ class CommentIndexItem extends React.Component {
     }
 
     render() {
-        const { comment } = this.props
+        const { comment, currentUser } = this.props
         
         return (
             <div className="comment-container">
@@ -202,10 +209,27 @@ class CommentIndexItem extends React.Component {
                                 </div>
                             </div>
                             <div className="comment-dropdown-container">
-                                <button className="comment-dropdown">
+                                <button className="comment-dropdown" onClick={this.handleDropdown}>
                                     <MdMoreVert />
                                 </button>
                             </div>
+                            {this.state.commentDropdown ?
+                            <div className="comment-dropdown-form">
+                                {comment.author.id === currentUser.id ?
+                                <div>
+                                    <div className="comment-dropdown-delete">
+                                        delete
+                                    </div>
+                                    <div className="comment-dropdown-edit">
+                                        edit
+                                    </div>
+                                </div>
+                                : 
+                                <div className="comment-dropdown-flag">
+                                    
+                                </div>}
+                            </div>
+                            : null}
                         </div>
                         {this.renderEdit()}
                         <div className="comment-icons">

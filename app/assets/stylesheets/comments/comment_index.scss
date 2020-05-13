@@ -19,6 +19,8 @@
 .comment-container {
     display: flex;
     height: 100%;
+    position: relative;
+    z-index: 1;
 }
 
 .comment-dropdown-container {
@@ -42,6 +44,21 @@
 
 .comment-container:hover .comment-dropdown {
     display: block;
+}
+
+.comment-dropdown-form {
+       display: block;
+    position: absolute;
+    font-size: 1.4vh;
+    overflow: hidden;
+    white-space: nowrap;
+    background: rgba(255, 255, 255, 0.98);
+    top: 5.2vh;
+    right: 2vw;
+    width: 15vw;
+    border-right: 0.5px solid #D0D0D0;
+    border-left: 0.5px solid #D0D0D0;
+    border-bottom: 0.5px solid #D0D0D0;
 }
 
 .profile-thumbnail-comment-item {
