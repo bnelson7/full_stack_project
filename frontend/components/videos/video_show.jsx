@@ -96,7 +96,6 @@ class VideoShow extends React.Component {
         if (liked) {
            return (
                <div className="video-title-icons">
-                   <div>
                     <div className="liked-btns-border-liked">
                         <button onClick={this.handleLike} value="liked">
                             <span id="video-title-icon-liked"><IoMdThumbsUp /></span>
@@ -118,7 +117,6 @@ class VideoShow extends React.Component {
                     <button className="horiz-dots">
                         <span id="video-title-icon"><MdMoreHoriz /></span>
                     </button>
-                   </div>
                </div>
            )
         } else if (disliked) {
@@ -198,7 +196,8 @@ class VideoShow extends React.Component {
     render() {
         const { video, videos, videoId, path, like} = this.props
         if (!video || !video.clipUrl) return null
-        console.log(this.props.videos)
+        const filteredVideos = videos.filter(video => !video.clipUrl)
+        
         return (
             <div className="background">
                 <div className="page-container">
@@ -244,11 +243,11 @@ class VideoShow extends React.Component {
                     <div className="related-container">
                         <div className="upnext-video">
                             <h1>Up next</h1>
-                            {videos.slice(0, 1).map(video => <li className="suggested-grid-item" key={video.id}><VideoIndexItem video={video} path={path}/></li>)}
+                            {filteredVideos.slice(0, 1).map(video => <li className="suggested-grid-item" key={video.id}><VideoIndexItem video={video} path={path}/></li>)}
                         </div>
                         <hr id="related-hr"/>
                         <div className="suggested-videos">
-                            {videos.slice(1).map(video => <li className="suggested-grid-item" key={video.id}><VideoIndexItem video={video} path={path}/></li>)}
+                            {filteredVideos.slice(1).map(video => <li className="suggested-grid-item" key={video.id}><VideoIndexItem video={video} path={path}/></li>)}
                         </div>
                     </div>
                 </div>

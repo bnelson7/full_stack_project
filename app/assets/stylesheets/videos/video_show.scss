@@ -68,6 +68,7 @@ video:focus {
     width: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .video-title-icons div button {
@@ -313,4 +314,10 @@ video:focus {
 .info-category span {
     color: #065FD4;
     font-weight: bold;
+}
+
+.video-liked-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
 }

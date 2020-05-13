@@ -46,7 +46,7 @@ class Search extends React.Component {
                     </div>
                     <hr id="search-hr"/>
                     <div className="search-grid-container">
-                        {this.state.videos.map(video => <li className="search-grid-item"><VideoIndexItem key={video.id} video={video} path={path}/></li>)}
+                        {this.state.videos.map(video => <li className="search-grid-item" key={video.id}><VideoIndexItem video={video} path={path}/></li>)}
                     </div>
                 </div>
             </div>

@@ -20,6 +20,26 @@ span, article, footer, time, small {
   // font-family: 'Roboto', 'Noto', sans-serif;
 }
 
+html, body {
+   overflow-x: hidden;
+   overflow-y: hidden;
+  //  position: fixed;
+  }
+  
+  body::-webkit-scrollbar {
+    height: 100vh;
+  }
+
+// html {
+//   height: 100vh
+// }
+
+// body {
+//   margin: 0 0;
+//   padding: 0 0;
+//   height: 100%;
+// }
+
 ol, ul, div {
   list-style: none;
 }
