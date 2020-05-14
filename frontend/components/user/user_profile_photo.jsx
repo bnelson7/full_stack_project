@@ -32,6 +32,10 @@ class ProfilePhoto extends React.Component {
                 {currentUser.photoUrl ?
                     <div className="profile-photo">
                         <img src={currentUser.photoUrl} />
+                        <div className="profile-photo-user">
+                            <span>{currentUser.username}</span>
+                            <span>No Subscribers</span>
+                        </div>
                     </div> :
                     <form onSubmit={this.handleSubmit}>
                         <div className="profile-photo-default">

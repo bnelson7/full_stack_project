@@ -24,6 +24,7 @@ class UserProfile extends React.Component {
         this.handleToggle = this.handleToggle.bind(this)
         this.handleDelete = this.handleDelete.bind(this)
         this.handleEdit = this.handleEdit.bind(this)
+        this.getDate = this.getDate.bind(this)
     }
 
     componentDidMount() {
@@ -88,6 +89,18 @@ class UserProfile extends React.Component {
         this.setState({ selected: field })
     }
 
+    getDate() {
+        const { currentUser } = this.props
+        let date = new Date(`${currentUser.createdAt}`)
+        let month = date.getMonth()
+        let day = date.getDate()
+        let year = date.getFullYear()
+        const options = { year: 'numeric', month: 'long', day: 'numeric' }
+        let uploadDateformatted = new Date(year, month, day)
+        const newDateTimeFormat = Intl.DateTimeFormat('en-US', options)
+        return newDateTimeFormat.format(uploadDateformatted)
+    }
+
     renderSelected() {
         const { selected } = this.state
         const { videos, currentUser } = this.props
@@ -130,9 +143,9 @@ class UserProfile extends React.Component {
                 )
             case "about":
                 return (
-                    <div>
+                    <div className="profile-about">
                         Stats
-                        Joined {currentUser.createdAt}
+                        Joined {this.getDate()}
                     </div>
                 )
             case "search":
@@ -183,27 +196,27 @@ class UserProfile extends React.Component {
         console.log(this.state)
         
         return (
-            <div className="background">
+            // <div className="background">
                 <div className="profile-background">
-                    <div className="profile-header">
-                        {currentUser.username}
-                        No Subscribers
-                       <ProfilePhotoContainer />
-                        <div className="profile-nav">
-                            <button onClick={() => this.handleClick("home")} className="selected-profile-nav-item">HOME</button>
-                            <button onClick={() => this.handleClick("videos")} className="profile-nav-item">VIDEOS</button>
-                            <button onClick={() => this.handleClick("playlists")} className="profile-nav-item">PLAYLISTS</button>
-                            <button onClick={() => this.handleClick("channels")} className="profile-nav-item">CHANNELS</button>
-                            <button onClick={() => this.handleClick("discussion")} className="profile-nav-item">DISCUSSION</button>
-                            <button onClick={() => this.handleClick("about")} className="profile-nav-item">ABOUT</button>
-                            <button onClick={() => this.handleClick("search")} className="profile-nav-item"><MdSearch /></button>
+                    <div className="profile-header-container">
+                        <div className="profile-header">
+                        <ProfilePhotoContainer />
+                            <div className="profile-nav">
+                                <button onClick={() => this.handleClick("home")} className="selected-profile-nav-item">HOME</button>
+                                <button onClick={() => this.handleClick("videos")} className="profile-nav-item">VIDEOS</button>
+                                <button onClick={() => this.handleClick("playlists")} className="profile-nav-item">PLAYLISTS</button>
+                                <button onClick={() => this.handleClick("channels")} className="profile-nav-item">CHANNELS</button>
+                                <button onClick={() => this.handleClick("discussion")} className="profile-nav-item">DISCUSSION</button>
+                                <button onClick={() => this.handleClick("about")} className="profile-nav-item">ABOUT</button>
+                                <button onClick={() => this.handleClick("search")} className="profile-nav-item"><MdSearch /></button>
+                            </div>
                         </div>
                     </div>
                     <div className="profile-container">
                         {this.renderSelected()}
                     </div>
                 </div>
-            </div>
+            // </div>
         )
     }
 }
