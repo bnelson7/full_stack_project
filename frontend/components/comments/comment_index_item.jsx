@@ -1,7 +1,7 @@
 import React from 'react'
 import CommentFormContainer from './comment_form_container'
 import { IoMdThumbsUp, IoMdThumbsDown } from 'react-icons/io'
-import { MdMoreVert } from 'react-icons/md'
+import CommentDropdown from '../hooks/comment_dropdown'
 
 class CommentIndexItem extends React.Component {
     constructor(props) {
@@ -14,8 +14,7 @@ class CommentIndexItem extends React.Component {
             edited: this.props.comment.edited,
             editing: false,
             replying: false,
-            clicked: false,
-            commentDropdown: false
+            clicked: false
         }
 
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -24,7 +23,6 @@ class CommentIndexItem extends React.Component {
         this.handleDelete = this.handleDelete.bind(this)
         this.handleReply = this.handleReply.bind(this)
         this.handleLike = this.handleLike.bind(this)
-        this.handleDropdown = this.handleDropdown.bind(this)
     }
 
     handleSubmit(e) {
@@ -41,16 +39,20 @@ class CommentIndexItem extends React.Component {
         } else {
             const reply = Object.assign({}, this.state)
             this.props.createComment(reply)
+            .then(comment => {
+                this.props.requestComments(comment.comment.videoId)
+            })
             .then(() => {
                 this.setState({
-                  editing: false,
-                  replying: false
+                    editing: false,
+                    replying: false
                 })
             })
         }
     }
 
-    handleDelete() {
+    handleDelete(e) {
+        e.preventDefault();
         this.props.deleteComment(this.props.comment.id)
     }
 
@@ -127,11 +129,6 @@ class CommentIndexItem extends React.Component {
         }
     }
 
-    handleDropdown(e) {
-        e.preventDefault();
-        this.setState({ commentDropdown: true })
-    }
-
     update(e) {
         return e => {
             this.setState({ body: e.currentTarget.value })
@@ -172,13 +169,13 @@ class CommentIndexItem extends React.Component {
     }
 
     renderReply() {
-        const { comment } = this.props
+        const { comment, currentUser } = this.props
         return (
             !this.state.editing && this.state.replying ?
             <form onSubmit={this.handleSubmit}>
                 <div className="comment-form">
                     <div className="profile-thumbnail-comment">
-                        <img src={comment.author.photoUrl} />
+                        <img src={currentUser.photoUrl} />
                     </div>
                     {!this.state.clicked ? <input className="comment-form-input" type="text" value={this.state.body} onChange={this.update("body")} />
                     : <input className="comment-form-input-clicked" type="text" value={this.state.body} onChange={this.update("body")} />}
@@ -204,32 +201,11 @@ class CommentIndexItem extends React.Component {
                                 <div className="comment-author-date">
                                     {comment.author.username} {!this.state.edited ? <span>{comment.createdAt} ago</span> : <span>{comment.updatedAt} ago</span>} {this.state.edited ? <span>(edited)</span> : null}
                                 </div>
-                                <div className="comment-body" onClick={this.handleEdit}>
+                                <div className="comment-body">
                                     {!this.state.editing ? comment.body : null}
                                 </div>
                             </div>
-                            <div className="comment-dropdown-container">
-                                <button className="comment-dropdown" onClick={this.handleDropdown}>
-                                    <MdMoreVert />
-                                </button>
-                            </div>
-                            {this.state.commentDropdown ?
-                            <div className="comment-dropdown-form">
-                                {comment.author.id === currentUser.id ?
-                                <div>
-                                    <div className="comment-dropdown-delete">
-                                        delete
-                                    </div>
-                                    <div className="comment-dropdown-edit">
-                                        edit
-                                    </div>
-                                </div>
-                                : 
-                                <div className="comment-dropdown-flag">
-                                    
-                                </div>}
-                            </div>
-                            : null}
+                            <CommentDropdown comment={comment} currentUser={currentUser} handleDelete={this.handleDelete} handleEdit={this.handleEdit} editing={this.state.editing}/>
                         </div>
                         {this.renderEdit()}
                         <div className="comment-icons">
@@ -262,9 +238,6 @@ class CommentIndexItem extends React.Component {
                         </div>
                         {this.renderReply()}
                     </div>
-                    {/* <div>
-                        <button onClick={this.handleDelete}>delete</button>
-                    </div> */}
                 </div>
             </div>
         )

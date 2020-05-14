@@ -97,7 +97,7 @@ class CommentIndex extends React.Component {
 
     render() {
         const { comments } = this.props
-        
+
         return (
             <div>
                 {this.mapNestedComments(comments)}

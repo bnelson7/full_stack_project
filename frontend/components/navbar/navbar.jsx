@@ -2,8 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { FaYoutube, FaUserCircle } from "react-icons/fa";
 import { MdMoreVert, MdNotifications, MdSearch, MdVideoCall, MdMenu, MdApps } from 'react-icons/md'
-
-import Dropdown from '../hooks/dropdown';
+import NavBarDropdown from '../hooks/navbar_dropdown';
 
 class NavBar extends React.Component {
   constructor(props) {
@@ -37,7 +36,7 @@ class NavBar extends React.Component {
           <div className="right-nav-icon">
             <MdNotifications />
           </div>
-          <Dropdown currentUser={this.props.currentUser} handleLogout={this.handleLogout}/>
+          <NavBarDropdown currentUser={this.props.currentUser} handleLogout={this.handleLogout}/>
       </div>
     )
   }
