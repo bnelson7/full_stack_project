@@ -76,7 +76,6 @@ class CommentForm extends React.Component {
     }
 
     render() {
-        
         const { comments } = this.props
         console.log(this.state)
         return (

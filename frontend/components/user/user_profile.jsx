@@ -3,10 +3,11 @@ import { FaCamera } from 'react-icons/fa'
 import { MdSearch } from 'react-icons/md'
 import ProfilePhotoContainer from './user_profile_photo_container'
 import VideoIndexItem from '../videos/video_index_item'
+import { MdFlag } from 'react-icons/md'
+import CommentFormContainer from '../comments/comment_form_container'
 
 class UserProfile extends React.Component {
     constructor(props) {
-        
         super(props)
 
         this.state = {
@@ -56,7 +57,6 @@ class UserProfile extends React.Component {
     }
 
     handleEdit(video) {
-        
         this.setState({ 
             title: video.title,
             description: video.description,
@@ -69,7 +69,6 @@ class UserProfile extends React.Component {
     }
 
     handleDelete(videoId) {
-        
         e.preventDefault();
         this.props.deleteVideo(videoId)
     }
@@ -81,12 +80,16 @@ class UserProfile extends React.Component {
     }
 
     handleToggle(e) {
-        e.target.classList.toggle("selected-profile-nav-item")
-        newSelect.classList.toggle("selected-profile-nav-item")
-    }
+        e.preventDefault();
+        const nextSelected = document.getElementById(e.target.id)
+        const prevSelected = document.querySelector(".selected-profile-nav-item")
 
-    handleClick(field) {
-        this.setState({ selected: field })
+        prevSelected.classList.remove("selected-profile-nav-item")
+        prevSelected.classList.add("profile-nav-item")
+        nextSelected.classList.remove("profile-nav-item")
+        nextSelected.classList.add("selected-profile-nav-item")
+
+        this.setState({ selected: e.target.id })
     }
 
     getDate() {
@@ -107,9 +110,8 @@ class UserProfile extends React.Component {
         
         switch (selected) {
             case "videos":
-                
                 return (
-                    <div>
+                    <div className="profile-videos">
                         <h1>Uploads</h1>
                         {videos.filter(video => video.creatorId === currentUser.id).map(video => {
                             
@@ -125,32 +127,33 @@ class UserProfile extends React.Component {
                 )
             case "playlists":
                 return (
-                    <div>
-                        <h1>This profile has no playlists.</h1>
+                    <div className="profile-playlists">
+                        <h1>This channel has no playlists.</h1>
                     </div>
                 )
             case "channels":
                 return (
-                    <div>
-                        <h1>This profile has no subscriptions.</h1>
+                    <div className="profile-channels">
+                        <h1>This channel doesn't feature any other channels.</h1>
                     </div>
                 )
             case "discussion":
                 return (
-                    <div>
-
+                    <div className="profile-comment-form-container">
+                        <CommentFormContainer />
                     </div>
                 )
             case "about":
                 return (
-                    <div className="profile-about">
-                        Stats
-                        Joined {this.getDate()}
-                    </div>
+                    <ul className="profile-about">
+                        <li>Stats</li>
+                        <li>Joined {this.getDate()}</li>
+                        <li><MdFlag /></li>
+                    </ul>
                 )
             case "search":
                 return (
-                    <div>
+                    <div className="profile-search">
 
                     </div>
                 )
@@ -192,31 +195,40 @@ class UserProfile extends React.Component {
     }
 
     render() {
-        const { currentUser, videos } = this.props
-        console.log(this.state)
-        
         return (
-            // <div className="background">
-                <div className="profile-background">
-                    <div className="profile-header-container">
-                        <div className="profile-header">
-                        <ProfilePhotoContainer />
-                            <div className="profile-nav">
-                                <button onClick={() => this.handleClick("home")} className="selected-profile-nav-item">HOME</button>
-                                <button onClick={() => this.handleClick("videos")} className="profile-nav-item">VIDEOS</button>
-                                <button onClick={() => this.handleClick("playlists")} className="profile-nav-item">PLAYLISTS</button>
-                                <button onClick={() => this.handleClick("channels")} className="profile-nav-item">CHANNELS</button>
-                                <button onClick={() => this.handleClick("discussion")} className="profile-nav-item">DISCUSSION</button>
-                                <button onClick={() => this.handleClick("about")} className="profile-nav-item">ABOUT</button>
-                                <button onClick={() => this.handleClick("search")} className="profile-nav-item"><MdSearch /></button>
-                            </div>
-                        </div>
+            <div className="profile-background">
+                <div className="profile-header-container">
+                    <div className="profile-header">
+                    <ProfilePhotoContainer />
+                    <div className="profile-nav">
+                        <button onClick={this.handleToggle} className="selected-profile-nav-item" id="home">
+                            HOME
+                        </button>
+                        <button onClick={this.handleToggle} className="profile-nav-item" id="videos">
+                            VIDEOS
+                        </button>
+                        <button onClick={this.handleToggle} className="profile-nav-item" id="playlists">
+                            PLAYLISTS
+                        </button>
+                        <button onClick={this.handleToggle} className="profile-nav-item" id="channels">
+                            CHANNELS
+                        </button>
+                        <button onClick={this.handleToggle} className="profile-nav-item" id="discussion">
+                            DISCUSSION
+                        </button>
+                        <button onClick={this.handleToggle} className="profile-nav-item" id="about">
+                            ABOUT
+                        </button>
+                        <button onClick={this.handleToggle} className="profile-nav-item" id="search">
+                            <MdSearch className="profile-search-icon"/>
+                        </button>
                     </div>
-                    <div className="profile-container">
-                        {this.renderSelected()}
                     </div>
                 </div>
-            // </div>
+                <div className="profile-container">
+                    {this.renderSelected()}
+                </div>
+            </div>
         )
     }
 }

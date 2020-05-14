@@ -237,7 +237,9 @@ class VideoShow extends React.Component {
                             </div>
                             <button className="subscribe-btn">SUBSCRIBE</button>
                         </div>
-                        <CommentFormContainer />
+                        {/* <div className="comment-form-container-container"> */}
+                            <CommentFormContainer />
+                        {/* </div> */}
                         <CommentIndexContainer />
                     </div>
                     <div className="related-container">
