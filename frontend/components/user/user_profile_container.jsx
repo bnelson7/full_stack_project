@@ -2,11 +2,12 @@ import { connect } from 'react-redux'
 import UserProfile from './user_profile'
 import { createVideo, requestVideos, deleteVideo, updateVideo } from '../../actions/video_actions'
 
-const mSTP = state => {
-    
+const mSTP = (state, ownProps) => {
+    debugger
     return ({
         currentUser: state.entities.users[state.session.id],
-        videos: Object.values(state.entities.videos)
+        videos: Object.values(state.entities.videos),
+        path: ownProps.location.pathname
     })
 }
 

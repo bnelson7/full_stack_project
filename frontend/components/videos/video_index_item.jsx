@@ -44,8 +44,8 @@ const VideoIndexItem = props => {
     //         </div>
     //     </div>
     // )
-    
-    console.log(props.path)
+
+    debugger
     return (
         props.path === `/` ? (
             <div className="grid-index-container">
@@ -77,6 +77,22 @@ const VideoIndexItem = props => {
                             <h1 id="show-user">{props.video.creator.username}&nbsp;<span className="verified"><MdCheckCircle /></span></h1>
                         </div>
                         <span id="views-date-show">{props.video.views}K views&nbsp;<span><GoPrimitiveDot /></span>&nbsp;{props.video.createdAt} ago</span>
+                    </div>
+                </div>
+            </div>
+        ) : props.path.includes('/users') ? (
+            <div className="profile-videos-item-container">
+                <div className="profile-videos-item">
+                    <Link to={`/videos/${props.video.id}`}><img src={props.video.thumbnailUrl} /></Link>
+                </div>
+                <div className="profile-videos-item-info">
+                    <div className="profile-videos-item-title">
+                        <h1 id="show-title">{props.video.title}</h1>
+                    </div>
+                    <div className="profile-videos-item-views">
+                        <span id="views-date-show">{props.video.views}K views&nbsp;
+                            <span><GoPrimitiveDot /></span>&nbsp;{props.video.createdAt} ago
+                        </span>
                     </div>
                 </div>
             </div>

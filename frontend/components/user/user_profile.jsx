@@ -3,7 +3,7 @@ import { FaCamera } from 'react-icons/fa'
 import { MdSearch } from 'react-icons/md'
 import ProfilePhotoContainer from './user_profile_photo_container'
 import VideoIndexItem from '../videos/video_index_item'
-import { MdFlag } from 'react-icons/md'
+import { MdFlag, MdSort } from 'react-icons/md'
 import CommentFormContainer from '../comments/comment_form_container'
 
 class UserProfile extends React.Component {
@@ -29,7 +29,8 @@ class UserProfile extends React.Component {
     }
 
     componentDidMount() {
-        this.props.requestVideos()
+        debugger
+        this.props.requestVideos();
     }
 
     handleUpload(field) {
@@ -106,23 +107,31 @@ class UserProfile extends React.Component {
 
     renderSelected() {
         const { selected } = this.state
-        const { videos, currentUser } = this.props
+        const { videos, currentUser, path } = this.props
         
         switch (selected) {
             case "videos":
                 return (
-                    <div className="profile-videos">
-                        <h1>Uploads</h1>
-                        {videos.filter(video => video.creatorId === currentUser.id).map(video => {
-                            
-                            return (
-                                <li className="grid-item"><VideoIndexItem key={video.id} video={video} />
-                                    <button onClick={() => this.handleDelete(video.id)}>delete video</button>
-                                    <button onClick={() => this.handleEdit(video)}>edit video</button>
-                                </li>
-                                )
-                            }
-                        )}
+                    <div className="profile-videos-container">
+                        <div className="profile-videos">
+                            <div className="profile-videos-title">
+                                <h1>Uploads</h1>
+                                <div className="comment-sort">
+                                    <span><MdSort /></span>SORT BY
+                                </div>
+                            </div>
+                            <div className="profile-videos-grid-container">
+                                {videos.filter(video => video.creatorId === currentUser.id).map(video => {
+                                    return (
+                                        <li className="profile-videos-grid-item" key={video.id}><VideoIndexItem video={video} path={path}/>
+                                            {/* <button onClick={() => this.handleDelete(video.id)}>delete video</button>
+                                            <button onClick={() => this.handleEdit(video)}>edit video</button> */}
+                                        </li>
+                                        )
+                                    }
+                                )}
+                            </div>
+                        </div>
                     </div>
                 )
             case "playlists":

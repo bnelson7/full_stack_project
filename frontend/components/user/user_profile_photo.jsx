@@ -1,5 +1,6 @@
 import React from 'react'
 import { FaCamera } from 'react-icons/fa'
+import { MdCheckCircle } from 'react-icons/md'
 
 class ProfilePhoto extends React.Component {
     constructor(props) {
@@ -33,7 +34,7 @@ class ProfilePhoto extends React.Component {
                     <div className="profile-photo">
                         <img src={currentUser.photoUrl} />
                         <div className="profile-photo-user">
-                            <span>{currentUser.username}</span>
+                            <span>{currentUser.username}<MdCheckCircle className="profile-verified-icon"/></span>
                             <span>No Subscribers</span>
                         </div>
                     </div> :
