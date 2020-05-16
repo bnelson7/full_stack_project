@@ -5,7 +5,6 @@ import { MdWatchLater } from 'react-icons/md'
 
 class Search extends React.Component {
     constructor(props) {
-        
         super(props)
 
         this.state = {
@@ -18,7 +17,6 @@ class Search extends React.Component {
         
         this.props.requestQueriedVideos(this.props.location.search)
         .then(results => {
-            
             this.setState({ videos: Object.values(results.videos) })
         });
     }
@@ -27,17 +25,15 @@ class Search extends React.Component {
         if (prevProps.location.search !== this.props.location.search) {
             this.props.requestQueriedVideos(this.props.location.search)
             .then(results => {
-                
                 this.setState({ videos: Object.values(results.videos) })
             })
         }
     }
 
     render() {
-        const { path } = this.props
-        
+        const { path } = this.props        
         if (!this.state.videos) return null
-        console.log(this.state.videos)
+
         return(
             <div className="background">
                 <div className="search-background">

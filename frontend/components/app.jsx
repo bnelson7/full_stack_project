@@ -6,9 +6,11 @@ import Sidebar from "./sidebar/sidebar"
 import UserProfileContainer from './user/user_profile_container'
 import SearchContainer from './search/search_container'
 import { ProtectedRoute } from '../util/route_util'
+import ModalContainer from "./modal/modal_container"
 
 const App = () => (
     <div className="root-container">
+        <ModalContainer />
         <Route exact path="/videos/:videoId" component={VideoShowContainer} />
         <div className="main-container">
             <Route path="/results" component={Sidebar} />

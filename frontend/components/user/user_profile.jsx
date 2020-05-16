@@ -11,17 +11,9 @@ class UserProfile extends React.Component {
         super(props)
 
         this.state = {
-            title: "",
-            description: "",
-            clipFile: null,
-            thumbnailFile: null,
-            selected: "home",
-            edit: false,
-            videoId: null
+            selected: "home"
         }
-  
-        this.handleUpload = this.handleUpload.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
+        
         this.handleToggle = this.handleToggle.bind(this)
         this.handleDelete = this.handleDelete.bind(this)
         this.handleEdit = this.handleEdit.bind(this)
@@ -29,32 +21,7 @@ class UserProfile extends React.Component {
     }
 
     componentDidMount() {
-        debugger
         this.props.requestVideos();
-    }
-
-    handleUpload(field) {
-        return e => {
-            this.setState({ [field]: e.currentTarget.files[0]})
-        }
-    }
-
-    handleSubmit(e) {
-        e.preventDefault();
-        const formData = new FormData();
-        
-        if (!this.state.edit) {
-            formData.append('video[title]', this.state.title);
-            formData.append('video[description]', this.state.description);
-            formData.append('video[clip]', this.state.clipFile);
-            formData.append('video[thumbnail]', this.state.thumbnailFile);
-            this.props.createVideo(formData) 
-        } else {
-            formData.append('video[title]', this.state.title);
-            formData.append('video[description]', this.state.description);
-            
-            this.props.updateVideo(formData, this.state.videoId)
-        }
     }
 
     handleEdit(video) {
@@ -72,12 +39,6 @@ class UserProfile extends React.Component {
     handleDelete(videoId) {
         e.preventDefault();
         this.props.deleteVideo(videoId)
-    }
-
-    update(field) {
-        return e => {
-            this.setState({ [field]: e.currentTarget.value })
-        } 
     }
 
     handleToggle(e) {
@@ -169,35 +130,15 @@ class UserProfile extends React.Component {
             default:
                 return (
                     <div className="upload-container">
-                        <img src="https://www.gstatic.com/youtube/img/channels/empty_channel_illustration.svg" />
-                        <h1>Upload a video to get started</h1>
-                        <p>Start sharing your story and connecting with viewers. Videos you upload will</p>
-                        <p>show up here.</p>
-                        <br />
-                        <form onSubmit={this.handleSubmit}>
-                            <div className="upload-form">
-                                <label> Title:
-                                        <input type="text" value={this.state.title} onChange={this.update('title')} />
-                                </label>
-
-                                <label> Desciption:
-                                        <textarea value={this.state.description} onChange={this.update('description')} />
-                                </label>
-
-                                <input type="file" name="file1" id="file1" className="file1" onChange={this.handleUpload('clipFile')} />
-                                <label htmlFor="file1">UPLOAD VIDEO</label>
-
-                                <br />
-                                <h1>Thumbnail</h1>
-                                <p>Upload a picture that shows what's in your video. A good thumbnail stands out
-                                    <br></br>and draws viewers' attention.</p>
-
-                                <input type="file" name="file2" id="file2" className="file2" onChange={this.handleUpload('thumbnailFile')} />
-                                <label htmlFor="file2">Upload thumbnail</label>
-                                <br />
-                                {!this.state.edit ? <button className="upload-btn">UPLOAD VIDEO</button> : <button className="upload-btn">SAVE</button>}
+                        <div className="profile-upload">
+                            <img src="https://www.gstatic.com/youtube/img/channels/empty_channel_illustration.svg" />
+                            <h1>Upload a video to get started</h1>
+                            <div className="profile-upload-info">
+                                <p>Start sharing your story and connecting with viewers. Videos you upload will</p>
+                                <p>show up here.</p>
                             </div>
-                        </form>
+                            <button className="upload-btn">UPLOAD VIDEO</button>
+                        </div>
                     </div>
                 )
         }
@@ -228,7 +169,7 @@ class UserProfile extends React.Component {
                         <button onClick={this.handleToggle} className="profile-nav-item" id="about">
                             ABOUT
                         </button>
-                        <button onClick={this.handleToggle} className="profile-nav-item" id="search">
+                        <button className="profile-nav-item" id="search">
                             <MdSearch className="profile-search-icon"/>
                         </button>
                     </div>

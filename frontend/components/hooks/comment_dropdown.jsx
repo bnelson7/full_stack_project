@@ -30,7 +30,7 @@ const CommentDropdown = (props) => {
                 </button>
             </div>
             {open && !props.editing &&
-            <div> {props.comment.author.id === props.currentUser.id ?
+            <div> {props.currentUser && props.comment.author.id === props.currentUser.id ?
                 <div className="comment-dropdown-form">
                         <ul className="comment-dropdown-items">
                             <li onClick={props.handleEdit}>

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { FaYoutube, FaUserCircle } from "react-icons/fa";
 import { MdMoreVert, MdNotifications, MdSearch, MdVideoCall, MdMenu, MdApps } from 'react-icons/md'
 import NavBarDropdown from '../hooks/navbar_dropdown';
+import UploadModalContainer from '../modal/modal_container'
 
 class NavBar extends React.Component {
   constructor(props) {
@@ -14,21 +15,28 @@ class NavBar extends React.Component {
 
     this.handleLogout = this.handleLogout.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
+    this.handleModal = this.handleModal.bind(this)
   }
 
   handleLogout(e) {
-      e.preventDefault()
+      e.preventDefault();
       this.props.logout()
       .then(() => {
         this.props.history.push('/')
       })
   }
 
+  handleModal(e) {
+    e.preventDefault();
+    debugger
+    this.props.openModal('upload');
+  }
+
   loggedInNav() {
     return (
       <div className="right-navbar">
           <div className="right-nav-icon">
-            <MdVideoCall />
+            <MdVideoCall onClick={this.handleModal}/>
           </div>
           <div className="right-nav-icon">
             <MdApps />

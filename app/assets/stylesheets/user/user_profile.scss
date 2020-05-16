@@ -36,7 +36,7 @@
     width: 45vw;
     font-size: 1.4vh;
     color: #606060;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .selected-profile-nav-item {
@@ -259,20 +259,44 @@
 }
 
 .upload-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    // display: flex;
-    // justify-content: center;
-    // align-items: center;
-    height: 50vh;
-    width: 35vw;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
 }
 
-.upload-container img {
-    width: 10vw;
-    height: 10vh;
+.profile-upload {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+    width: 50vw;
+}
+
+.profile-upload h1 {
+    color: #030303;
+    font-weight: 500;
+    font-size: 2.4vh;
+}
+
+.profile-upload img {
+    width: 18vw;
+    height: 18vh;
+}
+
+.profile-upload p {
+    font-size: 1.4vh;
+    color: #606060;
+}
+
+.profile-upload-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 8vh;
+    line-height: 1%;
 }
 
 .upload-btn {
