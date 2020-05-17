@@ -1,5 +1,7 @@
 import React from 'react'
-import { IoMdClose } from 'react-icons/io'
+import { IoMdClose, IoMdImage } from 'react-icons/io'
+import { GoPlus } from 'react-icons/go'
+import { MdFileUpload } from 'react-icons/md'
 
 class Modal extends React.Component {
     constructor(props) {
@@ -57,33 +59,60 @@ class Modal extends React.Component {
         switch (modal) {
             case 'upload':
                 return (
-                    <div className="upload-modal-background" onClick={closeModal}>
-                        <div className="upload-modal-child" onClick={e => e.stopPropagation()}>
+                    <div className="upload-modal-background">
+                        <div className="upload-modal-child">
                             <div className="upload-form-header">
-                                <h1>Upload videos</h1><span><IoMdClose /></span>
+                                <h1>Upload videos</h1>
+                                <span onClick={closeModal}><IoMdClose /></span>
                             </div>
-                            <form onSubmit={this.handleSubmit}>
-                                <div className="upload-form">
-                                    <label> Title:
-                                    <input type="text" value={this.state.title} onChange={this.update('title')} />
-                                    </label>
+                            <form onSubmit={this.handleSubmit} onClick={e => e.stopPropagation()}>
+                                <div className="upload-form-container">
+                                    <div className="upload-form">
+                                        <div className="upload-form-info">
+                                            <h1>Details</h1>
+                                            <div className="upload-title-description">
+                                                <div className="upload-title">
+                                                    <h2>Title (required)</h2>
+                                                    <textarea value={this.state.title} placeholder="Add a title that describes your video" onChange={this.update('title')} />
+                                                </div>
+                                                <div className="upload-description">
+                                                    <h2>Description</h2>
+                                                    <textarea value={this.state.description} placeholder="Tell viewers about your video" onChange={this.update('description')} />
+                                                </div>
+                                            </div>
 
-                                    <label> Desciption:
-                                    <textarea value={this.state.description} onChange={this.update('description')} />
-                                    </label>
+                                            <div className="upload-form-thumbnail">
+                                                <h1>Thumbnail</h1>
+                                                <p>Select or upload a picture that shows what's in your video. A good thumbnail stands out and draws viewers' attention.</p>
 
-                                    <input type="file" name="file1" id="file1" className="file1" onChange={this.handleUpload('clipFile')} />
-                                    <label htmlFor="file1">UPLOAD VIDEO</label>
+                                                <div className="upload-thumbnail">
+                                                    <input type="file" name="file2" id="file2" className="hidden-input" onChange={this.handleUpload('thumbnailFile')} />
+                                                    <label className="upload-thumbnail-btn" htmlFor="file2"><span className="thumbnail-icons"><IoMdImage className="thumbnail-image-icon" /><GoPlus className="thumbnail-plus-icon"/></span>Upload thumbnail</label>
+                                                </div>
+                                                
+                                                {/* {!this.state.edit ? <button className="upload-btn">UPLOAD VIDEO</button> : <button className="upload-btn">SAVE</button>} */}
+                                            </div>
+                                        </div>
 
-                                    <br />
-                                    <h1>Thumbnail</h1>
-                                    <p>Upload a picture that shows what's in your video. A good thumbnail stands out
-                                            <br></br>and draws viewers' attention.</p>
-
-                                    <input type="file" name="file2" id="file2" className="file2" onChange={this.handleUpload('thumbnailFile')} />
-                                    <label htmlFor="file2">Upload thumbnail</label>
-                                    <br />
-                                    {!this.state.edit ? <button className="upload-btn">UPLOAD VIDEO</button> : <button className="upload-btn">SAVE</button>}
+                                        <div className="upload-form-video">
+                                            <input type="file" name="file1" id="file1" className="hidden-input" onChange={this.handleUpload('clipFile')} />
+                                            <label htmlFor="file1">
+                                                <span className="upload-icon">
+                                                    <MdFileUpload />
+                                                </span>
+                                            </label>
+                                            <div className="upload-form-video-info">
+                                                <span>Drag and drop video files to upload</span>
+                                                <span>Your videos will be private until you publish them.</span>
+                                            </div>
+                                            <label className="upload-btn" htmlFor="file1">SELECT FILES</label>
+                                        </div>
+                                    </div>
+                                    <div className="upload-form-footer">
+                                        <button>
+                                            NEXT
+                                        </button>
+                                    </div>
                                 </div>
                             </form>
                         </div>

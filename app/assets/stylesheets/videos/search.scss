@@ -14,13 +14,14 @@
     cursor: pointer;
 }
 
+.search-filter span {
+    transform: rotate(-90deg);
+    font-size: 2vh;
+}
+
 .search-filter h1 {
     font-size: 1.4vh;
     font-weight: 600;
-}
-
-.search-filter span {
-    font-size: 1.8vh;
 }
 
 #search-hr {
@@ -88,5 +89,6 @@
     font-weight: 400;
     color: #606060;
 }
+
 
 

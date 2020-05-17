@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { FaYoutube, FaUserCircle } from "react-icons/fa";
 import { MdMoreVert, MdNotifications, MdSearch, MdVideoCall, MdMenu, MdApps } from 'react-icons/md'
 import NavBarDropdown from '../hooks/navbar_dropdown';
-import UploadModalContainer from '../modal/modal_container'
 
 class NavBar extends React.Component {
   constructor(props) {
@@ -93,8 +92,8 @@ class NavBar extends React.Component {
           <div className="navbar">
 
             <div className="left-navbar">
-                <div className="menu">
-                  <MdMenu />
+                <div >
+                  <MdMenu className="menu"/>
                 </div>
                 <Link to="/">
                   <div className="logo">

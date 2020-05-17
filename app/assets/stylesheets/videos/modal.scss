@@ -4,7 +4,7 @@
   bottom: 0;
   right: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.5);
   z-index: 10;
 }
 
@@ -19,15 +19,233 @@
   border-radius: .7vh;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  box-shadow: 8px 8px 6px -6px #030303;
+  // overflow-y: hidden;
+}
+
+.upload-form-header {
+  border-bottom: .75px solid #D3D3D3;
+  width: 100%;
+  height: 6.5vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2.4vh 0 2.4vh;
+}
+
+.upload-form-header h1{
+  color: #212121;
+  font-size: 2vh;
+  font-weight: 500;
+}
+
+.upload-form-header span {
+  color: rgba(0, 0, 0, 0.55);
+  font-size: 2.7vh;
+  cursor: pointer;
+}
+
+.upload-form-header span:hover {
+  color: #030303;
+}
+
+.upload-modal-background form {
+   width: 100%;
+   height: 100%;
+}
+
+.upload-form-container {
+  display: flex;
+  flex-direction: column;
+  // overflow: hidden;
+}
+
+.upload-form {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+
+.upload-form-info {
+  flex: 1.7;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 3vh 3.5vh 5vh 6vh;
+}
+
+.upload-form-info h1 {
+  color: #212121;
+  font-size: 2.5vh;
+  font-weight: 600;
+  padding-bottom: 2.5vh; 
+}
+
+.upload-title-description {
+  display: flex;
+  flex-direction: column;
+  // justify-content: space-between;
+  height: 37vh;
+}
+
+// figure out height issue
+.upload-title-description textarea {
+  resize: none;
+  width: 100%;
+  height: 80%;
+  border: none;
+}
+
+.upload-title-description h2 {
+  padding-bottom: 1vh; 
+}
+
+.upload-title-description h2:focus {
+  color: #065FD4;
+}
+
+.upload-title {
+  border: 1px solid #D3D3D3;
+  border-radius: 3px;
+  // height: 10vh;
+  flex: 1;
+  padding: 1vh;
+}
+
+.upload-title:focus {
+  border: 1px solid #065FD4;
+}
+
+.upload-description {
+  border: 1px solid #D3D3D3;
+  border-radius: 3px;
+  // height: 20vh;
+  flex: 2;
+  padding: 1vh;
+  margin-top: 3.5vh;
+}
+
+.upload-form-thumbnail {
+  height: 100%;
+  // display: flex;
+  // flex-direction: column;
+}
+
+.upload-form-thumbnail h1 {
+  color: #212121;
+  font-size: 1.8vh;
+  font-weight: 600;
+  padding: 2vh 0 0 0;
+  line-height: 50%;
+}
+
+.upload-form-thumbnail p {
+  color: rgba(0, 0, 0, 0.55);;
+  font-size: 1.4vh;
+}
+
+.upload-thumbnail {
+  height: 80%;
+  color: #D3D3D3;
+}
+
+.hidden-input {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.hidden-input + .upload-thumbnail-btn {
+  border: 1px dashed #D3D3D3;
+  height: 15vh;
+  width: 15vw;
+  cursor: pointer;
+  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 2vh;
+}
+
+.thumbnail-icons {
+  display: flex;
+}
+
+.thumbnail-image-icon {
+  font-size: 3vh;
+  border-radius: 3px;
+  padding: 1.5vh 0 1.5vh 0;
+}
+
+.thumbnail-plus-icon {
+  align-self: flex-start;
+  margin: 1vh 1vh 0 0;
+}
+
+.upload-form-video {
+  flex: 1;
+  height: 40vh;
+  align-self: flex-start;
+  margin: 8.5vh 3.5vh 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-icon {
+  background:	#E8E8E8;
+  height: 11vh;
+  width: 11vh;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 5vh;
+  color: #909090;
+}
+
+.upload-form-video-info {
+  height: 10vh;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.upload-form-header {
-  border: 1px solid black;
-  width: 100%;
-  margin-top: 0;
+.upload-form-video-info span:first-child {
+  font-size: 1.5vh;
+  color: #212121;
 }
 
-.upload-form {
+.upload-form-video-info span:last-child {
+  padding: 1vh 0 1vh 0;
+  font-size: 1.3vh;
+  color: #606060;
+}
+
+.upload-form-footer {
+  border-top: .75px solid #D3D3D3;
+  display: block;
+  height: 100%;
+  // width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 3vh;
+  padding: 1.5vh 1vh 0vh 0vh;
+}
+
+.upload-form-footer button {
+    background: #065FD4;
+    color: white;
+    padding: .9vh 1.5vh .9vh 1.5vh;
+    border-radius: 1px;
+    font-weight: 500;
 }

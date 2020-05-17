@@ -2,6 +2,7 @@ import React from 'react'
 import VideoIndexItem from '../videos/video_index_item'
 import { FaSlidersH } from 'react-icons/fa'
 import { MdWatchLater } from 'react-icons/md'
+import { FiSliders } from 'react-icons/fi'
 
 class Search extends React.Component {
     constructor(props) {
@@ -38,7 +39,7 @@ class Search extends React.Component {
             <div className="background">
                 <div className="search-background">
                     <div className="search-filter">
-                        <span><FaSlidersH /></span><h1>FILTER</h1>
+                        <span><FiSliders /></span><h1>FILTER</h1>
                     </div>
                     <hr id="search-hr"/>
                     <div className="search-grid-container">
