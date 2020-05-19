@@ -12,8 +12,11 @@ const NavBarDropdown = (props) => {
         if (navbar.current.contains(e.target)) {
             return;
         }
+      
         setOpen(false);
     };
+
+    //add onChange event handler to setOpen(false) when path changes
 
     useEffect(() => {
         document.addEventListener("mousedown", handleClick);
@@ -28,7 +31,7 @@ const NavBarDropdown = (props) => {
             <button className="profile-photo-nav" onClick={e => setOpen(!open)}>
                 <img src={props.currentUser.photoUrl} />
             </button>
-            {open &&
+            {open && 
             <ul className="profile-nav-dropdown">
                 <div className="nav-dropdown-user">
                     <li className="profile-thumbnail-dropdown">

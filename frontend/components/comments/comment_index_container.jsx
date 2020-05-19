@@ -6,7 +6,7 @@ import CommentIndex from './comment_index'
 import { withRouter } from 'react-router-dom'
 
 const mstp = state => {
-    debugger
+    
     let currentUser = state.entities.users[state.session.id]
     let likes = currentUser && currentUser.liked && currentUser.liked.comments ? currentUser.liked.comments : null
     return {

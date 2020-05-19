@@ -32,7 +32,7 @@ export const createVideo = video => {
 }
 
 export const updateVideo = (formData, videoId) => {
-    debugger
+    
     return (
         $.ajax({
             url: `/api/videos/${videoId}`,

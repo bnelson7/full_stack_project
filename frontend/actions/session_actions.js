@@ -19,9 +19,11 @@ const receiveSessionErrors = errors => ({
     errors
 })
 
-export const clearSessionErrors = () => ({
-    type: CLEAR_SESSION_ERRORS
-})
+export const clearSessionErrors = () => {
+    return {
+        type: CLEAR_SESSION_ERRORS
+    }
+}
 
 export const signup = user => dispatch => (
     SessionAPIUtil.signup(user)
@@ -33,7 +35,6 @@ export const signup = user => dispatch => (
 );
 
 export const login = user => dispatch => {
-    
     return (
         SessionAPIUtil.login(user)
         .then(user => (

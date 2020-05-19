@@ -36,7 +36,7 @@
     width: 45vw;
     font-size: 1.4vh;
     color: #606060;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .selected-profile-nav-item {
@@ -59,6 +59,11 @@
 
 .profile-nav-item:hover {
     color: #030303;
+}
+
+.profile-photo-container {
+    display: flex;
+    justify-content: space-between;
 }
 
 .profile-photo {
@@ -186,7 +191,6 @@
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    
 }
 
 .profile-videos-item-title {
@@ -258,11 +262,85 @@
     font-size: 2.4vh;
 }
 
-.upload-container {
+.upload-container-default {
     display: flex;
     justify-content: center;
     height: 100%;
     width: 100%;
+}
+
+.upload-container-content {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.upload-container-uploads {
+    flex: 4.5;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-left: 11vw;
+}
+
+.uploads-featured-video-container {
+    border-bottom: .75px solid #D3D3D3;
+    height: 31vh;
+    display: flex;
+    padding: 2.5vh 2.5vh 2.5vh 0;
+}
+
+.uploads-featured-video {
+    height: 100%;
+    width: 25vw;
+}
+
+.uploads-featured-video-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 15vw;
+    margin-left: 1.5vw;
+}
+
+.uploads-profile-videos-item-info {
+}
+
+.uploads-profile-videos-item-views {
+    padding-top: 1.5vh;
+    display: flex;
+    align-items: center;
+}
+
+.uploads-profile-videos-description {
+    height: 15vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.uploads-profile-videos-description span {
+    color: #030303;
+    font-size: 1.3vh;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.uploads-uploads {
+    border-bottom: .75px solid #D3D3D3;
+    height: 28vh;
+    padding-bottom: 2.5vh;
+}
+
+.uploads-uploads-title {
+    padding: 2vh 0 2vh 0;
+    color: #030303;
+    font-size: 1.6vh;
+    font-weight: 600;
+}
+
+.uploads-featured-channels {
+    flex: 2;
 }
 
 .profile-upload {

@@ -5,6 +5,9 @@ import ProfilePhotoContainer from './user_profile_photo_container'
 import VideoIndexItem from '../videos/video_index_item'
 import { MdFlag, MdSort } from 'react-icons/md'
 import CommentFormContainer from '../comments/comment_form_container'
+import TimeAgo from "javascript-time-ago";
+import { GoPrimitiveDot } from "react-icons/go";
+import { Link } from 'react-router-dom'
 
 class UserProfile extends React.Component {
     constructor(props) {
@@ -21,8 +24,17 @@ class UserProfile extends React.Component {
     }
 
     componentDidMount() {
-        this.props.requestVideos();
+        this.props.requestUser(this.props.currentUser.id)
+        this.props.requestVideos()
+        .then(() => {
+            this.props.requestVideo(this.props.video.id)
+            
+        })
     }
+
+    // componentDidUpdate(prevState) {
+
+    // }
 
     handleEdit(video) {
         this.setState({ 
@@ -128,8 +140,9 @@ class UserProfile extends React.Component {
                     </div>
                 )
             default:
-                return (
-                    <div className="upload-container">
+                if (!this.props.currentUser.uploads) {
+                    return (
+                    <div className="upload-container-default">
                         <div className="profile-upload">
                             <img src="https://www.gstatic.com/youtube/img/channels/empty_channel_illustration.svg" />
                             <h1>Upload a video to get started</h1>
@@ -141,6 +154,54 @@ class UserProfile extends React.Component {
                         </div>
                     </div>
                 )
+            } else {
+                return (
+                    <div className="upload-container-content">
+                        <div className="upload-container-uploads">
+                            <div className="uploads-featured-video-container">
+                                <div className="uploads-featured-video">
+                                    <video controls autoPlay >
+                                        <source type="video/mp4" src={this.props.video.clipUrl} />
+                                    </video>
+                                </div>
+                                <div className="uploads-featured-video-info">
+                                    <div className="uploads-profile-videos-item-info">
+                                        <div className="profile-videos-item-title">
+                                            <h1 id="show-title">{this.props.video.title}</h1>
+                                        </div>
+                                        <div className="uploads-profile-videos-item-views">
+                                            <span id="views-date-show">{this.props.video.views}K views&nbsp;
+                                                <span><GoPrimitiveDot /></span>&nbsp;{this.props.video.createdAt} ago
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div className="uploads-profile-videos-description">
+                                        {this.props.video.description}
+                                        <Link to={`/videos/${this.props.video.id}`}><span>READ MORE</span></Link>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="uploads-uploads">
+                                <h1 className="uploads-uploads-title">Uploads</h1>
+                                <div className="profile-videos-grid-container">
+                                    {videos.filter(video => video.creatorId === currentUser.id).map(video => {
+                                        return (
+                                            <li className="profile-videos-grid-item" key={video.id}><VideoIndexItem video={video} path={path} />
+                                                {/* <button onClick={() => this.handleDelete(video.id)}>delete video</button>
+                                            <button onClick={() => this.handleEdit(video)}>edit video</button> */}
+                                            </li>
+                                        )
+                                    }
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="uploads-featured-channels">
+                            
+                        </div>
+                    </div>
+                )
+            }
         }
     }
 

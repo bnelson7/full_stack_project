@@ -5,15 +5,16 @@ import { withRouter } from 'react-router-dom'
 import { requestVideos } from '../../actions/video_actions'
 import { openModal } from '../../actions/modal_actions'
 
-const mSTP = state => {
-    debugger
+const mSTP = (state, ownProps) => {
+    
     return {
-        currentUser: state.entities.users[state.session.id]
+        currentUser: state.entities.users[state.session.id],
+        path: ownProps.location.pathname
     }
 }
 
 const mDTP = dispatch => {
-    debugger
+    
     return {
         logout: () => dispatch(logout()),
         requestVideos: () => dispatch(requestVideos()),

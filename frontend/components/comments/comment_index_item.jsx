@@ -98,24 +98,24 @@ class CommentIndexItem extends React.Component {
     
             if ((clicked === 'liked' || clicked === 'disliked') && !liked && !disliked) {
                 let likedComment = clicked === 'liked' ? createLike(true, false) : createLike(false, true)
-                debugger
+                
                 this.props.createCommentLike(likedComment)
                 .then(() => {
                     this.props.requestComments(videoId)
                     this.props.requestUser(this.props.currentUser.id)
                 })
             } else if ((clicked === 'liked' && liked) || (clicked === 'disliked' && disliked)) {
-                debugger
+                
                 this.props.deleteCommentLike(like.id)
                 .then(() => {
                     this.props.requestComments(videoId)
                     this.props.requestUser(this.props.currentUser.id)
                 })
             } else {
-                debugger
+                
                 this.props.deleteCommentLike(like.id)
                 .then(() => {
-                    debugger
+                    
                     let likedComment = (clicked === 'liked') ? createLike(true, false) : createLike(false, true)
                     this.props.createCommentLike(likedComment)
                     .then(() => {

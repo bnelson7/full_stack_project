@@ -31,13 +31,18 @@ class ProfilePhoto extends React.Component {
         return (
             <div>
                 {currentUser.photoUrl ?
+                <div className="profile-photo-container">
                     <div className="profile-photo">
                         <img src={currentUser.photoUrl} />
                         <div className="profile-photo-user">
                             <span>{currentUser.username}<MdCheckCircle className="profile-verified-icon"/></span>
                             <span>No Subscribers</span>
                         </div>
-                    </div> :
+                    </div>
+                    <button className="subscribe-btn">
+                        SUBSCRIBE
+                    </button>  
+                </div> :
                     <form onSubmit={this.handleSubmit}>
                         <div className="profile-photo-default">
                             <FaCamera className="avatar" />

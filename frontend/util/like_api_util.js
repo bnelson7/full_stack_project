@@ -1,5 +1,5 @@
 export const createVideoLike = like => {
-    debugger
+    
     return (
         $.ajax({
             url: `/api/videos/${like.likeableId}/likes`,
@@ -10,7 +10,7 @@ export const createVideoLike = like => {
 }
 
 export const deleteVideoLike = id => {
-    debugger
+    
     return (
         $.ajax({
             url: `/api/likes/${id}`,

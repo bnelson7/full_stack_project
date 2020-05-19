@@ -27,7 +27,7 @@ class NavBar extends React.Component {
 
   handleModal(e) {
     e.preventDefault();
-    debugger
+    
     this.props.openModal('upload');
   }
 
@@ -43,7 +43,7 @@ class NavBar extends React.Component {
           <div className="right-nav-icon">
             <MdNotifications />
           </div>
-          <NavBarDropdown currentUser={this.props.currentUser} handleLogout={this.handleLogout}/>
+          <NavBarDropdown currentUser={this.props.currentUser} handleLogout={this.handleLogout} path={this.props.path}/>
       </div>
     )
   }

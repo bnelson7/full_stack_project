@@ -45,7 +45,7 @@ const VideoIndexItem = props => {
     //     </div>
     // )
 
-    debugger
+    
     return (
         props.path === `/` ? (
             <div className="grid-index-container">

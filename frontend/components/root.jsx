@@ -7,7 +7,7 @@ import LoginContainer from './session/login_container'
 import SignupContainer from "./session/signup_container"
 import App from "./app"
 
-const Root =  ({ store }) => (
+const Root = ({ store }) => (
     <Provider store={store}>
         <HashRouter>
             <Switch>

@@ -47,10 +47,10 @@ class VideoShow extends React.Component {
             console.log(this.state)
             if ((clicked === 'liked' || clicked === 'disliked') && !liked && !disliked) {
                 let likedVideo = clicked === 'liked' ? createLike(true, false) : createLike(false, true)
-                debugger
+                
                 this.props.createVideoLike(likedVideo)
                 .then(like => {
-                    debugger
+                    
                     const formData = new FormData()
                     const user = new FormData()
                     formData.append('video[likes]', like.like)
@@ -59,24 +59,24 @@ class VideoShow extends React.Component {
                     this.props.updateUser(user, this.props.currentUser.id)
                 })
             } else if ((clicked === 'liked' && liked) || (clicked === 'disliked' && disliked)) {
-                debugger
+                
                 this.props.deleteVideoLike(this.props.like.id)
                 .then(() => {
-                    debugger
+                    
                     const formData = new FormData()
                     formData.append('video[likes]', null)
                     this.props.updateVideo(formData, this.props.match.params.videoId)
                     this.props.updateUser(formData, this.props.currentUser.id)
                 })
             } else {
-                debugger
+                
                 this.props.deleteVideoLike(this.props.like.id)
                 .then(() => {
-                    debugger
+                    
                     let likedVideo = (clicked === 'liked') ? createLike(true, false) : createLike(false, true)
                     this.props.createVideoLike(likedVideo)
                     .then(like => {
-                        debugger
+                        
                         const formData = new FormData()
                         const user = new FormData()
                         formData.append('video[likes]', like.like)
@@ -146,7 +146,7 @@ class VideoShow extends React.Component {
                </div>
             )
         } else {
-            debugger
+            
             return (
                 <div className="video-title-icons">
                     <div className="liked-btns-border">

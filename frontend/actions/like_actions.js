@@ -6,7 +6,7 @@ export const RECEIVE_LIKE_ERRORS = 'RECEIVE_LIKE_ERRORS'
 export const CLEAR_LIKE_ERRORS = 'CLEAR_LIKE_ERRORS'
 
 const receiveLike = like => {
-    debugger
+    
     return {
         type: RECEIVE_LIKE,
         like
@@ -14,7 +14,7 @@ const receiveLike = like => {
 }
 
 const removeLike = like => {
-    debugger
+    
     return {
         type: REMOVE_LIKE,
         like
@@ -22,7 +22,7 @@ const removeLike = like => {
 }
 
 export const createVideoLike = like => dispatch => {
-    debugger
+    
     return (
         LikeAPIUtil.createVideoLike(like)
         .then(like => dispatch(receiveLike(like)))
@@ -30,7 +30,7 @@ export const createVideoLike = like => dispatch => {
 }
 
 export const deleteVideoLike = likeId => dispatch => {
-    debugger
+    
     return (
         LikeAPIUtil.deleteVideoLike(likeId)
         .then(() => dispatch(removeLike(likeId)))

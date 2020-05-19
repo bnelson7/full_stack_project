@@ -5,7 +5,7 @@ import { MdFileUpload } from 'react-icons/md'
 
 class Modal extends React.Component {
     constructor(props) {
-        debugger
+        
         super(props)
 
         this.state = {
@@ -19,6 +19,17 @@ class Modal extends React.Component {
 
         this.handleUpload = this.handleUpload.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleClose = this.handleClose.bind(this)
+    }
+
+    // componentDidMount() {
+    //     document.body.style.position = 'fixed'
+    //     // document.html.style.position = 'fixed'
+    // }
+
+    handleClose() {
+        // document.body.style.position = null
+        this.props.closeModal()
     }
 
     handleSubmit(e) {
@@ -31,11 +42,18 @@ class Modal extends React.Component {
             formData.append('video[clip]', this.state.clipFile);
             formData.append('video[thumbnail]', this.state.thumbnailFile);
             this.props.createVideo(formData)
+            .then(() => {
+                this.props.closeModal()
+            })
+
         } else {
             formData.append('video[title]', this.state.title);
             formData.append('video[description]', this.state.description);
-
             this.props.updateVideo(formData, this.state.videoId)
+            .then(() => {
+                this.props.closeModal()
+            })
+
         }
     }
 
@@ -52,7 +70,7 @@ class Modal extends React.Component {
     }
 
     render() {
-        debugger
+        
         const { modal, closeModal } = this.props
         if (!modal) return null;
 
@@ -63,7 +81,7 @@ class Modal extends React.Component {
                         <div className="upload-modal-child">
                             <div className="upload-form-header">
                                 <h1>Upload videos</h1>
-                                <span onClick={closeModal}><IoMdClose /></span>
+                                <span onClick={this.handleClose}><IoMdClose /></span>
                             </div>
                             <form onSubmit={this.handleSubmit} onClick={e => e.stopPropagation()}>
                                 <div className="upload-form-container">
@@ -110,7 +128,7 @@ class Modal extends React.Component {
                                     </div>
                                     <div className="upload-form-footer">
                                         <button>
-                                            NEXT
+                                            {!this.state.edit ? 'NEXT' : 'SAVE'}
                                         </button>
                                     </div>
                                 </div>
@@ -121,6 +139,7 @@ class Modal extends React.Component {
             case 'edit':
                 return null
             default:
+                
                 return null;
         }
     }

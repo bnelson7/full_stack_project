@@ -22,7 +22,6 @@ class CommentForm extends React.Component {
     handleComment(e) {
         e.preventDefault();
         const comment = Object.assign({}, this.state)
-        
         this.props.createComment(comment)
         .then(() => {
             this.setState({ 
@@ -38,7 +37,6 @@ class CommentForm extends React.Component {
     }
 
     update(e) {
-        
         return e => {
             this.setState({ 
                 body: e.currentTarget.value,
@@ -57,22 +55,26 @@ class CommentForm extends React.Component {
     }
 
     totalComments(comments) {
-        
-        // let commentsSum = comments.forEach(comment => {
-        //     let sum = []
-        //    if (!comment.replies) {
-        //         sum.push(comment) 
-        //     } else {
-        //         while (comment.replies) {
-        //             comment.replies.forEach(child => {
-        //                 sum.push(child)
-        //                 this.totalComments(child.replies)
-        //             })
-        //         }
-        //     }
-        //     return sum.length
-        // });
-        // return commentsSum;
+        let sum = 0
+
+        comments.forEach(comment => {
+           if (comment.replies) {
+                let queue = [comment]
+                while (queue.length > 0) {
+                    let parent = queue.shift()
+                    if (parent.replies) {
+                        for (let i = 0; i < parent.replies.length; i++) {
+                            queue.push(parent.replies[i])
+                        }
+                    }
+                    sum++
+                }
+            } else {
+                sum++
+            }
+        });
+
+        return sum;
     }
 
     render() {
@@ -82,8 +84,7 @@ class CommentForm extends React.Component {
             <div className="comment-form-container">
                 <div className="comment-form-info">
                     <div className="comment-length">
-                        {/* {this.totalComments(comments)}&nbsp;Comments */}
-                        &nbsp;Comments
+                        {this.totalComments(comments)}&nbsp;Comments
                     </div>
                     <div className="comment-sort">
                         <span><MdSort /></span>SORT BY

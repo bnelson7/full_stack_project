@@ -12,7 +12,7 @@ const receiveVideos = videos => ({
 })
 
 const receiveVideo = video => {
-    debugger
+    
     return {
         type: RECEIVE_VIDEO,
         video

@@ -25,7 +25,7 @@ class Api::UsersController < ApplicationController
         @user = current_user
 
         # if params[:user][:likes]
-        #     debugger
+        #     
         #     render :show
 
         if @user.update(user_params)

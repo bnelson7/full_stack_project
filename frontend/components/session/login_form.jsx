@@ -5,6 +5,7 @@ import { MdError } from 'react-icons/md'
 
 class LoginForm extends React.Component {
     constructor(props) {
+        
         super(props)
 
         this.state = { 
@@ -21,7 +22,7 @@ class LoginForm extends React.Component {
         }
     }
 
-    componentDidMount() {
+    componentWillUnmount() {
         this.props.clearSessionErrors();
     }
 
@@ -50,6 +51,7 @@ class LoginForm extends React.Component {
 
     renderErrors() {
         const { errors } = this.props
+        
         return (
             <ul >
                 {errors.map((err, i) => (
@@ -61,6 +63,7 @@ class LoginForm extends React.Component {
     }
 
     render() {
+        
         return (
             <div className="login-container">
             
@@ -74,7 +77,7 @@ class LoginForm extends React.Component {
                 <form onSubmit={this.handleSubmit}>
                     <div className="input-container">
                         <input type="text" className="login-input" placeholder="Enter your email" value={this.state.email} onChange={this.update("email")}/>
-                        {this.renderErrors()}
+                        {this.props.errors && this.renderErrors()}
                         <div className="login-demo">
                             <p>Don't have an account?</p>
                             <button className="session-nav" onClick={this.handleDemoLogin}>Login as demo user</button>
