@@ -8,6 +8,8 @@ import CommentFormContainer from '../comments/comment_form_container'
 import TimeAgo from "javascript-time-ago";
 import { GoPrimitiveDot } from "react-icons/go";
 import { Link } from 'react-router-dom'
+import Moment from "react-moment";
+import "moment-timezone";
 
 class UserProfile extends React.Component {
     constructor(props) {
@@ -162,7 +164,7 @@ class UserProfile extends React.Component {
                                         </div>
                                         <div className="uploads-profile-videos-item-views">
                                             <span id="views-date-show">{this.props.video.views}K views&nbsp;
-                                                <span><GoPrimitiveDot /></span>&nbsp;{this.props.video.createdAt} ago
+                                                <span><GoPrimitiveDot /></span>&nbsp;<Moment fromNow>{this.props.video.createdAt}</Moment>
                                             </span>
                                         </div>
                                     </div>

@@ -68,8 +68,10 @@
     flex: 4;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: flex-start;
+    margin-top: 1.5vh;
+    padding-left: .75vw;
 }
 
 .video-info h1 {
@@ -78,7 +80,7 @@
 }
 
 .profile-thumbnail {
-    flex: 1;
+    flex: 0.5;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -86,21 +88,20 @@
 }
 
 .profile-thumbnail span {
-    margin-top: 2vh;
-    color: green;
+    margin-top: 1.5vh;
 }
 
 .profile-thumbnail img {
-    width: 3.5vh;
-    height: 3.5vh;
+    width: 3.6vh;
+    height: 3.6vh;
     border-radius: 50%;
     cursor: pointer;
+    margin-bottom: 3vh;
 }
 
 .views-date {
     display: flex;
     flex-direction: column;
-    margin-bottom: 3vh;
 }
 
 .views-date h1 {
@@ -120,11 +121,12 @@
 }
 
 .views-date span span {
-    font-size: .8vh;
+    font-size: .6vh;
 }
 
 .verified {
     color: #606060;
+    font-size: 1.3vh;
 }
 
 

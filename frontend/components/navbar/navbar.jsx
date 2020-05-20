@@ -104,7 +104,9 @@ class NavBar extends React.Component {
             <form onSubmit={this.handleSearch}>
               <div className="mid-navbar">
                   <input type="text" className="search-bar" placeholder="Search" value={this.state.queryString} onChange={this.getQueryString('queryString')}/>
-                  <button onClick={this.handleSearch} type="submit" className="search-button"><MdSearch /></button>
+                  <button onClick={this.handleSearch} type="submit" className="search-button">
+                      <MdSearch />
+                  </button>
               </div>
             </form>
             {!currentUser ? this.notLoggedInNav() : this.loggedInNav()}

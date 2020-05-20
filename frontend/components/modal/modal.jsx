@@ -20,7 +20,8 @@ class Modal extends React.Component {
         // this.handleClose = this.handleClose.bind(this)
     }
 
-    componentWillReceiveProps(nextProps) {
+    // maybe use componentDidUpdate instead
+    UNSAFE_componentWillReceiveProps(nextProps) {
         debugger
         if (nextProps.video) {
             this.setState({

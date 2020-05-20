@@ -43,7 +43,7 @@ class VideoIndexItem extends React.Component {
                         <div className="video-info">
                             <h1>{this.props.video.title}</h1>
                             <div className="views-date">
-                                <h1>{this.props.video.creator.username}&nbsp;<span className="verified"><MdCheckCircle /></span></h1>
+                                <h1>{this.props.video.creator.username}&nbsp;<MdCheckCircle className="verified"/></h1>
                                 <span>{this.props.video.views}K views&nbsp;<span><GoPrimitiveDot /></span>&nbsp;{this.props.video.createdAt} ago</span>
                             </div>
                         </div>
