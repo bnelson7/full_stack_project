@@ -197,7 +197,7 @@ class VideoShow extends React.Component {
         const { video, videos, videoId, path, like} = this.props
         if (!video || !video.clipUrl) return null
         const filteredVideos = videos.filter(video => !video.clipUrl)
-        
+        debugger
         return (
             <div className="background">
                 <div className="page-container">

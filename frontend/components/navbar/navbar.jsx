@@ -27,8 +27,7 @@ class NavBar extends React.Component {
 
   handleModal(e) {
     e.preventDefault();
-    
-    this.props.openModal('upload');
+    this.props.openModal({type: 'upload'});
   }
 
   loggedInNav() {

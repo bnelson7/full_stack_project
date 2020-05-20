@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import UserProfile from './user_profile'
 import { createVideo, requestVideos, deleteVideo, updateVideo, requestVideo } from '../../actions/video_actions'
 import { requestUser } from '../../actions/user_actions'
+import { openModal } from '../../actions/modal_actions'
 
 const mSTP = (state, ownProps) => {
     let currentUser = state.entities.users[state.session.id]
@@ -22,7 +23,8 @@ const mDTP = dispatch => {
         deleteVideo: videoId => dispatch(deleteVideo(videoId)),
         updateVideo: (formData, videoId) => dispatch(updateVideo(formData, videoId)),
         requestUser: id => dispatch(requestUser(id)),
-        requestVideo: id => dispatch(requestVideo(id))
+        requestVideo: id => dispatch(requestVideo(id)),
+        openModal: modal => dispatch(openModal(modal))
     }
 }
 

@@ -22,14 +22,18 @@ span, article, footer, time, small {
 
 html, body {
    overflow-x: hidden;
-   overflow-y: auto;
+  //  overflow-y: auto;
   //  position: fixed;
   }
   
-  body::-webkit-scrollbar {
+html {
+  // overflow-y: scroll;
+    perspective: 1px;
     height: 100vh;
-  }
-
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+}
 // html {
 //   height: 100vh
 // }

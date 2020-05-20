@@ -18,39 +18,29 @@ class UserProfile extends React.Component {
         }
         
         this.handleToggle = this.handleToggle.bind(this)
-        this.handleDelete = this.handleDelete.bind(this)
-        this.handleEdit = this.handleEdit.bind(this)
         this.getDate = this.getDate.bind(this)
+        this.update = this.update.bind(this)
     }
 
     componentDidMount() {
         this.props.requestUser(this.props.currentUser.id)
-        this.props.requestVideos()
         .then(() => {
-            this.props.requestVideo(this.props.video.id)
-            
-        })
+            this.props.requestVideos()
+                this.props.requestVideo(this.props.video.id)
+            })
     }
 
-    // componentDidUpdate(prevState) {
+    update() {
+        debugger
+        const nextSelected = document.getElementById('home')
+        const prevSelected = document.querySelector(".selected-profile-nav-item")
 
-    // }
+        prevSelected.classList.remove("selected-profile-nav-item")
+        prevSelected.classList.add("profile-nav-item")
+        nextSelected.classList.remove("profile-nav-item")
+        nextSelected.classList.add("selected-profile-nav-item")
 
-    handleEdit(video) {
-        this.setState({ 
-            title: video.title,
-            description: video.description,
-            selected: "home",
-            clipFile: video.clipUrl,
-            thumbnailFile: video.thumbnailUrl,
-            edit: true,
-            videoId: video.id
-        })
-    }
-
-    handleDelete(videoId) {
-        e.preventDefault();
-        this.props.deleteVideo(videoId)
+        this.setState({ selected: "home" })
     }
 
     handleToggle(e) {
@@ -80,10 +70,11 @@ class UserProfile extends React.Component {
 
     renderSelected() {
         const { selected } = this.state
-        const { videos, currentUser, path } = this.props
-        
+        const { videos, currentUser, path, deleteVideo, updateVideo, openModal } = this.props
+        debugger
         switch (selected) {
             case "videos":
+                debugger
                 return (
                     <div className="profile-videos-container">
                         <div className="profile-videos">
@@ -95,10 +86,10 @@ class UserProfile extends React.Component {
                             </div>
                             <div className="profile-videos-grid-container">
                                 {videos.filter(video => video.creatorId === currentUser.id).map(video => {
+                                    debugger
                                     return (
-                                        <li className="profile-videos-grid-item" key={video.id}><VideoIndexItem video={video} path={path}/>
-                                            {/* <button onClick={() => this.handleDelete(video.id)}>delete video</button>
-                                            <button onClick={() => this.handleEdit(video)}>edit video</button> */}
+                                        <li className="profile-videos-grid-item" key={video.id}>
+                                            <VideoIndexItem video={video} path={path} deleteVideo={deleteVideo} updateVideo={updateVideo} update={this.update} openModal={openModal} />
                                         </li>
                                         )
                                     }
@@ -186,9 +177,8 @@ class UserProfile extends React.Component {
                                 <div className="profile-videos-grid-container">
                                     {videos.filter(video => video.creatorId === currentUser.id).map(video => {
                                         return (
-                                            <li className="profile-videos-grid-item" key={video.id}><VideoIndexItem video={video} path={path} />
-                                                {/* <button onClick={() => this.handleDelete(video.id)}>delete video</button>
-                                            <button onClick={() => this.handleEdit(video)}>edit video</button> */}
+                                            <li className="profile-videos-grid-item" key={video.id}>
+                                                <VideoIndexItem video={video} path={path} deleteVideo={deleteVideo} updateVideo={updateVideo} update={this.update} openModal={openModal} />
                                             </li>
                                         )
                                     }

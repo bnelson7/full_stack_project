@@ -4,9 +4,10 @@ import { createVideo, updateVideo } from '../../actions/video_actions'
 import Modal from './modal'
 
 const mstp = state => {
-    
+    debugger
     return {
-        modal: state.ui
+        modal: state.ui,
+        video: state.ui.video
     }
 }
 

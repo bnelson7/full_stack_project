@@ -13,6 +13,7 @@ class VideoIndex extends React.Component {
 
     render() {
         const { videos, path, deleteVideo } = this.props
+
         return (
             <div className= "background">
                 <div className="index-title">

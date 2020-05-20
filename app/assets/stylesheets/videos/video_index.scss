@@ -16,11 +16,8 @@
     width: 100%;
     // height: 100%;
     padding: 1vw 1.5vw 1vw 1.5vw;
-    perspective: 1px;
-    height: 100vh;
-    overflow-x: hidden;
-    overflow-y: auto;
-    position: relative;
+    // position: absolute;
+    overflow: auto;
 }
 
 .index-title {
