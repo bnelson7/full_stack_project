@@ -36,7 +36,7 @@
     width: 45vw;
     font-size: 1.4vh;
     color: #606060;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .selected-profile-nav-item {
@@ -116,7 +116,7 @@
 
 .profile-photo-user span:first-child {
     font-size: 2.4vh;
-    font-weight: 500;
+    font-weight: 400;
     display: flex;
     align-items: center;
 }
@@ -305,7 +305,7 @@
 }
 
 .uploads-profile-videos-item-views {
-    padding-top: 1.5vh;
+    padding-top: 1vh;
     display: flex;
     align-items: center;
 }
@@ -320,21 +320,21 @@
 .uploads-profile-videos-description span {
     color: #030303;
     font-size: 1.3vh;
-    font-weight: 600;
+    font-weight: 500;
     cursor: pointer;
 }
 
 .uploads-uploads {
     border-bottom: .75px solid #D3D3D3;
     height: 28vh;
-    padding-bottom: 2.5vh;
+    padding-bottom: 1vh;
 }
 
 .uploads-uploads-title {
     padding: 2vh 0 2vh 0;
     color: #030303;
     font-size: 1.6vh;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .uploads-featured-channels {
@@ -403,6 +403,7 @@ textarea {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    margin-top: 1.5vh;
 }
 
 .video-dropdown-container {

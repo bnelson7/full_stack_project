@@ -42,7 +42,7 @@ video:focus {
 
 .video-title-info h1 {
     font-size: 2vh;
-    font-weight: 500;
+    font-weight: 400;
     color: 	#303030;
 }
 
@@ -71,12 +71,17 @@ video:focus {
     align-items: center;
 }
 
-.video-title-icons div button {
+.video-title-icons button {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     width: 4vw;
     height: 4.5vh;
+}
+
+.video-title-icons span {
+    display: flex;
+    align-items: center;
 }
 
 .horiz-dots {
@@ -127,7 +132,7 @@ video:focus {
 .video-description-title h1 {
     color: #303030;
     font-size: 1.4vh;
-    font-weight: bold;
+    font-weight: 500;
 }
 
 .video-description-title p {
@@ -144,7 +149,7 @@ video:focus {
 
 .video-description button {
     font-size: 1.3vh;
-    font-weight: bold;
+    font-weight: 500;
     color: #606060;
     cursor: pointer;
 }
@@ -152,7 +157,7 @@ video:focus {
 .subscribe-btn {
     background: #CC0000;
     color: #FFFFFF;
-    font-weight: bold;
+    font-weight: 500;
     align-self: flex-start;
     padding: 1vh 1.6vh;
     border-radius: 2px;
@@ -172,7 +177,7 @@ video:focus {
 
 .upnext-video h1 {
     font-size: 1.6vh;
-    font-weight: 500;
+    font-weight: 400;
     color: #030303;
     padding-bottom: 1.2vh;
 }
@@ -219,14 +224,14 @@ video:focus {
 
 #show-title {
     font-size: 1.4vh;
-    font-weight: 600;
+    font-weight: 500;
     color: #030303;
 }
 
 #show-user {
     display: flex;
-    font-size: 1.4vh;
-    font-weight: 500;
+    font-size: 1.3vh;
+    font-weight: 400;
     color: #606060;
 }
 
@@ -241,6 +246,8 @@ video:focus {
 #views-date-show span {
     height: 100%;
     font-size: .6vh;
+    display: flex;
+    align-items: center;
 }
 
 #related-hr {
@@ -257,7 +264,7 @@ video:focus {
 #video-title-text {
     color: 	#505050;
     font-size: 1.3vh;
-    font-weight: bold;
+    font-weight: 500;
 }
 
 #video-title-icon-liked {
@@ -268,7 +275,7 @@ video:focus {
 #video-title-text-liked {
     color: #065FD4;
     font-size: 1.3vh;
-    font-weight: bold;
+    font-weight: 500;
 }
 
 .liked-btns-border {
@@ -314,7 +321,7 @@ video:focus {
 
 .info-category span {
     color: #065FD4;
-    font-weight: bold;
+    font-weight: 500;
 }
 
 .video-liked-container {

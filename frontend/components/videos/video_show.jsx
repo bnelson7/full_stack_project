@@ -146,7 +146,6 @@ class VideoShow extends React.Component {
                </div>
             )
         } else {
-            
             return (
                 <div className="video-title-icons">
                     <div className="liked-btns-border">
@@ -210,7 +209,7 @@ class VideoShow extends React.Component {
                         <div className="video-title">
                             <div className="video-title-info">
                                 <h1>{video.title}</h1>
-                                <span>{video.views}K views&nbsp;<span><GoPrimitiveDot /></span>&nbsp;{this.getDate()}</span>
+                                <span>{video.views} views&nbsp;<span><GoPrimitiveDot /></span>&nbsp;{this.getDate()}</span>
                             </div>
                             {this.toggleLike()}
                         </div>

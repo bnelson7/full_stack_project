@@ -68,8 +68,12 @@ class LoginForm extends React.Component {
             <div className="login-container">
             
                 <div className="login-header">
-                    <img src="https://www.finsmes.com/wp-content/uploads/2016/09/google.jpg" className="google-logo" />
-                    <div className="login-icon"><FaUserCircle /></div>
+                    <div className="login-header-google">
+                        <img src={window.google_logo} className="google-logo-login" />
+                    </div>
+                    <div className="login-icon">
+                        <FaUserCircle />
+                    </div>
                     <h1>Sign in with your Google account</h1>
                 </div>
                 
@@ -78,12 +82,14 @@ class LoginForm extends React.Component {
                     <div className="input-container">
                         <input type="text" className="login-input" placeholder="Enter your email" value={this.state.email} onChange={this.update("email")}/>
                         {this.props.errors && this.renderErrors()}
-                        <div className="login-demo">
-                            <p>Don't have an account?</p>
-                            <button className="session-nav" onClick={this.handleDemoLogin}>Login as demo user</button>
+                        <div className="login-demo-container">
+                            <div className="login-demo">
+                                <span>Don't have an account?</span>
+                                <button className="session-nav" onClick={this.handleDemoLogin}>Login as demo user</button>
+                            </div>
+                            <p>Not your computer? Use guest mode to sign in privately.
+                            <br></br><span className="session-nav">Learn more</span></p>
                         </div>
-                        <p>Not your computer? Use guest mode to sign in privately.
-                        <br></br><span className="session-nav">Learn more</span></p>
                     </div>
                     <div className="login-links">
                         <p className="session-nav"><Link to="/signup">Create account</Link></p>

@@ -173,11 +173,12 @@ class CommentIndexItem extends React.Component {
         return (
             !this.state.editing && this.state.replying ?
             <form onSubmit={this.handleSubmit}>
-                <div className="comment-form">
-                    <div className="profile-thumbnail-comment">
+                <div className="comment-form-reply">
+                    <div className="profile-thumbnail-comment-reply">
                         <img src={currentUser.photoUrl} />
                     </div>
-                    {!this.state.clicked ? <input className="comment-form-input" type="text" value={this.state.body} onChange={this.update("body")} />
+                    {!this.state.clicked ? 
+                    <input className="comment-form-input" type="text" value={this.state.body} onChange={this.update("body")} />
                     : <input className="comment-form-input-clicked" type="text" value={this.state.body} onChange={this.update("body")} />}
                 </div>
                 <div className="comment-form-btns1">

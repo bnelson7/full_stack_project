@@ -48,11 +48,13 @@ const NavBarDropdown = (props) => {
                 <div className="nav-dropdown-info">
                     <Link to={`/users/${props.currentUser.id}`}>
                         <li>
-                            <FaUser className="nav-dropdown-info-channel" /><span>Your channel</span>
+                            <span><FaUser className="nav-dropdown-info-channel" /></span>
+                            <span>Your channel</span>
                         </li>
                     </Link>
                         <li onClick={props.handleLogout}>
-                            <BsBoxArrowRight className="nav-dropdown-info-item" /><span>Sign out</span>
+                            <span><BsBoxArrowRight className="nav-dropdown-info-item" /></span>
+                            <span>Sign out</span>
                         </li>
                     {/* <li><BsSun className="nav-dropdown-info-channel-item"/><span>Dark theme: Off</span></li> */}
                 </div>

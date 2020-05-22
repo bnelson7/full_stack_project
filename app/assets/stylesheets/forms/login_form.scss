@@ -19,9 +19,23 @@
     align-items: center;
 }
 
+.login-header-google {
+    height: 10vh;
+    width: 10vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .google-logo {
     max-width: 50%;
     max-height: 50%;
+}
+
+.google-logo-login {
+    width: 80%;
+    height: 80%;
 }
 
 .login-icon {
@@ -34,7 +48,7 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    height: 20vh;
+    height: 25vh;
 }
 
 .login-input {
@@ -46,13 +60,24 @@
 }
 
 .login-input:focus {
-    border: 1.5px solid #0066ff;
+    border: 1.5px solid #065FD4;
+}
+
+.login-demo-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .login-demo {
     display: flex;
     flex-direction: column;
     // line-height: 70%;
+    height: 5vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 
 .login-links {
@@ -63,18 +88,18 @@
 }
 
 .session-btn {
-    background-color: #0066ff;
+    background-color: #065FD4;
     border-radius: 8px;
     padding: 10px;
     color: white;
     text-align: center;
     width: 80px;
-    border: 1px solid #0066ff;
+    border: 1px solid #065FD4;
     font-weight: 500;
 }
 
 .session-nav {
-    color: #0066ff;
+    color: #065FD4;
     font-weight: 500;
     font-size: 15px;
 }

@@ -15,11 +15,10 @@ class Search extends React.Component {
     }
 
     componentDidMount() {
-        
         this.props.requestQueriedVideos(this.props.location.search)
-        .then(results => {
-            this.setState({ videos: Object.values(results.videos) })
-        });
+            .then(results => {
+                this.setState({ videos: Object.values(results.videos) })
+            });
     }
 
     componentDidUpdate(prevProps) {
@@ -42,9 +41,19 @@ class Search extends React.Component {
                         <span><FiSliders /></span><h1>FILTER</h1>
                     </div>
                     <hr id="search-hr"/>
+                    {this.state.videos.length > 0 ?
                     <div className="search-grid-container">
                         {this.state.videos.map(video => <li className="search-grid-item" key={video.id}><VideoIndexItem video={video} path={path}/></li>)}
-                    </div>
+                    </div> :
+                    <div className="search-no-results-container">
+                        <div className="search-no-results">
+                            <img src={window.no_search_results} />
+                        </div>
+                        <div className="search-no-results-text">
+                            <span>No results found</span>
+                            <span>Try different keywords or remove search filters</span>
+                        </div>
+                    </div>}
                 </div>
             </div>
         )
