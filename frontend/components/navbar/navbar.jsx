@@ -95,8 +95,8 @@ class NavBar extends React.Component {
                   <MdMenu className="menu"/>
                 </div>
                 <Link to="/">
-                  <div className="logo">
-                      <FaYoutube />
+                  <div className="title-logo-container">
+                      <FaYoutube className="logo"/>
                       <span className="title">AdTube</span>
                   </div>
                 </Link>

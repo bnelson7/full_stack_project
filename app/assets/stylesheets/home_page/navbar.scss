@@ -145,25 +145,36 @@
 .menu {
     display: flex;
     align-items: center;
-    font-size: 2.4vh;
-    color: #606060;  
+    font-size: 1.35vh;
+    height: 2.4vh;
+    width: 2.4vh;
+    color: #606060; 
+}
+
+.title-logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .logo {
-    display: flex;
-    align-items: center;
     color: red;
-    font-size: 28px;
+    font-size: 2.6vh;
 }
 
 .title {
     font-weight: 600;
-    font-size: 18px;
+    font-size: 1.8vh;
     letter-spacing: -1px;
     color: 	rgb(3, 3, 3);
     transform: scale(.85, 1.15);
     // font-stretch: condensed;
     opacity: 0.8;
+    margin-right: 0.5vw;
+}
+
+.title span {
+
 }
 
 .mid-navbar {

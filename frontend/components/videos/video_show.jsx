@@ -12,13 +12,15 @@ class VideoShow extends React.Component {
         super(props)
 
         this.state = {
-            collapsed: true
+            collapsed: true,
+            sorted: null
         }
         
         this.handleLike = this.handleLike.bind(this)
         this.toggleLike = this.toggleLike.bind(this)
         this.handleInfo = this.handleInfo.bind(this)
         this.getDate = this.getDate.bind(this)
+        this.handleCommentSort = this.handleCommentSort.bind(this)
     }
 
     componentDidMount() {
@@ -191,12 +193,17 @@ class VideoShow extends React.Component {
         const newDateTimeFormat = Intl.DateTimeFormat('en-US', options)
         return newDateTimeFormat.format(uploadDateformatted)
     }
+
+    handleCommentSort(e) {
+        e.preventDefault();
+        this.setState({ sorted: e.currentTarget.textContent })
+    }
  
     render() {
         const { video, videos, videoId, path, like} = this.props
         if (!video || !video.clipUrl) return null
         const filteredVideos = videos.filter(video => !video.clipUrl)
-        debugger
+
         return (
             <div className="background">
                 <div className="page-container">
@@ -237,9 +244,9 @@ class VideoShow extends React.Component {
                             <button className="subscribe-btn">SUBSCRIBE</button>
                         </div>
                         {/* <div className="comment-form-container-container"> */}
-                            <CommentFormContainer />
+                            <CommentFormContainer handleCommentSort={this.handleCommentSort}/>
                         {/* </div> */}
-                        <CommentIndexContainer />
+                        <CommentIndexContainer sorted={this.state.sorted} />
                     </div>
                     <div className="related-container">
                         <div className="upnext-video">

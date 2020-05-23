@@ -8,15 +8,26 @@ class CommentIndex extends React.Component {
 
         this.state = {
             expandedId: null,
-            parentIds: []
+            parentIds: [],
+            sorted: null
         }
 
         this.mapNestedComments = this.mapNestedComments.bind(this)
         this.handleReplies = this.handleReplies.bind(this)
+        this.sortComments = this.sortComments.bind(this)
     }
 
     componentDidMount() {
         this.props.requestComments(this.props.match.params.videoId)
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        if (props.sorted !== state.sorted) {
+            return {
+                sorted: props.sorted
+            }
+        }
+        return null;
     }
 
     handleReplies(e) {
@@ -55,9 +66,18 @@ class CommentIndex extends React.Component {
         }
     }
 
+    sortComments(comments) {
+        if (this.state.sorted === 'Newest first') {
+            comments.sort((a, b) => parseInt(a.createdAt.split(" ")[0]) - parseInt(b.createdAt.split(" ")[0]))
+        } else {
+            comments.sort((a, b) => b.likes.like - a.likes.like)
+        }
+    }
+
     mapNestedComments(comments) {
         const { editComment, deleteComment, createComment, deleteCommentLike, createCommentLike, currentUser, requestUser, likes, requestComments } = this.props
         const { videoId } = this.props.match.params
+        debugger
         let commentsAndReplies = comments.map(comment => {
             return (
                 <div className="comment-index-grid-container" key={comment.id}>
@@ -96,11 +116,11 @@ class CommentIndex extends React.Component {
     }
 
     render() {
-        const { comments } = this.props
-
+        (!this.state.sorted) ? this.props.comments : this.sortComments(this.props.comments)
+        debugger
         return (
             <div>
-                {this.mapNestedComments(comments)}
+                {this.mapNestedComments(this.props.comments)}
             </div>
         )
     }

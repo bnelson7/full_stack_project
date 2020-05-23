@@ -1,22 +1,23 @@
 import React from 'react'
-import { MdSort } from "react-icons/md";
 import { FaUserCircle } from 'react-icons/fa'
+import CommentSortDropdown from '../hooks/comment_sort_dropdown';
 
 class CommentForm extends React.Component {
     constructor(props) {
-        
         super(props)
 
         this.state = {
             body: "",
             videoId: this.props.match.params.videoId,
-            clicked: false
+            clicked: false,
+            selected: null
         }
 
         this.handleComment = this.handleComment.bind(this)
         this.handleRedirect = this.handleRedirect.bind(this)
         this.handleCancel = this.handleCancel.bind(this)
         this.totalComments = this.totalComments.bind(this)
+        this.handleSort = this.handleSort.bind(this)
     }
 
     handleComment(e) {
@@ -77,18 +78,22 @@ class CommentForm extends React.Component {
         return sum;
     }
 
+    handleSort(e) {
+        e.preventDefault();
+        this.setState({ selected: e.currentTarget.id })
+        this.props.handleCommentSort(e);
+    }
+
     render() {
         const { comments } = this.props
-        console.log(this.state)
+
         return (
             <div className="comment-form-container">
                 <div className="comment-form-info">
                     <div className="comment-length">
                         {this.totalComments(comments)}&nbsp;Comments
                     </div>
-                    <div className="comment-sort">
-                        <span><MdSort /></span>SORT BY
-                    </div>
+                    <CommentSortDropdown handleSort={this.handleSort} selected={this.state.selected} />
                 </div>
                 <form onSubmit={this.handleComment}>
                     <div className="comment-form">
