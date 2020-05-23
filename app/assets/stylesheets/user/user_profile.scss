@@ -430,3 +430,42 @@ textarea {
     display: block;
     margin-right: 1vh;
 }
+
+.video-dropdown-form-user {
+    display: block;
+    position: absolute;
+    font-size: 1.4vh;
+    overflow: hidden;
+    white-space: nowrap;
+    background: #FFFFFF;
+    width: 9vw;
+    height: 15vh;
+    border-left: 0.5px solid #D0D0D0;
+    border-bottom: 0.5px solid #D0D0D0;
+    box-shadow: 0 3px 2px -2px #909090;
+}
+
+.video-dropdown-items-form {
+    display: flex;
+    flex-direction: column;
+    color: #111111;
+    padding: .75vh 0 .75vh 0;
+    height: 100%;
+}
+
+.video-dropdown-form-item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.video-dropdown-form-item:hover {
+    background: #E8E8E8;
+}
+
+.video-dropdown-sort {
+    font-size: 1.4vh;
+    padding: 1vh;
+    font-weight: 400;
+}

@@ -10,18 +10,21 @@ import { GoPrimitiveDot } from "react-icons/go";
 import { Link } from 'react-router-dom'
 import Moment from "react-moment";
 import "moment-timezone";
+import VideoSortDropdown from '../hooks/video_sort_dropdown'
 
 class UserProfile extends React.Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            selected: "home"
+            selected: "home",
+            sortSelected: null
         }
         
         this.handleToggle = this.handleToggle.bind(this)
         this.getDate = this.getDate.bind(this)
         this.update = this.update.bind(this)
+        this.handleSort = this.handleSort.bind(this)
     }
 
     componentDidMount() {
@@ -33,7 +36,6 @@ class UserProfile extends React.Component {
     }
 
     update() {
-        debugger
         const nextSelected = document.getElementById('home')
         const prevSelected = document.querySelector(".selected-profile-nav-item")
 
@@ -70,33 +72,113 @@ class UserProfile extends React.Component {
         return newDateTimeFormat.format(uploadDateformatted)
     }
 
+    handleSort(e) {
+        e.preventDefault();
+        this.setState({ sortSelected: e.currentTarget.id })
+    }
+
+    sortVideos(videos) {
+        const { sortSelected } = this.state
+        const { currentUser, path, deleteVideo, updateVideo, openModal } = this.props
+        let userVideos = videos.filter(video => video.creatorId === currentUser.id)
+
+        if (sortSelected === "popular") {
+            userVideos.sort((a, b) => b.views - a.views)
+            return (
+                <div className="profile-videos-grid-container">
+                    {userVideos.map(video => {
+                        return (
+                            <li className="profile-videos-grid-item" key={video.id}>
+                                <VideoIndexItem 
+                                video={video} 
+                                path={path} 
+                                deleteVideo={deleteVideo} 
+                                updateVideo={updateVideo} 
+                                update={this.update} 
+                                openModal={openModal}
+                                />
+                            </li>
+                            )
+                        }
+                    )}
+                </div>
+            )
+        } else if (sortSelected === "date-old") {
+            userVideos.sort((a, b) => parseInt(b.createdAt.split(" ")[0]) - parseInt(a.createdAt.split(" ")[0]))
+            return (
+                <div className="profile-videos-grid-container">
+                    {userVideos.map(video => {
+                        return (
+                            <li className="profile-videos-grid-item" key={video.id}>
+                                <VideoIndexItem 
+                                video={video} 
+                                path={path} 
+                                deleteVideo={deleteVideo} 
+                                updateVideo={updateVideo} 
+                                update={this.update} 
+                                openModal={openModal}
+                                />
+                            </li>
+                            )
+                        }
+                    )}
+                </div>
+            )
+        } else {
+            userVideos.sort((a, b) => parseInt(a.createdAt.split(" ")[0]) - parseInt(b.createdAt.split(" ")[0]))
+            return (
+                <div className="profile-videos-grid-container">
+                    {userVideos.map(video => {
+                        return (
+                            <li className="profile-videos-grid-item" key={video.id}>
+                                <VideoIndexItem 
+                                video={video} 
+                                path={path} 
+                                deleteVideo={deleteVideo} 
+                                updateVideo={updateVideo} 
+                                update={this.update} 
+                                openModal={openModal}
+                                />
+                            </li>
+                            )
+                        }
+                    )}
+                </div>
+            )
+        }
+    }
+
     renderSelected() {
-        const { selected } = this.state
+        const { selected, sortSelected } = this.state
         const { videos, currentUser, path, deleteVideo, updateVideo, openModal } = this.props
-        debugger
         switch (selected) {
             case "videos":
-                debugger
                 return (
                     <div className="profile-videos-container">
                         <div className="profile-videos">
                             <div className="profile-videos-title">
                                 <h1>Uploads</h1>
-                                <div className="comment-sort">
-                                    <span><MdSort /></span>SORT BY
-                                </div>
+                                <VideoSortDropdown handleSort={this.handleSort} sortSelected={sortSelected} />
                             </div>
+                            {!sortSelected ? 
                             <div className="profile-videos-grid-container">
                                 {videos.filter(video => video.creatorId === currentUser.id).map(video => {
-                                    debugger
                                     return (
                                         <li className="profile-videos-grid-item" key={video.id}>
-                                            <VideoIndexItem video={video} path={path} deleteVideo={deleteVideo} updateVideo={updateVideo} update={this.update} openModal={openModal} />
+                                            <VideoIndexItem 
+                                            video={video} 
+                                            path={path} 
+                                            deleteVideo={deleteVideo} 
+                                            updateVideo={updateVideo} 
+                                            update={this.update} 
+                                            openModal={openModal}
+                                            />
                                         </li>
                                         )
                                     }
                                 )}
-                            </div>
+                            </div> :
+                            this.sortVideos(videos)}
                         </div>
                     </div>
                 )

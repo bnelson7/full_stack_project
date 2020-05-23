@@ -1,15 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { MdMoreVert, MdModeEdit, MdFlag } from 'react-icons/md'
-import { FaTrash } from 'react-icons/fa'
 import { MdSort } from "react-icons/md";
 
 const CommentSortDropdown = (props) => {
-    const sort = useRef();
+    const commentSort = useRef();
 
     const [open, setOpen] = useState();
 
     const handleClick = e => {
-        if (sort.current.contains(e.target)) {
+        if (commentSort.current.contains(e.target)) {
             return;
         }
         setOpen(false);
@@ -24,7 +22,7 @@ const CommentSortDropdown = (props) => {
     }, []);
 
     return (
-        <div ref={sort}>
+        <div ref={commentSort}>
             <div className="comment-sort" onClick={e => setOpen(!open)}>
                 <span><MdSort /></span>SORT BY
             </div>
@@ -33,7 +31,7 @@ const CommentSortDropdown = (props) => {
                     <div className="comment-dropdown-form-form">
                         {props.selected === 'top' ?
                         <ul className="comment-dropdown-items-form">
-                            <li className="comment-dropdown-sort-selected" onClick={props.handleSort} id="top">
+                            <li className="sort-dropdown-selected" onClick={props.handleSort} id="top">
                                 <span className="comment-dropdown-sort">
                                     Top comments
                                 </span>
@@ -50,7 +48,7 @@ const CommentSortDropdown = (props) => {
                                     Top comments
                                 </span>
                             </li>
-                            <li className="comment-dropdown-sort-selected" onClick={props.handleSort} id="new">
+                            <li className="sort-dropdown-selected" onClick={props.handleSort} id="new">
                                 <span className="comment-dropdown-sort">
                                     Newest first
                                 </span>
