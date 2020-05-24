@@ -31,7 +31,7 @@ const VideoSortDropdown = (props) => {
                     <div className="video-dropdown-form-user">
                         {props.sortSelected === 'popular' ?
                         <ul className="video-dropdown-items-form">
-                            <li className="sort-dropdown-selected" onClick={props.handleSort} id="popular">
+                            <li className="sort-dropdown-selected-videos" onClick={props.handleSort} id="popular">
                                 <span className="video-dropdown-sort">
                                     Most popular
                                 </span>
@@ -46,14 +46,14 @@ const VideoSortDropdown = (props) => {
                                     Date added (newest)
                                 </span>
                             </li>
-                        </ul> : props.selected === 'date-old' ?
+                        </ul> : props.sortSelected === 'date-old' ?
                         <ul className="video-dropdown-items-form">
                             <li className="video-dropdown-form-item" onClick={props.handleSort} id="popular">
                                 <span className="video-dropdown-sort">
                                     Most popular
                                 </span>
                             </li>
-                            <li className="sort-dropdown-selected" onClick={props.handleSort} id="date-old">
+                            <li className="sort-dropdown-selected-videos" onClick={props.handleSort} id="date-old">
                                 <span className="video-dropdown-sort">
                                     Date added (oldest)
                                 </span>
@@ -75,7 +75,7 @@ const VideoSortDropdown = (props) => {
                                     Date added (oldest)
                                 </span>
                             </li>
-                            <li className="sort-dropdown-selected" onClick={props.handleSort} id="date-new">
+                            <li className="sort-dropdown-selected-videos" onClick={props.handleSort} id="date-new">
                                 <span className="video-dropdown-sort">
                                     Date added (newest)
                                 </span>

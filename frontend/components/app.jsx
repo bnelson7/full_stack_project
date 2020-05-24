@@ -2,7 +2,7 @@ import React from "react"
 import { Route, Switch } from "react-router-dom"
 import VideoIndexContainer from './videos/video_index_container'
 import VideoShowContainer from './videos/video_show_container'
-import Sidebar from "./sidebar/sidebar"
+import Sidebar from "./sidebar/sidebar_container"
 import UserProfileContainer from './user/user_profile_container'
 import SearchContainer from './search/search_container'
 import { ProtectedRoute } from '../util/route_util'

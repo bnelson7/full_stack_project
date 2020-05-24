@@ -1,9 +1,10 @@
 .sidebar-container {
-    flex: .3;
+    // flex: .3;
     margin-top: 1vh;
     display: flex;
     flex-direction: column;
-    height: 40vh;
+    height: 37vh;
+    width: 7.2vh;
     // overflow: hidden;
     // position: fixed;
 }
@@ -12,16 +13,19 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     font-size: 2.4vh;
-    color: red;
+    color: #FF0000;
     cursor: pointer;
+    height: 7.4vh;
+    // width: 7.2vh;
 }
 
 .home-icon span {
-    font-size: 1.2vh;
-    color: red;
+    margin-top: .8vh;
+    font-size: 1.1vh;
+    color: #CC0000;
 }
 
 .home-icon:hover {
@@ -33,11 +37,13 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
-    font-size: 2vh;
-    color: #696969;
+    font-size: 2.4vh;
+    color: #606060;
     cursor: pointer;
+    height: 7.4vh;
+    // width: 7.2vh;
 }
 
 .sidebar-icon:hover {
@@ -46,6 +52,16 @@
 }
 
 .sidebar-icon span {
-    font-size: 1.2vh;
+    margin-top: .8vh;
+    font-size: 1.1vh;
+}
+
+#icon-size {
+    font-size: 2vh;
+}
+
+#linkedin {
+    font-size: 2vh;
+    color: #0073b1;
 }
 

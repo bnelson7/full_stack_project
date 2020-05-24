@@ -469,3 +469,11 @@ textarea {
     padding: 1vh;
     font-weight: 400;
 }
+
+.sort-dropdown-selected-videos {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background: #E8E8E8;
+}
