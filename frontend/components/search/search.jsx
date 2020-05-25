@@ -3,6 +3,13 @@ import VideoIndexItem from '../videos/video_index_item'
 import { MdWatchLater } from 'react-icons/md'
 import { FiSliders } from 'react-icons/fi'
 
+// problem: need to reset state with orinally searched videos after user clicks another filter that should have different videos
+// fix: find way to check if already filtered and need to refetch videos
+// once refetched update the state with originally searched videos and run through new filter
+// possible solution: recursively call filter search if need to refetch videos
+// and pass in original videos into new filter
+// problem caused: dont have access to e then 
+
 class Search extends React.Component {
     constructor(props) {
         super(props)
@@ -11,44 +18,30 @@ class Search extends React.Component {
             videos: [],
             expanded: false,
             selectedFilters: [{ "SORT BY": "Relevance"}],
-            filtered: false 
-            // filterTitle: "SORT BY"
+            alreadyFiltered: false 
         }
 
         this.handleFilter = this.handleFilter.bind(this)
         this.filterSearch = this.filterSearch.bind(this)
-        this.filterVideos = this.filterVideos.bind(this)
     }
 
     componentDidMount() {
         this.props.requestQueriedVideos(this.props.location.search)
             .then(results => {
                 this.setState({ videos: Object.values(results.videos) })
-            }); this.state.selectedFilters
+            });
     }
 
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.location.search !== this.props.location.search) {
             this.props.requestQueriedVideos(this.props.location.search)
-            .then(results => {
-                this.setState({ videos: Object.values(results.videos) })
-            })
+                .then(results => {
+                    this.setState({ videos: Object.values(results.videos) })
+                })
         }
+        debugger
         // if (prevState.selectedFilters !== this.state.selectedFilters) {
         //     debugger
-            // want to check if fitlertitles already includes this.state.filter
-            // if (prevState.selectedTitles.includes(this.state.filterTitle) && !prevState.alreadyFiltered) {
-            //     debugger
-            //     prevState.selectedFilters.pop()
-            //     prevState.selectedFilters.push(this.state.selectedFilters.pop())
-            //     debugger
-            //     this.setState({ 
-            //         selectedFilters: prevState.selectedFilters,
-            //         // alreadyFiltered: !this.state.alreadyFiltered
-            //      })
-            // }
-            // if filterTitle === sort by remove last ele from selectedfilters array
-            
         // }
     }
 
@@ -58,218 +51,103 @@ class Search extends React.Component {
     }
 
     filterSearch(e) {
-        
+        debugger
+        // e.preventDefault();
 
-        // edit filtertitles to be array now
-        // here is where we will check if filterTitle is in selectedtitles array
-        // if it is we find old and remove using: .includes to check, .find to find, and .splice (or .slice) to remove
-        // and update state array with new
-        // if it isnt we just add to array
-        // not sure if we need alreadyfiltered then or component did update
+        // if (this.state.alreadyFiltered) {
+        //     debugger
+        //     this.props.requestQueriedVideos(this.props.location.search)
+        //         .then(results => {
+        //             debugger
+        //             this.setState({
+        //                 videos: Object.values(results.videos)
+        //             },
+        //                 this.filterSearch)
+        //         })
+        // }
+
+        debugger
         let filtered = this.state.selectedFilters
+        let key = e.currentTarget.firstChild.wholeText
         let foundIdx = null
         let target = null
         for (let i = 0; i < filtered.length; i++) {
             debugger
-            if (Object.keys(filtered[i]).includes(e.currentTarget.firstChild.wholeText)) {
-                // now we want to find the object whos key is e.current and replace the value with e.target
-
+            if (Object.keys(filtered[i]).includes(key)) {
                 target = filtered[i]
                 foundIdx = i
                 debugger
                 break;
             }
         }
-        debugger
-        if (foundIdx !== null) {
-            let key = e.currentTarget.firstChild.wholeText
-            filtered.fill({[key]: e.target.innerHTML}, foundIdx, foundIdx+1)
-        } 
 
-        let filters = {}
-        for (let i = 0; i < filtered.length; i++) {
-            filters[i] = filtered[i];
-        }
-        if (foundIdx === null) {
-            debugger
-            let key = e.currentTarget.firstChild.wholeText
-            filters.newKey = {[key]: e.target.innerHTML}
-        } 
+        !foundIdx ? filtered.push({ [key]: e.target.innerHTML }) : filtered.fill({ [key]: e.target.innerHTML }, foundIdx, foundIdx + 1)
         debugger
 
-        let selectedFilters = Object.values(filters)
-        const filteredVideos = this.state.videos
-        debugger
-
-        for (let i = 0; i < selectedFilters.length; i++) {
-            debugger
-            switch (Object.keys(selectedFilters[i])[0]) {
-                case "UPLOAD DATE":
-                    switch (Object.values(selectedFilters[i])[0]) {
-                        case "Last hour":
-                            const f = filteredVideos.filter(video => video.createdAt.split(" ")[1] === "minutes")
-                            break;
-                        case "Today":
-                            debugger
-                            const f1 = filteredVideos.filter(video => {
-                                video.createdAt.split(" ")[1] === "hours" ||
-                                video.createdAt.split(" ")[1] === "minutes"
-                            })
-                            break;
-                        case "This week":
-                            debugger
-                            filteredVideos.filter(video => {
-                                debugger
-                                video.id === 28
-                                // video.createdAt.split(" ")[1] === "days" ||
-                                // video.createdAt.split(" ")[1] === "hours" ||
-                                // video.createdAt.split(" ")[1] === "minutes"
-                            })
-                            debugger
-                            break;
-                        case "This month":
-                            debugger
-                            const f3 = filteredVideos.filter(video => {
-                                video.createdAt.split(" ")[2] === "month" ||
-                                video.createdAt.split(" ")[1] === "days" ||
-                                video.createdAt.split(" ")[1] === "hours" ||
-                                video.createdAt.split(" ")[1] === "minutes"
-                            })
-                            break;
-                        default:
-                            debugger
-                            const f4 = filteredVideos.filter(video => {
-                                video.createdAt.split(" ")[2] === "year" ||
-                                video.createdAt.split(" ")[2] === "month" ||
-                                video.createdAt.split(" ")[1] === "days" ||
-                                video.createdAt.split(" ")[1] === "hours" ||
-                                video.createdAt.split(" ")[1] === "minutes"
-                            })
-                            break;
-                    }
-                    break;
-                case "TYPE":
-                    switch (Object.values(selectedFilters[i])[0]) {
-                        case "Channel":
-                            const f5 = filteredVideos.filter(video => video.channel)
-                            break;
-                        case "Playlist":
-                            debugger
-                            const f6 = filteredVideos.filter(video => video.playlist)
-                            break;
-                        default:
-                            const f7 = filteredVideos
-                            break;
-                    }
-                    break;
-                case "DURATION":
-                    debugger
-                    switch (Object.values(selectedFilters[i])[0]) {
-                        case "Short(&lt; 30 seconds)":
-                            debugger
-                            const f8 = filteredVideos.sort((a, b) => parseInt(a.createdAt.split(" ")[0]) - parseInt(b.createdAt.split(" ")[0]))
-                            break;
-                        default:
-                            debugger
-                            const f9 = filteredVideos
-                            break;
-                    }
-                    break;
-                default:
-                    switch (Object.values(selectedFilters[i])[0]) {
-                        case "Upload date":
-                            const f10 = filteredVideos.sort((a, b) => parseInt(a.createdAt.split(" ")[0]) - parseInt(b.createdAt.split(" ")[0]))
-                            break;
-                        case "View count":
-                            debugger
-                            const f11 = filteredVideos.sort((a, b) => b.views - a.views)
-                            break;
-                        case "Rating":
-                            const f12 = filteredVideos.sort((a, b) => b.likes.like - a.likes.like)
-                            break;
-                        default:
-                            debugger
-                            const f13 = filteredVideos
-                            break;
-                    }
-                    break;
-                }
-        }
-
-        this.setState({ 
-            videos: this.state.videos.filter(video => video.id === 28)
-            // selectedFilters: Object.values(filters),
-            // filtered: true
-            // filterTitle: e.currentTarget.firstChild.wholeText 
-        })
-    }
-
-    filterVideos() {
-        // do more shit here
-        // ie use state to filter videos
-        // iterate though selected filters in state and keep filtering videos by criteria
-        // use if currentTarget is sort by then sort otherwise filter by criteria
-        // use callback and wait for render 
-
-        // 5/24 add other filters with nested switch cases
         let filteredVideos = this.state.videos
-        let filtered = this.state.selectedFilters
         for (let i = 0; i < filtered.length; i++) {
-            debugger
+            
             switch (Object.keys(filtered[i])[0]) {
                 case "UPLOAD DATE":
                     switch (Object.values(filtered[i])[0]) {
                         case "Last hour":
-                            filteredVideos.filter(video => video.createdAt.split(" ")[1] === "minutes")
+                            let filter = filteredVideos.filter(video => video.createdAt.split(" ")[1] === "minutes")
+                            filteredVideos = filter
                             break;
                         case "Today":
-                            debugger
-                            filteredVideos.filter(video => {
-                                video.createdAt.split(" ")[1] === "hours" ||
-                                video.createdAt.split(" ")[1] === "minutes"
+                            let filter0 = filteredVideos.filter(video => {
+                                return (
+                                    video.createdAt.split(" ")[1] === "hours" ||
+                                    video.createdAt.split(" ")[1] === "minutes"
+                                )
                             })
+                            filteredVideos = filter0
                             break;
-                        case "This week":
-                            debugger
-                            filteredVideos.filter(video => {
-                                debugger
-                                video.id === 28
-                                // video.createdAt.split(" ")[1] === "days" ||
-                                // video.createdAt.split(" ")[1] === "hours" ||
-                                // video.createdAt.split(" ")[1] === "minutes"
+                        case "This week":  
+                            let filter1 = filteredVideos.filter(video => {
+                                return (
+                                    video.createdAt.split(" ")[1] === "days" ||
+                                    video.createdAt.split(" ")[1] === "hours" ||
+                                    video.createdAt.split(" ")[1] === "minutes"
+                                )
                             })
+                            filteredVideos = filter1
                             console.log(filteredVideos)
-                            debugger
                             break;
                         case "This month":
-                            debugger
-                            filteredVideos.filter(video => {
-                                video.createdAt.split(" ")[2] === "month" ||
-                                video.createdAt.split(" ")[1] === "days" ||
-                                video.createdAt.split(" ")[1] === "hours" ||
-                                video.createdAt.split(" ")[1] === "minutes"
+                            let filter2 = filteredVideos.filter(video => {
+                                return (
+                                    video.createdAt.split(" ")[2] === "month" ||
+                                    video.createdAt.split(" ")[1] === "days" ||
+                                    video.createdAt.split(" ")[1] === "hours" ||
+                                    video.createdAt.split(" ")[1] === "minutes"
+                                )
                             })
+                            filteredVideos = filter2
                             break;
                         default:
-                            debugger
-                            filteredVideos.filter(video => {
-                                video.createdAt.split(" ")[2] === "year" ||
-                                video.createdAt.split(" ")[2] === "month" ||
-                                video.createdAt.split(" ")[1] === "days" ||
-                                video.createdAt.split(" ")[1] === "hours" ||
-                                video.createdAt.split(" ")[1] === "minutes"
+                            let filter3 = filteredVideos.filter(video => {
+                                return (
+                                    video.createdAt.split(" ")[2] === "year" ||
+                                    video.createdAt.split(" ")[2] === "month" ||
+                                    video.createdAt.split(" ")[1] === "days" ||
+                                    video.createdAt.split(" ")[1] === "hours" ||
+                                    video.createdAt.split(" ")[1] === "minutes"
+                                )
                             })
+                            filteredVideos = filter3
                             break;
                     }
                     break;
                 case "TYPE":
                     switch (Object.values(filtered[i])[0]) {
                         case "Channel":
-                            filteredVideos.filter(video => video.channel)
+                            let filter4 = filteredVideos.filter(video => video.channel)
+                            filteredVideos = filter4
                             break;
                         case "Playlist":
-                            debugger
-                            filteredVideos.filter(video => video.playlist)
+                            let filter5 = filteredVideos.filter(video => video.playlist)
+                            filteredVideos = filter5
                             break;
                         default:
                             filteredVideos
@@ -277,14 +155,13 @@ class Search extends React.Component {
                     }
                     break;
                 case "DURATION":
-                    debugger
+                    
                     switch (Object.values(filtered[i])[0]) {
                         case "Short(&lt; 30 seconds)":
-                            debugger
-                            filteredVideos.sort((a, b) => parseInt(a.createdAt.split(" ")[0]) - parseInt(b.createdAt.split(" ")[0]))
+                            let filter6 = filteredVideos.sort((a, b) => parseInt(a.createdAt.split(" ")[0]) - parseInt(b.createdAt.split(" ")[0]))
+                            filteredVideos = filter6
                             break;
                         default:
-                            debugger
                             filteredVideos
                             break;
                     }
@@ -295,67 +172,49 @@ class Search extends React.Component {
                             filteredVideos.sort((a, b) => parseInt(a.createdAt.split(" ")[0]) - parseInt(b.createdAt.split(" ")[0]))
                             break;
                         case "View count":
-                            debugger
                             filteredVideos.sort((a, b) => b.views - a.views)
                             break;
                         case "Rating":
                             filteredVideos.sort((a, b) => b.likes.like - a.likes.like)
                             break;
                         default:
-                            debugger
                             filteredVideos
                             break;
                     }
                     break;
                 }
         }
-
-
-
-            //
-            // if (Object.keys(filtered[i])[0] === "SORT BY") {
-            //     debugger
-            //     switch (Object.values(filtered[i])[0]) {
-            //         case "Upload date":
-            //             filteredVideos.sort((a, b) => parseInt(a.createdAt.split(" ")[0]) - parseInt(b.createdAt.split(" ")[0]))
-            //             break;
-            //         case "View count":
-            //             debugger
-            //             filteredVideos.sort((a, b) => b.views - a.views)
-            //             break;
-            //         case "Rating":
-            //             filteredVideos.sort((a, b) => b.likes.like - a.likes.like)
-            //             break;
-            //         default:
-            //             filteredVideos
-            //             break;
-            //     }
-            // } else {
-            //     // this.state.videos.filter(video =>)
-            // }
-        // let filteredVideos = {}
-        // debugger
-        // for (let i = 0; i < defaultVideos.length; i++) {
-        //     filteredVideos.i = defaultVideos[i];
-        // }
-        // // console.log(filteredVideos)
-        // // this.setState({ 
-        // //     alreadyFiltered: true,
-        // //     videos: Object.values(filteredVideos) 
-        // // })
         debugger
-        return filteredVideos;
-        // return filters;
+        
+        this.setState({ 
+            videos: filteredVideos,
+            selectedFilters: filtered,
+            alreadyFiltered: true 
+        })
     }
+
+    // relevantVideos() {
+    //     debugger
+    //     this.props.requestQueriedVideos(this.props.location.search)
+    //         .then(results => {
+    //             debugger
+    //             this.setState({ 
+    //                 videos: Object.values(results.videos)
+    //             })
+    //         })
+    // }
 
     render() {
         const { path } = this.props        
-        if (!this.state.videos) return null
+        // if (!this.state.videos) return null
         debugger
-        // maybe just add && !this.state.filteredtitles.includes(this.state.filterTitle)
         // if (this.state.filtered) {
         //     debugger
         //     this.filterVideos()
+        // }
+        // if (this.state.filtered) {
+        //     debugger
+        //     this.relevantVideos()
         // }
         debugger
         console.log(this.state)
@@ -371,7 +230,7 @@ class Search extends React.Component {
                             <span><FiSliders /></span><h1>FILTER</h1>
                         </div>
                         <div className="search-filter-dropdown-container">
-                            <ul className="search-filter-items-container" onClick={this.filterSearch}>
+                            <ul className="search-filter-items-container" onClick={e => this.filterSearch(e)}>
                                 UPLOAD DATE
                                 <hr/>
                                 <li>Last hour</li>
@@ -380,20 +239,20 @@ class Search extends React.Component {
                                 <li>This month</li>
                                 <li>This year</li>
                             </ul>
-                            <ul className="search-filter-items-container" onClick={this.filterSearch}>
+                            <ul className="search-filter-items-container" onClick={e => this.filterSearch(e)}>
                                 TYPE
                                 <hr/>
                                 <li>Video</li>
                                 <li>Channel</li>
                                 <li>Playlist</li>
                             </ul>
-                            <ul className="search-filter-items-container" onClick={this.filterSearch}>
+                            <ul className="search-filter-items-container" onClick={e => this.filterSearch(e)}>
                                 DURATION
                                 <hr/>
                                 <li>Short({"<"} 30 seconds)</li>
                                 <li>Long({">"} 2 minutes)</li>
                             </ul>
-                            <ul className="search-filter-items-container" onClick={this.filterSearch}>
+                            <ul className="search-filter-items-container" onClick={e => this.filterSearch(e)}>
                                 SORT BY
                                 <hr/>
                                 <li>Relevance</li>
