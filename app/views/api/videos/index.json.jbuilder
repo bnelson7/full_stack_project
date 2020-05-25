@@ -10,5 +10,10 @@
         end
 
         json.comments video.comments, partial: 'api/comments/comment', as: :comment
+
+        json.likes do
+            json.like video.number_liked(video.id)
+            json.dislike video.number_disliked(video.id)
+        end
     end
 end

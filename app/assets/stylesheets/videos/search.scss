@@ -8,7 +8,7 @@
 .search-filter {
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     width: 5vw;
     color: #606060;
     cursor: pointer;
@@ -17,6 +17,7 @@
 .search-filter span {
     transform: rotate(-90deg);
     font-size: 2vh;
+    margin-right: .4vw;
 }
 
 .search-filter h1 {
@@ -123,6 +124,27 @@
     font-size: 1.3vh;
     font-weight: 400;
     color: #606060;
+}
+
+.search-filter-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.search-filter-dropdown-container {
+    display: flex;
+    justify-content: flex-start;
+    width: 85%;
+    margin-top: 2.5vh;
+}
+
+.search-filter-items-container {
+    flex: 1;
+    margin-right: 1vw;
+}
+
+.search-filter-items-container li {
+    cursor: pointer;
 }
 
 

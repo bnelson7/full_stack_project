@@ -32,7 +32,8 @@ class CommentIndex extends React.Component {
 
     handleReplies(e) {
         e.preventDefault();
- 
+        // i think to fix the problem here change parents.i to parents[i]
+        // dont think it fixed it need to find clicked in array and delete that parent and all children
         if (!this.state.expandedId && this.state.parentIds.length === 0) {
             let parents = {["id"]: parseInt(e.currentTarget.value, 10)}
             this.setState({  
@@ -45,7 +46,7 @@ class CommentIndex extends React.Component {
             let parentsLeft = this.state.parentIds.slice(0, removeIdx)
             let parents = {}
             for (let i = 0; i < parentsLeft.length; i++) {
-                parents.i = parentsLeft[i];
+                parents[i] = parentsLeft[i];
             }
             let newParents = Object.values(parents)
             let last = newParents[newParents.length - 1]
@@ -56,7 +57,7 @@ class CommentIndex extends React.Component {
         } else {
             let parents = {}
             for (let i = 0; i < this.state.parentIds.length; i++) {
-                parents.i = this.state.parentIds[i];
+                parents[i] = this.state.parentIds[i];
             }
             parents.id = parseInt(e.currentTarget.value, 10)
             this.setState({
