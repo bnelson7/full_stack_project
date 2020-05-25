@@ -22,6 +22,7 @@ class Search extends React.Component {
         }
 
         this.handleFilter = this.handleFilter.bind(this)
+        this.handleSearch = this.handleSearch.bind(this)
         this.filterSearch = this.filterSearch.bind(this)
     }
 
@@ -50,43 +51,9 @@ class Search extends React.Component {
         this.setState({ expanded: !this.state.expanded })
     }
 
-    filterSearch(e) {
-        debugger
-        // e.preventDefault();
-
-        // if (this.state.alreadyFiltered) {
-        //     debugger
-        //     this.props.requestQueriedVideos(this.props.location.search)
-        //         .then(results => {
-        //             debugger
-        //             this.setState({
-        //                 videos: Object.values(results.videos)
-        //             },
-        //                 this.filterSearch)
-        //         })
-        // }
-
-        debugger
-        let filtered = this.state.selectedFilters
-        let key = e.currentTarget.firstChild.wholeText
-        let foundIdx = null
-        let target = null
+    filterSearch(filtered, filteredVideos) {
         for (let i = 0; i < filtered.length; i++) {
-            debugger
-            if (Object.keys(filtered[i]).includes(key)) {
-                target = filtered[i]
-                foundIdx = i
-                debugger
-                break;
-            }
-        }
 
-        !foundIdx ? filtered.push({ [key]: e.target.innerHTML }) : filtered.fill({ [key]: e.target.innerHTML }, foundIdx, foundIdx + 1)
-        debugger
-
-        let filteredVideos = this.state.videos
-        for (let i = 0; i < filtered.length; i++) {
-            
             switch (Object.keys(filtered[i])[0]) {
                 case "UPLOAD DATE":
                     switch (Object.values(filtered[i])[0]) {
@@ -103,7 +70,7 @@ class Search extends React.Component {
                             })
                             filteredVideos = filter0
                             break;
-                        case "This week":  
+                        case "This week":
                             let filter1 = filteredVideos.filter(video => {
                                 return (
                                     video.createdAt.split(" ")[1] === "days" ||
@@ -155,7 +122,7 @@ class Search extends React.Component {
                     }
                     break;
                 case "DURATION":
-                    
+
                     switch (Object.values(filtered[i])[0]) {
                         case "Short(&lt; 30 seconds)":
                             let filter6 = filteredVideos.sort((a, b) => parseInt(a.createdAt.split(" ")[0]) - parseInt(b.createdAt.split(" ")[0]))
@@ -182,31 +149,81 @@ class Search extends React.Component {
                             break;
                     }
                     break;
-                }
+            }
         }
         debugger
-        
-        this.setState({ 
+
+        this.setState({
             videos: filteredVideos,
             selectedFilters: filtered,
-            alreadyFiltered: true 
+            alreadyFiltered: true
         })
     }
 
-    // relevantVideos() {
-    //     debugger
-    //     this.props.requestQueriedVideos(this.props.location.search)
-    //         .then(results => {
-    //             debugger
-    //             this.setState({ 
-    //                 videos: Object.values(results.videos)
-    //             })
-    //         })
-    // }
+
+    // make method below handle filter and have if else statement and pass in necessary values
+    // ie: if already filtered fetch videos and pass those into filter search upon success
+    // to pass in: filtered = this.state.selectedFilters
+    //             filteredVideos = this.state.videos if alreadyFiltered is false 
+    //             filteredVideos = Object.values(results.videos) if alreadyFiltered is true 
+    handleSearch(e) {
+        debugger
+        // e.preventDefault();
+
+        // if (this.state.alreadyFiltered) {
+        //     debugger
+        //     this.props.requestQueriedVideos(this.props.location.search)
+        //         .then(results => {
+        //             debugger
+        //             this.setState({
+        //                 videos: Object.values(results.videos)
+        //             },
+        //                 this.filterSearch)
+        //         })
+        // }
+
+        let filtered = this.state.selectedFilters
+        let key = e.currentTarget.firstChild.wholeText
+        let foundIdx = null
+        let target = null
+        debugger
+        for (let i = 0; i < filtered.length; i++) {
+            debugger
+            if (Object.keys(filtered[i]).includes(key)) {
+                target = filtered[i]
+                foundIdx = i
+                debugger
+                break;
+            }
+        }
+        debugger
+
+        foundIdx === null ? filtered.push({ [key]: e.target.innerHTML }) : filtered.fill({ [key]: e.target.innerHTML }, foundIdx, foundIdx + 1)
+
+        debugger
+        if (!this.state.alreadyFiltered) {
+            this.filterSearch(filtered, this.state.videos)
+        } else {
+            this.props.requestQueriedVideos(this.props.location.search)
+                .then(results => {
+                    debugger
+                    console.log(filtered)
+                    this.filterSearch(filtered, Object.values(results.videos))
+                })
+        }
+        // let filteredVideos = !this.state.alreadyFiltered ? this.state.videos 
+        //     : this.props.requestQueriedVideos(this.props.location.search)
+        //         .then(results => {
+        //             debugger
+        //             Object.values(results.videos)
+        //         } 
+        
+        
+    }
 
     render() {
         const { path } = this.props        
-        // if (!this.state.videos) return null
+        // if (this.state.videos.length === 0 && !this.state.alreadyFiltered) return null
         debugger
         // if (this.state.filtered) {
         //     debugger
@@ -230,7 +247,7 @@ class Search extends React.Component {
                             <span><FiSliders /></span><h1>FILTER</h1>
                         </div>
                         <div className="search-filter-dropdown-container">
-                            <ul className="search-filter-items-container" onClick={e => this.filterSearch(e)}>
+                            <ul className="search-filter-items-container" onClick={this.handleSearch}>
                                 UPLOAD DATE
                                 <hr/>
                                 <li>Last hour</li>
@@ -239,20 +256,20 @@ class Search extends React.Component {
                                 <li>This month</li>
                                 <li>This year</li>
                             </ul>
-                            <ul className="search-filter-items-container" onClick={e => this.filterSearch(e)}>
+                            <ul className="search-filter-items-container" onClick={this.handleSearch}>
                                 TYPE
                                 <hr/>
                                 <li>Video</li>
                                 <li>Channel</li>
                                 <li>Playlist</li>
                             </ul>
-                            <ul className="search-filter-items-container" onClick={e => this.filterSearch(e)}>
+                            <ul className="search-filter-items-container" onClick={this.handleSearch}>
                                 DURATION
                                 <hr/>
                                 <li>Short({"<"} 30 seconds)</li>
                                 <li>Long({">"} 2 minutes)</li>
                             </ul>
-                            <ul className="search-filter-items-container" onClick={e => this.filterSearch(e)}>
+                            <ul className="search-filter-items-container" onClick={this.handleSearch}>
                                 SORT BY
                                 <hr/>
                                 <li>Relevance</li>
