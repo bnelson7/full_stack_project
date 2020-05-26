@@ -34,7 +34,9 @@ class VideoIndexItem extends React.Component {
             this.props.path === `/` ? (
                 <div className="grid-index-container">
                     <div className="video-thumbnail">
-                        <Link to={`/videos/${this.props.video.id}`}><img src={this.props.video.thumbnailUrl} /></Link>
+                        <Link to={`/videos/${this.props.video.id}`}>
+                            <img src={this.props.video.thumbnailUrl} />
+                        </Link>
                     </div>
                     <div className="video-info-container" role="group">
                         <div className="profile-thumbnail">
@@ -52,7 +54,9 @@ class VideoIndexItem extends React.Component {
             ) : this.props.path.includes('/videos') ? (
                 <div className="grid-item-container">
                     <div className="video-thumbnail-show">
-                        <Link to={`/videos/${this.props.video.id}`}><img src={this.props.video.thumbnailUrl} /></Link>
+                        <Link to={`/videos/${this.props.video.id}`}>
+                            <img src={this.props.video.thumbnailUrl} />
+                        </Link>
                     </div>
                     <div className="video-show-info-container">
                         <div className="video-show-info">
@@ -67,7 +71,9 @@ class VideoIndexItem extends React.Component {
             ) : this.props.path.includes('/users') ? (
                 <div className="profile-videos-item-container">
                     <div className="profile-videos-item">
-                        <Link to={`/videos/${this.props.video.id}`}><img src={this.props.video.thumbnailUrl} /></Link>
+                        <Link to={`/videos/${this.props.video.id}`}>
+                            <img src={this.props.video.thumbnailUrl} />
+                        </Link>
                     </div>
                     <div className="profile-videos-item-info">
                         <div className="profile-videos-item-title-container">
@@ -86,7 +92,9 @@ class VideoIndexItem extends React.Component {
             ) : (
                 <div className="grid-item-search-container">
                     <div className="video-thumbnail-search">
-                        <Link to={`/videos/${this.props.video.id}`}><img src={this.props.video.thumbnailUrl} /></Link>
+                        <Link to={`/videos/${this.props.video.id}`}>
+                            <img src={this.props.video.thumbnailUrl} />
+                        </Link>
                     </div>
                     <div className="video-search-info-container">
                         <div className="video-search-info">
@@ -105,6 +113,7 @@ class VideoIndexItem extends React.Component {
     }
 
     render() {
+        debugger
         return (
             <div>
                 {this.formatVideos()}

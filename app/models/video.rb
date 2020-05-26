@@ -40,4 +40,9 @@ class Video < ApplicationRecord
         Like.all.where(disliked: true, likeable_type: "Video", likeable_id: id).length
     end
 
+    # def video_duration(url)
+    #     debugger
+    #     media_info = MediaInfo.from(url)
+    # end
+
 end

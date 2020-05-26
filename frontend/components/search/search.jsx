@@ -2,13 +2,10 @@ import React from 'react'
 import VideoIndexItem from '../videos/video_index_item'
 import { MdWatchLater } from 'react-icons/md'
 import { FiSliders } from 'react-icons/fi'
+import { IoMdClose } from 'react-icons/io'
 
-// problem: need to reset state with orinally searched videos after user clicks another filter that should have different videos
-// fix: find way to check if already filtered and need to refetch videos
-// once refetched update the state with originally searched videos and run through new filter
-// possible solution: recursively call filter search if need to refetch videos
-// and pass in original videos into new filter
-// problem caused: dont have access to e then 
+// give iomdclose a classname and toggle visiblity
+// add onClick to iomdclose
 
 class Search extends React.Component {
     constructor(props) {
@@ -18,7 +15,8 @@ class Search extends React.Component {
             videos: [],
             expanded: false,
             selectedFilters: [{ "SORT BY": "Relevance"}],
-            alreadyFiltered: false 
+            alreadyFiltered: false,
+            selected: false 
         }
 
         this.handleFilter = this.handleFilter.bind(this)
@@ -33,27 +31,82 @@ class Search extends React.Component {
             });
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         if (prevProps.location.search !== this.props.location.search) {
             this.props.requestQueriedVideos(this.props.location.search)
                 .then(results => {
                     this.setState({ videos: Object.values(results.videos) })
                 })
         }
-        debugger
-        // if (prevState.selectedFilters !== this.state.selectedFilters) {
-        //     debugger
-        // }
     }
 
     handleFilter(e) {
         e.preventDefault();
+        debugger
+        const filter = document.querySelector(".search-filter")
+        if (!this.state.expanded) {
+            debugger
+            filter.classList.remove("search-filter")
+            filter.classList.add("search-filter-expanded")
+        } else {
+            filter.classList.remove("search-filter-expanded");
+            filter.classList.add("search-filter")
+        }
+        
+        $("li:contains('Relevance')").css({
+        color : "#030303",
+        "font-weight" : "500"
+        });
+
+        debugger
         this.setState({ expanded: !this.state.expanded })
+    }
+
+    handleSearch(e) {
+        e.preventDefault();
+
+        let filtered = this.state.selectedFilters
+        let key = e.currentTarget.firstChild.innerHTML
+        let foundIdx = null
+        let target = null
+
+        for (let i = 0; i < filtered.length; i++) {
+            if (Object.keys(filtered[i]).includes(key)) {
+                target = filtered[i]
+                foundIdx = i
+                $(`li:contains(${Object.values(filtered[i])[0]})`)
+                  .css({
+                    color: "",
+                    "font-weight": ""
+                  });
+                break;
+            }
+        }
+        debugger
+        foundIdx === null ? filtered.push({ [key]: e.target.innerHTML }) : filtered.fill({ [key]: e.target.innerHTML }, foundIdx, foundIdx + 1)
+        debugger
+        if (!this.state.alreadyFiltered) {
+            debugger
+            this.filterSearch(filtered, this.state.videos)
+        } else {
+            this.props.requestQueriedVideos(this.props.location.search)
+                .then(results => {
+                    debugger
+                    console.log(filtered)
+                    this.filterSearch(filtered, Object.values(results.videos))
+                })
+        }
+        debugger
+        for (let i = 0; i < filtered.length; i++) {
+            debugger
+            $(`li:contains(${Object.values(filtered[i])[0]})`).css({"color" : "#030303", "font-weight" : "500"});
+
+        }
+        // iterate through each filter and toggle selected classlist and maybe figure out way to add X icon
     }
 
     filterSearch(filtered, filteredVideos) {
         for (let i = 0; i < filtered.length; i++) {
-
             switch (Object.keys(filtered[i])[0]) {
                 case "UPLOAD DATE":
                     switch (Object.values(filtered[i])[0]) {
@@ -160,79 +213,9 @@ class Search extends React.Component {
         })
     }
 
-
-    // make method below handle filter and have if else statement and pass in necessary values
-    // ie: if already filtered fetch videos and pass those into filter search upon success
-    // to pass in: filtered = this.state.selectedFilters
-    //             filteredVideos = this.state.videos if alreadyFiltered is false 
-    //             filteredVideos = Object.values(results.videos) if alreadyFiltered is true 
-    handleSearch(e) {
-        debugger
-        // e.preventDefault();
-
-        // if (this.state.alreadyFiltered) {
-        //     debugger
-        //     this.props.requestQueriedVideos(this.props.location.search)
-        //         .then(results => {
-        //             debugger
-        //             this.setState({
-        //                 videos: Object.values(results.videos)
-        //             },
-        //                 this.filterSearch)
-        //         })
-        // }
-
-        let filtered = this.state.selectedFilters
-        let key = e.currentTarget.firstChild.wholeText
-        let foundIdx = null
-        let target = null
-        debugger
-        for (let i = 0; i < filtered.length; i++) {
-            debugger
-            if (Object.keys(filtered[i]).includes(key)) {
-                target = filtered[i]
-                foundIdx = i
-                debugger
-                break;
-            }
-        }
-        debugger
-
-        foundIdx === null ? filtered.push({ [key]: e.target.innerHTML }) : filtered.fill({ [key]: e.target.innerHTML }, foundIdx, foundIdx + 1)
-
-        debugger
-        if (!this.state.alreadyFiltered) {
-            this.filterSearch(filtered, this.state.videos)
-        } else {
-            this.props.requestQueriedVideos(this.props.location.search)
-                .then(results => {
-                    debugger
-                    console.log(filtered)
-                    this.filterSearch(filtered, Object.values(results.videos))
-                })
-        }
-        // let filteredVideos = !this.state.alreadyFiltered ? this.state.videos 
-        //     : this.props.requestQueriedVideos(this.props.location.search)
-        //         .then(results => {
-        //             debugger
-        //             Object.values(results.videos)
-        //         } 
-        
-        
-    }
-
     render() {
         const { path } = this.props        
         // if (this.state.videos.length === 0 && !this.state.alreadyFiltered) return null
-        debugger
-        // if (this.state.filtered) {
-        //     debugger
-        //     this.filterVideos()
-        // }
-        // if (this.state.filtered) {
-        //     debugger
-        //     this.relevantVideos()
-        // }
         debugger
         console.log(this.state)
         return(
@@ -240,37 +223,43 @@ class Search extends React.Component {
                 <div className="search-background">
                     {!this.state.expanded ?
                     <div className="search-filter" onClick={this.handleFilter}>
-                        <span><FiSliders /></span><h1>FILTER</h1>
+                        <span>
+                            <FiSliders />
+                        </span>
+                        <h1>FILTER</h1>
                     </div> :
                     <div className="search-filter-container">
                         <div className="search-filter" onClick={this.handleFilter}>
-                            <span><FiSliders /></span><h1>FILTER</h1>
+                            <span>
+                                <FiSliders />
+                            </span>
+                            <h1>FILTER</h1>
                         </div>
                         <div className="search-filter-dropdown-container">
                             <ul className="search-filter-items-container" onClick={this.handleSearch}>
-                                UPLOAD DATE
+                                <h1>UPLOAD DATE</h1>
                                 <hr/>
-                                <li>Last hour</li>
-                                <li>Today</li>
-                                <li>This week</li>
-                                <li>This month</li>
-                                <li>This year</li>
+                                <li>Last hour</li><IoMdClose />
+                                <li>Today</li><IoMdClose />
+                                <li>This week</li><IoMdClose />
+                                <li>This month</li><IoMdClose />
+                                <li>This year</li><IoMdClose />
                             </ul>
                             <ul className="search-filter-items-container" onClick={this.handleSearch}>
-                                TYPE
+                                <h1>TYPE</h1>
                                 <hr/>
-                                <li>Video</li>
-                                <li>Channel</li>
-                                <li>Playlist</li>
+                                <li>Video</li><IoMdClose />
+                                <li>Channel</li><IoMdClose />
+                                <li>Playlist</li><IoMdClose />
                             </ul>
                             <ul className="search-filter-items-container" onClick={this.handleSearch}>
-                                DURATION
+                                <h1>DURATION</h1>
                                 <hr/>
-                                <li>Short({"<"} 30 seconds)</li>
-                                <li>Long({">"} 2 minutes)</li>
+                                <li>Short({"<"} 30 seconds)</li><IoMdClose />
+                                <li>Long({">"} 2 minutes)</li><IoMdClose />
                             </ul>
                             <ul className="search-filter-items-container" onClick={this.handleSearch}>
-                                SORT BY
+                                <h1>SORT BY</h1>
                                 <hr/>
                                 <li>Relevance</li>
                                 <li>Upload date</li>
