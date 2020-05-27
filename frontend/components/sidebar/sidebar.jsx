@@ -1,20 +1,25 @@
 import React from 'react'
 import { MdHome, MdHistory, MdVideoLibrary, MdSubscriptions, } from "react-icons/md";
 import { FaFire, FaGithub, FaLinkedin } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
 
 const Sidebar = props => {
 
     return (
         <div className="sidebar-container">
             {props.path ==="/" ?
-            <div className="home-icon">
-                <MdHome />
-                <span>Home</span>
-            </div> :
-            <div className="sidebar-icon">
-                <MdHome />
-                <span>Home</span>
-            </div>}
+            <Link to="/">
+                <div className="home-icon">
+                    <MdHome />
+                    <span>Home</span>
+                </div> 
+            </Link> :
+            <Link to="/">
+                <div className="sidebar-icon">
+                    <MdHome />
+                    <span>Home</span>
+                </div>
+            </Link>}
             <div className="sidebar-icon">
                 <FaFire id="icon-size"/>
                 <span>Trending</span>

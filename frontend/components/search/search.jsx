@@ -15,13 +15,13 @@ class Search extends React.Component {
             videos: [],
             expanded: false,
             selectedFilters: [{ "SORT BY": "Relevance"}],
-            alreadyFiltered: false,
-            selected: false 
+            alreadyFiltered: false 
         }
 
         this.handleFilter = this.handleFilter.bind(this)
         this.handleSearch = this.handleSearch.bind(this)
         this.filterSearch = this.filterSearch.bind(this)
+        this.handleClose = this.handleClose.bind(this)
     }
 
     componentDidMount() {
@@ -40,36 +40,30 @@ class Search extends React.Component {
         }
     }
 
-    handleFilter(e) {
-        e.preventDefault();
-        debugger
-        const filter = document.querySelector(".search-filter")
-        if (!this.state.expanded) {
-            debugger
-            filter.classList.remove("search-filter")
-            filter.classList.add("search-filter-expanded")
+    handleFilter() {
+        if (this.state.expanded) {
+            $(".search-filter").css("color", "#111111")
+            for (let i = 0; i < this.state.selectedFilters.length; i++) {
+                $(`li:contains(${Object.values(this.state.selectedFilters[i])[0]})`).css({ "color": "#030303", "font-weight": "500" });
+                $(`li:contains(${Object.values(this.state.selectedFilters[i])[0]})`).children().css("display", "inline")
+            }
         } else {
-            filter.classList.remove("search-filter-expanded");
-            filter.classList.add("search-filter")
+            this.setState({ expanded: true }, this.handleFilter)
         }
-        
-        $("li:contains('Relevance')").css({
-        color : "#030303",
-        "font-weight" : "500"
-        });
+    }
 
-        debugger
-        this.setState({ expanded: !this.state.expanded })
+    handleClose(e) {
+        e.preventDefault();
+        this.setState({ expanded: false })
     }
 
     handleSearch(e) {
         e.preventDefault();
-
         let filtered = this.state.selectedFilters
         let key = e.currentTarget.firstChild.innerHTML
+        let val = e.target.innerText
         let foundIdx = null
         let target = null
-
         for (let i = 0; i < filtered.length; i++) {
             if (Object.keys(filtered[i]).includes(key)) {
                 target = filtered[i]
@@ -80,29 +74,41 @@ class Search extends React.Component {
                     "font-weight": ""
                   });
                 break;
-            }
+            } 
         }
-        debugger
-        foundIdx === null ? filtered.push({ [key]: e.target.innerHTML }) : filtered.fill({ [key]: e.target.innerHTML }, foundIdx, foundIdx + 1)
-        debugger
+
+        e.target.tagName === "svg" && $(e.target).css("display", "")
+
+        let removed = [] 
+        if (foundIdx === null) {
+            filtered.push({ [key]: val })
+        } else if (foundIdx !== null && Object.values(filtered[foundIdx])[0] === val) {
+            $(e.target.firstElementChild).css("display", "")
+            removed = filtered.splice(foundIdx, 1)
+            filtered
+        } else {
+            for (let i = 0; i < e.currentTarget.children.length; i++) {
+                if (e.currentTarget.children[i].innerText === Object.values(target)[0]) {
+                    $(e.currentTarget.children[i].firstElementChild).css("display", "")
+                    break;
+                }
+            }
+            filtered.fill({ [key]: val }, foundIdx, foundIdx + 1)
+        }
+
         if (!this.state.alreadyFiltered) {
-            debugger
             this.filterSearch(filtered, this.state.videos)
         } else {
             this.props.requestQueriedVideos(this.props.location.search)
                 .then(results => {
-                    debugger
-                    console.log(filtered)
                     this.filterSearch(filtered, Object.values(results.videos))
                 })
         }
-        debugger
+ 
         for (let i = 0; i < filtered.length; i++) {
-            debugger
             $(`li:contains(${Object.values(filtered[i])[0]})`).css({"color" : "#030303", "font-weight" : "500"});
-
+            $(`li:contains(${Object.values(filtered[i])[0]})`).children().css("display", "inline")
         }
-        // iterate through each filter and toggle selected classlist and maybe figure out way to add X icon
     }
 
     filterSearch(filtered, filteredVideos) {
@@ -175,11 +181,11 @@ class Search extends React.Component {
                     }
                     break;
                 case "DURATION":
-
                     switch (Object.values(filtered[i])[0]) {
                         case "Short(&lt; 30 seconds)":
-                            let filter6 = filteredVideos.sort((a, b) => parseInt(a.createdAt.split(" ")[0]) - parseInt(b.createdAt.split(" ")[0]))
-                            filteredVideos = filter6
+                            // let filter6 = filteredVideos
+                            // filteredVideos = filter6
+                            filteredVideos
                             break;
                         default:
                             filteredVideos
@@ -204,8 +210,6 @@ class Search extends React.Component {
                     break;
             }
         }
-        debugger
-
         this.setState({
             videos: filteredVideos,
             selectedFilters: filtered,
@@ -229,7 +233,7 @@ class Search extends React.Component {
                         <h1>FILTER</h1>
                     </div> :
                     <div className="search-filter-container">
-                        <div className="search-filter" onClick={this.handleFilter}>
+                        <div className="search-filter" onClick={this.handleClose}>
                             <span>
                                 <FiSliders />
                             </span>
@@ -239,24 +243,24 @@ class Search extends React.Component {
                             <ul className="search-filter-items-container" onClick={this.handleSearch}>
                                 <h1>UPLOAD DATE</h1>
                                 <hr/>
-                                <li>Last hour</li><IoMdClose />
-                                <li>Today</li><IoMdClose />
-                                <li>This week</li><IoMdClose />
-                                <li>This month</li><IoMdClose />
-                                <li>This year</li><IoMdClose />
+                                <li>Last hour<IoMdClose className="close-filter"/></li>
+                                <li>Today<IoMdClose className="close-filter"/></li>
+                                <li>This week<IoMdClose className="close-filter"/></li>
+                                <li>This month<IoMdClose className="close-filter"/></li>
+                                <li>This year<IoMdClose className="close-filter"/></li>
                             </ul>
                             <ul className="search-filter-items-container" onClick={this.handleSearch}>
                                 <h1>TYPE</h1>
                                 <hr/>
-                                <li>Video</li><IoMdClose />
-                                <li>Channel</li><IoMdClose />
-                                <li>Playlist</li><IoMdClose />
+                                <li>Video<IoMdClose className="close-filter"/></li>
+                                <li>Channel<IoMdClose className="close-filter"/></li>
+                                <li>Playlist<IoMdClose className="close-filter"/></li>
                             </ul>
                             <ul className="search-filter-items-container" onClick={this.handleSearch}>
                                 <h1>DURATION</h1>
                                 <hr/>
-                                <li>Short({"<"} 30 seconds)</li><IoMdClose />
-                                <li>Long({">"} 2 minutes)</li><IoMdClose />
+                                <li>Short({"<"} 30 seconds)<IoMdClose className="close-filter"/></li>
+                                <li>Long({">"} 2 minutes)<IoMdClose className="close-filter"/></li>
                             </ul>
                             <ul className="search-filter-items-container" onClick={this.handleSearch}>
                                 <h1>SORT BY</h1>

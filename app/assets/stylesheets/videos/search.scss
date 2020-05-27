@@ -14,15 +14,6 @@
     cursor: pointer;
 }
 
-.search-filter-expanded {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    width: 5vw;
-    color: #111111;
-    cursor: pointer;
-}
-
 .search-filter span {
     transform: rotate(-90deg);
     font-size: 2vh;
@@ -30,17 +21,6 @@
 }
 
 .search-filter h1 {
-    font-size: 1.4vh;
-    font-weight: 500;
-}
-
-.search-filter-expanded span {
-    transform: rotate(-90deg);
-    font-size: 2vh;
-    margin-right: .4vw;
-}
-
-.search-filter-expanded h1 {
     font-size: 1.4vh;
     font-weight: 500;
 }
@@ -175,10 +155,19 @@
 }
 
 .search-filter-items-container li {
+    display: flex;
+    align-items: center;
     color: #606060;
     padding-top: 1.5vh;
     font-size: 1.4vh;
     cursor: pointer;
+}
+
+.close-filter {
+    display: none;
+    padding-left: .5vw;
+    color: #030303;
+    font-size: 1.6vh;
 }
 
 
