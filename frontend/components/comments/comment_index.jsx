@@ -7,7 +7,6 @@ class CommentIndex extends React.Component {
         super(props)
 
         this.state = {
-            expandedId: null,
             parentIds: [],
             sorted: null
         }
@@ -32,37 +31,24 @@ class CommentIndex extends React.Component {
 
     handleReplies(e) {
         e.preventDefault();
-        // i think to fix the problem here change parents.i to parents[i]
-        // dont think it fixed it need to find clicked in array and delete that parent and all children
-        if (!this.state.expandedId && this.state.parentIds.length === 0) {
-            let parents = {["id"]: parseInt(e.currentTarget.value, 10)}
-            this.setState({  
-                parentIds: Object.values(parents),
-                expandedId: parseInt(e.currentTarget.value, 10)
-            })
-            
-        } else if (this.state.parentIds.includes(parseInt(e.currentTarget.value, 10))) {
-            let removeIdx = this.state.parentIds.indexOf(parseInt(e.currentTarget.value, 10))
-            let parentsLeft = this.state.parentIds.slice(0, removeIdx)
-            let parents = {}
-            for (let i = 0; i < parentsLeft.length; i++) {
-                parents[i] = parentsLeft[i];
-            }
-            let newParents = Object.values(parents)
-            let last = newParents[newParents.length - 1]
+    // possible addition: check if parent expanded has any replies expanded before closing
+    // might need to add if statement indside if if parents includes what was clicked on and what was clicked on
+    // has any replies to replies of the parent and then find and remove that second parent from the array
+    // probably would loop through replies check if its in parents and remove also from parents and recursively call again
+    // to account for infinite levels of nesting so bascially when you click on top most level of parent every subsequent parent 
+    // and replies currently expanded gets collapsed
+        let parents = this.state.parentIds
+        let newParent = parseInt(e.currentTarget.value, 10)
+        if (this.state.parentIds.includes(newParent)) {
+            let removeIdx = parents.indexOf(newParent)
+            let removed = parents.splice(removeIdx, 1)
             this.setState({ 
-                parentIds: newParents,
-                expandedId: last
+                parentIds: parents
             })
         } else {
-            let parents = {}
-            for (let i = 0; i < this.state.parentIds.length; i++) {
-                parents[i] = this.state.parentIds[i];
-            }
-            parents.id = parseInt(e.currentTarget.value, 10)
+            parents.push(newParent)
             this.setState({
-                parentIds: Object.values(parents),
-                expandedId: e.currentTarget.value
+                parentIds: parents
             })
         }
     }
@@ -78,7 +64,7 @@ class CommentIndex extends React.Component {
     mapNestedComments(comments) {
         const { editComment, deleteComment, createComment, deleteCommentLike, createCommentLike, currentUser, requestUser, likes, requestComments } = this.props
         const { videoId } = this.props.match.params
-        debugger
+
         let commentsAndReplies = comments.map(comment => {
             return (
                 <div className="comment-index-grid-container" key={comment.id}>
@@ -118,7 +104,7 @@ class CommentIndex extends React.Component {
 
     render() {
         (!this.state.sorted) ? this.props.comments : this.sortComments(this.props.comments)
-        debugger
+
         return (
             <div>
                 {this.mapNestedComments(this.props.comments)}

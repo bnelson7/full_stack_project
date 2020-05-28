@@ -20,13 +20,24 @@ class VideoIndex extends React.Component {
                     <h1>Recommended</h1>
                 </div>
                 <div className="grid-container">
-                    {videos.map(video => {
+                    {videos.slice(0, 10).map(video => {
                         return (
                             <li className="grid-item" key={video.id}>
                                 <VideoIndexItem video={video} path={path} deleteVideo={deleteVideo}/>
                             </li>
                             )
                         }
+                    )}
+                </div>    
+                <hr className="video-index-hr"/>
+                <div className="grid-container">     
+                    {videos.slice(10).map(video => {
+                        return (
+                            <li className="grid-item" key={video.id}>
+                                <VideoIndexItem video={video} path={path} deleteVideo={deleteVideo} />
+                            </li>
+                        )
+                    }
                     )}
                 </div>
             </div>

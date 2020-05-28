@@ -32,9 +32,15 @@
 .grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(28vh, 1fr));
-    grid-template-rows: repeat(4, 30vh);
+    grid-template-rows: repeat(2, 30vh);
     column-gap: 1rem;
-    row-gap: 1.5rem;
+    row-gap: 2.5rem;
+    // height: 100%;
+}
+
+.video-index-hr {
+    border-top: .4vh solid #DCDCDC;
+    margin-bottom: 2.5rem;
 }
 
 .grid-item {

@@ -4,9 +4,6 @@ import { MdWatchLater } from 'react-icons/md'
 import { FiSliders } from 'react-icons/fi'
 import { IoMdClose } from 'react-icons/io'
 
-// give iomdclose a classname and toggle visiblity
-// add onClick to iomdclose
-
 class Search extends React.Component {
     constructor(props) {
         super(props)
