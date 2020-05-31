@@ -54,10 +54,10 @@ class LoginForm extends React.Component {
         const { errors } = this.props
         
         return (
-            <ul >
+            <ul className="session-errors-container">
                 {errors.map((err, i) => (
                     <li className="session-errors" key={`err-${i}`}>
-                            <span><MdError /></span>  {err}
+                            <span><MdError /></span>{err}
                     </li>))}
             </ul>
         )

@@ -64,10 +64,12 @@
 }
 
 .login-demo-container {
-    height: 100%;
+    margin-top: 7.5vh;
+    height: 15vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    position: absolute;
 }
 
 .login-demo {
@@ -109,18 +111,22 @@
     font-size: 15px;
 }
 
+.session-errors-container {
+    padding-top: 1vh;
+}
+
 .session-errors {
     display: flex;
     color: red;
     // padding: 2px;
-    font-size: 13px;
+    font-size: 1.3vh;
 }
 
 .session-errors span {
     display: flex;
     align-items: flex-end;
-    padding-right: 5px;
-    font-size: 16px;
+    padding-right: .5vh;
+    font-size: 1.6vh;
 }
 
 

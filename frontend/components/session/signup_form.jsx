@@ -26,12 +26,14 @@ class SignupForm extends React.Component {
     }
 
     handleSubmit(e) {
-        e.preventDefault()
-        this.props.createNewUser(this.state)
+        e.preventDefault();
+        const newUser = Object.assign({}, this.state)
+        this.props.createNewUser(newUser)
     }
 
     render() {
         const { errors } = this.props
+
         return (
             <div className="signup-container">
                 <div className="signup-left">
@@ -42,12 +44,30 @@ class SignupForm extends React.Component {
                             <h3>to continue to AdTube</h3>
                         </div>
                         <div className="signup-input">
-                            <div><input type="text" placeholder="Username" value={this.state.username} onChange={this.update("username")} /></div>
-                            {errors.slice(0,1).map((err, i) => (<li className="session-errors" key={`err-${i}`}><span><MdError /></span>  {err}</li>))}
-                            <div><input type="text" placeholder="Your email address" value={this.state.email} onChange={this.update("email")} /></div>
-                            {errors.slice(1,2).map((err, i) => (<li className="session-errors" key={`err-${i}`}><span><MdError /></span>  {err}</li>))}
-                            <div><input type="text" placeholder="Password" value={this.state.password} onChange={this.update("password")} /></div>
-                            {errors.slice(2).map((err, i) => (<li className="session-errors" key={`err-${i}`}><span><MdError /></span>  {err}</li>))}
+                            <input type="text" placeholder="Username" value={this.state.username} onChange={this.update("username")} />
+                            <div className="signup-session-errors-container">
+                                {errors.slice(0,1).map((err, i) => (<li className="session-errors" key={`err-${i}`}>
+                                    <span>
+                                        <MdError />
+                                    </span>{err}
+                                </li>))}
+                            </div>
+                            <input type="text" placeholder="Your email address" value={this.state.email} onChange={this.update("email")} />
+                            <div className="signup-session-errors-container">
+                                {errors.slice(1,2).map((err, i) => (<li className="session-errors" key={`err-${i}`}>
+                                    <span>
+                                        <MdError />
+                                    </span>{err}
+                                </li>))}
+                            </div>
+                            <input type="text" placeholder="Password" value={this.state.password} onChange={this.update("password")} />
+                            <div className="signup-session-errors-container">
+                                {errors.slice(2).map((err, i) => (<li className="session-errors" key={`err-${i}`}>
+                                    <span>
+                                        <MdError />
+                                    </span>{err}
+                                </li>))}
+                            </div>
                             <p>Use 6 or more characters with a mix of letters, numbers, & 
                             <br></br>symbols</p>
                         </div>
