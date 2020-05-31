@@ -21,9 +21,9 @@ span, article, footer, time, small {
 }
 
 html, body {
-   overflow-x: hidden;
+   overflow: hidden;
   //  overflow-y: auto;
-  //  position: fixed;
+  //  position: absolute;
   }
   
 html {
@@ -32,7 +32,7 @@ html {
     height: 100vh;
     overflow-x: hidden;
     overflow-y: auto;
-    position: relative;
+    // position: relative;
 }
 // html {
 //   height: 100vh

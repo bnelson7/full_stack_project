@@ -15,6 +15,7 @@ class NavBar extends React.Component {
     this.handleLogout = this.handleLogout.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
     this.handleModal = this.handleModal.bind(this)
+    this.handleSidebar = this.handleSidebar.bind(this)
   }
 
   handleLogout(e) {
@@ -22,6 +23,7 @@ class NavBar extends React.Component {
       this.props.logout()
       .then(() => {
         this.props.history.push('/')
+        this.props.closeModal()
       })
   }
 
@@ -50,9 +52,11 @@ class NavBar extends React.Component {
   notLoggedInNav() {
     return (
        <div className="right-navbar">
-          <div className="right-nav-icon">
+          <Link to="/login">
+            <div className="right-nav-icon">
                 <MdVideoCall />
-          </div>
+            </div>
+          </Link>
           <div className="right-nav-icon">
               <MdApps />
           </div>
@@ -61,7 +65,9 @@ class NavBar extends React.Component {
           </div>
           <div>
             <Link className="signin-button" to="/login">
-              <span className="profile-icon"><FaUserCircle /></span>
+              <span className="profile-icon">
+                <FaUserCircle />
+              </span>
               SIGN IN
             </Link>
           </div>
@@ -83,16 +89,21 @@ class NavBar extends React.Component {
     }
   }
 
+  handleSidebar() {
+  debugger
+    const { openModal, modal, closeModal } = this.props
+    modal === 'sidebar' ? closeModal() : openModal({ type: 'sidebar' })
+  }
+
   render() {
     const { currentUser } = this.props
 
     return (
       <div className="header">
           <div className="navbar">
-
             <div className="left-navbar">
-                <div >
-                  <MdMenu className="menu"/>
+                <div className="menu-container" onClick={this.handleSidebar}>
+                  <MdMenu className="menu" />
                 </div>
                 <Link to="/">
                   <div className="title-logo-container">

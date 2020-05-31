@@ -17,7 +17,7 @@ const NavBarDropdown = (props) => {
     };
 
     //add onChange event handler to setOpen(false) when path changes
-
+    
     useEffect(() => {
         document.addEventListener("mousedown", handleClick);
 
@@ -25,7 +25,7 @@ const NavBarDropdown = (props) => {
             document.removeEventListener("mousedown", handleClick);
         };
     }, []);
-
+    debugger
     return (
         <div className="user-icon" ref={navbar}>
             <button className="profile-photo-nav" onClick={e => setOpen(!open)}>
@@ -35,7 +35,7 @@ const NavBarDropdown = (props) => {
             <ul className="profile-nav-dropdown">
                 <div className="nav-dropdown-user">
                     <li className="profile-thumbnail-dropdown">
-                        <img src="https://s.ytimg.com/yts/img/avatar_48-vfllY0UTT.png" />
+                        <img src={window.user} />
                     </li>
                     <li className="profile-dropdown-info">
                         <div className="profile-dropdown-info-user">

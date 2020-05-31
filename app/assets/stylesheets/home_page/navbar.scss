@@ -2,8 +2,9 @@
     display: flex;
     min-width: 100vw;
     height: 5.6vh;
-    position: relative;
     z-index: 1;
+    // position: absolute;
+    // overflow: hidden;
 }
 
 .profile-nav-dropdown {
@@ -135,11 +136,19 @@
 .left-navbar {
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     font-family: 'Roboto','Arial', sans-serif;
-    width: 10vw;
+    width: 8.5vw;
     height: 4vh;
     cursor: pointer;
+}
+
+.menu-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 5.5vh;
+    height: 100%;
 }
 
 .menu {

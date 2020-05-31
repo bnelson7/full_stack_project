@@ -1,7 +1,10 @@
 import React from 'react'
 import { IoMdClose, IoMdImage } from 'react-icons/io'
 import { GoPlus } from 'react-icons/go'
-import { MdFileUpload } from 'react-icons/md'
+import { MdFileUpload, MdHome, MdHistory, MdMenu } from 'react-icons/md'
+import Sidebar from "../sidebar/sidebar_container"
+import { FaFire, FaGithub, FaLinkedin, FaUserCircle, FaYoutube } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
 
 class Modal extends React.Component {
     constructor(props) {
@@ -17,7 +20,7 @@ class Modal extends React.Component {
 
         this.handleUpload = this.handleUpload.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
-        // this.handleClose = this.handleClose.bind(this)
+        this.handleClose = this.handleClose.bind(this)
     }
 
     // maybe use componentDidUpdate instead
@@ -37,10 +40,11 @@ class Modal extends React.Component {
       
     // }
 
-    // handleClose() {
-    //     // document.body.style.position = null
-    //     this.props.closeModal()
-    // }
+    handleClose(e) {
+        // document.body.style.position = null
+        const close = document.querySelector(".sidebar-modal-background")
+        e.target === close && this.props.closeModal()
+    }
 
     handleSubmit(e) {
         e.preventDefault();
@@ -94,7 +98,7 @@ class Modal extends React.Component {
     }
 
     render() {
-        const { modal, closeModal } = this.props
+        const { modal, closeModal, location } = this.props
         if (!modal) return null;
       
         debugger
@@ -218,6 +222,103 @@ class Modal extends React.Component {
                         </div>
                     </div>
                 )
+            case 'sidebar':
+                // could also reuse sidebar component and pass in props
+                // stick with this for now bc its more simple
+                debugger
+                if (location.pathname.includes("/videos")) {
+                    debugger
+                return (
+                    <div className="sidebar-modal-background" onClick={this.handleClose}>
+                        <div className="sidebar-container-expanded">
+                            <div className="left-navbar-modal-container">
+                                <div className="left-navbar-modal">
+                                    <div className="menu-container" onClick={this.handleSidebar}>
+                                        <MdMenu className="menu" />
+                                    </div>
+                                    <Link to="/">
+                                        <div className="title-logo-container">
+                                            <FaYoutube className="logo" />
+                                            <span className="title">AdTube</span>
+                                        </div>
+                                    </Link>
+                                </div>  
+                            </div>
+                            <ul className="sidebar-items-expanded">
+                                <Link to="/">
+                                    <li>
+                                        <div className="sidebar-icon-expanded">
+                                            <MdHome />
+                                        </div> 
+                                        <div className="sidebar-text-expanded">
+                                            Home
+                                        </div>
+                                    </li> 
+                                </Link>
+                                <li>
+                                    <div className="sidebar-icon-expanded">
+                                        <FaFire id="icon-size"/>
+                                    </div>
+                                    <div className="sidebar-text-expanded">
+                                        Trending
+                                    </div>
+                                </li>
+                                <li>
+                                    <div className="sidebar-icon-expanded">
+                                        <MdHistory />
+                                    </div>
+                                    <div className="sidebar-text-expanded">
+                                        History
+                                    </div>
+                                </li>
+                            </ul>
+                            <hr id="sidebar-hr"/>
+                            <ul className="sidebar-items-expanded">
+                                <a href="https://github.com/bnelson7">
+                                    <li>
+                                            <div className="sidebar-icon-expanded">
+                                                <FaGithub id="icon-size" />
+                                            </div>
+                                            <div className="sidebar-text-expanded">
+                                                Github
+                                            </div>
+                                    </li>
+                                </a>
+                                <a href="https://www.linkedin.com/in/brad-nelson-919b90a7/">
+                                    <li>
+                                        <div className="sidebar-icon-expanded">
+                                            <FaLinkedin id="linkedin" />
+                                        </div>
+                                        <div className="sidebar-text-expanded">
+                                            LinkedIn
+                                        </div>
+                                    </li>
+                                </a>
+                            </ul>
+                            <hr id="sidebar-hr" />
+                            {!this.props.currentUser ? 
+                            <div>
+                                <div className="sidebar-signin">
+                                    <p>
+                                        Sign in to like videos, 
+                                        comment, and subscribe.
+                                    </p>
+                                    <Link className="signin-button" to="/login">
+                                        <span className="profile-icon">
+                                            <FaUserCircle />
+                                        </span>
+                                        SIGN IN
+                                    </Link>
+                                </div> 
+                                <hr id="sidebar-hr" />
+                            </div> : null}
+                        </div>
+                    </div>
+                    )
+                } else {
+                    debugger
+                    return null;
+                }
             default:
                 
                 return null;

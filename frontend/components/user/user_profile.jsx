@@ -246,13 +246,20 @@ class UserProfile extends React.Component {
                                         </div>
                                         <div className="uploads-profile-videos-item-views">
                                             <span id="views-date-show">{this.props.video.views}K views&nbsp;
-                                                <span><GoPrimitiveDot /></span>&nbsp;<Moment fromNow>{this.props.video.createdAt}</Moment>
+                                                <span>
+                                                    <GoPrimitiveDot />
+                                                </span>&nbsp;
+                                                <Moment fromNow>
+                                                    {this.props.video.createdAt}
+                                                </Moment>
                                             </span>
                                         </div>
                                     </div>
                                     <div className="uploads-profile-videos-description">
                                         {this.props.video.description}
-                                        <Link to={`/videos/${this.props.video.id}`}><span>READ MORE</span></Link>
+                                        <Link to={`/videos/${this.props.video.id}`}>
+                                            <span>READ MORE</span>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>

@@ -2,12 +2,14 @@ import { connect } from 'react-redux'
 import { closeModal } from '../../actions/modal_actions'
 import { createVideo, updateVideo } from '../../actions/video_actions'
 import Modal from './modal'
+import {withRouter} from 'react-router-dom'
 
 const mstp = state => {
     debugger
     return {
         modal: state.ui,
-        video: state.ui.video
+        video: state.ui.video,
+        currentUser: state.entities.users[state.session.id]
     }
 }
 
@@ -19,4 +21,4 @@ const mdtp = dispatch => {
     }
 }
 
-export default connect(mstp, mdtp)(Modal)
+export default withRouter(connect(mstp, mdtp)(Modal))

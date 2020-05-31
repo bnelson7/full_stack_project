@@ -30,6 +30,7 @@ class VideoIndexItem extends React.Component {
     }
   
     formatVideos() {
+        debugger
         return (
             this.props.path === `/` ? (
                 <div className="grid-index-container">
@@ -46,7 +47,12 @@ class VideoIndexItem extends React.Component {
                             <h1>{this.props.video.title}</h1>
                             <div className="views-date">
                                 <h1>{this.props.video.creator.username}&nbsp;<MdCheckCircle className="verified"/></h1>
-                                <span>{this.props.video.views} views&nbsp;<span><GoPrimitiveDot /></span>&nbsp;{this.props.video.createdAt} ago</span>
+                                <span>{this.props.video.views} views&nbsp;
+                                    <span>
+                                        <GoPrimitiveDot />
+                                    </span>
+                                    &nbsp;{this.props.video.createdAt.includes("about") ? this.props.video.createdAt.slice(6): this.props.video.createdAt} ago
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -64,7 +70,12 @@ class VideoIndexItem extends React.Component {
                             <div className="views-date-show">
                                 <h1 id="show-user">{this.props.video.creator.username}&nbsp;<span className="verified"><MdCheckCircle /></span></h1>
                             </div>
-                            <span id="views-date-show">{this.props.video.views} views&nbsp;<span><GoPrimitiveDot /></span>&nbsp;{this.props.video.createdAt} ago</span>
+                            <span id="views-date-show">{this.props.video.views} views&nbsp;
+                                <span>
+                                    <GoPrimitiveDot />
+                                </span>
+                                &nbsp;{this.props.video.createdAt.includes("about") ? this.props.video.createdAt.slice(6) : this.props.video.createdAt} ago
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -82,7 +93,10 @@ class VideoIndexItem extends React.Component {
                             </div>
                             <div className="profile-videos-item-views">
                                 <span id="views-date-show">{this.props.video.views} views&nbsp;
-                                    <span><GoPrimitiveDot /></span>&nbsp;{this.props.video.createdAt} ago
+                                    <span>
+                                        <GoPrimitiveDot />
+                                    </span>
+                                    &nbsp;{this.props.video.createdAt.includes("about") ? this.props.video.createdAt.slice(6): this.props.video.createdAt} ago
                                 </span>
                             </div>
                         </div>
@@ -100,7 +114,18 @@ class VideoIndexItem extends React.Component {
                         <div className="video-search-info">
                             <div className="title-user-search">
                                 <h1 id="search-title">{this.props.video.title}</h1>
-                                <h1 id="search-user">{this.props.video.creator.username}&nbsp;<span className="verified"><MdCheckCircle /></span>&nbsp;&nbsp;<span id="title-user-search">{this.props.video.views} views&nbsp;<span><GoPrimitiveDot /></span>&nbsp;{this.props.video.createdAt} ago</span></h1>
+                                <h1 id="search-user">{this.props.video.creator.username}&nbsp;
+                                    <span className="verified">
+                                        <MdCheckCircle />
+                                    </span>
+                                    &nbsp;&nbsp;
+                                    <span id="title-user-search">{this.props.video.views} views&nbsp;
+                                        <span>
+                                            <GoPrimitiveDot />
+                                        </span>
+                                        &nbsp;{this.props.video.createdAt.includes("about") ? this.props.video.createdAt.slice(6): this.props.video.createdAt} ago
+                                    </span>
+                                </h1>
                             </div>
                             <div >
                                 <span id="description-search">{this.props.video.description}</span>
