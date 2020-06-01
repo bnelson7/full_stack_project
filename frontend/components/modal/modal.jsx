@@ -15,7 +15,8 @@ class Modal extends React.Component {
             title: "",
             description: "",
             clipFile: null,
-            thumbnailFile: null
+            thumbnailFile: null,
+            thumbnailUrl: null
         }
 
         this.handleUpload = this.handleUpload.bind(this)
@@ -53,8 +54,8 @@ class Modal extends React.Component {
         if (this.props.modal.type === 'upload') {
             formData.append('video[title]', this.state.title);
             formData.append('video[description]', this.state.description);
-            formData.append('video[clip]', this.state.clipFile);
-            formData.append('video[thumbnail]', this.state.thumbnailFile);
+            this.state.clipFile && formData.append('video[clip]', this.state.clipFile);
+            this.state.thumbnailFile && formData.append('video[thumbnail]', this.state.thumbnailFile);
             this.props.createVideo(formData)
             .then(() => {
                 this.props.closeModal()
@@ -84,14 +85,21 @@ class Modal extends React.Component {
         }
     }
 
-    handleUpload(field) {
-        return e => {
-            this.setState({ [field]: e.currentTarget.files[0] })
+    handleUpload(e, field, preview) {
+        const file = e.currentTarget.files[0];
+        const fileReader = new FileReader();
+
+        fileReader.onloadend = () => {
+            this.setState({ 
+                [field]: file,
+                [preview]: fileReader.result
+            })
         }
+
+        file && fileReader.readAsDataURL(file);
     }
 
     update(field) {
-        debugger
         return e => {
             this.setState({ [field]: e.currentTarget.value })
         }
@@ -99,9 +107,10 @@ class Modal extends React.Component {
 
     render() {
         const { modal, closeModal, location } = this.props
+        const preview = this.state.thumbnailUrl ? <img src={this.state.thumbnailUrl} /> : null
+        const fileName = this.state.clipFile ? <span className="name-preview">{this.state.clipFile.name}</span> : null
         if (!modal) return null;
-      
-        debugger
+
         switch (modal.type) {
             case 'upload':
                 return (
@@ -131,15 +140,25 @@ class Modal extends React.Component {
                                                 <h1>Thumbnail</h1>
                                                 <p>Select or upload a picture that shows what's in your video. A good thumbnail stands out and draws viewers' attention.</p>
 
-                                                <div className="upload-thumbnail">
-                                                    <input type="file" name="file2" id="file2" className="hidden-input" onChange={this.handleUpload('thumbnailFile')} />
-                                                    <label className="upload-thumbnail-btn" htmlFor="file2"><span className="thumbnail-icons"><IoMdImage className="thumbnail-image-icon" /><GoPlus className="thumbnail-plus-icon"/></span>Upload thumbnail</label>
+                                                <div className="upload-thumbnail-container">
+                                                    <div className="upload-thumbnail">
+                                                        <input type="file" name="file2" id="file2" className="hidden-input" onChange={e => this.handleUpload(e, 'thumbnailFile', 'thumbnailUrl')} />
+                                                        <label className="upload-thumbnail-btn" htmlFor="file2">
+                                                            <span className="thumbnail-icons">
+                                                            <IoMdImage className="thumbnail-image-icon" />
+                                                            <GoPlus className="thumbnail-plus-icon"/>
+                                                            </span>Upload thumbnail
+                                                        </label>
+                                                    </div>
+                                                    <div className="upload-thumbnail-preview"> 
+                                                        {preview}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div className="upload-form-video">
-                                            <input type="file" name="file1" id="file1" className="hidden-input" onChange={this.handleUpload('clipFile')} />
+                                            <input type="file" name="file1" id="file1" className="hidden-input" onChange={e => this.handleUpload(e, 'clipFile', 'clipUrl')} />
                                             <label htmlFor="file1">
                                                 <span className="upload-icon">
                                                     <MdFileUpload />
@@ -150,6 +169,7 @@ class Modal extends React.Component {
                                                 <span>Your videos will be private until you publish them.</span>
                                             </div>
                                             <label className="upload-btn" htmlFor="file1">SELECT FILES</label>
+                                            {fileName}
                                         </div>
                                     </div>
                                     <div className="upload-form-footer">
@@ -191,15 +211,25 @@ class Modal extends React.Component {
                                                 <h1>Thumbnail</h1>
                                                 <p>Select or upload a picture that shows what's in your video. A good thumbnail stands out and draws viewers' attention.</p>
 
-                                                <div className="upload-thumbnail">
-                                                    <input type="file" name="file2" id="file2" className="hidden-input" onChange={this.handleUpload('thumbnailFile')} />
-                                                    <label className="upload-thumbnail-btn" htmlFor="file2"><span className="thumbnail-icons"><IoMdImage className="thumbnail-image-icon" /><GoPlus className="thumbnail-plus-icon"/></span>Upload thumbnail</label>
+                                                <div className="upload-thumbnail-container">
+                                                    <div className="upload-thumbnail">
+                                                        <input type="file" name="file2" id="file2" className="hidden-input" onChange={e => this.handleUpload(e, 'thumbnailFile', 'thumbnailUrl')} />
+                                                        <label className="upload-thumbnail-btn" htmlFor="file2">
+                                                            <span className="thumbnail-icons">
+                                                            <IoMdImage className="thumbnail-image-icon" />
+                                                            <GoPlus className="thumbnail-plus-icon"/>
+                                                            </span>Upload thumbnail
+                                                        </label>
+                                                    </div>
+                                                    <div className="upload-thumbnail-preview">
+                                                        {preview}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div className="upload-form-video">
-                                            <input type="file" name="file1" id="file1" className="hidden-input" onChange={this.handleUpload('clipFile')} />
+                                            <input type="file" name="file1" id="file1" className="hidden-input" onChange={e => this.handleUpload(e, 'clipFile', 'clipUrl')} />
                                             <label htmlFor="file1">
                                                 <span className="upload-icon">
                                                     <MdFileUpload />

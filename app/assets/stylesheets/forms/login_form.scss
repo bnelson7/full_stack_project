@@ -49,6 +49,7 @@
     align-items: flex-start;
     justify-content: flex-start;
     height: 25vh;
+    // position: relative;
 }
 
 .login-input {
@@ -62,6 +63,16 @@
 .login-input:focus {
     border: 1.5px solid #065FD4;
 }
+
+// .login-input::placeholder {
+//     transition:0.2s ease all;
+// }
+
+// .login-input:focus .login-input::placeholder, .login-input:valid .login-input::placeholder {
+//     top: -20px;
+//     color: #065FD4;
+//     font-size: 1.4vh;
+// }
 
 .login-demo-container {
     margin-top: 7.5vh;

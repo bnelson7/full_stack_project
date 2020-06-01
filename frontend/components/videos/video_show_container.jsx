@@ -4,6 +4,7 @@ import { requestComments } from '../../actions/comment_actions'
 import { createVideoLike, deleteVideoLike } from '../../actions/like_actions'
 import { updateUser, requestUser } from '../../actions/user_actions'
 import VideoShow from './video_show'
+import { closeModal } from '../../actions/modal_actions'
 
 const mSTP = (state, ownProps) => {
     let videoId = ownProps.match.params.videoId
@@ -36,7 +37,8 @@ const mDTP = dispatch => ({
     createVideoLike: like => dispatch(createVideoLike(like)),
     deleteVideoLike: (userId, videoId) => dispatch(deleteVideoLike(userId, videoId)),
     updateUser: (user, id) => dispatch(updateUser(user, id)),
-    requestUser: id => dispatch(requestUser(id))
+    requestUser: id => dispatch(requestUser(id)),
+    closeModal: () => dispatch(closeModal())
 })
 
 export default connect(mSTP, mDTP)(VideoShow)

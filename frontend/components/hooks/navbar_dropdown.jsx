@@ -29,7 +29,7 @@ const NavBarDropdown = (props) => {
     return (
         <div className="user-icon" ref={navbar}>
             <button className="profile-photo-nav" onClick={e => setOpen(!open)}>
-                <img src={props.currentUser.photoUrl} />
+                {props.currentUser.photoUrl ? <img src={props.currentUser.photoUrl} /> : <img src={window.user} />}
             </button>
             {open && 
             <ul className="profile-nav-dropdown">

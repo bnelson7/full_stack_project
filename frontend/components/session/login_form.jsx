@@ -9,8 +9,7 @@ class LoginForm extends React.Component {
         super(props)
 
         this.state = { 
-            email: "",
-            password: "password" 
+            email: ""
         }
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleDemoLogin = this.handleDemoLogin.bind(this)
@@ -37,7 +36,7 @@ class LoginForm extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         const user = Object.assign({}, this.state)
-        
+        debugger
         this.props.loginUser(user)
     }
 
@@ -81,7 +80,12 @@ class LoginForm extends React.Component {
                 <br/>
                 <form onSubmit={this.handleSubmit}>
                     <div className="input-container">
-                        <input type="text" className="login-input" placeholder="Enter your email" value={this.state.email} onChange={this.update("email")}/>
+                        <input type="text" 
+                        className="login-input" 
+                        placeholder="Enter your email" 
+                        value={this.state.email} 
+                        onChange={this.update("email")}
+                        required/>
                         {this.props.errors && this.renderErrors()}
                         <div className="login-demo-container">
                             <div className="login-demo">
@@ -93,7 +97,9 @@ class LoginForm extends React.Component {
                         </div>
                     </div>
                     <div className="login-links">
-                        <p className="session-nav"><Link to="/signup">Create account</Link></p>
+                        <p className="session-nav">
+                            <Link to="/signup">Create account</Link>
+                        </p>
                         <button className="session-btn">Next</button>
                     </div>
                 </form>

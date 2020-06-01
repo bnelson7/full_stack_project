@@ -6,22 +6,13 @@ class ProfilePhoto extends React.Component {
     constructor(props) {
         super(props)
 
-        this.state = {
-            photoFile: null
-        }
-
         this.handlePhoto = this.handlePhoto.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     handlePhoto(e) {
-        this.setState({ photoFile: e.currentTarget.files[0] })
-    }
-
-    handleSubmit(e) {
         e.preventDefault();
         const formData = new FormData();
-        formData.append('user[photo]', this.state.photoFile);
+        formData.append('user[photo]', e.currentTarget.files[0]);
         this.props.updateUser(formData, this.props.currentUser.id);
     }
 
@@ -30,10 +21,16 @@ class ProfilePhoto extends React.Component {
       
         return (
             <div>
-                {currentUser.photoUrl ?
+                {/* {currentUser.photoUrl ?
                 <div className="profile-photo-container">
                     <div className="profile-photo">
-                        <img src={currentUser.photoUrl} />
+                        <div className="profile-photo-upload-container">
+                            <img src={currentUser.photoUrl} />
+                            <input type="file" name="file3" id="file3" className="hidden-input" onChange={e => this.handlePhoto(e)} />
+                            <label className="profile-photo-upload" htmlFor="file3">
+                                <FaCamera className="avatar" />
+                            </label>
+                        </div> 
                         <div className="profile-photo-user">
                             <span>{currentUser.username}<MdCheckCircle className="profile-verified-icon"/></span>
                             <span>No Subscribers</span>
@@ -42,17 +39,22 @@ class ProfilePhoto extends React.Component {
                     <button className="subscribe-btn">
                         SUBSCRIBE
                     </button>  
-                </div> :
-                    <form onSubmit={this.handleSubmit}>
-                        <div className="profile-photo-default">
-                            <FaCamera className="avatar" />
+                </div> : */}
+                <div className="profile-photo-container">
+                    <div className="profile-photo">
+                        <div className="profile-photo-upload-container">
+                            {currentUser.photoUrl ? <img src={currentUser.photoUrl} /> : <img src={window.user} />}
+                            <input type="file" name="file3" id="file3" className="hidden-input" onChange={e => this.handlePhoto(e)} />
+                            <label className="profile-photo-upload" htmlFor="file3">
+                                <FaCamera className="avatar" />
+                            </label>
                         </div>
-                        <input type="file" name="file" id="file" className="file" onChange={this.handlePhoto} />
-                        <label htmlFor="file">Add a profile picture</label>
-                        <br/>
-                        <br/>
-                        <button>upload photo</button>
-                    </form>}
+                        <div className="profile-photo-user">
+                            <span>{currentUser.username}<MdCheckCircle className="profile-verified-icon"/></span>
+                            <span>No Subscribers</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         )
     }

@@ -25,6 +25,7 @@ class UserProfile extends React.Component {
         this.getDate = this.getDate.bind(this)
         this.update = this.update.bind(this)
         this.handleSort = this.handleSort.bind(this)
+        this.handleUpload = this.handleUpload.bind(this)
     }
 
     componentDidMount() {
@@ -148,40 +149,56 @@ class UserProfile extends React.Component {
         }
     }
 
+    handleUpload(e) {
+        e.preventDefault();
+        this.props.openModal({ type: 'upload' })
+    }
+
     renderSelected() {
         const { selected, sortSelected } = this.state
         const { videos, currentUser, path, deleteVideo, updateVideo, openModal } = this.props
+        
         switch (selected) {
             case "videos":
-                return (
-                    <div className="profile-videos-container">
-                        <div className="profile-videos">
-                            <div className="profile-videos-title">
-                                <h1>Uploads</h1>
-                                <VideoSortDropdown handleSort={this.handleSort} sortSelected={sortSelected} />
-                            </div>
-                            {!sortSelected ? 
-                            <div className="profile-videos-grid-container">
-                                {videos.filter(video => video.creatorId === currentUser.id).map(video => {
-                                    return (
-                                        <li className="profile-videos-grid-item" key={video.id}>
-                                            <VideoIndexItem 
-                                            video={video} 
-                                            path={path} 
-                                            deleteVideo={deleteVideo} 
-                                            updateVideo={updateVideo} 
-                                            update={this.update} 
-                                            openModal={openModal}
-                                            />
-                                        </li>
-                                        )
-                                    }
-                                )}
-                            </div> :
-                            this.sortVideos(videos)}
+                if (!currentUser.uploads || currentUser.uploads.length === 0) {
+                    return (
+                        <div className="profile-videos-default">
+                            <h1>
+                                This channel has no videos.
+                            </h1>
                         </div>
-                    </div>
-                )
+                    )
+                } else {
+                    return (
+                        <div className="profile-videos-container">
+                            <div className="profile-videos">
+                                <div className="profile-videos-title">
+                                    <h1>Uploads</h1>
+                                    <VideoSortDropdown handleSort={this.handleSort} sortSelected={sortSelected} />
+                                </div>
+                                {!sortSelected ? 
+                                <div className="profile-videos-grid-container">
+                                    {videos.filter(video => video.creatorId === currentUser.id).map(video => {
+                                        return (
+                                            <li className="profile-videos-grid-item" key={video.id}>
+                                                <VideoIndexItem 
+                                                video={video} 
+                                                path={path} 
+                                                deleteVideo={deleteVideo} 
+                                                updateVideo={updateVideo} 
+                                                update={this.update} 
+                                                openModal={openModal}
+                                                />
+                                            </li>
+                                            )
+                                        }
+                                    )}
+                                </div> :
+                                this.sortVideos(videos)}
+                            </div>
+                        </div>
+                    )
+                }
             case "playlists":
                 return (
                     <div className="profile-playlists">
@@ -215,7 +232,9 @@ class UserProfile extends React.Component {
                     </div>
                 )
             default:
-                if (!this.props.currentUser.uploads) {
+                debugger
+                if (!currentUser.uploads || currentUser.uploads.length === 0) {
+                    debugger
                     return (
                     <div className="upload-container-default">
                         <div className="profile-upload">
@@ -225,7 +244,9 @@ class UserProfile extends React.Component {
                                 <p>Start sharing your story and connecting with viewers. Videos you upload will</p>
                                 <p>show up here.</p>
                             </div>
-                            <button className="upload-btn">UPLOAD VIDEO</button>
+                            <button className="upload-btn" onClick={this.handleUpload}>
+                                UPLOAD VIDEO
+                            </button>
                         </div>
                     </div>
                 )

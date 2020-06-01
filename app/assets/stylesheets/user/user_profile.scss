@@ -78,20 +78,55 @@
     height: 8vh;
     border-radius: 50%;
     cursor: pointer;
+    position: absolute;
     // object-fit: cover;
 }
 
-.profile-photo > .profile-photo-default {
+// .profile-photo img:hover {
+//     opacity: .2;
+// }
+
+.profile-photo-upload-container {
     display: flex;
-    justify-content: center;
     align-items: center;
-    background: black;
-    opacity: 0.7;
+    justify-content: center;
+    position: relative;
+    height: 9vh;
+    width: 9vh;
+    padding-top: 1vh;
 }
 
-.profile-photo-default:hover {
-    opacity: 0.5;
+.profile-photo-upload {
+    display: none;
+    z-index: 9;
+    width: 5vh;
+    height: 5vh;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }
+.profile-photo-upload:hover {
+    display: flex;
+    cursor: pointer;
+}
+
+.profile-photo img:hover + .profile-photo-upload {
+    display: flex;
+}
+
+// .profile-photo > .profile-photo-default {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     background: black;
+//     opacity: 0.7;
+// }
+
+// .profile-photo-default:hover {
+//     opacity: 0.5;
+// }
 
 .profile-photo-nav img {
     width: 35px;
@@ -134,7 +169,7 @@
 }
 
 .avatar {
-    font-size: 5vh;
+    font-size: 2.2vh;
     color: white;
 }
 
@@ -200,6 +235,15 @@
 .profile-videos-item-views {
     display: flex;
     align-items: center;
+}
+
+.profile-videos-default {
+    height: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4vh;
+    color: #030303;
 }
 
 .profile-playlists {
@@ -352,7 +396,7 @@
 
 .profile-upload h1 {
     color: #030303;
-    font-weight: 500;
+    font-weight: 400;
     font-size: 2.4vh;
 }
 

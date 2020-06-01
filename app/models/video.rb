@@ -13,7 +13,10 @@
 #
 class Video < ApplicationRecord
 
-    validates :title, :creator_id, presence: true
+    validates :title, :creator_id, :views, presence: true
+
+    validate :ensure_thumbnail
+    # validate :ensure_clip
 
     has_one_attached :thumbnail
 
@@ -39,6 +42,18 @@ class Video < ApplicationRecord
     def number_disliked(id)
         Like.all.where(disliked: true, likeable_type: "Video", likeable_id: id).length
     end
+
+    def ensure_thumbnail
+        unless self.thumbnail.attached?
+            errors[:thumbnail] << "Must upload a thumbnail"
+        end
+    end
+
+    # def ensure_clip
+    #    unless self.clip.attached?
+    #        errors[:clip] << "Must upload a clip"
+    #    end 
+    # end
 
     # def video_duration(url)
     #     debugger

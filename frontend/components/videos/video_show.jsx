@@ -37,6 +37,10 @@ class VideoShow extends React.Component {
         }
     }
 
+    componentWillUnmount() {
+        this.props.closeModal()
+    }
+
     handleLike(e) {
         e.preventDefault();
         const { currentUser, history, match, liked, disliked } = this.props
@@ -46,7 +50,7 @@ class VideoShow extends React.Component {
         }
         if (currentUser) {
             let clicked = e.currentTarget.value
-            console.log(this.state)
+            
             if ((clicked === 'liked' || clicked === 'disliked') && !liked && !disliked) {
                 let likedVideo = clicked === 'liked' ? createLike(true, false) : createLike(false, true)
                 
@@ -54,11 +58,11 @@ class VideoShow extends React.Component {
                 .then(like => {
                     
                     const formData = new FormData()
-                    const user = new FormData()
+                    // const user = new FormData()
                     formData.append('video[likes]', like.like)
-                    formData.append('user[likes]', like.like)
+                    // formData.append('user[likes]', like.like)
                     this.props.updateVideo(formData, this.props.match.params.videoId)
-                    this.props.updateUser(user, this.props.currentUser.id)
+                    this.props.requestUser(this.props.currentUser.id)
                 })
             } else if ((clicked === 'liked' && liked) || (clicked === 'disliked' && disliked)) {
                 
@@ -68,7 +72,7 @@ class VideoShow extends React.Component {
                     const formData = new FormData()
                     formData.append('video[likes]', null)
                     this.props.updateVideo(formData, this.props.match.params.videoId)
-                    this.props.updateUser(formData, this.props.currentUser.id)
+                    this.props.requestUser(this.props.currentUser.id)
                 })
             } else {
                 
@@ -80,11 +84,11 @@ class VideoShow extends React.Component {
                     .then(like => {
                         
                         const formData = new FormData()
-                        const user = new FormData()
+                        // const user = new FormData()
                         formData.append('video[likes]', like.like)
                         formData.append('user[likes]', like.like)
                         this.props.updateVideo(formData, this.props.match.params.videoId)
-                        this.props.updateUser(user, this.props.currentUser.id)
+                        this.props.requestUser(this.props.currentUser.id)
                     })
                 })
             }
