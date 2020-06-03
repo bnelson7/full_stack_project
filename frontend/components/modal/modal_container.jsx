@@ -5,7 +5,7 @@ import Modal from './modal'
 import {withRouter} from 'react-router-dom'
 
 const mstp = state => {
-    debugger
+    
     return {
         modal: state.ui,
         video: state.ui.video,

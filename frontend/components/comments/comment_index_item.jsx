@@ -200,7 +200,10 @@ class CommentIndexItem extends React.Component {
                         <div className="comment-info-info-container">
                             <div className="comment-info-info">
                                 <div className="comment-author-date">
-                                    {comment.author.username} {!this.state.edited ? <span>{comment.createdAt} ago</span> : <span>{comment.updatedAt} ago</span>} {this.state.edited ? <span>(edited)</span> : null}
+                                    <strong>{comment.author.username}</strong>&nbsp; 
+                                    {!this.state.edited ? <span>{comment.createdAt.includes("about") ? comment.createdAt.slice(6): comment.createdAt} ago</span> : 
+                                    <span>{comment.updatedAt.includes("about") ? comment.updatedAt.slice(6): comment.updatedAt} ago</span>}&nbsp; 
+                                    {this.state.edited ? <span>(edited)</span> : null}
                                 </div>
                                 <div className="comment-body">
                                     {!this.state.editing ? comment.body : null}

@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom'
 class Modal extends React.Component {
     constructor(props) {
         super(props)
-        debugger
+        
 
         this.state = {
             title: "",
@@ -26,7 +26,7 @@ class Modal extends React.Component {
 
     // maybe use componentDidUpdate instead
     UNSAFE_componentWillReceiveProps(nextProps) {
-        debugger
+        
         if (nextProps.video) {
             this.setState({
                 title: nextProps.video.title,
@@ -68,12 +68,12 @@ class Modal extends React.Component {
             })
 
         } else {
-            debugger
+            
             formData.append('video[title]', this.state.title);
             formData.append('video[description]', this.state.description);
             this.props.updateVideo(formData, this.props.video.id)
             .then(() => {
-                debugger
+                
                 this.props.closeModal()
                 this.setState({
                     title: "",
@@ -183,7 +183,6 @@ class Modal extends React.Component {
                     </div>
                 )
             case 'edit':
-                debugger
                 return (
                     <div className="upload-modal-background">
                         <div className="upload-modal-child">
@@ -255,9 +254,9 @@ class Modal extends React.Component {
             case 'sidebar':
                 // could also reuse sidebar component and pass in props
                 // stick with this for now bc its more simple
-                debugger
+                
                 if (location.pathname.includes("/videos")) {
-                    debugger
+                    
                 return (
                     <div className="sidebar-modal-background" onClick={this.handleClose}>
                         <div className="sidebar-container-expanded">
@@ -346,7 +345,7 @@ class Modal extends React.Component {
                     </div>
                     )
                 } else {
-                    debugger
+                    
                     return null;
                 }
             default:

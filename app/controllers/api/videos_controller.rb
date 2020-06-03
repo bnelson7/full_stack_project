@@ -17,22 +17,20 @@ class Api::VideosController < ApplicationController
             @video.views += 1
             @video.save
      
-            @videos = Video.where.not(id: params[:id]).all.with_attached_thumbnail.order(Arel.sql('RANDOM()'))
+            # @videos = Video.where.not(id: params[:id]).all.with_attached_thumbnail.order(Arel.sql('RANDOM()'))
             render :show
         end
     end
 
     def create
-        debugger
         @video = Video.new(video_params)
-        debugger
         @video.views = 0
         @video.creator_id = current_user.id
 
         if @video.save
             render :show
         else
-            debugger
+            
             render json: @video.errors.full_messages, status: 422
         end
     end

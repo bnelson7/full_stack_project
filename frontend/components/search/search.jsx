@@ -3,6 +3,7 @@ import VideoIndexItem from '../videos/video_index_item'
 import { MdWatchLater } from 'react-icons/md'
 import { FiSliders } from 'react-icons/fi'
 import { IoMdClose } from 'react-icons/io'
+import getBlobDuration from "get-blob-duration";
 
 class Search extends React.Component {
     constructor(props) {
@@ -19,6 +20,7 @@ class Search extends React.Component {
         this.handleSearch = this.handleSearch.bind(this)
         this.filterSearch = this.filterSearch.bind(this)
         this.handleClose = this.handleClose.bind(this)
+
     }
 
     componentDidMount() {
@@ -61,6 +63,7 @@ class Search extends React.Component {
         let val = e.target.innerText
         let foundIdx = null
         let target = null
+        
         for (let i = 0; i < filtered.length; i++) {
             if (Object.keys(filtered[i]).includes(key)) {
                 target = filtered[i]
@@ -73,7 +76,7 @@ class Search extends React.Component {
                 break;
             } 
         }
-
+       
         e.target.tagName === "svg" && $(e.target).css("display", "")
 
         let removed = [] 
@@ -94,12 +97,41 @@ class Search extends React.Component {
         }
 
         if (!this.state.alreadyFiltered) {
-            this.filterSearch(filtered, this.state.videos)
+            if (key === "DURATION") {
+              ;(async () => {
+                let addVideoDurations = this.state.videos;
+ 
+                for (let i = 0; i < addVideoDurations.length; i++) {
+                  const blob = addVideoDurations[i].clipUrl;
+                  const response = await getBlobDuration(blob);
+                  addVideoDurations[i].duration = response;
+                }
+                this.filterSearch(filtered, addVideoDurations);
+              })();
+            } else {
+                this.filterSearch(filtered, this.state.videos)
+            }
         } else {
-            this.props.requestQueriedVideos(this.props.location.search)
-                .then(results => {
-                    this.filterSearch(filtered, Object.values(results.videos))
-                })
+            if (key === "DURATION") {
+                this.props.requestQueriedVideos(this.props.location.search)
+                    .then(results => {
+                        ;(async () => {
+                          let addVideoDurations = Object.values(results.videos);
+
+                          for (let i = 0; i < addVideoDurations.length; i++) {
+                            const blob = addVideoDurations[i].clipUrl;
+                            const response = await getBlobDuration(blob);
+                            addVideoDurations[i].duration = response;
+                          }
+                          this.filterSearch(filtered, addVideoDurations);
+                        })();
+                    })
+            } else {
+                this.props.requestQueriedVideos(this.props.location.search)
+                    .then(results => {
+                        this.filterSearch(filtered, Object.values(results.videos))
+                    })
+            }
         }
  
         for (let i = 0; i < filtered.length; i++) {
@@ -127,15 +159,17 @@ class Search extends React.Component {
                             filteredVideos = filter0
                             break;
                         case "This week":
+                            debugger
                             let filter1 = filteredVideos.filter(video => {
                                 return (
-                                    video.createdAt.split(" ")[1] === "days" ||
+                                    ((video.createdAt.split(" ")[1] === "days" ||
+                                    video.createdAt.split(" ")[1] === "day")
+                                    && parseInt(video.createdAt.split(" ")[0]) <= 7) ||
                                     video.createdAt.split(" ")[1] === "hours" ||
                                     video.createdAt.split(" ")[1] === "minutes"
                                 )
                             })
                             filteredVideos = filter1
-                            console.log(filteredVideos)
                             break;
                         case "This month":
                             let filter2 = filteredVideos.filter(video => {
@@ -165,11 +199,13 @@ class Search extends React.Component {
                 case "TYPE":
                     switch (Object.values(filtered[i])[0]) {
                         case "Channel":
-                            let filter4 = filteredVideos.filter(video => video.channel)
+                            // let filter4 = filteredVideos.filter(video => video.channel)
+                            let filter4 = []
                             filteredVideos = filter4
                             break;
                         case "Playlist":
-                            let filter5 = filteredVideos.filter(video => video.playlist)
+                            // let filter5 = filteredVideos.filter(video => video.playlist)
+                            let filter5 = []
                             filteredVideos = filter5
                             break;
                         default:
@@ -177,12 +213,11 @@ class Search extends React.Component {
                             break;
                     }
                     break;
-                case "DURATION":
+                case "DURATION": 
                     switch (Object.values(filtered[i])[0]) {
-                        case "Short(&lt; 30 seconds)":
-                            // let filter6 = filteredVideos
-                            // filteredVideos = filter6
-                            filteredVideos
+                        case "Short(< 30 seconds)":
+                            let filter6 = filteredVideos.filter(video => video.duration < 30)
+                            filteredVideos = filter6
                             break;
                         default:
                             filteredVideos
@@ -217,8 +252,7 @@ class Search extends React.Component {
     render() {
         const { path } = this.props        
         // if (this.state.videos.length === 0 && !this.state.alreadyFiltered) return null
-        debugger
-        console.log(this.state)
+        
         return(
             <div className="background">
                 <div className="search-background">
@@ -257,7 +291,7 @@ class Search extends React.Component {
                                 <h1>DURATION</h1>
                                 <hr/>
                                 <li>Short({"<"} 30 seconds)<IoMdClose className="close-filter"/></li>
-                                <li>Long({">"} 2 minutes)<IoMdClose className="close-filter"/></li>
+                                <li>Long({">"} 30 seconds)<IoMdClose className="close-filter"/></li>
                             </ul>
                             <ul className="search-filter-items-container" onClick={this.handleSearch}>
                                 <h1>SORT BY</h1>

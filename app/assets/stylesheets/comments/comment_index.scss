@@ -200,18 +200,22 @@
 .comment-info-info {
     // flex: 4;
     height: 100%;
+    width: 100%;
 }
 
 .comment-author-date {
     font-size: 1.3vh;
     font-weight: 500;
     color: #030303;
+    // width: 100%;
+    // display: inline-block;
 }
 
 .comment-author-date span {
     // font-size: 1.3vh;
     font-weight: 400;
     color: #606060;
+    margin-left: .5w;
 }
 
 .comment-body {

@@ -16,7 +16,7 @@ class Video < ApplicationRecord
     validates :title, :creator_id, :views, presence: true
 
     validate :ensure_thumbnail
-    # validate :ensure_clip
+    validate :ensure_clip
 
     has_one_attached :thumbnail
 
@@ -49,15 +49,10 @@ class Video < ApplicationRecord
         end
     end
 
-    # def ensure_clip
-    #    unless self.clip.attached?
-    #        errors[:clip] << "Must upload a clip"
-    #    end 
-    # end
-
-    # def video_duration(url)
-    #     debugger
-    #     media_info = MediaInfo.from(url)
-    # end
+    def ensure_clip
+       unless self.clip.attached?
+           errors[:clip] << "Must upload a clip"
+       end 
+    end
 
 end

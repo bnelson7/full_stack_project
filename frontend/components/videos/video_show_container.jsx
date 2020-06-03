@@ -17,6 +17,7 @@ const mSTP = (state, ownProps) => {
         var liked = false
         var disliked = false
     }
+    
     return {
         videoId: videoId,
         video: state.entities.videos[ownProps.match.params.videoId],

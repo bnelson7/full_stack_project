@@ -4,7 +4,7 @@ import { FaFire, FaGithub, FaLinkedin, FaUserCircle } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 
 const Sidebar = props => {
-    debugger
+    
     return (
         props.modal === 'sidebar' ? (
             <div className="sidebar-container-expanded">

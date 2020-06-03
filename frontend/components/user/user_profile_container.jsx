@@ -6,11 +6,13 @@ import { openModal } from '../../actions/modal_actions'
 
 const mSTP = (state, ownProps) => {
     let currentUser = state.entities.users[state.session.id]
-    let video = currentUser.uploads && currentUser.uploads[0]
-    debugger
+    let randomIdx = currentUser.uploads && Math.floor(Math.random() * currentUser.uploads.length)
+    let video = currentUser.uploads && currentUser.uploads[randomIdx]
+    let videos = currentUser.uploads && currentUser.uploads
+    
     return ({
         currentUser: currentUser,
-        videos: Object.values(state.entities.videos),
+        videos: videos,
         path: ownProps.location.pathname,
         video: video
     })

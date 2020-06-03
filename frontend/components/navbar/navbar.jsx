@@ -44,7 +44,11 @@ class NavBar extends React.Component {
           <div className="right-nav-icon">
             <MdNotifications />
           </div>
-          <NavBarDropdown currentUser={this.props.currentUser} handleLogout={this.handleLogout} path={this.props.path}/>
+          <NavBarDropdown 
+          currentUser={this.props.currentUser} 
+          handleLogout={this.handleLogout} 
+          path={this.props.path} 
+          />
       </div>
     )
   }
@@ -83,14 +87,12 @@ class NavBar extends React.Component {
   
   getQueryString(e) {
     localStorage.setItem('recentSearch', this.state.queryString)
-    
     return e => {
       this.setState({ queryString: e.currentTarget.value })
     }
   }
 
   handleSidebar() {
-  debugger
     const { openModal, modal, closeModal } = this.props
     modal === 'sidebar' ? closeModal() : openModal({ type: 'sidebar' })
   }

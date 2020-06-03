@@ -44,7 +44,6 @@ class ProfilePhoto extends React.Component {
                     <div className="profile-photo">
                         <div className="profile-photo-upload-container">
                             {currentUser.photoUrl ? <img src={currentUser.photoUrl} /> : <img src={window.user} />}
-                            <input type="file" name="file3" id="file3" className="hidden-input" onChange={e => this.handlePhoto(e)} />
                             <label className="profile-photo-upload" htmlFor="file3">
                                 <FaCamera className="avatar" />
                             </label>
@@ -53,6 +52,7 @@ class ProfilePhoto extends React.Component {
                             <span>{currentUser.username}<MdCheckCircle className="profile-verified-icon"/></span>
                             <span>No Subscribers</span>
                         </div>
+                        <input type="file" name="file3" id="file3" className="hidden-input" onChange={e => this.handlePhoto(e)} />
                     </div>
                 </div>
             </div>

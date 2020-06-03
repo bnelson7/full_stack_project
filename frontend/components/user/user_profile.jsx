@@ -5,12 +5,10 @@ import ProfilePhotoContainer from './user_profile_photo_container'
 import VideoIndexItem from '../videos/video_index_item'
 import { MdFlag, MdSort } from 'react-icons/md'
 import CommentFormContainer from '../comments/comment_form_container'
-import TimeAgo from "javascript-time-ago";
 import { GoPrimitiveDot } from "react-icons/go";
 import { Link } from 'react-router-dom'
-import Moment from "react-moment";
-import "moment-timezone";
 import VideoSortDropdown from '../hooks/video_sort_dropdown'
+import getBlobDuration from "get-blob-duration";
 
 class UserProfile extends React.Component {
     constructor(props) {
@@ -30,10 +28,6 @@ class UserProfile extends React.Component {
 
     componentDidMount() {
         this.props.requestUser(this.props.currentUser.id)
-        .then(() => {
-            this.props.requestVideos()
-                this.props.requestVideo(this.props.video.id)
-            })
     }
 
     update() {
@@ -156,7 +150,7 @@ class UserProfile extends React.Component {
 
     renderSelected() {
         const { selected, sortSelected } = this.state
-        const { videos, currentUser, path, deleteVideo, updateVideo, openModal } = this.props
+        const { videos, video, currentUser, path, deleteVideo, updateVideo, openModal } = this.props
         
         switch (selected) {
             case "videos":
@@ -232,9 +226,8 @@ class UserProfile extends React.Component {
                     </div>
                 )
             default:
-                debugger
+                
                 if (!currentUser.uploads || currentUser.uploads.length === 0) {
-                    debugger
                     return (
                     <div className="upload-container-default">
                         <div className="profile-upload">
@@ -257,28 +250,26 @@ class UserProfile extends React.Component {
                             <div className="uploads-featured-video-container">
                                 <div className="uploads-featured-video">
                                     <video controls autoPlay >
-                                        <source type="video/mp4" src={this.props.video.clipUrl} />
+                                        <source type="video/mp4" src={video.clipUrl} poster={video.photoUrl}/>
                                     </video>
                                 </div>
                                 <div className="uploads-featured-video-info">
                                     <div className="uploads-profile-videos-item-info">
                                         <div className="profile-videos-item-title">
-                                            <h1 id="show-title">{this.props.video.title}</h1>
+                                            <h1 id="show-title">{video.title}</h1>
                                         </div>
                                         <div className="uploads-profile-videos-item-views">
-                                            <span id="views-date-show">{this.props.video.views}K views&nbsp;
+                                            <span id="views-date-show">{video.views}K views&nbsp;
                                                 <span>
                                                     <GoPrimitiveDot />
                                                 </span>&nbsp;
-                                                <Moment fromNow>
-                                                    {this.props.video.createdAt}
-                                                </Moment>
+                                                {video.createdAt.includes("about") ? video.createdAt.slice(6) : video.createdAt} ago
                                             </span>
                                         </div>
                                     </div>
                                     <div className="uploads-profile-videos-description">
-                                        {this.props.video.description}
-                                        <Link to={`/videos/${this.props.video.id}`}>
+                                        {video.description}
+                                        <Link to={`/videos/${video.id}`}>
                                             <span>READ MORE</span>
                                         </Link>
                                     </div>
@@ -287,7 +278,7 @@ class UserProfile extends React.Component {
                             <div className="uploads-uploads">
                                 <h1 className="uploads-uploads-title">Uploads</h1>
                                 <div className="profile-videos-grid-container">
-                                    {videos.filter(video => video.creatorId === currentUser.id).map(video => {
+                                    {videos.map(video => {
                                         return (
                                             <li className="profile-videos-grid-item" key={video.id}>
                                                 <VideoIndexItem video={video} path={path} deleteVideo={deleteVideo} updateVideo={updateVideo} update={this.update} openModal={openModal} />
@@ -308,6 +299,8 @@ class UserProfile extends React.Component {
     }
 
     render() {
+        if (!this.props.currentUser.uploads) return null
+        
         return (
             <div className="profile-background">
                 <div className="profile-header-container">

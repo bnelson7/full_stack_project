@@ -33,7 +33,10 @@ class VideoShow extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (prevProps.match.params.videoId !== this.props.match.params.videoId) {
-            this.props.requestVideo(this.props.match.params.videoId)
+            this.props.requestVideos()
+            .then(() => {
+                this.props.requestVideo(this.props.match.params.videoId)
+            })
         }
     }
 
@@ -53,10 +56,8 @@ class VideoShow extends React.Component {
             
             if ((clicked === 'liked' || clicked === 'disliked') && !liked && !disliked) {
                 let likedVideo = clicked === 'liked' ? createLike(true, false) : createLike(false, true)
-                
                 this.props.createVideoLike(likedVideo)
                 .then(like => {
-                    
                     const formData = new FormData()
                     // const user = new FormData()
                     formData.append('video[likes]', like.like)
@@ -65,28 +66,23 @@ class VideoShow extends React.Component {
                     this.props.requestUser(this.props.currentUser.id)
                 })
             } else if ((clicked === 'liked' && liked) || (clicked === 'disliked' && disliked)) {
-                
                 this.props.deleteVideoLike(this.props.like.id)
-                .then(() => {
-                    
+                .then(() => { 
                     const formData = new FormData()
                     formData.append('video[likes]', null)
                     this.props.updateVideo(formData, this.props.match.params.videoId)
                     this.props.requestUser(this.props.currentUser.id)
                 })
             } else {
-                
                 this.props.deleteVideoLike(this.props.like.id)
                 .then(() => {
-                    
                     let likedVideo = (clicked === 'liked') ? createLike(true, false) : createLike(false, true)
                     this.props.createVideoLike(likedVideo)
                     .then(like => {
-                        
                         const formData = new FormData()
                         // const user = new FormData()
                         formData.append('video[likes]', like.like)
-                        formData.append('user[likes]', like.like)
+                        // formData.append('user[likes]', like.like)
                         this.props.updateVideo(formData, this.props.match.params.videoId)
                         this.props.requestUser(this.props.currentUser.id)
                     })
@@ -204,10 +200,11 @@ class VideoShow extends React.Component {
     }
  
     render() {
-        const { video, videos, videoId, path, like} = this.props
+        const { video, videos, videoId, path } = this.props
         if (!video || !video.clipUrl) return null
-        const filteredVideos = videos.filter(video => !video.clipUrl)
-
+        
+        const filteredVideos = videos.filter(video => video.id !== parseInt(videoId))
+        
         return (
             <div className="background">
                 <div className="page-container">
@@ -220,7 +217,10 @@ class VideoShow extends React.Component {
                         <div className="video-title">
                             <div className="video-title-info">
                                 <h1>{video.title}</h1>
-                                <span>{video.views} views&nbsp;<span><GoPrimitiveDot /></span>&nbsp;{this.getDate()}</span>
+                                <span>{video.views} views&nbsp;
+                                    <span><GoPrimitiveDot /></span>&nbsp;
+                                    {this.getDate()}
+                                </span>
                             </div>
                             {this.toggleLike()}
                         </div>
@@ -230,8 +230,12 @@ class VideoShow extends React.Component {
                             </div>
                             <div className="video-description-text">
                                 <div className="video-description-title">
-                                    <h1>{video.creator.username}&nbsp;<span className="verified"><MdCheckCircle /></span></h1>
-                                    <p>no subscribers</p>
+                                    <h1>{video.creator.username}&nbsp;
+                                        <span className="verified">
+                                            <MdCheckCircle />
+                                        </span>
+                                    </h1>
+                                    <span>no subscribers</span>
                                 </div>
                                 <div className="video-description">
                                     {video.description}

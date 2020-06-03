@@ -16,7 +16,6 @@ class VideoIndexItem extends React.Component {
     handleEdit(e) {
         e.preventDefault();
         const editVideo = Object.assign({}, {type: 'edit'}, this.props)
-        debugger
         this.props.openModal(editVideo)
     }
 
@@ -24,13 +23,12 @@ class VideoIndexItem extends React.Component {
         e.preventDefault();
         this.props.deleteVideo(this.props.video.id)
             .then(() => {
-                debugger
                 this.props.update()
             })
     }
   
     formatVideos() {
-        debugger
+        
         return (
             this.props.path === `/` ? (
                 <div className="grid-index-container">
@@ -96,7 +94,7 @@ class VideoIndexItem extends React.Component {
                                     <span>
                                         <GoPrimitiveDot />
                                     </span>
-                                    &nbsp;{this.props.video.createdAt.includes("about") ? this.props.video.createdAt.slice(6): this.props.video.createdAt} ago
+                                    &nbsp;{this.props.video.createdAt.includes("about") ? this.props.video.createdAt.slice(6) : this.props.video.createdAt} ago
                                 </span>
                             </div>
                         </div>
@@ -138,7 +136,7 @@ class VideoIndexItem extends React.Component {
     }
 
     render() {
-        debugger
+        
         return (
             <div>
                 {this.formatVideos()}
