@@ -111,8 +111,8 @@ json.author do
     json.partial! "api/users/user", user: comment.author
 end
 ```
-On the front end I recursively map over the component before rendering. The component initially render all of the top level
-comments or parent comments and subsequently renders the replies depending on whether the user has clicked the view replies 
+On the front end I recursively map over the component before rendering. The component initially renders all of the top level
+comments or "parent comments" and subsequently renders the replies depending on whether the user has clicked the view replies 
 button.
 
 ```javascript
