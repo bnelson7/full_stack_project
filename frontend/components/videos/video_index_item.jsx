@@ -39,7 +39,9 @@ class VideoIndexItem extends React.Component {
                     </div>
                     <div className="video-info-container" role="group">
                         <div className="profile-thumbnail">
-                            <span><img src={this.props.video.creator.photoUrl} /></span>
+                            <span>
+                                {this.props.video.creator.photoUrl ? <img src={this.props.video.creator.photoUrl} /> : <img src={window.user} />}
+                            </span>
                         </div>
                         <div className="video-info">
                             <h1>{this.props.video.title}</h1>

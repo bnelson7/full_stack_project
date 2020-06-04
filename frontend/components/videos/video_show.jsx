@@ -226,7 +226,9 @@ class VideoShow extends React.Component {
                         </div>
                         <div className="video-description-container">
                             <div className="profile-thumbnail-show">
-                                <span><img src={video.creator.photoUrl} /></span>
+                                <span>
+                                    {video.creator.photoUrl ? <img src={video.creator.photoUrl} /> : <img src={window.user} />}
+                                </span>
                             </div>
                             <div className="video-description-text">
                                 <div className="video-description-title">

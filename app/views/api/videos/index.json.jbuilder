@@ -2,8 +2,17 @@
     json.set! video.id do 
         json.partial! 'api/videos/video', video: video
 
-        json.created_at time_ago_in_words(video.created_at)
-        json.updated_at time_ago_in_words(video.updated_at)
+        if time_ago_in_words(video.created_at).include?("about")
+            json.created_at time_ago_in_words(video.created_at).slice!(6..-1)
+        else
+            json.created_at time_ago_in_words(video.created_at)
+        end
+
+        if time_ago_in_words(video.updated_at).include?("about")
+            json.updated_at time_ago_in_words(video.updated_at).slice!(6..-1)
+        else
+            json.updated_at time_ago_in_words(video.updated_at)
+        end
     
         json.creator do
             json.partial! 'api/users/user', user: video.creator
