@@ -17,13 +17,18 @@ videos and comments. Users can also like videos and comments as well as search f
 
 ## **Features:**
 
-* Create an account or login as a demo user
-* Browse and stream videos.
-* Upload your own videos along with a profile picture
+### Create an account or login as a demo user
+### Browse and stream videos.
+### Upload your own videos along with a profile picture
+
 ![](upload_photo_demo.gif)
-* Search for videos
+
+### Search for videos
+
 ![](search_demo.gif)
-* Enhance your search with your own custom filter
+
+### Enhance your search with your own custom filter
+
 ![](filter_demo.gif)
 
 One of the ways I implemented this feature was to take advantage of an asynchronous for loop
@@ -73,8 +78,15 @@ if (!this.state.alreadyFiltered) {
             }
         }
 ```
-* Interact with other users through comments by posting your own comment or responding to someone else's
+### Interact with other users through comments by posting your own comment or responding to someone else's
+
 ![](comment_demo.gif)
+
+In order to implement nested comments, so users could reply to other users comments I utilized recursive techniques
+to account for infinite levels of comments and replies and normalized my data on the backend to mirror the frontend
+and make it easier to render the component.
+
+Here I recursively render a partial template on the backend by checking if the comment has any replies.
 
 ```ruby
 json.extract! comment, :id, :author_id, :video_id, :body, :edited
@@ -99,6 +111,9 @@ json.author do
     json.partial! "api/users/user", user: comment.author
 end
 ```
+On the front end I recursively map over the component before rendering. The component initially render all of the top level
+comments or parent comments and subsequently renders the replies depending on whether the user has clicked the view replies 
+button.
 
 ```javascript
 mapNestedComments(comments) {
@@ -142,7 +157,7 @@ mapNestedComments(comments) {
         return commentsAndReplies
     }
 ```
-* Like your favorite videos
+### Like your favorite videos
 
 ## **Possible Future Directions for the Site**
 
