@@ -29,7 +29,6 @@ gem 'ez_download', git: 'https://github.com/OscarAlvarez8830/EZDownload.git'
 
 gem "aws-sdk-s3"
 
-require 'streamio-ffmpeg'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
