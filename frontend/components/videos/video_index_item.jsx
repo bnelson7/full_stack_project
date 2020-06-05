@@ -51,7 +51,7 @@ class VideoIndexItem extends React.Component {
                                     <span>
                                         <GoPrimitiveDot />
                                     </span>
-                                    &nbsp;{this.props.video.createdAt.includes("about") ? this.props.video.createdAt.slice(6): this.props.video.createdAt} ago
+                                    &nbsp;{this.props.video.createdAt} ago
                                 </span>
                             </div>
                         </div>
@@ -74,7 +74,7 @@ class VideoIndexItem extends React.Component {
                                 <span>
                                     <GoPrimitiveDot />
                                 </span>
-                                &nbsp;{this.props.video.createdAt.includes("about") ? this.props.video.createdAt.slice(6) : this.props.video.createdAt} ago
+                                &nbsp;{this.props.video.createdAt} ago
                             </span>
                         </div>
                     </div>
@@ -123,7 +123,7 @@ class VideoIndexItem extends React.Component {
                                         <span>
                                             <GoPrimitiveDot />
                                         </span>
-                                        &nbsp;{this.props.video.createdAt.includes("about") ? this.props.video.createdAt.slice(6): this.props.video.createdAt} ago
+                                        &nbsp;{this.props.video.createdAt} ago
                                     </span>
                                 </h1>
                             </div>

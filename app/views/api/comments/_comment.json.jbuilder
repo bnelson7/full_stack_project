@@ -1,7 +1,4 @@
-json.extract! comment, :id, :author_id, :video_id, :body, :edited
-
-json.created_at time_ago_in_words(comment.created_at)
-json.updated_at time_ago_in_words(comment.updated_at)
+json.extract! comment, :id, :author_id, :video_id, :body, :edited, :created_at, :updated_at
 
 json.likes do
     json.like comment.number_liked(comment.id)

@@ -159,7 +159,6 @@ class Search extends React.Component {
                             filteredVideos = filter0
                             break;
                         case "This week":
-                            debugger
                             let filter1 = filteredVideos.filter(video => {
                                 return (
                                     ((video.createdAt.split(" ")[1] === "days" ||

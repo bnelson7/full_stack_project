@@ -194,7 +194,7 @@
 .comment-info-info-container {
     display: flex;
     justify-content: space-between;
-    height: 4vh;
+    min-height: 4vh;
 }
 
 .comment-info-info {

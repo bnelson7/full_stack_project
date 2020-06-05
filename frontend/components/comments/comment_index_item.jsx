@@ -2,6 +2,7 @@ import React from 'react'
 import CommentFormContainer from './comment_form_container'
 import { IoMdThumbsUp, IoMdThumbsDown } from 'react-icons/io'
 import CommentDropdown from '../hooks/comment_dropdown'
+import Moment from 'react-moment';
 
 class CommentIndexItem extends React.Component {
     constructor(props) {
@@ -201,41 +202,74 @@ class CommentIndexItem extends React.Component {
                             <div className="comment-info-info">
                                 <div className="comment-author-date">
                                     <strong>{comment.author.username}</strong>&nbsp; 
-                                    {!this.state.edited ? <span>{comment.createdAt.includes("about") ? comment.createdAt.slice(6): comment.createdAt} ago</span> : 
-                                    <span>{comment.updatedAt.includes("about") ? comment.updatedAt.slice(6): comment.updatedAt} ago</span>}&nbsp; 
+                                    {!this.state.edited ? 
+                                    <span>
+                                        <Moment fromNow>
+                                            {comment.createdAt}
+                                        </Moment>
+                                    </span> : 
+                                    <span>
+                                        <Moment fromNow>
+                                            {comment.updatedAt}
+                                        </Moment>
+                                    </span>}&nbsp; 
                                     {this.state.edited ? <span>(edited)</span> : null}
                                 </div>
                                 <div className="comment-body">
                                     {!this.state.editing ? comment.body : null}
                                 </div>
                             </div>
-                            <CommentDropdown comment={comment} currentUser={currentUser} handleDelete={this.handleDelete} handleEdit={this.handleEdit} editing={this.state.editing}/>
+                            <CommentDropdown
+                            comment={comment} 
+                            currentUser={currentUser} 
+                            handleDelete={this.handleDelete} 
+                            handleEdit={this.handleEdit} 
+                            editing={this.state.editing}
+                            />
                         </div>
                         {this.renderEdit()}
                         <div className="comment-icons">
                             {this.props.liked ? 
                                 <div className="comment-icons-icons">
                                     <button className="comment-like-btn-liked" onClick={this.handleLike} value="liked">
-                                        <IoMdThumbsUp /><span>{comment.likes.like ? comment.likes.like : null}</span>
+                                        <IoMdThumbsUp />
+                                        <span>
+                                            {comment.likes.like ? comment.likes.like : null}
+                                        </span>
                                     </button >
                                     <button className="comment-dislike-btn" onClick={this.handleLike} value="disliked">
-                                        <IoMdThumbsDown /><span>{comment.likes.dislike ? comment.likes.dislike : null}</span>
+                                        <IoMdThumbsDown />
+                                        <span>
+                                            {comment.likes.dislike ? comment.likes.dislike : null}
+                                        </span>
                                     </button> 
                                 </div> : this.props.disliked ?
                                 <div className="comment-icons-icons">
                                     <button className="comment-like-btn" onClick={this.handleLike} value="liked">
-                                        <IoMdThumbsUp /><span>{comment.likes.like ? comment.likes.like : null}</span>
+                                        <IoMdThumbsUp />
+                                        <span>
+                                            {comment.likes.like ? comment.likes.like : null}
+                                        </span>
                                     </button >
                                     <button className="comment-dislike-btn-liked" onClick={this.handleLike} value="disliked">
-                                        <IoMdThumbsDown /><span>{comment.likes.dislike ? comment.likes.dislike : null}</span>
+                                        <IoMdThumbsDown />
+                                        <span>
+                                            {comment.likes.dislike ? comment.likes.dislike : null}
+                                        </span>
                                     </button> 
                                 </div> : 
                                 <div className="comment-icons-icons">
                                     <button className="comment-like-btn" onClick={this.handleLike} value="liked">
-                                        <IoMdThumbsUp /><span>{comment.likes.like ? comment.likes.like : null}</span>
+                                        <IoMdThumbsUp />
+                                        <span>
+                                            {comment.likes.like ? comment.likes.like : null}
+                                        </span>
                                     </button >
                                     <button className="comment-dislike-btn" onClick={this.handleLike} value="disliked">
-                                        <IoMdThumbsDown /><span>{comment.likes.dislike ? comment.likes.dislike : null}</span>
+                                        <IoMdThumbsDown />
+                                        <span>
+                                            {comment.likes.dislike ? comment.likes.dislike : null}
+                                        </span>
                                     </button>
                                 </div>}
                             <button className="comment-reply-btn" onClick={this.handleReply}>REPLY</button>

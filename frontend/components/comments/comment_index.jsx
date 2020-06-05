@@ -1,6 +1,7 @@
 import React from 'react'
 import CommentIndexItem from './comment_index_item'
 import { FaCaretDown, FaCaretUp } from 'react-icons/fa'
+import Moment from 'react-moment'
 
 class CommentIndex extends React.Component {
     constructor(props) {
@@ -55,7 +56,7 @@ class CommentIndex extends React.Component {
 
     sortComments(comments) {
         if (this.state.sorted === 'Newest first') {
-            comments.sort((a, b) => parseInt(a.createdAt.split(" ")[0]) - parseInt(b.createdAt.split(" ")[0]))
+            comments.sort((a, b) => -a.createdAt.localeCompare(b.createdAt))
         } else {
             comments.sort((a, b) => b.likes.like - a.likes.like)
         }

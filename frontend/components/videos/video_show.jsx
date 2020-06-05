@@ -178,7 +178,19 @@ class VideoShow extends React.Component {
 
     handleInfo(e) {
         e.preventDefault();
-        this.setState({ collapsed: !this.state.collapsed })
+        // this.setState({ collapsed: !this.state.collapsed })
+        const collapse = document.querySelector(".info-category-container")
+        if (collapse.style.display === "block") {
+            debugger
+            $(".info-category-container").css("display", "")
+            $("#show-more").css("display", "block")
+            $("#show-less").css("display", "")
+        } else {
+            debugger
+            $(".info-category-container").css("display", "block")
+            $("#show-more").css("display", "none")
+            $("#show-less").css("display", "block")
+        }
     }
 
     getDate() {
@@ -241,21 +253,18 @@ class VideoShow extends React.Component {
                                 </div>
                                 <div className="video-description">
                                     {video.description}
-                                    {this.state.collapsed ? 
-                                    <button onClick={this.handleInfo}>SHOW MORE</button> :
-                                    <div className="info-category-container">
-                                        <div className="info-category">
-                                            Category<span>Advertising</span>
-                                        </div>
-                                        <button onClick={this.handleInfo}>SHOW LESS</button>
-                                    </div>}
+                                    <button id="show-more" onClick={this.handleInfo}>SHOW MORE</button>
+                                </div>
+                                <div className="info-category-container">
+                                    <div className="info-category">
+                                        Category<span>Advertising</span>
+                                    </div>
+                                    <button id="show-less" onClick={this.handleInfo}>SHOW LESS</button>
                                 </div>
                             </div>
                             <button className="subscribe-btn">SUBSCRIBE</button>
                         </div>
-                        {/* <div className="comment-form-container-container"> */}
-                            <CommentFormContainer handleCommentSort={this.handleCommentSort}/>
-                        {/* </div> */}
+                        <CommentFormContainer handleCommentSort={this.handleCommentSort}/>
                         <CommentIndexContainer sorted={this.state.sorted} />
                     </div>
                     <div className="related-container">
