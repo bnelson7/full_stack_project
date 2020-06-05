@@ -5,14 +5,32 @@ class VideoIndex extends React.Component {
     constructor(props) {
         super(props)
 
+        this.state = {
+            prevVideo: null
+        }
     }
 
     componentDidMount() {
         this.props.requestVideos()
     }
 
+    static getDerivedStateFromProps(props) {
+        for (let i = 0; i < props.videos.length; i++) {
+            if (props.videos[i].hasOwnProperty('clipUrl')){
+                return {
+                    prevVideo: props.videos[i]
+                }
+            }
+        }
+        return {
+            prevVideo: null
+        };
+    }
+
     render() {
         const { videos, path, deleteVideo } = this.props
+
+        if (this.state.prevVideo) return null
 
         return (
             <div className= "background">

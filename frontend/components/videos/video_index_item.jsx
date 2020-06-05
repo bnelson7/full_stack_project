@@ -28,7 +28,6 @@ class VideoIndexItem extends React.Component {
     }
   
     formatVideos() {
-        
         return (
             this.props.path === `/` ? (
                 <div className="grid-index-container">
