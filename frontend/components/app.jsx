@@ -7,12 +7,15 @@ import UserProfileContainer from './user/user_profile_container'
 import SearchContainer from './search/search_container'
 import { ProtectedRoute } from '../util/route_util'
 import Modal from "./modal/modal_container"
+import TrendingContainer from './trending/trending_container'
 
 const App = () => (
     <div className="root-container">
         <Modal />
         <Route exact path="/videos/:videoId" component={VideoShowContainer} />
         <div className="main-container">
+            <Route path="/trending" component={Sidebar} />
+            <Route path="/trending" component={TrendingContainer} />
             <Route path="/results" component={Sidebar} />
             <Route path="/results" component={SearchContainer} />
             <ProtectedRoute exact path="/users/:userId" component={Sidebar} />

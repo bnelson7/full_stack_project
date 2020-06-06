@@ -100,24 +100,42 @@ class VideoShow extends React.Component {
                <div className="video-title-icons">
                     <div className="liked-btns-border-liked">
                         <button onClick={this.handleLike} value="liked">
-                            <span id="video-title-icon-liked"><IoMdThumbsUp /></span>
-                            <span id="video-title-text-liked">{video.likes.like}</span>
+                            <span id="video-title-icon-liked">
+                                <IoMdThumbsUp />
+                            </span>
+                            <span id="video-title-text-liked">
+                                {video.likes.like}
+                            </span>
                         </button>
                         <button onClick={this.handleLike} value="disliked">
-                            <span id="video-title-icon"><IoMdThumbsDown /></span>
-                            <span id="video-title-text">{video.likes.dislike}</span>
+                            <span id="video-title-icon">
+                                <IoMdThumbsDown />
+                            </span>
+                            <span id="video-title-text">
+                                {video.likes.dislike}
+                            </span>
                         </button>
                         <button>
-                            <span id="video-title-icon"><IoMdShareAlt /></span>
-                            <span id="video-title-text">SHARE</span>
+                            <span id="video-title-icon">
+                                <IoMdShareAlt />
+                            </span>
+                            <span id="video-title-text">
+                                SHARE
+                            </span>
                         </button>
                         <button>
-                            <span id="video-title-icon"><MdPlaylistAdd /></span>
-                            <span id="video-title-text">SAVE</span>
+                            <span id="video-title-icon">
+                                <MdPlaylistAdd />
+                            </span>
+                            <span id="video-title-text">
+                                SAVE
+                            </span>
                         </button>
                     </div>
                     <button className="horiz-dots">
-                        <span id="video-title-icon"><MdMoreHoriz /></span>
+                        <span id="video-title-icon">
+                            <MdMoreHoriz />
+                        </span>
                     </button>
                </div>
            )
@@ -126,24 +144,42 @@ class VideoShow extends React.Component {
                 <div className = "video-title-icons" >
                     <div className="liked-btns-border-liked">
                         <button onClick={this.handleLike} value="liked">
-                            <span id="video-title-icon"><IoMdThumbsUp /></span>
-                            <span id="video-title-text">{video.likes.like}</span>
+                            <span id="video-title-icon">
+                                <IoMdThumbsUp />
+                            </span>
+                            <span id="video-title-text">
+                                {video.likes.like
+                            }</span>
                         </button>
                         <button onClick={this.handleLike} value="disliked">
-                            <span id="video-title-icon-liked"><IoMdThumbsDown /></span>
-                            <span id="video-title-text-liked">{video.likes.dislike}</span>
+                            <span id="video-title-icon-liked">
+                                <IoMdThumbsDown />
+                            </span>
+                            <span id="video-title-text-liked">
+                                {video.likes.dislike}
+                            </span>
                         </button>
                         <button>
-                            <span id="video-title-icon"><IoMdShareAlt /></span>
-                            <span id="video-title-text">SHARE</span>
+                            <span id="video-title-icon">
+                                <IoMdShareAlt />
+                            </span>
+                            <span id="video-title-text">
+                                SHARE
+                            </span>
                         </button>
                         <button>
-                            <span id="video-title-icon"><MdPlaylistAdd /></span>
-                            <span id="video-title-text">SAVE</span>
+                            <span id="video-title-icon">
+                                <MdPlaylistAdd />
+                            </span>
+                            <span id="video-title-text">
+                                SAVE
+                            </span>
                         </button>
                     </div>
                     <button className="horiz-dots">
-                        <span id="video-title-icon"><MdMoreHoriz /></span>
+                        <span id="video-title-icon">
+                            <MdMoreHoriz />
+                        </span>
                     </button>
                </div>
             )
@@ -152,24 +188,42 @@ class VideoShow extends React.Component {
                 <div className="video-title-icons">
                     <div className="liked-btns-border">
                         <button onClick={this.handleLike} value="liked">
-                            <span className="liked" id="video-title-icon"><IoMdThumbsUp /></span>
-                            <span className="liked" id="video-title-text">{video.likes.like}</span>
+                            <span className="liked" id="video-title-icon">
+                                <IoMdThumbsUp />
+                            </span>
+                            <span className="liked" id="video-title-text">
+                                {video.likes.like}
+                            </span>
                         </button>
                         <button onClick={this.handleLike} value="disliked">
-                            <span id="video-title-icon"><IoMdThumbsDown /></span>
-                            <span id="video-title-text">{video.likes.dislike}</span>
+                            <span id="video-title-icon">
+                                <IoMdThumbsDown />
+                            </span>
+                            <span id="video-title-text">
+                                {video.likes.dislike}
+                            </span>
                         </button>
                         <button>
-                            <span id="video-title-icon"><IoMdShareAlt /></span>
-                            <span id="video-title-text">SHARE</span>
+                            <span id="video-title-icon">
+                                <IoMdShareAlt />
+                            </span>
+                            <span id="video-title-text">
+                                SHARE
+                            </span>
                         </button>
                         <button>
-                            <span id="video-title-icon"><MdPlaylistAdd /></span>
-                            <span id="video-title-text">SAVE</span>
+                            <span id="video-title-icon">
+                                <MdPlaylistAdd />
+                            </span>
+                            <span id="video-title-text">
+                                SAVE
+                            </span>
                         </button>
                     </div>
                     <button className="horiz-dots">
-                        <span id="video-title-icon"><MdMoreHoriz /></span>
+                        <span id="video-title-icon">
+                            <MdMoreHoriz />
+                        </span>
                     </button>
                 </div>
             )

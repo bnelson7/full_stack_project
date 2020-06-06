@@ -78,22 +78,27 @@ const Sidebar = props => {
         ) : (
             <div className="sidebar-container">
                 {props.path ==="/" ?
-                <Link to="/">
                     <div className="home-icon">
                         <MdHome />
                         <span>Home</span>
-                    </div> 
-                </Link> :
-                <Link to="/">
-                    <div className="sidebar-icon">
-                        <MdHome />
-                        <span>Home</span>
-                    </div>
-                </Link>}
-                <div className="sidebar-icon">
-                    <FaFire id="icon-size"/>
-                    <span>Trending</span>
-                </div>
+                    </div> :
+                    <Link to="/">
+                        <div className="sidebar-icon">
+                            <MdHome />
+                            <span>Home</span>
+                        </div>
+                    </Link>}
+                {props.path === "/trending" ? 
+                    <div className="sidebar-icon" id="sidebar-trending">
+                        <FaFire id="icon-size"/>
+                        <span>Trending</span>
+                    </div>: 
+                    <Link to="/trending">
+                        <div className="sidebar-icon" >
+                            <FaFire id="icon-size"/>
+                            <span>Trending</span>
+                        </div>
+                    </Link>}
                 {/* <div className="sidebar-icon">
                     <MdSubscriptions />
                     <span>Subscriptions</span>

@@ -93,7 +93,10 @@ class CommentForm extends React.Component {
                     <div className="comment-length">
                         {this.totalComments(comments)}&nbsp;Comments
                     </div>
-                    <CommentSortDropdown handleSort={this.handleSort} selected={this.state.selected} />
+                    <CommentSortDropdown 
+                    handleSort={this.handleSort} 
+                    selected={this.state.selected} 
+                    />
                 </div>
                 <form onSubmit={this.handleComment}>
                     <div className="comment-form">

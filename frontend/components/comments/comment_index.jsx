@@ -63,7 +63,7 @@ class CommentIndex extends React.Component {
     }
 
     mapNestedComments(comments) {
-        const { editComment, deleteComment, createComment, deleteCommentLike, createCommentLike, currentUser, requestUser, likes, requestComments } = this.props
+        const { editComment, deleteComment, createComment, deleteCommentLike, createCommentLike, currentUser, requestUser, likes, requestComments, history } = this.props
         const { videoId } = this.props.match.params
 
         let commentsAndReplies = comments.map(comment => {
@@ -81,6 +81,7 @@ class CommentIndex extends React.Component {
                             videoId={videoId}
                             currentUser={currentUser}
                             requestUser={requestUser}
+                            history={history}
                             like={likes && likes[comment.id] ? likes[comment.id] : null}
                             liked={likes && likes[comment.id] ? likes[comment.id].liked : false}
                             disliked={likes && likes[comment.id] ? likes[comment.id].disliked : false}

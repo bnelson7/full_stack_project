@@ -18,6 +18,8 @@
             json.partial! 'api/users/user', user: video.creator
         end
 
+        json.upload_date video.created_at
+
         json.comments video.comments, partial: 'api/comments/comment', as: :comment
 
         json.likes do
