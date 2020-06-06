@@ -9,7 +9,7 @@ const mSTP = (state, ownProps) => {
     let randomIdx = currentUser.uploads && Math.floor(Math.random() * currentUser.uploads.length)
     let video = currentUser.uploads && currentUser.uploads[randomIdx]
     let videos = currentUser.uploads && currentUser.uploads
-    
+    debugger
     return ({
         currentUser: currentUser,
         videos: videos,

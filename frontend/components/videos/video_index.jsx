@@ -14,6 +14,17 @@ class VideoIndex extends React.Component {
         this.props.requestVideos()
     }
 
+    // shouldComponentUpdate(nextProps) {
+    //     debugger
+    //     if (JSON.stringify(this.props.videos) !== JSON.stringify(nextProps.videos)) {
+    //         debugger
+    //         return false;
+    //     } else {
+    //         debugger
+    //         return true;
+    //     }
+    // }
+
     static getDerivedStateFromProps(props) {
         for (let i = 0; i < props.videos.length; i++) {
             if (props.videos[i].hasOwnProperty('clipUrl')){
@@ -29,7 +40,6 @@ class VideoIndex extends React.Component {
 
     render() {
         const { videos, path, deleteVideo } = this.props
-
         if (this.state.prevVideo) return null
 
         return (

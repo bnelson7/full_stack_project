@@ -30,6 +30,14 @@ class UserProfile extends React.Component {
         this.props.requestUser(this.props.currentUser.id)
     }
 
+    shouldComponentUpdate(nextProps) {
+        if (typeof this.props.video !== "undefined" && this.props.video !== nextProps.video) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     update() {
         const nextSelected = document.getElementById('home')
         const prevSelected = document.querySelector(".selected-profile-nav-item")
@@ -244,13 +252,14 @@ class UserProfile extends React.Component {
                     </div>
                 )
             } else {
+                debugger
                 return (
                     <div className="upload-container-content">
                         <div className="upload-container-uploads">
                             <div className="uploads-featured-video-container">
                                 <div className="uploads-featured-video">
                                     <video controls autoPlay >
-                                        <source type="video/mp4" src={video.clipUrl} poster={video.photoUrl}/>
+                                        <source type="video/mp4" src={video.clipUrl} />
                                     </video>
                                 </div>
                                 <div className="uploads-featured-video-info">
@@ -300,7 +309,7 @@ class UserProfile extends React.Component {
 
     render() {
         if (!this.props.currentUser.uploads) return null
-        
+        debugger
         return (
             <div className="profile-background">
                 <div className="profile-header-container">
