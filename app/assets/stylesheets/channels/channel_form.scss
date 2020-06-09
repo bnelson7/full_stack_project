@@ -1,0 +1,30 @@
+.channel-form-background {
+    color: #333333;
+    background: #F1F1F1;
+    font-size: 1.3vh;
+    height: 100vh;
+    width: 100vw;
+}
+
+.channel-form-input-container {
+    width: 100vw;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.channel-form-input {
+    border: 1px solid rgb(228, 228, 228);
+    border-radius: 2px;
+    padding: 1.5vh;
+}
+
+.channel-form-btns-container {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid black;
+    width: 5vw;
+
+}

@@ -37,6 +37,17 @@ class User < ApplicationRecord
         foreign_key: :liker_id,
         class_name: :Like
 
+    has_many :channels,
+        primary_key: :id,
+        foreign_key: :owner_id,
+        class_name: :Channel
+
+    has_many :subscriptions
+
+    # has_many :subscribed_channels,
+    #     through: :subscriptions,
+    #     source: :channel
+
     def self.find_by_credentials(email, password)
         user = User.find_by(email: email)
         user && user.has_password?(password) ? user : nil

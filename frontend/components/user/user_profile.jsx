@@ -1,14 +1,12 @@
 import React from 'react'
-import { FaCamera } from 'react-icons/fa'
 import { MdSearch } from 'react-icons/md'
-import ProfilePhotoContainer from './user_profile_photo_container'
+import ProfilePhoto from './user_profile_photo'
 import VideoIndexItem from '../videos/video_index_item'
 import { MdFlag, MdSort } from 'react-icons/md'
 import CommentFormContainer from '../comments/comment_form_container'
 import { GoPrimitiveDot } from "react-icons/go";
 import { Link } from 'react-router-dom'
 import VideoSortDropdown from '../hooks/video_sort_dropdown'
-import getBlobDuration from "get-blob-duration";
 
 class UserProfile extends React.Component {
     constructor(props) {
@@ -16,7 +14,8 @@ class UserProfile extends React.Component {
 
         this.state = {
             selected: "home",
-            sortSelected: null
+            sortSelected: null,
+            subscribed: null
         }
         
         this.handleToggle = this.handleToggle.bind(this)
@@ -24,19 +23,32 @@ class UserProfile extends React.Component {
         this.update = this.update.bind(this)
         this.handleSort = this.handleSort.bind(this)
         this.handleUpload = this.handleUpload.bind(this)
+        // this.updateSubscribed = this.updateSubscribed.bind(this)
     }
 
     componentDidMount() {
+        debugger
+        this.props.path.includes("/channels") ? 
+        this.props.requestChannel(this.props.match.params.channelId) : 
         this.props.requestUser(this.props.currentUser.id)
     }
 
     shouldComponentUpdate(nextProps) {
         if (typeof this.props.video !== "undefined" && this.props.video !== nextProps.video) {
             return false;
-        } else {
+        } 
+        // else if (this.props.channel.subscribed !== nextProps.channel.subscribed) {
+        //     debugger
+        //     return true
+        // }
+         else {
             return true;
         }
     }
+
+    // updateSubscribed(updatedSubscribers) {
+    //     this.setState({ subscribed: updatedSubscribers })
+    // }
 
     update() {
         const nextSelected = document.getElementById('home')
@@ -158,11 +170,11 @@ class UserProfile extends React.Component {
 
     renderSelected() {
         const { selected, sortSelected } = this.state
-        const { videos, video, currentUser, path, deleteVideo, updateVideo, openModal } = this.props
-        
+        const { videos, video, path, deleteVideo, updateVideo, openModal, currentUser, channel } = this.props
+
         switch (selected) {
             case "videos":
-                if (!currentUser.uploads || currentUser.uploads.length === 0) {
+                if (!videos || videos.length === 0) {
                     return (
                         <div className="profile-videos-default">
                             <h1>
@@ -176,11 +188,14 @@ class UserProfile extends React.Component {
                             <div className="profile-videos">
                                 <div className="profile-videos-title">
                                     <h1>Uploads</h1>
-                                    <VideoSortDropdown handleSort={this.handleSort} sortSelected={sortSelected} />
+                                    <VideoSortDropdown 
+                                    handleSort={this.handleSort} 
+                                    sortSelected={sortSelected} 
+                                    />
                                 </div>
                                 {!sortSelected ? 
                                 <div className="profile-videos-grid-container">
-                                    {videos.filter(video => video.creatorId === currentUser.id).map(video => {
+                                    {videos.map(video => {
                                         return (
                                             <li className="profile-videos-grid-item" key={video.id}>
                                                 <VideoIndexItem 
@@ -190,6 +205,8 @@ class UserProfile extends React.Component {
                                                 updateVideo={updateVideo} 
                                                 update={this.update} 
                                                 openModal={openModal}
+                                                currentUser={currentUser}
+                                                channel={channel}
                                                 />
                                             </li>
                                             )
@@ -234,8 +251,7 @@ class UserProfile extends React.Component {
                     </div>
                 )
             default:
-                
-                if (!currentUser.uploads || currentUser.uploads.length === 0) {
+                if (!videos || videos.length === 0) {
                     return (
                     <div className="upload-container-default">
                         <div className="profile-upload">
@@ -252,7 +268,6 @@ class UserProfile extends React.Component {
                     </div>
                 )
             } else {
-                debugger
                 return (
                     <div className="upload-container-content">
                         <div className="upload-container-uploads">
@@ -268,11 +283,11 @@ class UserProfile extends React.Component {
                                             <h1 id="show-title">{video.title}</h1>
                                         </div>
                                         <div className="uploads-profile-videos-item-views">
-                                            <span id="views-date-show">{video.views}K views&nbsp;
+                                            <span id="views-date-show">{video.views} views&nbsp;
                                                 <span>
                                                     <GoPrimitiveDot />
                                                 </span>&nbsp;
-                                                {video.createdAt.includes("about") ? video.createdAt.slice(6) : video.createdAt} ago
+                                                {video.createdAt} ago
                                             </span>
                                         </div>
                                     </div>
@@ -285,12 +300,23 @@ class UserProfile extends React.Component {
                                 </div>
                             </div>
                             <div className="uploads-uploads">
-                                <h1 className="uploads-uploads-title">Uploads</h1>
+                                <h1 className="uploads-uploads-title">
+                                    Uploads
+                                </h1>
                                 <div className="profile-videos-grid-container">
                                     {videos.map(video => {
                                         return (
                                             <li className="profile-videos-grid-item" key={video.id}>
-                                                <VideoIndexItem video={video} path={path} deleteVideo={deleteVideo} updateVideo={updateVideo} update={this.update} openModal={openModal} />
+                                                <VideoIndexItem 
+                                                video={video} 
+                                                path={path} 
+                                                deleteVideo={deleteVideo} 
+                                                updateVideo={updateVideo} 
+                                                update={this.update} 
+                                                openModal={openModal}
+                                                currentUser={currentUser}
+                                                channel={channel} 
+                                                />
                                             </li>
                                         )
                                     }
@@ -308,13 +334,26 @@ class UserProfile extends React.Component {
     }
 
     render() {
-        if (!this.props.currentUser.uploads) return null
+        const { path, currentUser, channel, updateUser, subscribed, createSubscription, deleteSubscription, requestChannel } = this.props
         debugger
+        if (path.includes("/users") && !currentUser.uploads) return null
+        if (path.includes("/channels") && !channel) return null
+
         return (
             <div className="profile-background">
                 <div className="profile-header-container">
                     <div className="profile-header">
-                    <ProfilePhotoContainer />
+                    <ProfilePhoto 
+                    currentUser={currentUser} 
+                    path={path} 
+                    updateUser={updateUser} 
+                    channel={channel} 
+                    subscribed={subscribed}
+                    createSubscription={createSubscription}
+                    deleteSubscription={deleteSubscription}
+                    // updateSubscribed={this.updateSubscribed} 
+                    requestChannel={requestChannel}
+                    />
                     <div className="profile-nav">
                         <button onClick={this.handleToggle} className="selected-profile-nav-item" id="home">
                             HOME

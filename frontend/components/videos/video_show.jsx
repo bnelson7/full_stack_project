@@ -1,11 +1,11 @@
 import React from 'react'
 import { GoPrimitiveDot } from 'react-icons/go'
-import { FaUserCircle } from 'react-icons/fa'
 import VideoIndexItem from './video_index_item'
 import { IoMdThumbsUp, IoMdThumbsDown, IoMdShareAlt } from 'react-icons/io'
-import { MdPlaylistAdd, MdMoreHoriz, MdCheckCircle } from 'react-icons/md'
+import { MdPlaylistAdd, MdMoreHoriz, MdCheckCircle, MdNotificationsNone } from 'react-icons/md'
 import CommentFormContainer from '../comments/comment_form_container'
 import CommentIndexContainer from '../comments/comment_index_container'
+import { Link } from 'react-router-dom'
 
 class VideoShow extends React.Component {
     constructor(props) {
@@ -21,14 +21,22 @@ class VideoShow extends React.Component {
         this.handleInfo = this.handleInfo.bind(this)
         this.getDate = this.getDate.bind(this)
         this.handleCommentSort = this.handleCommentSort.bind(this)
+        this.handleSubscribe = this.handleSubscribe.bind(this)
+        this.handleUnsubscribe = this.handleUnsubscribe.bind(this)
     }
 
     componentDidMount() {
         this.props.requestVideos()
-        .then(() => {
-            this.props.currentUser && this.props.requestUser(this.props.currentUser.id)
-            this.props.requestVideo(this.props.match.params.videoId)
-        })
+            .then(() => {
+                this.props.currentUser && 
+                this.props.requestUser(this.props.currentUser.id)
+                this.props.requestVideo(this.props.match.params.videoId)
+                    .then(() => {
+                        debugger
+                        this.props.video.channelId && 
+                        this.props.requestChannel(this.props.video.channelId)
+                    })
+            })
     }
 
     componentDidUpdate(prevProps) {
@@ -264,13 +272,24 @@ class VideoShow extends React.Component {
         e.preventDefault();
         this.setState({ sorted: e.currentTarget.textContent })
     }
- 
+
+    handleSubscribe(e) {
+        e.preventDefault();
+        const subscription = { channelId: this.props.channel.id }
+        this.props.createSubscription(subscription)
+    }    
+
+    handleUnsubscribe(e) {
+        e.preventDefault();
+        this.props.deleteSubscription(this.props.channel.id)
+    }
+
     render() {
-        const { video, videos, videoId, path } = this.props
-        if (!video || !video.clipUrl) return null
+        const { video, videos, videoId, path, channel, currentUser } = this.props
+        if (!video || !video.clipUrl || (video.channel && !channel && currentUser)) return null
         
         const filteredVideos = videos.filter(video => video.id !== parseInt(videoId))
-        
+     
         return (
             <div className="background">
                 <div className="page-container">
@@ -293,30 +312,57 @@ class VideoShow extends React.Component {
                         <div className="video-description-container">
                             <div className="profile-thumbnail-show">
                                 <span>
-                                    {video.creator.photoUrl ? <img src={video.creator.photoUrl} /> : <img src={window.user} />}
+                                    {!channel ?
+                                    video.creator.photoUrl ? <img src={video.creator.photoUrl} /> : <img src={window.user} /> : 
+                                    <Link to={`/channels/${channel.id}`}>
+                                        <img src={window.user} />
+                                    </Link>}
                                 </span>
                             </div>
                             <div className="video-description-text">
                                 <div className="video-description-title">
-                                    <h1>{video.creator.username}&nbsp;
+                                    <h1>{!channel ? video.creator.username : channel.name}&nbsp;
                                         <span className="verified">
                                             <MdCheckCircle />
                                         </span>
                                     </h1>
-                                    <span>no subscribers</span>
+                                    <span>
+                                        {channel ? 
+                                        (channel.subscribed === 1 ? `${channel.subscribed} subscriber` 
+                                        : `${channel.subscribed} subscribers`) 
+                                        : "no subscribers"}
+                                    </span>
                                 </div>
                                 <div className="video-description">
                                     {video.description}
-                                    <button id="show-more" onClick={this.handleInfo}>SHOW MORE</button>
+                                    <button id="show-more" onClick={this.handleInfo}>
+                                        SHOW MORE
+                                    </button>
                                 </div>
                                 <div className="info-category-container">
                                     <div className="info-category">
-                                        Category<span>Advertising</span>
+                                        Category
+                                        <span>
+                                            Advertising
+                                        </span>
                                     </div>
-                                    <button id="show-less" onClick={this.handleInfo}>SHOW LESS</button>
+                                    <button id="show-less" onClick={this.handleInfo}>
+                                        SHOW LESS
+                                    </button>
                                 </div>
                             </div>
-                            <button className="subscribe-btn">SUBSCRIBE</button>
+                            {!this.props.subscribed ?
+                            <button className="subscribe-btn" onClick={this.handleSubscribe}>
+                                SUBSCRIBE
+                            </button> : 
+                            <div className="subscribed-btns-container">
+                                <button className="subscribed-btn" onClick={this.handleUnsubscribe}>
+                                    SUBSCRIBED
+                                </button>
+                                <button className="subscribed-notification">
+                                    <MdNotificationsNone />
+                                </button>
+                            </div>}
                         </div>
                         <CommentFormContainer handleCommentSort={this.handleCommentSort}/>
                         <CommentIndexContainer sorted={this.state.sorted} />

@@ -28,8 +28,13 @@ class SignupForm extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         const newUser = Object.assign({}, this.state)
-        
         this.props.createNewUser(newUser)
+            .then(user => {
+                debugger
+                const newChannel = Object.assign({}, { name: user.username, ownerId: user.id })
+                debugger
+                this.props.createChannel(newChannel)
+            })
     }
 
     render() {

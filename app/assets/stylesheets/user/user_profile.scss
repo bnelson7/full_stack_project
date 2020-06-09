@@ -96,6 +96,16 @@
     padding-top: 1vh;
 }
 
+.channel-logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: 9vh;
+    width: 9vh;
+    padding-top: 1vh;
+}
+
 .profile-photo-upload {
     display: none;
     z-index: 9;
@@ -505,4 +515,24 @@ textarea {
     align-items: center;
     justify-content: flex-start;
     background: #E8E8E8;
+}
+
+.channel-btns-container {
+    display: flex;
+    justify-content: space-between;
+    // align-items: center;
+    width: 18vw;
+}
+
+.channel-btn {
+    background: #065FD4;
+    color: #FFFFFF;
+    font-weight: 500;
+    align-self: flex-start;
+    padding: 1vh 1.6vh;
+    border-radius: 2px;
+    margin-top: 2.5vh;
+    font-size: 1.4vh;
+    font-family: 'Roboto', 'Noto', sans-serif;
+    cursor: pointer;
 }

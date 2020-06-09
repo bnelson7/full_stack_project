@@ -9,7 +9,7 @@
 #  views       :integer          not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  upload_date :string
+#  channel_id  :integer
 #
 class Video < ApplicationRecord
 
@@ -19,13 +19,17 @@ class Video < ApplicationRecord
     # validate :ensure_clip
 
     has_one_attached :thumbnail
-
     has_one_attached :clip
 
     belongs_to :creator,
         primary_key: :id,
         foreign_key: :creator_id,
         class_name: :User
+
+    belongs_to :channel,
+        primary_key: :id,
+        foreign_key: :channel_id,
+        class_name: :Channel
 
     has_many :comments,
         primary_key: :id,

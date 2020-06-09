@@ -8,6 +8,7 @@ import SearchContainer from './search/search_container'
 import { ProtectedRoute } from '../util/route_util'
 import Modal from "./modal/modal_container"
 import TrendingContainer from './trending/trending_container'
+import ChannelContainer from './channels/channel_container'
 
 const App = () => (
     <div className="root-container">
@@ -20,6 +21,8 @@ const App = () => (
             <Route path="/results" component={SearchContainer} />
             <ProtectedRoute exact path="/users/:userId" component={Sidebar} />
             <ProtectedRoute exact path="/users/:userId" component={UserProfileContainer} />
+            <Route exact path="/channels/:channelId" component={Sidebar} />
+            <Route exact path="/channels/:channelId" component={ChannelContainer} />
             <Route exact path="/" component={Sidebar} />
             <Route exact path="/" component={VideoIndexContainer}/>
         </div>

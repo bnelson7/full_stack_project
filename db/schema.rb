@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_07_071212) do
+ActiveRecord::Schema.define(version: 2020_06_08_184525) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,16 @@ ActiveRecord::Schema.define(version: 2020_05_07_071212) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "channels", force: :cascade do |t|
+    t.integer "owner_id", null: false
+    t.integer "subscribed", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "description"
+    t.string "name", null: false
+    t.index ["owner_id"], name: "index_channels_on_owner_id", unique: true
+  end
+
   create_table "comments", force: :cascade do |t|
     t.string "body", null: false
     t.integer "author_id", null: false
@@ -58,6 +68,13 @@ ActiveRecord::Schema.define(version: 2020_05_07_071212) do
     t.index ["liker_id"], name: "index_likes_on_liker_id"
   end
 
+  create_table "subscriptions", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "subscriber_id", null: false
+    t.integer "channel_id", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "username", null: false
     t.string "password_digest", null: false
@@ -75,7 +92,8 @@ ActiveRecord::Schema.define(version: 2020_05_07_071212) do
     t.integer "views", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "upload_date"
+    t.integer "channel_id"
+    t.index ["channel_id"], name: "index_videos_on_channel_id", unique: true
     t.index ["creator_id", "title"], name: "index_videos_on_creator_id_and_title"
   end
 

@@ -9,7 +9,7 @@
 #  views       :integer          not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  upload_date :string
+#  channel_id  :integer
 #
 require 'test_helper'
 

@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { FaUserCircle } from 'react-icons/fa'
 import { GoPrimitiveDot } from 'react-icons/go'
 import { MdCheckCircle } from 'react-icons/md'
 import VideoDropdown from '../hooks/video_dropdown'
@@ -28,6 +27,8 @@ class VideoIndexItem extends React.Component {
     }
   
     formatVideos() {
+        const { channel, currentUser } = this.props
+        debugger
         return (
             this.props.path === `/` ? (
                 <div className="grid-index-container">
@@ -78,7 +79,7 @@ class VideoIndexItem extends React.Component {
                         </div>
                     </div>
                 </div>
-            ) : this.props.path.includes('/users') ? (
+            ) : (this.props.path.includes('/users') || this.props.path.includes('/channels')) ? (
                 <div className="profile-videos-item-container">
                     <div className="profile-videos-item">
                         <Link to={`/videos/${this.props.video.id}`}>
@@ -95,11 +96,16 @@ class VideoIndexItem extends React.Component {
                                     <span>
                                         <GoPrimitiveDot />
                                     </span>
-                                    &nbsp;{this.props.video.createdAt.includes("about") ? this.props.video.createdAt.slice(6) : this.props.video.createdAt} ago
+                                    &nbsp;{this.props.video.createdAt} ago
                                 </span>
                             </div>
                         </div>
-                        <VideoDropdown video={this.props.video} handleDelete={this.handleDelete} handleEdit={this.handleEdit} />
+                        {channel && currentUser && channel.ownerId === currentUser.id ? 
+                        <VideoDropdown 
+                        video={this.props.video} 
+                        handleDelete={this.handleDelete} 
+                        handleEdit={this.handleEdit} 
+                        /> : null}
                     </div>
                 </div>
             ) : (
