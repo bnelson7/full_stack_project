@@ -20,13 +20,13 @@ const mSTP = (state, ownProps) => {
         var liked = false
         var disliked = false
     }
-    debugger
-    let channel = null
+    
+    // let channel = null
     let subscribed = false
-    if (currentUser && video && video.channel && Object.keys(state.entities.channels).length) {
-        debugger
-        channel = state.entities.channels[video.channelId]
-        subscribed = channel.subscribers.find(subs => subs.id === currentUser.id) !== undefined
+    if (currentUser && video && video.channel) {
+        
+        // channel = state.entities.channels[video.channelId]
+        subscribed = video.channel.subscribers.find(subs => subs.id === currentUser.id) !== undefined
     }
    
     return {
@@ -38,7 +38,7 @@ const mSTP = (state, ownProps) => {
         like: like,
         liked: liked,
         disliked: disliked,
-        channel: channel,
+        // channel: channel,
         subscribed: subscribed
     }
 }

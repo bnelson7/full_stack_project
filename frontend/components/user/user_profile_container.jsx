@@ -14,7 +14,7 @@ const mSTP = (state, ownProps) => {
     // let channel = null
     // let subscribed = false
     // if (video && video.channel && Object.keys(state.entities.channels).length) {
-    //     debugger
+    //     
     //     channel = state.entities.channels[video.channelId]
     //     subscribed = channel.subscribers.find(subs => subs.id === currentUser.id) !== undefined
     // }

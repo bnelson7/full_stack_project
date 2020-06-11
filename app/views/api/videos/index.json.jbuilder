@@ -14,8 +14,8 @@
             json.updated_at time_ago_in_words(video.updated_at)
         end
     
-        json.creator do
-            json.partial! 'api/users/user', user: video.creator
+        json.channel do
+            json.partial! 'api/channels/channel', channel: video.channel
         end
 
         json.upload_date video.created_at

@@ -1,6 +1,6 @@
 import React from 'react'
 import VideoIndexItem from '../videos/video_index_item'
-import { MdWatchLater } from 'react-icons/md'
+import ChannelIndexItem from '../channels/channel_index_item'
 import { FiSliders } from 'react-icons/fi'
 import { IoMdClose } from 'react-icons/io'
 import getBlobDuration from "get-blob-duration";
@@ -11,6 +11,8 @@ class Search extends React.Component {
 
         this.state = {
             videos: [],
+            channel: null,
+            channels: [],
             expanded: false,
             selectedFilters: [{ "SORT BY": "Relevance"}],
             alreadyFiltered: false 
@@ -20,22 +22,67 @@ class Search extends React.Component {
         this.handleSearch = this.handleSearch.bind(this)
         this.filterSearch = this.filterSearch.bind(this)
         this.handleClose = this.handleClose.bind(this)
+        this.handleSubscribe = this.handleSubscribe.bind(this)
+        this.handleUnsubscribe = this.handleUnsubscribe.bind(this)
 
     }
 
     componentDidMount() {
+        debugger
+        this.props.location.search.split("=")[1].length === 0 ?
         this.props.requestQueriedVideos(this.props.location.search)
-            .then(results => {
-                this.setState({ videos: Object.values(results.videos) })
-            });
+        .then(results => {
+            this.setState({ videos: Object.values(results.videos) })
+        }) :
+        this.props.requestQueriedChannel(this.props.location.search) 
+        .then(results => {
+            
+            if (!Object.values(results.channel).length) {
+                
+                this.props.requestQueriedVideos(this.props.location.search)
+                    .then(results => {
+                        this.setState({ videos: Object.values(results.videos) })
+                    });
+            } else {
+                
+                let subscribedChannel = results.channel.subscribers.find(subs =>
+                    subs.id === this.props.currentUser.id) !== undefined
+                results.channel.isSubscribed = subscribedChannel
+                this.setState({ 
+                    videos: Object.values(results.channel.uploads),
+                    channel: results.channel 
+                })  
+            }
+        })
     }
 
     componentDidUpdate(prevProps) {
         if (prevProps.location.search !== this.props.location.search) {
-            this.props.requestQueriedVideos(this.props.location.search)
-                .then(results => {
-                    this.setState({ videos: Object.values(results.videos) })
-                })
+        this.props.location.search.split("=")[1].length === 0 ?
+        this.props.requestQueriedVideos(this.props.location.search)
+            .then(results => {
+                this.setState({ videos: Object.values(results.videos) })
+            }) :
+        this.props.requestQueriedChannel(this.props.location.search) 
+            .then(results => {
+                
+                if (!Object.values(results.channel).length) {
+                    
+                    this.props.requestQueriedVideos(this.props.location.search)
+                        .then(results => {
+                            this.setState({ videos: Object.values(results.videos) })
+                        });
+                } else {
+                    
+                    let subscribedChannel = results.channel.subscribers.find(subs =>
+                        subs.id === this.props.currentUser.id) !== undefined
+                    results.channel.isSubscribed = subscribedChannel
+                    this.setState({ 
+                        videos: Object.values(results.channel.uploads),
+                        channel: results.channel
+                     })
+                }
+            })
         }
     }
 
@@ -76,7 +123,11 @@ class Search extends React.Component {
                 break;
             } 
         }
-       
+       // for channels: might have to set the state as already filtered after .then
+       // or remove from if else statement at bottom of method and just have it 
+       // have its own if else so 
+
+       // should remove channel from state if any other filter is clicked
         e.target.tagName === "svg" && $(e.target).css("display", "")
 
         let removed = [] 
@@ -86,6 +137,7 @@ class Search extends React.Component {
             $(e.target.firstElementChild).css("display", "")
             removed = filtered.splice(foundIdx, 1)
             filtered
+            
         } else {
             for (let i = 0; i < e.currentTarget.children.length; i++) {
                 if (e.currentTarget.children[i].innerText === Object.values(target)[0]) {
@@ -95,8 +147,9 @@ class Search extends React.Component {
             }
             filtered.fill({ [key]: val }, foundIdx, foundIdx + 1)
         }
-
-        if (!this.state.alreadyFiltered) {
+        
+        
+        if (!this.state.alreadyFiltered && !this.state.channel) {
             if (key === "DURATION") {
               ;(async () => {
                 let addVideoDurations = this.state.videos;
@@ -108,6 +161,42 @@ class Search extends React.Component {
                 }
                 this.filterSearch(filtered, addVideoDurations);
               })();
+            } else if (val === "Channel") {
+                
+                this.props.currentUser ? this.props.requestUser(this.props.currentUser.id)
+                    .then(() => {
+                        this.props.requestQueriedChannels(this.props.location.search)
+                            .then(results => {
+                                let subscribedChannels = []
+                                Object.values(results.channels).forEach(channel => {
+                                    channel.isSubscribed = channel.subscribers.find(subs => 
+                                    subs.id === this.props.currentUser.id) !== undefined
+                                    subscribedChannels.push(channel)
+                                });
+                                this.setState({
+                                    videos: [],
+                                    channels: subscribedChannels,
+                                    selectedFilters: filtered,
+                                    alreadyFiltered: true
+                                })
+                            })
+                    }) :
+                    this.props.requestQueriedChannels(this.props.location.search)
+                        .then(results => {
+                            
+                            let subscribedChannels = []
+                            Object.values(results.channels).forEach(channel => {
+                                channel.isSubscribed = false
+                                subscribedChannels.push(channel)
+                            });
+                            
+                            this.setState({
+                                videos: [],
+                                channels: subscribedChannels,
+                                selectedFilters: filtered,
+                                alreadyFiltered: true
+                            })
+                        })
             } else {
                 this.filterSearch(filtered, this.state.videos)
             }
@@ -126,7 +215,38 @@ class Search extends React.Component {
                           this.filterSearch(filtered, addVideoDurations);
                         })();
                     })
+            } else if (val === "Channel") {
+                
+                    this.props.requestQueriedChannel(this.props.location.search)
+                        .then(results => {
+                            
+                            if (!Object.values(results.channel).length) {
+                                
+                                this.props.requestQueriedVideos(this.props.location.search)
+                                    .then(results => {
+                                        this.setState({ 
+                                            videos: Object.values(results.videos),
+                                            selectedFilters: filtered,
+                                            alreadyFiltered: false 
+                                        })
+                                    });
+                            } else {
+                                
+                                let subscribedChannel = results.channel.subscribers.find(subs =>
+                                    subs.id === this.props.currentUser.id) !== undefined
+                                results.channel.isSubscribed = subscribedChannel
+            
+                                this.setState({ 
+                                    videos: Object.values(results.channel.uploads),
+                                    channel: results.channel,
+                                    selectedFilters: filtered,
+                                    alreadyFiltered: false 
+                                })
+
+                            }
+                        })
             } else {
+                
                 this.props.requestQueriedVideos(this.props.location.search)
                     .then(results => {
                         this.filterSearch(filtered, Object.values(results.videos))
@@ -198,7 +318,7 @@ class Search extends React.Component {
                 case "TYPE":
                     switch (Object.values(filtered[i])[0]) {
                         case "Channel":
-                            // let filter4 = filteredVideos.filter(video => video.channel)
+                            
                             let filter4 = []
                             filteredVideos = filter4
                             break;
@@ -241,17 +361,56 @@ class Search extends React.Component {
                     break;
             }
         }
+        
         this.setState({
             videos: filteredVideos,
             selectedFilters: filtered,
-            alreadyFiltered: true
+            alreadyFiltered: true,
+            channel: null
         })
     }
 
-    render() {
-        const { path } = this.props        
-        // if (this.state.videos.length === 0 && !this.state.alreadyFiltered) return null
+    handleSubscribe(e) {
+        e.preventDefault();
+        const { currentUser, history, video } = this.props
         
+        if (!currentUser) {
+            history.push("/login")
+        } else {
+            
+            const subscription = { channelId: e.currentTarget.value }
+            this.props.createSubscription(subscription)
+                .then(res => {
+                    
+                    let nowSubscribed = this.state.channels.find(channel => channel.id === res.channel.id)
+                    nowSubscribed.isSubscribed = true
+                    // nowSubscribed.subscribed += 1
+                    
+                    this.setState({ channels: this.state.channels })
+                })
+        }
+    }
+
+    handleUnsubscribe(e) {
+        e.preventDefault();
+        const channelId = e.currentTarget.value
+        this.props.deleteSubscription(channelId)
+            .then(res => {
+                
+                let notSubscribed = this.state.channels.find(channel => channel.id === res.channel.id)
+                notSubscribed.isSubscribed = false
+                // nowSubscribed.subscribed -= 1
+                
+                this.setState({ channels: this.state.channels })
+            })
+    }
+
+    render() {
+        const { path } = this.props 
+        debugger       
+        if (this.state.videos.length === 0 && !this.state.alreadyFiltered) return null
+        let relevantChannel = this.state.channel && { key: this.state.channel }
+        debugger
         return(
             <div className="background">
                 <div className="search-background">
@@ -303,11 +462,38 @@ class Search extends React.Component {
                         </div>
                     </div>}
                     <hr id="search-hr"/>
+
                     {this.state.videos.length > 0 ?
-                    <div className="search-grid-container">
-                        {this.state.videos.map(video => <li className="search-grid-item" key={video.id}><VideoIndexItem video={video} path={path}/></li>)}
-                    </div> :
-                    <div className="search-no-results-container">
+                        <div className="search-grid-container">
+                        {this.state.channel && Object.values(relevantChannel).map(channel =>
+                            <li className="search-grid-item" key={channel.id}>
+                                <ChannelIndexItem
+                                    channel={channel}
+                                    handleSubscribe={this.handleSubscribe}
+                                    handleUnsubscribe={this.handleUnsubscribe}
+                                />
+                                <hr id="search-channel-hr"/>
+                            </li>)}
+                            {this.state.videos.map(video => 
+                            <li className="search-grid-item" key={video.id}>
+                                <VideoIndexItem 
+                                video={video} 
+                                path={path}
+                                />
+                            </li>)}
+                        </div> 
+                    : this.state.channels.length > 0 ?
+                        <div className="search-grid-container">
+                            {this.state.channels.map(channel => 
+                            <li className="search-grid-item" key={channel.id}>
+                                <ChannelIndexItem 
+                                channel={channel} 
+                                handleSubscribe={this.handleSubscribe} 
+                                handleUnsubscribe={this.handleUnsubscribe}
+                                />
+                            </li>)}
+                        </div> 
+                    : <div className="search-no-results-container">
                         <div className="search-no-results">
                             <img src={window.no_search_results} />
                         </div>

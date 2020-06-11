@@ -1,5 +1,5 @@
 export const fetchChannel = (id) => {
-    debugger
+    
     return (
         $.ajax({
             url: `/api/channels/${id}`,
@@ -9,7 +9,7 @@ export const fetchChannel = (id) => {
 }
 
 export const createChannel = channel => {
-    debugger
+    
     return (
         $.ajax({
             url: `/api/users/${channel.ownerId}/channels`,
@@ -20,7 +20,7 @@ export const createChannel = channel => {
 }
 
 export const updateChannel = channel => {
-    debugger
+    
     return (
         $.ajax({
             url: `/api/channels/${channel.id}`,
@@ -36,6 +36,26 @@ export const deleteChannel = id => {
         $.ajax({
             url: `/api/channels/${id}`,
             method: 'DELETE'
+        })
+    )
+}
+
+export const fetchQueriedChannel = queryString => {
+
+    return (
+        $.ajax({
+            url: `/api/channels/results${queryString}`,
+            method: 'GET'
+        })
+    )
+}
+
+export const fetchQueriedChannels = queryString => {
+
+    return (
+        $.ajax({
+            url: `/api/channels/${queryString}`,
+            method: 'GET'
         })
     )
 }

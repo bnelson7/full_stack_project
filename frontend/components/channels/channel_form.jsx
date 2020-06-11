@@ -6,7 +6,7 @@ class ChannelForm extends React.Component {
 
         this.state = {
             name: "",
-            ownerId: this.props.currentUser.id
+            // ownerId: this.props.currentUser.id
         }
 
         this.handleChannel = this.handleChannel.bind(this)
@@ -22,22 +22,22 @@ class ChannelForm extends React.Component {
     handleChannel(e) {
         e.preventDefault();
         const newChannel = Object.assign({}, this.state)
-        debugger
+        
         this.props.createChannel(newChannel)
         .then(res => {
-            debugger
+            
             this.props.history.push(`/channels/${res.channel.id}`);
         })
     }
 
     handleBack(e) {
         e.preventDefault();
-        debugger
+        
         this.props.history.push(`/users/${this.props.currentUser.id}`)
     }
 
     render() {
-        debugger
+        
         return (
             <div className="channel-form-background">
                 <header>

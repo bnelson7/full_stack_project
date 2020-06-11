@@ -12,6 +12,8 @@ User.destroy_all
 Video.destroy_all
 Comment.destroy_all
 Like.destroy_all
+Channel.destroy_all
+Subscription.destroy_all
 
 # users
 
@@ -41,37 +43,60 @@ briana = User.create(username: 'Briana Williams', password: 'password', email: '
 hannah = User.create(username: 'SummertimeSadness', password: 'password', email: 'flowerChild@university.edu')
 kim = User.create(username: 'SmokingGuns', password: 'password', email: 'orphanGirl31@company.org')
 
-users = [
-    [brad, "brad.jpg"],
-    [hayden, "hayden.jpg"], 
-    [marshall, "marshall.jpeg"], 
-    [joe, "joe.png"], 
-    [j, "j.jpg"], 
-    [tom, "tom.png"], 
-    [bill, "bill.jpg"], 
-    [sarah, "sarah.jpg"], 
-    [julio, "julio.png"], 
-    [daniel, "daniel.jpg"], 
-    [mike, "mike.jpg"], 
-    [kelly, "kelly.jpg"], 
-    [karim, "karim.jpg"], 
-    [zooey, "zooey.jpg"], 
-    [roger, "roger.jpg"], 
-    [michelle, "michelle.png"], 
-    [ali, "ali.jpg"], 
-    [chris, "chris.jpg"], 
-    [omar, "omar.png"], 
-    [jessie, "jessie.png"], 
-    [natalie, "natalie.jpg"], 
-    [briana, "briana.png"], 
-    [hannah, "hannah.png"], 
-    [kim, "kim.png"]
+channel = [
+    [brad, "brad.jpg", "I know what I want but I just don't know how to go about getting it"],
+    [hayden, "hayden.jpg", "Yeah....if you could go ahead and subscribe to my channel that would be great...mmmkay...thanks"], 
+    [marshall, "marshall.jpeg", "Wash ya hands don't touch ya face!"], 
+    [joe, "joe.png", "Just do it"], 
+    [j, "j.jpg", "Cuz I'm that scatman! skeep-beep de bop-bop beep bop bo-dope"], 
+    [tom, "tom.png", "Number 1 Transporter"], 
+    [bill, "bill.jpg", "Live. Love. Climb."], 
+    [sarah, "sarah.jpg", "We spend our time searching for security and hate it when we get it."], 
+    [julio, "julio.png", ""], 
+    [daniel, "daniel.jpg", "'Money doesn't buy happiness.' Uh, do you live in America? 'Cause it buys a WaveRunner. Have you ever seen a sad person on a WaveRunner?"], 
+    [mike, "mike.jpg", ""], 
+    [kelly, "kelly.jpg", ""], 
+    [karim, "karim.jpg", "I'M RICH BIATCH!"], 
+    [zooey, "zooey.jpg", "Who's that girl?"], 
+    [roger, "roger.jpg", "...Ricky Spanish..."], 
+    [michelle, "michelle.png", ""], 
+    [ali, "ali.jpg", "I'd rather have flowers in my hair than diamonds around my neck"], 
+    [chris, "chris.jpg", "One Love Brother"], 
+    [omar, "omar.png", ""], 
+    [jessie, "jessie.png", "I wish that I had Jessie's girl"], 
+    [natalie, "natalie.jpg", "Home is where the pool is"], 
+    [briana, "briana.png", ""], 
+    [hannah, "hannah.png", "Heaven is a place on earth with you"], 
+    [kim, "kim.png", "Smoking is the leading cause of statistics"]
 ]
 
-(0...users.length).each do |i|
-    file2 = users[i][1]
+demo_channel = Channel.create(name: 'DemoUser', creator_id: demo_user.id, description: 'Subscribe to my channel')
+
+channels = (0...channel.length).each_with_object({}) do |i, channels|
+    channels[i] = Channel.create(creator_id: channel[i][0].id, name: channel[i][0].username, description: channel[i][2])
+    file2 = channel[i][1]
     file = EzDownload.open("https://adtube-aa-dev.s3-us-west-1.amazonaws.com/#{file2}")
-    users[i][0].photo.attach(io: file, filename: file2)
+    channels[i].logo.attach(io: file, filename: file2)
+end
+
+Subscription.create(subscriber_id: zooey.id, channel_id: demo_channel.id)
+Subscription.create(subscriber_id: mike.id, channel_id: demo_channel.id)
+Subscription.create(subscriber_id: hayden.id, channel_id: demo_channel.id)
+Subscription.create(subscriber_id: marshall.id, channel_id: demo_channel.id)
+Subscription.create(subscriber_id: ali.id, channel_id: demo_channel.id)
+Subscription.create(subscriber_id: j.id, channel_id: channels[0].id)
+Subscription.create(subscriber_id: tom.id, channel_id: channels[0].id)
+Subscription.create(subscriber_id: hayden.id, channel_id: channels[0].id)
+Subscription.create(subscriber_id: marshall.id, channel_id: channels[0].id)
+Subscription.create(subscriber_id: joe.id, channel_id: channels[0].id)
+Subscription.create(subscriber_id: brad.id, channel_id: channels[4].id)
+Subscription.create(subscriber_id: tom.id, channel_id: channels[4].id)
+Subscription.create(subscriber_id: bill.id, channel_id: channels[4].id)
+Subscription.create(subscriber_id: brad.id, channel_id: channels[2].id)
+Subscription.create(subscriber_id: hayden.id, channel_id: channels[2].id)
+
+(0...channels.length).each do |i|
+    channels[i].update(subscribed: channels[i].subscribers.length) if channels[i].subscribers.length > 1
 end
 
 # videos
@@ -100,26 +125,26 @@ end
 #     [mountains, "mountains"]
 # ]
 
-allegra = Video.create(title: "Break Through Allergies", description: "If allergies are holding you back allegra's non-drowsy 24 hour protection can help get you back in the game.", views: 203, creator_id: demo_user.id)
-charmin = Video.create(title: 'Ultra Soft New Roll', description: "We all go, why not enjoy the go with charmin's new ultra soft toilet paper. Now extra absorbent.", views: 125, creator_id: marshall.id)
-cheetos = Video.create(title: "Shuffle Steal - feat. MC Hammer", description: "MC Hammer is the only one who can touch his cheetos as he practices his moves while successfully stealing a snack", views: 49, creator_id: hayden.id)
-diabeetus = Video.create(title: 'Diabeetus - Remastered', description: "Wilford Brimley back with another classic for Binsons to help fullfill all your diabeetus needs", views: 335, creator_id: tom.id)
-direct_tv = Video.create(title: 'Therapy Sessions', description: "Is your relationship with your cable provider getting stale? Maybe it's time you switch to Direct TV.", views: 76, creator_id: j.id)
-drpepper = Video.create(title: 'Fansville', description: "In Season finale of fansville by Dr Pepper the sheriff chases after the mysterious and elusive 'Big Fan'...", views: 256, creator_id: brad.id)
-expedia = Video.create(title: 'Get Good At Vacationing: Surfing', description: "Get really good at vacationing with expedia. Book your flight with expedia and unlock trip savings of up to 20%", views: 84, creator_id: hayden.id)
-geico = Video.create(title: 'Pinocchio Was a Bad Motivational Speaker', description: "Everyone knows you could save 15% or more on car insurance by switching to geico, but did you know Pinocchio was a bad motivational speaker?", views: 379, creator_id: marshall.id)
-geico_sequel = Video.create(title: 'GEICO Sequels: Return of the Savings', description: "In a world where everything gets a sequel...", views: 109, creator_id: marshall.id)
-gta = Video.create(title: 'Grand Theft Auto: The Diamond Casino Heist', description: "Grand Theft Auto Online: The Diamond Casino Heist is available now. Rated M for Mature.", views: 189, creator_id: joe.id)
-jgwentworth = Video.create(title: "Bus Opera", description: "If you have a strucured settlement and need cash now call J.G. Wentworth.", views: 203, creator_id: demo_user.id)
-kfc = Video.create(title: 'KFC Chicken & Waffles', description: "The most delicious union of all time just got hotter. Kentucky Fried Chicken and Waffles are back. Now available in Nashville Hot", views: 235, creator_id: demo_user.id)
-kitkat = Video.create(title: "Time for a Break - feat. Chance the Rapper: Halloween Edition", description: "Chance the Wrapper sings the KitKat jingle", views: 35, creator_id: j.id)
-liberty_mutual = Video.create(title: 'Liberty Mutual - Better Car Replacement', description: "A woman describes a story about her beloved car 'Brad'. She totals him and is devastated until she is able to get by with a little help from her friend Liberty Mutual.", views: 134, creator_id: brad.id)
-mesothelioma = Video.create(title: 'Mesothelioma', description: "If you or a loved one have been diagnosed with Mesothelioma.", views: 16, creator_id: brad.id)
-pizzahut = Video.create(title: 'Pizza Hut', description: "You didn't ask for it...but boy are you gonna want it.", views: 226, creator_id: demo_user.id)
-sheba = Video.create(title: 'Sheba', description: "You'll do anything for your cat and your cat will do anything for Sheba we food.", views: 146, creator_id: bill.id)
-sprint = Video.create(title: 'Bar en carretera: Galaxy S10', description: "Durante las vacaciones, los clientes de Sprint podrán obtener un Samsung Galaxy S10 por $ 0 al mes con el contrato de arrendamiento de Sprint Flex.", views: 279, creator_id: omar.id)
-subaru = Video.create(title: 'Subaru Dog Tested: Drive Away:', description: "The Barkley Dad picks up his teen from the bowling alley.", views: 312, creator_id: demo_user.id)
-taco_bell = Video.create(title: 'Taco Bell - Lions', description: "New Taco Bell steak grilled taquitos. Grilled steak you can eat anywhere", views: 488, creator_id: brad.id)
+allegra = Video.create(title: "Break Through Allergies", description: "If allergies are holding you back allegra's non-drowsy 24 hour protection can help get you back in the game.", views: 203, channel_id: demo_channel.id)
+charmin = Video.create(title: 'Ultra Soft New Roll', description: "We all go, why not enjoy the go with charmin's new ultra soft toilet paper. Now extra absorbent.", views: 125, channel_id: channels[2].id)
+cheetos = Video.create(title: "Shuffle Steal - feat. MC Hammer", description: "MC Hammer is the only one who can touch his cheetos as he practices his moves while successfully stealing a snack", views: 49, channel_id: channels[1].id)
+diabeetus = Video.create(title: 'Diabeetus - Remastered', description: "Wilford Brimley back with another classic for Binsons to help fullfill all your diabeetus needs", views: 335, channel_id: channels[5].id)
+direct_tv = Video.create(title: 'Therapy Sessions', description: "Is your relationship with your cable provider getting stale? Maybe it's time you switch to Direct TV.", views: 76, channel_id: channels[4].id)
+drpepper = Video.create(title: 'Fansville', description: "In Season finale of fansville by Dr Pepper the sheriff chases after the mysterious and elusive 'Big Fan'...", views: 256, channel_id: channels[0].id)
+expedia = Video.create(title: 'Get Good At Vacationing: Surfing', description: "Get really good at vacationing with expedia. Book your flight with expedia and unlock trip savings of up to 20%", views: 84, channel_id: channels[1].id)
+geico = Video.create(title: 'Pinocchio Was a Bad Motivational Speaker', description: "Everyone knows you could save 15% or more on car insurance by switching to geico, but did you know Pinocchio was a bad motivational speaker?", views: 379, channel_id: channels[2].id)
+geico_sequel = Video.create(title: 'GEICO Sequels: Return of the Savings', description: "In a world where everything gets a sequel...", views: 109, channel_id: channels[2].id)
+gta = Video.create(title: 'Grand Theft Auto: The Diamond Casino Heist', description: "Grand Theft Auto Online: The Diamond Casino Heist is available now. Rated M for Mature.", views: 189, channel_id: channels[3].id)
+jgwentworth = Video.create(title: "Bus Opera", description: "If you have a strucured settlement and need cash now call J.G. Wentworth.", views: 203, channel_id: demo_channel.id)
+kfc = Video.create(title: 'KFC Chicken & Waffles', description: "The most delicious union of all time just got hotter. Kentucky Fried Chicken and Waffles are back. Now available in Nashville Hot", views: 235, channel_id: demo_channel.id)
+kitkat = Video.create(title: "Time for a Break - feat. Chance the Rapper: Halloween Edition", description: "Chance the Wrapper sings the KitKat jingle", views: 35, channel_id: channels[4].id)
+liberty_mutual = Video.create(title: 'Liberty Mutual - Better Car Replacement', description: "A woman describes a story about her beloved car 'Brad'. She totals him and is devastated until she is able to get by with a little help from her friend Liberty Mutual.", views: 134, channel_id: channels[0].id)
+mesothelioma = Video.create(title: 'Mesothelioma', description: "If you or a loved one have been diagnosed with Mesothelioma.", views: 16, channel_id: channels[0].id)
+pizzahut = Video.create(title: 'Pizza Hut', description: "You didn't ask for it...but boy are you gonna want it.", views: 226, channel_id: demo_channel.id)
+sheba = Video.create(title: 'Sheba', description: "You'll do anything for your cat and your cat will do anything for Sheba we food.", views: 146, channel_id: channels[6].id)
+sprint = Video.create(title: 'Bar en carretera: Galaxy S10', description: "Durante las vacaciones, los clientes de Sprint podrán obtener un Samsung Galaxy S10 por $ 0 al mes con el contrato de arrendamiento de Sprint Flex.", views: 279, channel_id: channels[18].id)
+subaru = Video.create(title: 'Subaru Dog Tested: Drive Away:', description: "The Barkley Dad picks up his teen from the bowling alley.", views: 312, channel_id: demo_channel.id)
+taco_bell = Video.create(title: 'Taco Bell - Lions', description: "New Taco Bell steak grilled taquitos. Grilled steak you can eat anywhere", views: 488, channel_id: channels[0].id)
 
 videos = [
     [allegra, "allegra"], 
@@ -258,3 +283,4 @@ Like.create(liker_id: hayden.id, liked: true, disliked: false, likeable_id: geic
 Like.create(liker_id: marshall.id, liked: true, disliked: false, likeable_id: charmin.id, likeable_type: "Comment")
 Like.create(liker_id: marshall.id, liked: true, disliked: false, likeable_id: jgwentworth.id, likeable_type: "Comment")
 Like.create(liker_id: hayden.id, liked: true, disliked: false, likeable_id: allegra.id, likeable_type: "Comment")
+

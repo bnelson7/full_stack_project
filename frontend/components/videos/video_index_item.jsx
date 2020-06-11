@@ -27,82 +27,87 @@ class VideoIndexItem extends React.Component {
     }
   
     formatVideos() {
-        const { channel, currentUser } = this.props
-        debugger
+        const { video, path, channel, currentUser } = this.props
+
         return (
-            this.props.path === `/` ? (
+            path === `/` ? (
                 <div className="grid-index-container">
                     <div className="video-thumbnail">
-                        <Link to={`/videos/${this.props.video.id}`}>
-                            <img src={this.props.video.thumbnailUrl} />
+                        <Link to={`/videos/${video.id}`}>
+                            <img src={video.thumbnailUrl} />
                         </Link>
                     </div>
                     <div className="video-info-container" role="group">
                         <div className="profile-thumbnail">
                             <span>
-                                {this.props.video.creator.photoUrl ? <img src={this.props.video.creator.photoUrl} /> : <img src={window.user} />}
+                                {video.channel.logoUrl ? <img src={video.channel.logoUrl} /> : <img src={window.user} />}
                             </span>
                         </div>
                         <div className="video-info">
-                            <h1>{this.props.video.title}</h1>
+                            <h1>{video.title}</h1>
                             <div className="views-date">
-                                <h1>{this.props.video.creator.username}&nbsp;<MdCheckCircle className="verified"/></h1>
-                                <span>{this.props.video.views} views&nbsp;
+                                <h1>{video.channel.name}&nbsp;<MdCheckCircle className="verified"/></h1>
+                                <span>{video.views} views&nbsp;
                                     <span>
                                         <GoPrimitiveDot />
                                     </span>
-                                    &nbsp;{this.props.video.createdAt} ago
+                                    &nbsp;{video.createdAt} ago
                                 </span>
                             </div>
                         </div>
                     </div>
                 </div>
-            ) : this.props.path.includes('/videos') ? (
+            ) : path.includes('/videos') ? (
                 <div className="grid-item-container">
                     <div className="video-thumbnail-show">
-                        <Link to={`/videos/${this.props.video.id}`}>
-                            <img src={this.props.video.thumbnailUrl} />
+                        <Link to={`/videos/${video.id}`}>
+                            <img src={video.thumbnailUrl} />
                         </Link>
                     </div>
                     <div className="video-show-info-container">
                         <div className="video-show-info">
-                            <h1 id="show-title">{this.props.video.title}</h1>
+                            <h1 id="show-title">{video.title}</h1>
                             <div className="views-date-show">
-                                <h1 id="show-user">{this.props.video.creator.username}&nbsp;<span className="verified"><MdCheckCircle /></span></h1>
+                                <h1 id="show-user">
+                                    {video.channel.name}&nbsp;
+                                    <span className="verified">
+                                        <MdCheckCircle />
+                                    </span>
+                                </h1>
                             </div>
-                            <span id="views-date-show">{this.props.video.views} views&nbsp;
+                            <span id="views-date-show">{video.views} views&nbsp;
                                 <span>
                                     <GoPrimitiveDot />
                                 </span>
-                                &nbsp;{this.props.video.createdAt} ago
+                                &nbsp;{video.createdAt} ago
                             </span>
                         </div>
                     </div>
                 </div>
-            ) : (this.props.path.includes('/users') || this.props.path.includes('/channels')) ? (
+            ) : (path.includes('/users') || path.includes('/channels')) ? (
                 <div className="profile-videos-item-container">
                     <div className="profile-videos-item">
-                        <Link to={`/videos/${this.props.video.id}`}>
-                            <img src={this.props.video.thumbnailUrl} />
+                        <Link to={`/videos/${video.id}`}>
+                            <img src={video.thumbnailUrl} />
                         </Link>
                     </div>
                     <div className="profile-videos-item-info">
                         <div className="profile-videos-item-title-container">
                             <div className="profile-videos-item-title">
-                                <h1 id="show-title">{this.props.video.title}</h1>
+                                <h1 id="show-title">{video.title}</h1>
                             </div>
                             <div className="profile-videos-item-views">
-                                <span id="views-date-show">{this.props.video.views} views&nbsp;
+                                <span id="views-date-show">{video.views} views&nbsp;
                                     <span>
                                         <GoPrimitiveDot />
                                     </span>
-                                    &nbsp;{this.props.video.createdAt} ago
+                                    &nbsp;{video.createdAt} ago
                                 </span>
                             </div>
                         </div>
-                        {channel && currentUser && channel.ownerId === currentUser.id ? 
+                        {channel && currentUser && channel.creatorId === currentUser.id ? 
                         <VideoDropdown 
-                        video={this.props.video} 
+                        video={video} 
                         handleDelete={this.handleDelete} 
                         handleEdit={this.handleEdit} 
                         /> : null}
@@ -111,29 +116,29 @@ class VideoIndexItem extends React.Component {
             ) : (
                 <div className="grid-item-search-container">
                     <div className="video-thumbnail-search">
-                        <Link to={`/videos/${this.props.video.id}`}>
-                            <img src={this.props.video.thumbnailUrl} />
+                        <Link to={`/videos/${video.id}`}>
+                            <img src={video.thumbnailUrl} />
                         </Link>
                     </div>
                     <div className="video-search-info-container">
                         <div className="video-search-info">
                             <div className="title-user-search">
-                                <h1 id="search-title">{this.props.video.title}</h1>
-                                <h1 id="search-user">{this.props.video.creator.username}&nbsp;
+                                <h1 id="search-title">{video.title}</h1>
+                                <h1 id="search-user">{video.channel.name}&nbsp;
                                     <span className="verified">
                                         <MdCheckCircle />
                                     </span>
                                     &nbsp;&nbsp;
-                                    <span id="title-user-search">{this.props.video.views} views&nbsp;
+                                    <span id="title-user-search">{video.views} views&nbsp;
                                         <span>
                                             <GoPrimitiveDot />
                                         </span>
-                                        &nbsp;{this.props.video.createdAt} ago
+                                        &nbsp;{video.createdAt} ago
                                     </span>
                                 </h1>
                             </div>
-                            <div >
-                                <span id="description-search">{this.props.video.description}</span>
+                            <div>
+                                <span id="description-search">{video.description}</span>
                             </div>
                         </div>
                     </div>

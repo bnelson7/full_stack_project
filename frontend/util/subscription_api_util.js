@@ -1,5 +1,5 @@
 export const createSubscription = subscription => {
-    debugger
+    
     return (
         $.ajax({
             url: `/api/channels/${subscription.channelId}/subscriptions`,
@@ -10,7 +10,7 @@ export const createSubscription = subscription => {
 }
 
 export const deleteSubscription = id => {
-    debugger
+    
     return (
         $.ajax({
             url: `/api/subscriptions/${id}`,

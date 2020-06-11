@@ -20,12 +20,7 @@ class User < ApplicationRecord
     
     after_initialize :ensure_session_token
 
-    has_one_attached :photo
-
-    has_many :uploads,
-        primary_key: :id,
-        foreign_key: :creator_id,
-        class_name: :Video
+    # has_one_attached :photo
 
     has_many :comments,
         primary_key: :id,
@@ -39,10 +34,19 @@ class User < ApplicationRecord
 
     has_many :channels,
         primary_key: :id,
-        foreign_key: :owner_id,
+        foreign_key: :creator_id,
         class_name: :Channel
 
+    has_many :uploads,
+        through: :channels,
+        source: :uploads
+        # primary_key: :id,
+        # foreign_key: :creator_id,
+        # class_name: :Video
+
     has_many :subscriptions
+
+    # add scope to find channels with just users id
 
     # has_many :subscribed_channels,
     #     through: :subscriptions,

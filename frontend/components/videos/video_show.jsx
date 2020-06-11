@@ -28,14 +28,14 @@ class VideoShow extends React.Component {
     componentDidMount() {
         this.props.requestVideos()
             .then(() => {
-                this.props.currentUser && 
-                this.props.requestUser(this.props.currentUser.id)
+                // this.props.currentUser && 
+                // this.props.requestUser(this.props.currentUser.id)
                 this.props.requestVideo(this.props.match.params.videoId)
-                    .then(() => {
-                        debugger
-                        this.props.video.channelId && 
-                        this.props.requestChannel(this.props.video.channelId)
-                    })
+                    // .then(() => {
+                    //     
+                    //     this.props.video.channelId && 
+                    //     this.props.requestChannel(this.props.video.channelId)
+                    // })
             })
     }
 
@@ -243,12 +243,12 @@ class VideoShow extends React.Component {
         // this.setState({ collapsed: !this.state.collapsed })
         const collapse = document.querySelector(".info-category-container")
         if (collapse.style.display === "block") {
-            debugger
+            
             $(".info-category-container").css("display", "")
             $("#show-more").css("display", "block")
             $("#show-less").css("display", "")
         } else {
-            debugger
+            
             $(".info-category-container").css("display", "block")
             $("#show-more").css("display", "none")
             $("#show-less").css("display", "block")
@@ -275,18 +275,24 @@ class VideoShow extends React.Component {
 
     handleSubscribe(e) {
         e.preventDefault();
-        const subscription = { channelId: this.props.channel.id }
-        this.props.createSubscription(subscription)
+        const { currentUser, history, video } = this.props
+        
+        if (!currentUser) {
+            history.push("/login")
+        } else {
+            const subscription = { channelId: video.channel.id }
+            this.props.createSubscription(subscription)
+        }
     }    
 
     handleUnsubscribe(e) {
         e.preventDefault();
-        this.props.deleteSubscription(this.props.channel.id)
+        this.props.deleteSubscription(video.channel.id)
     }
 
     render() {
         const { video, videos, videoId, path, channel, currentUser } = this.props
-        if (!video || !video.clipUrl || (video.channel && !channel && currentUser)) return null
+        if (!video || !video.clipUrl) return null
         
         const filteredVideos = videos.filter(video => video.id !== parseInt(videoId))
      
@@ -311,26 +317,26 @@ class VideoShow extends React.Component {
                         </div>
                         <div className="video-description-container">
                             <div className="profile-thumbnail-show">
-                                <span>
-                                    {!channel ?
-                                    video.creator.photoUrl ? <img src={video.creator.photoUrl} /> : <img src={window.user} /> : 
-                                    <Link to={`/channels/${channel.id}`}>
-                                        <img src={window.user} />
-                                    </Link>}
+                                <span>   
+                                    <Link to={`/channels/${video.channel.id}`}>
+                                        {video.channel.logoUrl ? 
+                                        <img src={video.channel.logoUrl} /> : 
+                                        <img src={window.user} />}
+                                    </Link>
                                 </span>
                             </div>
                             <div className="video-description-text">
                                 <div className="video-description-title">
-                                    <h1>{!channel ? video.creator.username : channel.name}&nbsp;
+                                    <h1>
+                                        {video.channel.name}&nbsp;
                                         <span className="verified">
                                             <MdCheckCircle />
                                         </span>
                                     </h1>
                                     <span>
-                                        {channel ? 
-                                        (channel.subscribed === 1 ? `${channel.subscribed} subscriber` 
-                                        : `${channel.subscribed} subscribers`) 
-                                        : "no subscribers"}
+                                        {video.channel.subscribers.length === 1 ? 
+                                        `${video.channel.subscribers.length} subscriber` :
+                                        `${video.channel.subscribers.length} subscribers`}
                                     </span>
                                 </div>
                                 <div className="video-description">
@@ -370,11 +376,17 @@ class VideoShow extends React.Component {
                     <div className="related-container">
                         <div className="upnext-video">
                             <h1>Up next</h1>
-                            {filteredVideos.slice(0, 1).map(video => <li className="suggested-grid-item" key={video.id}><VideoIndexItem video={video} path={path}/></li>)}
+                            {filteredVideos.slice(0, 1).map(video => 
+                                <li className="suggested-grid-item" key={video.id}>
+                                    <VideoIndexItem video={video} path={path}/>
+                                </li>)}
                         </div>
                         <hr id="related-hr"/>
                         <div className="suggested-videos">
-                            {filteredVideos.slice(1).map(video => <li className="suggested-grid-item" key={video.id}><VideoIndexItem video={video} path={path}/></li>)}
+                            {filteredVideos.slice(1).map(video => 
+                            <li className="suggested-grid-item" key={video.id}>
+                                <VideoIndexItem video={video} path={path}/>
+                            </li>)}
                         </div>
                     </div>
                 </div>

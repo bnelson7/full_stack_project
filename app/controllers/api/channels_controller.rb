@@ -1,39 +1,63 @@
 class Api::ChannelsController < ApplicationController
 
+    def index
+        
+        if params[:search_query]
+            
+            @channels = Channel.where(
+                "lower(name) LIKE ?",  
+                "%#{params[:search_query].downcase}%"
+                )
+            render :index
+        end 
+    end
+
     def create
+        
         @channel = Channel.new(channel_params)
-        @channel.subscribers = 0
         @channel.owner_id = current_user.id
-        debugger
+        @channel.subscribed = 0
+        
         if @channel.save
-            debugger
+            
             render :show
         else
-            debugger
+            
             render json: @channel.errors.full_messages, status: 422
         end
     end
 
     def show
-        @channel = Channel.find_by(id: params[:id])
-        @channel.subscribed = @channel.subscribers.length
-
-        if @channel
+        
+        if params[:search_query]
+            
+            @channel = Channel.where(
+            "lower(name) LIKE ?",  
+            "%#{params[:search_query].downcase}%"
+            ).first
+            
             render :show
         else
-            render json: @channel.errors.full_messages, status: 422
+            @channel = Channel.find_by(id: params[:id])
+            @channel.subscribed = @channel.subscribers.length
+            
+            if @channel
+                render :show
+            else
+                render json: @channel.errors.full_messages, status: 422
+            end
         end
     end
 
     def update
         @channel = Channel.find_by(id: params[:id])
         
-        debugger
+        
         if @channel.update(channel_params)
-            debugger
+            
             render :show
         else
-            debugger
+            
             render json: @channel.errors.full_messages, status: 422
         end
 

@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
     resources :likes, only: [:destroy]
     
-    resources :channels, only: [:show, :destroy, :update] do
+    resources :channels, only: [:index, :show, :destroy, :update] do
       resources :subscriptions, only: :create
     end
 

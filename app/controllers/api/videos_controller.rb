@@ -6,7 +6,9 @@ class Api::VideosController < ApplicationController
     end
     
     def show
-        if params[:search_query]
+        
+        if params[:search_query] 
+            
             @videos = Video.where("lower(title) LIKE ? OR lower(description) LIKE ?", 
             "%#{params[:search_query].downcase}%", 
             "%#{params[:search_query].downcase}%")
@@ -23,16 +25,16 @@ class Api::VideosController < ApplicationController
     end
 
     def create
-        debugger
+        
         @video = Video.new(video_params)
         @video.views = 0
         @video.creator_id = current_user.id
 
         if @video.save
-            debugger
+            
             render :show
         else
-            debugger
+            
             render json: @video.errors.full_messages, status: 422
         end
     end

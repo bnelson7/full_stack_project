@@ -24,34 +24,34 @@ class ProfilePhoto extends React.Component {
     }
 
     createChannel() {
-        debugger
+        
         this.props.history.push("/create_channel")
     }
 
     handleSubscribe(e) {
         e.preventDefault();
-        debugger
+        
         const subscription = { channelId: this.props.channel.id }
         this.props.createSubscription(subscription)
             .then(() => {
-                debugger
+                
                 this.props.requestChannel(this.props.channel.id)
             })
     }
 
     handleUnsubscribe(e) {
         e.preventDefault();
-        debugger
+        
         this.props.deleteSubscription(this.props.channel.id)
             .then(() => {
-                debugger
+                
                 this.props.requestChannel(this.props.channel.id)
             })
     }
 
     render() {
         const { currentUser, path, channel } = this.props
-        debugger
+        
         return (
             <div>
                 <div className="profile-photo-container">
@@ -76,9 +76,9 @@ class ProfilePhoto extends React.Component {
                                 <MdCheckCircle className="profile-verified-icon"/>
                             </span>
                             <span>
-                                {path.includes("/channels") ? (channel.subscribed === 1 ? 
-                                `${channel.subscribed} subscriber` : 
-                                `${channel.subscribed} subscribers`) : null}
+                                {path.includes("/channels") ? (channel.subscribers.length === 1 ? 
+                                `${channel.subscribers.length} subscriber` : 
+                                `${channel.subscribers.length} subscribers`) : null}
                             </span>
                         </div>
                         <input type="file" name="file3" id="file3" className="hidden-input" onChange={e => this.handlePhoto(e)} />

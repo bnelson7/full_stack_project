@@ -3,8 +3,8 @@
 # Table name: channels
 #
 #  id          :bigint           not null, primary key
-#  owner_id    :integer          not null
-#  subscribed  :integer          not null
+#  creator_id  :integer          not null
+#  subscribed  :integer          default("0"), not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  description :string
@@ -12,14 +12,14 @@
 #
 class Channel < ApplicationRecord
 
-    validates :owner_id, :subscribers, presence: true
+    validates :creator_id, :subscribed, presence: true
 
-    # has_one_attached :logo
+    has_one_attached :logo
     # has_one_attached :banner
 
-    belongs_to :owner,
+    belongs_to :creator,
         primary_key: :id,
-        foreign_key: :owner_id,
+        foreign_key: :creator_id,
         class_name: :User
         
     has_many :uploads,

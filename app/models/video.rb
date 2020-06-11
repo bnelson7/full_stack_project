@@ -3,7 +3,6 @@
 # Table name: videos
 #
 #  id          :bigint           not null, primary key
-#  creator_id  :integer          not null
 #  title       :string           not null
 #  description :string
 #  views       :integer          not null
@@ -13,7 +12,7 @@
 #
 class Video < ApplicationRecord
 
-    validates :title, :creator_id, :views, presence: true
+    validates :title, :channel_id, :views, presence: true
 
     # validate :ensure_thumbnail
     # validate :ensure_clip
@@ -21,10 +20,10 @@ class Video < ApplicationRecord
     has_one_attached :thumbnail
     has_one_attached :clip
 
-    belongs_to :creator,
-        primary_key: :id,
-        foreign_key: :creator_id,
-        class_name: :User
+    # belongs_to :creator,
+    #     primary_key: :id,
+    #     foreign_key: :creator_id,
+    #     class_name: :User
 
     belongs_to :channel,
         primary_key: :id,

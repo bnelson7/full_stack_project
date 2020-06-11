@@ -3,8 +3,8 @@
 # Table name: channels
 #
 #  id          :bigint           not null, primary key
-#  owner_id    :integer          not null
-#  subscribed  :integer          not null
+#  creator_id  :integer          not null
+#  subscribed  :integer          default("0"), not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  description :string

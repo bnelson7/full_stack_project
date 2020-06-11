@@ -16,5 +16,9 @@ json.uploads do
         else
             json.updated_at time_ago_in_words(upload.updated_at)
         end
+
+        json.channel do 
+            json.partial! 'api/channels/channel', channel: upload.channel
+        end
     end
 end

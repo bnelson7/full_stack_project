@@ -51,13 +51,13 @@ class Modal extends React.Component {
         const formData = new FormData();
 
         if (this.props.modal.type === 'upload') {
-            debugger
+            
             formData.append('video[title]', this.state.title);
             formData.append('video[description]', this.state.description);
             this.state.clipFile && formData.append('video[clip]', this.state.clipFile);
             this.state.thumbnailFile && formData.append('video[thumbnail]', this.state.thumbnailFile);
             formData.append('video[channel_id]', this.props.location.pathname.slice(10));
-            debugger
+            
             this.props.createVideo(formData)
             .then(() => {
                 this.props.closeModal()

@@ -4,7 +4,7 @@ import { requestChannel, createSubscription, deleteSubscription } from '../../ac
 import { withRouter } from 'react-router-dom'
 
 const mstp = (state, ownProps) => {
-    debugger
+    
     let channel = Object.keys(state.entities.channels).length && 
     state.entities.channels[ownProps.match.params.channelId]
     let randomIdx = channel.uploads && Math.floor(Math.random() * channel.uploads.length)
@@ -14,7 +14,7 @@ const mstp = (state, ownProps) => {
     let subscribed = currentUser && Object.keys(state.entities.channels).length && 
     channel.subscribers.find(subs => subs.id === currentUser.id) !== undefined
     
-    debugger
+    
     return {
         channels: Object.values(state.entities.channels),
         channel: channel,

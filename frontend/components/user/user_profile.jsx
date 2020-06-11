@@ -27,7 +27,7 @@ class UserProfile extends React.Component {
     }
 
     componentDidMount() {
-        debugger
+        
         this.props.path.includes("/channels") ? 
         this.props.requestChannel(this.props.match.params.channelId) : 
         this.props.requestUser(this.props.currentUser.id)
@@ -38,7 +38,7 @@ class UserProfile extends React.Component {
             return false;
         } 
         // else if (this.props.channel.subscribed !== nextProps.channel.subscribed) {
-        //     debugger
+        //     
         //     return true
         // }
          else {
@@ -335,7 +335,7 @@ class UserProfile extends React.Component {
 
     render() {
         const { path, currentUser, channel, updateUser, subscribed, createSubscription, deleteSubscription, requestChannel } = this.props
-        debugger
+        
         if (path.includes("/users") && !currentUser.uploads) return null
         if (path.includes("/channels") && !channel) return null
 
