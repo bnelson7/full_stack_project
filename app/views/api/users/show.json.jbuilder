@@ -39,6 +39,8 @@ json.liked do
     end
  end
 
+ json.channels @user.channels, partial: 'api/channels/channel', as: :channel
+
 
 
  

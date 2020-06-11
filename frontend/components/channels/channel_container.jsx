@@ -2,9 +2,10 @@ import { connect } from 'react-redux'
 import UserProfile from '../user/user_profile'
 import { requestChannel, createSubscription, deleteSubscription } from '../../actions/channel_actions'
 import { withRouter } from 'react-router-dom'
+import { editChannel } from '../../actions/channel_actions'
 
 const mstp = (state, ownProps) => {
-    
+    debugger
     let channel = Object.keys(state.entities.channels).length && 
     state.entities.channels[ownProps.match.params.channelId]
     let randomIdx = channel.uploads && Math.floor(Math.random() * channel.uploads.length)
@@ -29,7 +30,8 @@ const mstp = (state, ownProps) => {
 const mdtp = dispatch => ({
     requestChannel: id => dispatch(requestChannel(id)),
     createSubscription: subscription => dispatch(createSubscription(subscription)),
-    deleteSubscription: id => dispatch(deleteSubscription(id))
+    deleteSubscription: id => dispatch(deleteSubscription(id)),
+    editChannel: (channel, id) => dispatch(editChannel(channel, id))
 })
 
 export default withRouter(connect(mstp, mdtp)(UserProfile))

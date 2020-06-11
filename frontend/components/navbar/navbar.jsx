@@ -18,6 +18,11 @@ class NavBar extends React.Component {
     this.handleSidebar = this.handleSidebar.bind(this)
   }
 
+  componentDidMount() {
+    this.props.currentUser && 
+    this.props.requestUser(this.props.currentUser.id)
+  }
+
   handleLogout(e) {
       e.preventDefault();
       this.props.logout()

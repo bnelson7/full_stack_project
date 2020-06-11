@@ -44,10 +44,10 @@ export const createChannel = channel => dispatch => {
     )
 }
 
-export const editChannel = channel => dispatch => {
+export const editChannel = (channel, id) => dispatch => {
     
     return (
-        ChannelAPIUtil.updateChannel(channel)
+        ChannelAPIUtil.updateChannel(channel, id)
         .then(channel => dispatch(receiveChannel(channel)))
     )
 }

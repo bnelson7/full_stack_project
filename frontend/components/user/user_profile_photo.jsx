@@ -10,21 +10,22 @@ class ProfilePhoto extends React.Component {
             subscribed: this.props.subscribed
         }
 
-        this.handlePhoto = this.handlePhoto.bind(this)
+        this.handleLogo = this.handleLogo.bind(this)
         this.createChannel = this.createChannel.bind(this)
         this.handleSubscribe = this.handleSubscribe.bind(this)
         this.handleUnsubscribe = this.handleUnsubscribe.bind(this)
     }
 
-    handlePhoto(e) {
+    handleLogo(e) {
         e.preventDefault();
         const formData = new FormData();
-        formData.append('user[photo]', e.currentTarget.files[0]);
-        this.props.updateUser(formData, this.props.currentUser.id);
+        debugger
+        formData.append('channel[logo]', e.currentTarget.files[0]);
+        this.props.editChannel(formData, this.props.channel.id);
     }
 
     createChannel() {
-        
+        debugger
         this.props.history.push("/create_channel")
     }
 
@@ -51,24 +52,20 @@ class ProfilePhoto extends React.Component {
 
     render() {
         const { currentUser, path, channel } = this.props
-        
+        debugger
         return (
             <div>
                 <div className="profile-photo-container">
                     <div className="profile-photo">
-                        {path.includes("/users")  ?
+                        {currentUser && channel.creatorId === currentUser.id  ?
                         <div className="profile-photo-upload-container">
-                            {/* {path.includes("/users") ? */}
-                            {currentUser.photoUrl ? <img src={currentUser.photoUrl} /> : <img src={window.user} />}
-                            {/* : <img src={window.user} />} */}
+                            {channel.logoUrl ? <img src={channel.logoUrl} /> : <img src={window.user} />}
                             <label className="profile-photo-upload" htmlFor="file3">
                                 <FaCamera className="avatar" />
                             </label>
                         </div> :
                         <div className="channel-logo-container">
-                            {/* {path.includes("/users") ? */}
-                            {/* currentUser.photoUrl ? <img src={currentUser.photoUrl} /> : <img src={window.user} /> : */}
-                            <img src={window.user} />
+                            {channel.logoUrl ? <img src={channel.logoUrl} /> : <img src={window.user} />}
                         </div>}
                         <div className="profile-photo-user">
                             <span>
@@ -81,11 +78,11 @@ class ProfilePhoto extends React.Component {
                                 `${channel.subscribers.length} subscribers`) : null}
                             </span>
                         </div>
-                        <input type="file" name="file3" id="file3" className="hidden-input" onChange={e => this.handlePhoto(e)} />
+                        <input type="file" name="file3" id="file3" className="hidden-input" onChange={e => this.handleLogo(e)} />
                     </div>
-                    {currentUser && channel.ownerId === currentUser.id ?
+                    {currentUser && channel.creatorId === currentUser.id ?
                     <div className="channel-btns-container">
-                        <button className="channel-btn">
+                        <button className="channel-btn" onClick={this.props.handleCustomize}>
                             CUSTOMIZE CHANNEL
                         </button> 
                         <button className="channel-btn" onClick={this.createChannel}>

@@ -51,13 +51,16 @@ class Api::ChannelsController < ApplicationController
 
     def update
         @channel = Channel.find_by(id: params[:id])
-        
+        @channel.subscribed = @channel.subscribers.length
+        # remove null false constraint on subscribed
+    
+        debugger
         
         if @channel.update(channel_params)
-            
+            debugger
             render :show
         else
-            
+            debugger
             render json: @channel.errors.full_messages, status: 422
         end
 
@@ -70,7 +73,7 @@ class Api::ChannelsController < ApplicationController
     end
 
     def channel_params
-        params.require(:channel).permit(:name, :description)
+        params.require(:channel).permit(:name, :description, :logo, :banner)
     end
 
 end

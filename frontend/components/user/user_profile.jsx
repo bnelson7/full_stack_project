@@ -15,7 +15,8 @@ class UserProfile extends React.Component {
         this.state = {
             selected: "home",
             sortSelected: null,
-            subscribed: null
+            subscribed: null,
+            customize: false
         }
         
         this.handleToggle = this.handleToggle.bind(this)
@@ -23,6 +24,8 @@ class UserProfile extends React.Component {
         this.update = this.update.bind(this)
         this.handleSort = this.handleSort.bind(this)
         this.handleUpload = this.handleUpload.bind(this)
+        this.handleCustomize = this.handleCustomize.bind(this)
+        this.handleBanner = this.handleBanner.bind(this)
         // this.updateSubscribed = this.updateSubscribed.bind(this)
     }
 
@@ -333,9 +336,26 @@ class UserProfile extends React.Component {
         }
     }
 
+    handleBanner(e) {
+        e.preventDefault();
+        const formData = new FormData();
+        debugger
+        formData.append('channel[banner]', e.currentTarget.files[0]);
+        this.props.editChannel(formData, this.props.channel.id);
+    }
+
+    handleCustomize(e) {
+        e.preventDefault();
+        debugger
+        this.setState({ 
+            selected: "about",
+            customize: true
+        })
+    }
+
     render() {
-        const { path, currentUser, channel, updateUser, subscribed, createSubscription, deleteSubscription, requestChannel } = this.props
-        
+        const { path, currentUser, channel, updateUser, subscribed, createSubscription, deleteSubscription, requestChannel, editChannel, history } = this.props
+        debugger
         if (path.includes("/users") && !currentUser.uploads) return null
         if (path.includes("/channels") && !channel) return null
 
@@ -346,13 +366,16 @@ class UserProfile extends React.Component {
                     <ProfilePhoto 
                     currentUser={currentUser} 
                     path={path} 
-                    updateUser={updateUser} 
+                    // updateUser={updateUser} 
                     channel={channel} 
                     subscribed={subscribed}
                     createSubscription={createSubscription}
                     deleteSubscription={deleteSubscription}
+                    editChannel={editChannel}
                     // updateSubscribed={this.updateSubscribed} 
                     requestChannel={requestChannel}
+                    history={history}
+                    handleCustomize={this.handleCustomize}
                     />
                     <div className="profile-nav">
                         <button onClick={this.handleToggle} className="selected-profile-nav-item" id="home">

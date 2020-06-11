@@ -4,6 +4,7 @@ import { createVideo, requestVideos, deleteVideo, updateVideo, requestVideo } fr
 import { requestUser } from '../../actions/user_actions'
 import { openModal } from '../../actions/modal_actions'
 import { withRouter } from 'react-router-dom'
+import { editChannel } from '../../actions/channel_actions'
 
 const mSTP = (state, ownProps) => {
     let currentUser = state.entities.users[state.session.id]
@@ -38,7 +39,8 @@ const mDTP = dispatch => {
         updateVideo: (formData, videoId) => dispatch(updateVideo(formData, videoId)),
         requestUser: id => dispatch(requestUser(id)),
         requestVideo: id => dispatch(requestVideo(id)),
-        openModal: modal => dispatch(openModal(modal))
+        openModal: modal => dispatch(openModal(modal)),
+        editChannel: (channel, id) => dispatch(editChannel(channel, id))
     }
 }
 

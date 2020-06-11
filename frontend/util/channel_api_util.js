@@ -19,13 +19,15 @@ export const createChannel = channel => {
     )
 }
 
-export const updateChannel = channel => {
-    
+export const updateChannel = (channel, id) => {
+    debugger
     return (
         $.ajax({
-            url: `/api/channels/${channel.id}`,
+            url: `/api/channels/${id}`,
             method: 'PATCH',
-            data: { channel }
+            data: channel,
+            contentType: false,
+            processData: false
         })
     )
 }

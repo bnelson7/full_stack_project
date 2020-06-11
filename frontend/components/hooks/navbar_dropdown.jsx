@@ -44,7 +44,7 @@ const NavBarDropdown = (props) => {
                     </li>
                 </div>
                 <div className="nav-dropdown-info">
-                    <Link to={`/users/${props.currentUser.id}`}>
+                    <Link to={`/channels/${props.currentUser.channels[0].id}`}>
                         <li>
                             <span><FaUser className="nav-dropdown-info-channel" /></span>
                             <span>Your channel</span>

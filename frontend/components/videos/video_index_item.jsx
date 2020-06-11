@@ -40,7 +40,9 @@ class VideoIndexItem extends React.Component {
                     <div className="video-info-container" role="group">
                         <div className="profile-thumbnail">
                             <span>
-                                {video.channel.logoUrl ? <img src={video.channel.logoUrl} /> : <img src={window.user} />}
+                                <Link to={`/channels/${video.channel.id}`}>
+                                    {video.channel.logoUrl ? <img src={video.channel.logoUrl} /> : <img src={window.user} />}
+                                </Link>
                             </span>
                         </div>
                         <div className="video-info">
