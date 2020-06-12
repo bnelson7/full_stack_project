@@ -2,7 +2,7 @@ import React from 'react'
 import { FaCamera } from 'react-icons/fa'
 import { MdCheckCircle, MdNotificationsNone } from 'react-icons/md'
 
-class ProfilePhoto extends React.Component {
+class ChannelLogo extends React.Component {
     constructor(props) {
         super(props)
 
@@ -19,13 +19,13 @@ class ProfilePhoto extends React.Component {
     handleLogo(e) {
         e.preventDefault();
         const formData = new FormData();
-        debugger
+        
         formData.append('channel[logo]', e.currentTarget.files[0]);
         this.props.editChannel(formData, this.props.channel.id);
     }
 
     createChannel() {
-        debugger
+        
         this.props.history.push("/create_channel")
     }
 
@@ -52,7 +52,7 @@ class ProfilePhoto extends React.Component {
 
     render() {
         const { currentUser, path, channel } = this.props
-        debugger
+        
         return (
             <div>
                 <div className="profile-photo-container">
@@ -107,4 +107,4 @@ class ProfilePhoto extends React.Component {
     }
 }
 
-export default ProfilePhoto;
+export default ChannelLogo;

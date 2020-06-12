@@ -33,7 +33,7 @@ class ChannelForm extends React.Component {
     handleBack(e) {
         e.preventDefault();
         
-        this.props.history.push(`/users/${this.props.currentUser.id}`)
+        this.props.history.goBack()
     }
 
     render() {

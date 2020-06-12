@@ -54,13 +54,13 @@ class Api::ChannelsController < ApplicationController
         @channel.subscribed = @channel.subscribers.length
         # remove null false constraint on subscribed
     
-        debugger
+        
         
         if @channel.update(channel_params)
-            debugger
+            
             render :show
         else
-            debugger
+            
             render json: @channel.errors.full_messages, status: 422
         end
 

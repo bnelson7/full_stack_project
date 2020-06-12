@@ -28,7 +28,7 @@ class Search extends React.Component {
     }
 
     componentDidMount() {
-        debugger
+        
         this.props.location.search.split("=")[1].length === 0 ?
         this.props.requestQueriedVideos(this.props.location.search)
         .then(results => {
@@ -407,10 +407,10 @@ class Search extends React.Component {
 
     render() {
         const { path } = this.props 
-        debugger       
+               
         if (this.state.videos.length === 0 && !this.state.alreadyFiltered) return null
         let relevantChannel = this.state.channel && { key: this.state.channel }
-        debugger
+        
         return(
             <div className="background">
                 <div className="search-background">
@@ -469,6 +469,7 @@ class Search extends React.Component {
                             <li className="search-grid-item" key={channel.id}>
                                 <ChannelIndexItem
                                     channel={channel}
+                                    path={path}
                                     handleSubscribe={this.handleSubscribe}
                                     handleUnsubscribe={this.handleUnsubscribe}
                                 />

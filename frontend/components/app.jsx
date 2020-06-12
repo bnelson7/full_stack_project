@@ -20,7 +20,7 @@ const App = () => (
             <Route path="/results" component={Sidebar} />
             <Route path="/results" component={SearchContainer} />
             <ProtectedRoute exact path="/users/:userId" component={Sidebar} />
-            <ProtectedRoute exact path="/users/:userId" component={UserProfileContainer} />
+            <ProtectedRoute exact path="/users/:userId" component={ChannelContainer} />
             <Route exact path="/channels/:channelId" component={Sidebar} />
             <Route exact path="/channels/:channelId" component={ChannelContainer} />
             <Route exact path="/" component={Sidebar} />

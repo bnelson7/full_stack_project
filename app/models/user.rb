@@ -44,7 +44,10 @@ class User < ApplicationRecord
         # foreign_key: :creator_id,
         # class_name: :Video
 
-    has_many :subscriptions
+    has_many :subscriptions,
+        primary_key: :id,
+        foreign_key: :subscriber_id,
+        class_name: :Subscription
 
     # add scope to find channels with just users id
 

@@ -1,8 +1,12 @@
 class Api::SessionsController < ApplicationController
 
     def create
+        # check params here later to see if theres always a user
+        # and maybe use strong params
         params.permit(:email, :password)
-        password = User.find_by(email: params[:user][:email]).password_digest
+
+        user = User.find_by(email: params[:user][:email])
+        user ? password = User.find_by(email: params[:user][:email]).password_digest : @user = nil
 
         @user = User.find_by_credentials(
             params[:user][:email],
@@ -13,7 +17,6 @@ class Api::SessionsController < ApplicationController
             login(@user)
             render "api/users/show"
         else
-
             render json: ["Couldn't find your Google Account"], status: 401
         end
     end

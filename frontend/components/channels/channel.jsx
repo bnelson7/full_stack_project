@@ -1,14 +1,15 @@
 import React from 'react'
 import { MdSearch } from 'react-icons/md'
-import ProfilePhoto from './user_profile_photo'
+import ChannelLogo from './channel_logo'
 import VideoIndexItem from '../videos/video_index_item'
-import { MdFlag, MdSort } from 'react-icons/md'
+import { MdFlag, MdModeEdit } from 'react-icons/md'
 import CommentFormContainer from '../comments/comment_form_container'
 import { GoPrimitiveDot } from "react-icons/go";
 import { Link } from 'react-router-dom'
 import VideoSortDropdown from '../hooks/video_sort_dropdown'
+import ChannelIndexItem from './channel_index_item'
 
-class UserProfile extends React.Component {
+class Channel extends React.Component {
     constructor(props) {
         super(props)
 
@@ -16,24 +17,29 @@ class UserProfile extends React.Component {
             selected: "home",
             sortSelected: null,
             subscribed: null,
-            customize: false
+            customize: false,
+            customizing: false,
+            description: ""
         }
-        
+   
         this.handleToggle = this.handleToggle.bind(this)
         this.getDate = this.getDate.bind(this)
+        this.getViews = this.getViews.bind(this)
         this.update = this.update.bind(this)
         this.handleSort = this.handleSort.bind(this)
         this.handleUpload = this.handleUpload.bind(this)
         this.handleCustomize = this.handleCustomize.bind(this)
         this.handleBanner = this.handleBanner.bind(this)
+        this.handleEdit = this.handleEdit.bind(this)
+        this.handleEditForm = this.handleEditForm.bind(this)
         // this.updateSubscribed = this.updateSubscribed.bind(this)
     }
 
     componentDidMount() {
         
         this.props.path.includes("/channels") ? 
-        this.props.requestChannel(this.props.match.params.channelId) : 
-        this.props.requestUser(this.props.currentUser.id)
+        this.props.requestChannel(this.props.match.params.channelId)
+        : this.props.requestUser(this.props.currentUser.id)
     }
 
     shouldComponentUpdate(nextProps) {
@@ -66,8 +72,13 @@ class UserProfile extends React.Component {
     }
 
     handleToggle(e) {
-        e.preventDefault();
-        const nextSelected = document.getElementById(e.target.id)
+        // e.preventDefault();
+        // e.target.id !== "about" && this.setState({ 
+        //     customize: false,
+        //     customizing: false
+        // })
+        
+        const nextSelected = e === "about" ? document.getElementById("about") : document.getElementById(e.target.id)
         const prevSelected = document.querySelector(".selected-profile-nav-item")
 
         prevSelected.classList.remove("selected-profile-nav-item")
@@ -75,7 +86,7 @@ class UserProfile extends React.Component {
         nextSelected.classList.remove("profile-nav-item")
         nextSelected.classList.add("selected-profile-nav-item")
 
-        this.setState({ selected: e.target.id })
+        e === "about" ? this.setState({selected: "about"}) : this.setState({ selected: e.target.id })
     }
 
     getDate() {
@@ -88,6 +99,15 @@ class UserProfile extends React.Component {
         let uploadDateformatted = new Date(year, month, day)
         const newDateTimeFormat = Intl.DateTimeFormat('en-US', options)
         return newDateTimeFormat.format(uploadDateformatted)
+    }
+
+    getViews() {
+        
+        let totalViews = 0
+        this.props.channel.uploads.forEach(upload => {
+            totalViews += upload.views
+        });
+        return totalViews;
     }
 
     handleSort(e) {
@@ -171,6 +191,37 @@ class UserProfile extends React.Component {
         this.props.openModal({ type: 'upload' })
     }
 
+    updateDescription(e) {
+        
+        return e => {
+            this.setState({ description: e.currentTarget.value })
+        }
+    }
+
+    handleEditForm() {
+        this.setState({ 
+            customizing: !this.state.customizing,
+            customize: !this.state.customize,
+            description: this.props.channel.description
+        })
+    }
+
+    handleEdit(e) {
+        e.preventDefault();
+        const description = new FormData()
+        description.append('channel[description]', this.state.description)
+        
+        
+        this.props.editChannel(description, this.props.channel.id)
+        .then(() => {
+            
+                this.setState({
+                    customize: false,
+                    customizing: false
+                })
+            })
+    }
+
     renderSelected() {
         const { selected, sortSelected } = this.state
         const { videos, video, path, deleteVideo, updateVideo, openModal, currentUser, channel } = this.props
@@ -241,11 +292,73 @@ class UserProfile extends React.Component {
                 )
             case "about":
                 return (
-                    <ul className="profile-about">
-                        <li>Stats</li>
-                        <li>Joined {this.getDate()}</li>
-                        <li><MdFlag /></li>
-                    </ul>
+                    <div className="channel-about-container">
+                        <div className="channel-about-info">
+                            <h1>
+                                Description
+                            </h1> 
+                            {channel.description}
+                            {this.state.customize &&
+                                <button onClick={this.handleEditForm}>
+                                    Channel description
+                                </button>}
+                            {this.state.customizing &&
+                            <form>
+                                <div className="channel-description-form-container">
+                                    <h3 className="channel-description-title">
+                                        CHANNEL DESCRIPTION
+                                    </h3>
+                                    <textarea 
+                                    className="channel-description-form" 
+                                    value={this.state.description} 
+                                    onChange={this.updateDescription("description")}
+                                    >
+
+                                    </textarea>
+                                    <div>
+                                        <button onClick={this.handleEditForm}>
+                                            Cancel
+                                        </button>
+                                        <button onClick={this.handleEdit}>
+                                            Done
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>}
+                        
+                            <div>
+                                <h1>
+                                    Details
+                                </h1>
+                                <label htmlFor="file4">
+                                    Edit channel art:
+                                    {/* <button className="banner-btn"> */}
+                                        <MdModeEdit />
+                                    {/* </button> */}
+                                </label>
+                                <input type="file" name="file4" id="file4" className="hidden-input" onChange={e => this.handleBanner(e)} />
+                            </div>
+                    
+                        </div>
+                        <ul className="profile-about">
+                            <li>Stats</li>
+                            <li>Joined {this.getDate()}</li>
+                            <li>{this.getViews()} views</li>
+                            <li><MdFlag /></li>
+                        </ul>
+                        <div>
+                            <h1>
+                                FEATURED CHANNELS
+                                <ul>
+                                    {this.props.channels.map(channel => {
+                                        <li key={channel.id}>
+                                            <ChannelIndexItem path={path} />
+                                        </li>
+                                    })}
+                                </ul>
+                            </h1>
+                        </div>
+                    </div>
                 )
             case "search":
                 return (
@@ -339,75 +452,84 @@ class UserProfile extends React.Component {
     handleBanner(e) {
         e.preventDefault();
         const formData = new FormData();
-        debugger
+        
         formData.append('channel[banner]', e.currentTarget.files[0]);
-        this.props.editChannel(formData, this.props.channel.id);
+        this.props.editChannel(formData, this.props.channel.id)
+            .then(() => {
+                this.update()
+            })
     }
 
     handleCustomize(e) {
         e.preventDefault();
-        debugger
+        
         this.setState({ 
-            selected: "about",
             customize: true
-        })
+        }, this.handleToggle("about"))
     }
 
     render() {
         const { path, currentUser, channel, updateUser, subscribed, createSubscription, deleteSubscription, requestChannel, editChannel, history } = this.props
-        debugger
+        
         if (path.includes("/users") && !currentUser.uploads) return null
         if (path.includes("/channels") && !channel) return null
-
+        
         return (
-            <div className="profile-background">
-                <div className="profile-header-container">
-                    <div className="profile-header">
-                    <ProfilePhoto 
-                    currentUser={currentUser} 
-                    path={path} 
-                    // updateUser={updateUser} 
-                    channel={channel} 
-                    subscribed={subscribed}
-                    createSubscription={createSubscription}
-                    deleteSubscription={deleteSubscription}
-                    editChannel={editChannel}
-                    // updateSubscribed={this.updateSubscribed} 
-                    requestChannel={requestChannel}
-                    history={history}
-                    handleCustomize={this.handleCustomize}
-                    />
-                    <div className="profile-nav">
-                        <button onClick={this.handleToggle} className="selected-profile-nav-item" id="home">
-                            HOME
-                        </button>
-                        <button onClick={this.handleToggle} className="profile-nav-item" id="videos">
-                            VIDEOS
-                        </button>
-                        <button onClick={this.handleToggle} className="profile-nav-item" id="playlists">
-                            PLAYLISTS
-                        </button>
-                        <button onClick={this.handleToggle} className="profile-nav-item" id="channels">
-                            CHANNELS
-                        </button>
-                        <button onClick={this.handleToggle} className="profile-nav-item" id="discussion">
-                            DISCUSSION
-                        </button>
-                        <button onClick={this.handleToggle} className="profile-nav-item" id="about">
-                            ABOUT
-                        </button>
-                        <button className="profile-nav-item" id="search">
-                            <MdSearch className="profile-search-icon"/>
-                        </button>
+            <div className="channel-banner-profile-container">
+
+                    {channel.bannerUrl &&
+                        <div className="channel-banner-container">
+                            <img src={channel.bannerUrl} />
+                        </div>}
+                <div className="profile-background">
+                    <div className="profile-header-container">
+                        <div className="profile-header">
+                        <ChannelLogo 
+                        currentUser={currentUser} 
+                        path={path} 
+                        // updateUser={updateUser} 
+                        channel={channel} 
+                        subscribed={subscribed}
+                        createSubscription={createSubscription}
+                        deleteSubscription={deleteSubscription}
+                        editChannel={editChannel}
+                        // updateSubscribed={this.updateSubscribed} 
+                        requestChannel={requestChannel}
+                        history={history}
+                        handleCustomize={this.handleCustomize}
+                        />
+                        <div className="profile-nav">
+                            <button onClick={this.handleToggle} className="selected-profile-nav-item" id="home">
+                                HOME
+                            </button>
+                            <button onClick={this.handleToggle} className="profile-nav-item" id="videos">
+                                VIDEOS
+                            </button>
+                            <button onClick={this.handleToggle} className="profile-nav-item" id="playlists">
+                                PLAYLISTS
+                            </button>
+                            <button onClick={this.handleToggle} className="profile-nav-item" id="channels">
+                                CHANNELS
+                            </button>
+                            <button onClick={this.handleToggle} className="profile-nav-item" id="discussion">
+                                DISCUSSION
+                            </button>
+                            <button onClick={this.handleToggle} className="profile-nav-item" id="about">
+                                ABOUT
+                            </button>
+                            <button className="profile-nav-item" id="search">
+                                <MdSearch className="profile-search-icon"/>
+                            </button>
+                        </div>
+                        </div>
                     </div>
+                    <div className="profile-container">
+                        {this.renderSelected()}
                     </div>
-                </div>
-                <div className="profile-container">
-                    {this.renderSelected()}
                 </div>
             </div>
         )
     }
 }
 
-export default UserProfile
+export default Channel

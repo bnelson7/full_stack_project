@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import UserProfile from './user_profile'
+import Channel from '../channels/channel'
 import { createVideo, requestVideos, deleteVideo, updateVideo, requestVideo } from '../../actions/video_actions'
 import { requestUser } from '../../actions/user_actions'
 import { openModal } from '../../actions/modal_actions'
@@ -44,4 +44,4 @@ const mDTP = dispatch => {
     }
 }
 
-export default withRouter(connect(mSTP, mDTP)(UserProfile))
+export default withRouter(connect(mSTP, mDTP)(Channel))

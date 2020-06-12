@@ -131,7 +131,8 @@ class VideoIndexItem extends React.Component {
                                         <MdCheckCircle />
                                     </span>
                                     &nbsp;&nbsp;
-                                    <span id="title-user-search">{video.views} views&nbsp;
+                                    <span id="title-user-search">
+                                        {video.views} views&nbsp;
                                         <span>
                                             <GoPrimitiveDot />
                                         </span>
@@ -140,7 +141,9 @@ class VideoIndexItem extends React.Component {
                                 </h1>
                             </div>
                             <div>
-                                <span id="description-search">{video.description}</span>
+                                <span id="description-search">
+                                    {video.description}
+                                </span>
                             </div>
                         </div>
                     </div>

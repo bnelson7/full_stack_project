@@ -20,7 +20,7 @@ export const createChannel = channel => {
 }
 
 export const updateChannel = (channel, id) => {
-    debugger
+    
     return (
         $.ajax({
             url: `/api/channels/${id}`,

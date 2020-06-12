@@ -15,7 +15,7 @@ class Channel < ApplicationRecord
     validates :creator_id, :subscribed, presence: true
 
     has_one_attached :logo
-    # has_one_attached :banner
+    has_one_attached :banner
 
     belongs_to :creator,
         primary_key: :id,
