@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_10_234228) do
+ActiveRecord::Schema.define(version: 2020_06_13_011214) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 2020_06_10_234228) do
     t.string "description"
     t.string "name", null: false
     t.integer "subscribed"
-    t.index ["creator_id"], name: "index_channels_on_creator_id", unique: true
+    t.index ["creator_id"], name: "index_channels_on_creator_id"
   end
 
   create_table "comments", force: :cascade do |t|

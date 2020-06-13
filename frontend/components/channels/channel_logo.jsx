@@ -31,13 +31,18 @@ class ChannelLogo extends React.Component {
 
     handleSubscribe(e) {
         e.preventDefault();
-        
+        const { currentUser, history } = this.props
         const subscription = { channelId: this.props.channel.id }
-        this.props.createSubscription(subscription)
-            .then(() => {
-                
-                this.props.requestChannel(this.props.channel.id)
-            })
+
+        if (!currentUser) {
+            history.push("/login")
+        } else {
+            this.props.createSubscription(subscription)
+                .then(() => {
+                    
+                    this.props.requestChannel(this.props.channel.id)
+                })
+        }
     }
 
     handleUnsubscribe(e) {
@@ -54,7 +59,7 @@ class ChannelLogo extends React.Component {
         const { currentUser, path, channel } = this.props
         
         return (
-            <div>
+            <div className="channel-logo-info-container">
                 <div className="profile-photo-container">
                     <div className="profile-photo">
                         {currentUser && channel.creatorId === currentUser.id  ?

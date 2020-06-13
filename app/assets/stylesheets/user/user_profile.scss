@@ -275,7 +275,6 @@
     height: 15vh;
     width: 22vw;
     margin: 4vh 0vw 0vw 60vw;
-    border: 1px solid black;
 }
 
 .profile-about li:first-child {
@@ -315,7 +314,8 @@
 }
 
 .upload-container-uploads {
-    flex: 4.5;
+    // flex: 4.5;
+    width: 60vw; 
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -379,7 +379,78 @@
 }
 
 .uploads-featured-channels {
-    flex: 2;
+    // flex: 2;
+    width: 20vw;
+    margin-left: 2.8vh;
+}
+
+.uploads-featured-channels h1 {
+    padding-top: 2.4vh;
+    font-size: 1.4vh;
+    color: #606060;
+    font-weight: 500;
+}
+
+.channel-home-grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 5.6vh);
+    // row-gap: 0.25rem;
+}
+
+.channel-home-grid-item-conatiner {
+    width: 100%;
+}
+
+.channel-home-grid-item {
+    display: flex;
+    flex-direction: column;
+    // align-items: center;
+    padding-top: 2.4vh;
+    width: 100%
+    
+}
+
+.channel-logo-home-container {
+    display: flex;
+    align-items: center;
+    // justify-content: center;
+    width: 20vw;
+}
+
+.channel-logo-home-container h2 {
+    color: #030303;
+    font-size: 1.4vh;
+    font-weight: 500;
+    margin-left: .5vw;
+    display: flex;
+    align-items: center;
+}
+
+.channel-logo-home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.channel-logo-home img {
+    width: 2.4vh;
+    height: 2.4vh;
+    border-radius: 50%;
+    object-fit: cover
+}
+
+.channel-subscribe-btn {
+    margin-top: .8vh;
+    background: rgba(0, 0 , 0, 0.1);
+    color: #606060;
+    font-weight: 500;
+    align-self: flex-start;
+    padding: .4vh .8vh;
+    border-radius: 2px;
+    // margin-top: 2.5vh;
+    font-size: 1.4vh;
+    font-family: 'Roboto', 'Noto', sans-serif;
+    cursor: pointer;
 }
 
 .profile-upload {
@@ -546,15 +617,34 @@ textarea {
 .channel-banner-profile-container {
     // width: ;
     flex: 7;
+//     perspective: 1px;
+//   height: 100vh;
+//   overflow-x: hidden;
+//   overflow-y: auto;
 }
 
 .channel-banner-container {
     width: 100%;
-    height: 30vh;;
+    height: 30vh;
+//     position: absolute;
+//   top: 0;
+//   right: 0;
+//   bottom: 0;
+//   left: 0;
+//   transform: translateZ(0);
 }
 
 .channel-banner-container img {
     height: 100%;
     width: 100%;
     object-fit: cover;
+}
+
+.channel-logo-info-container {
+//     position: absolute;
+//   top: 0;
+//   right: 0;
+//   bottom: 0;
+//   left: 0;
+//     transform: translateZ(0);
 }

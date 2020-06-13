@@ -1,7 +1,7 @@
 class Api::ChannelsController < ApplicationController
 
     def index
-        
+        debugger
         if params[:search_query]
             
             @channels = Channel.where(
@@ -15,11 +15,11 @@ class Api::ChannelsController < ApplicationController
     def create
         
         @channel = Channel.new(channel_params)
-        @channel.owner_id = current_user.id
+        @channel.creator_id = current_user.id
         @channel.subscribed = 0
         
         if @channel.save
-            
+            debugger
             render :show
         else
             

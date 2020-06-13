@@ -36,24 +36,32 @@ class Channel extends React.Component {
     }
 
     componentDidMount() {
-        
-        this.props.path.includes("/channels") ? 
-        this.props.requestChannel(this.props.match.params.channelId)
-        : this.props.requestUser(this.props.currentUser.id)
+        debugger
+        // this.props.path.includes("/channels") ? 
+        !this.props.channel && this.props.requestChannel(this.props.match.params.channelId)
+            .then(res => {
+                debugger
+                this.props.requestUser(res.channel.creatorId)
+            })
+        // : this.props.requestUser(this.props.currentUser.id)
     }
 
-    shouldComponentUpdate(nextProps) {
-        if (typeof this.props.video !== "undefined" && this.props.video !== nextProps.video) {
-            return false;
-        } 
-        // else if (this.props.channel.subscribed !== nextProps.channel.subscribed) {
-        //     
-        //     return true
-        // }
-         else {
-            return true;
-        }
-    }
+
+    // shouldComponentUpdate(nextProps) {
+    //     debugger
+    //     if (typeof this.props.video !== "undefined" && this.props.video !== nextProps.video) {
+    //         debugger
+    //         return false;
+    //     } 
+    //     // else if (this.props.channel.subscribed !== nextProps.channel.subscribed) {
+    //     //     
+    //     //     return true
+    //     // }
+    //      else {
+    //          debugger
+    //         return true;
+    //     }
+    // }
 
     // updateSubscribed(updatedSubscribers) {
     //     this.setState({ subscribed: updatedSubscribers })
@@ -90,8 +98,8 @@ class Channel extends React.Component {
     }
 
     getDate() {
-        const { currentUser } = this.props
-        let date = new Date(`${currentUser.createdAt}`)
+        const { channel } = this.props
+        let date = new Date(`${channel.createdAt}`)
         let month = date.getMonth()
         let day = date.getDate()
         let year = date.getFullYear()
@@ -225,7 +233,7 @@ class Channel extends React.Component {
     renderSelected() {
         const { selected, sortSelected } = this.state
         const { videos, video, path, deleteVideo, updateVideo, openModal, currentUser, channel } = this.props
-
+debugger
         switch (selected) {
             case "videos":
                 if (!videos || videos.length === 0) {
@@ -349,6 +357,7 @@ class Channel extends React.Component {
                         <div>
                             <h1>
                                 FEATURED CHANNELS
+                            </h1>
                                 <ul>
                                     {this.props.channels.map(channel => {
                                         <li key={channel.id}>
@@ -356,7 +365,6 @@ class Channel extends React.Component {
                                         </li>
                                     })}
                                 </ul>
-                            </h1>
                         </div>
                     </div>
                 )
@@ -441,7 +449,23 @@ class Channel extends React.Component {
                             </div>
                         </div>
                         <div className="uploads-featured-channels">
-                            
+                            <h1>
+                                FEATURED CHANNELS
+                            </h1>
+                            <ul className="channel-home-grid-container">
+                                {this.props.channels.map(channel => {
+                                    debugger
+                                    return (
+                                        <li className="channel-home-grid-item-container" key={channel.id}>
+                                            <ChannelIndexItem 
+                                            path={path} 
+                                            selected={this.state.selected}
+                                            channel={channel}
+                                            />
+                                        </li>
+                                    )
+                                })}
+                            </ul>
                         </div>
                     </div>
                 )
@@ -469,11 +493,12 @@ class Channel extends React.Component {
     }
 
     render() {
-        const { path, currentUser, channel, updateUser, subscribed, createSubscription, deleteSubscription, requestChannel, editChannel, history } = this.props
-        
-        if (path.includes("/users") && !currentUser.uploads) return null
-        if (path.includes("/channels") && !channel) return null
-        
+        const { path, currentUser, channel, channels, subscribed, createSubscription, deleteSubscription, requestChannel, editChannel, history } = this.props
+        debugger
+        // if (path.includes("/users") && !currentUser.uploads) return null
+        // might need to check if && there's no creator return null 
+        if (!channel || !channels) return null
+        debugger
         return (
             <div className="channel-banner-profile-container">
 
