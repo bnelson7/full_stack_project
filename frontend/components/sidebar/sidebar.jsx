@@ -2,9 +2,10 @@ import React from 'react'
 import { MdHome, MdHistory, MdVideoLibrary, MdSubscriptions, } from "react-icons/md";
 import { FaFire, FaGithub, FaLinkedin, FaUserCircle } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
+import ChannelIndexItem from '../channels/channel_index_item';
 
 const Sidebar = props => {
-    
+    debugger
     return (
         props.modal === 'sidebar' ? (
             <div className="sidebar-container-expanded">
@@ -73,7 +74,26 @@ const Sidebar = props => {
                         </Link>
                     </div> 
                     <hr id="sidebar-hr" /> 
-                </div> : null}
+                </div> : 
+                <div className="sidebar-subscriptions-container">
+                    <h2 className="sidebar-subscriptions-title">
+                        Subscriptions
+                    </h2>
+                    <ul className="sidebar-subscriptions-grid">
+                        {props.currentUser.subscriptions.map(subscription => {
+                            return (
+                                <li className="sidebar-subscriptions-grid-item-container" key={subscription.id}>
+                                    <ChannelIndexItem 
+                                    subscription={subscription} 
+                                    modal={props.modal} 
+                                    path={props.path}
+                                    />
+                                </li>
+                            )
+                        })}
+                    </ul>
+                </div>}
+                <hr id="sidebar-hr" /> 
             </div>
         ) : (
             <div className="sidebar-container">

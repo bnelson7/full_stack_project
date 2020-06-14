@@ -103,14 +103,14 @@ class CommentIndexItem extends React.Component {
                 this.props.createCommentLike(likedComment)
                 .then(() => {
                     this.props.requestComments(videoId)
-                    this.props.requestUser(this.props.currentUser.id)
+                    this.props.requestCurrentUser(this.props.currentUser.id)
                 })
             } else if ((clicked === 'liked' && liked) || (clicked === 'disliked' && disliked)) {
                 
                 this.props.deleteCommentLike(like.id)
                 .then(() => {
                     this.props.requestComments(videoId)
-                    this.props.requestUser(this.props.currentUser.id)
+                    this.props.requestCurrentUser(this.props.currentUser.id)
                 })
             } else {
                 
@@ -121,7 +121,7 @@ class CommentIndexItem extends React.Component {
                     this.props.createCommentLike(likedComment)
                     .then(() => {
                         this.props.requestComments(videoId)
-                        this.props.requestUser(this.props.currentUser.id)
+                        this.props.requestCurrentUser(this.props.currentUser.id)
                     })
                 })
             }

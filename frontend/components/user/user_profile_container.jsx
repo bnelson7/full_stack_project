@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import Channel from '../channels/channel'
 import { createVideo, requestVideos, deleteVideo, updateVideo, requestVideo } from '../../actions/video_actions'
-import { requestUser } from '../../actions/user_actions'
+import { requestCurrentUser } from '../../actions/user_actions'
 import { openModal } from '../../actions/modal_actions'
 import { withRouter } from 'react-router-dom'
 import { editChannel } from '../../actions/channel_actions'
@@ -37,7 +37,7 @@ const mDTP = dispatch => {
         requestVideos: () => dispatch(requestVideos()),
         deleteVideo: videoId => dispatch(deleteVideo(videoId)),
         updateVideo: (formData, videoId) => dispatch(updateVideo(formData, videoId)),
-        requestUser: id => dispatch(requestUser(id)),
+        requestCurrentUser: id => dispatch(requestCurrentUser(id)),
         requestVideo: id => dispatch(requestVideo(id)),
         openModal: modal => dispatch(openModal(modal)),
         editChannel: (channel, id) => dispatch(editChannel(channel, id))

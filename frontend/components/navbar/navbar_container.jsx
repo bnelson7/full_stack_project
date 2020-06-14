@@ -4,7 +4,7 @@ import { logout } from '../../actions/session_actions'
 import { withRouter } from 'react-router-dom'
 import { requestVideos } from '../../actions/video_actions'
 import { openModal, closeModal } from '../../actions/modal_actions'
-import { requestUser } from '../../actions/user_actions'
+import { requestCurrentUser } from '../../actions/user_actions'
 
 const mSTP = (state, ownProps) => {
     
@@ -22,7 +22,7 @@ const mDTP = dispatch => {
         requestVideos: () => dispatch(requestVideos()),
         openModal: modal => dispatch(openModal(modal)),
         closeModal: () => dispatch(closeModal()),
-        requestUser: id => dispatch(requestUser(id))
+        requestCurrentUser: id => dispatch(requestCurrentUser(id))
     }
 }
 

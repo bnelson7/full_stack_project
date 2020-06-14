@@ -26,6 +26,19 @@ const ChannelIndexItem = props => {
             <div className="grid-item-channel-channels">
 
             </div>
+        ) : props.modal === "sidebar" ? (
+            <div className="sidebar-subscriptions-grid-item">
+                <div className="sidebar-subscription-info-container">
+                    <div className="channel-logo-home">
+                        <Link to={`/channels/${props.subscription.id}`}>
+                            <img src={props.subscription.logoUrl} />
+                        </Link>
+                    </div>
+                    <h1 className="sidebar-subscription-name">
+                        {props.subscription.name}
+                    </h1>
+                </div>
+            </div>
         ) : (
             <div className="grid-item-search-container">
                 <div className="channel-logo-search">

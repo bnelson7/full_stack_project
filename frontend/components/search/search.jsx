@@ -163,7 +163,7 @@ class Search extends React.Component {
               })();
             } else if (val === "Channel") {
                 
-                this.props.currentUser ? this.props.requestUser(this.props.currentUser.id)
+                this.props.currentUser ? this.props.requestCurrentUser(this.props.currentUser.id)
                     .then(() => {
                         this.props.requestQueriedChannels(this.props.location.search)
                             .then(results => {

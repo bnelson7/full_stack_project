@@ -32,6 +32,8 @@ class Channel extends React.Component {
         this.handleBanner = this.handleBanner.bind(this)
         this.handleEdit = this.handleEdit.bind(this)
         this.handleEditForm = this.handleEditForm.bind(this)
+        this.handleSubscribe = this.handleSubscribe.bind(this)
+        this.handleUnsubscribe = this.handleUnsubscribe.bind(this)
         // this.updateSubscribed = this.updateSubscribed.bind(this)
     }
 
@@ -43,7 +45,7 @@ class Channel extends React.Component {
                 debugger
                 this.props.requestUser(res.channel.creatorId)
             })
-        // : this.props.requestUser(this.props.currentUser.id)
+        // : this.props.requestCurrentUser(this.props.currentUser.id)
     }
 
 
@@ -227,6 +229,32 @@ class Channel extends React.Component {
                     customize: false,
                     customizing: false
                 })
+            })
+    }
+
+    handleSubscribe(e) {
+        e.preventDefault();
+        const { currentUser, history } = this.props
+        const subscription = { channelId: this.props.channel.id }
+
+        if (!currentUser) {
+            history.push("/login")
+        } else {
+            this.props.createSubscription(subscription)
+                .then(() => {
+
+                    this.props.requestChannel(this.props.channel.id)
+                })
+        }
+    }
+
+    handleUnsubscribe(e) {
+        e.preventDefault();
+
+        this.props.deleteSubscription(this.props.channel.id)
+            .then(() => {
+
+                this.props.requestChannel(this.props.channel.id)
             })
     }
 
@@ -461,6 +489,8 @@ debugger
                                             path={path} 
                                             selected={this.state.selected}
                                             channel={channel}
+                                            handleSubscribe={this.handleSubscribe}
+                                            handleUnsubscribe={this.handleUnsubscribe}
                                             />
                                         </li>
                                     )

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { requestComment, requestComments, deleteComment, editComment, createComment } from "../../actions/comment_actions";
 import { createCommentLike, deleteCommentLike } from '../../actions/like_actions'
-import { requestUser } from '../../actions/user_actions'
+import { requestCurrentUser } from '../../actions/user_actions'
 import CommentIndex from './comment_index'
 import { withRouter } from 'react-router-dom'
 
@@ -24,7 +24,7 @@ const mdtp = dispatch => {
         createComment: comment => dispatch(createComment(comment)),
         createCommentLike: like => dispatch(createCommentLike(like)),
         deleteCommentLike: id => dispatch(deleteCommentLike(id)),
-        requestUser: id => dispatch(requestUser(id)),
+        requestCurrentUser: id => dispatch(requestCurrentUser(id)),
     }
 }
 

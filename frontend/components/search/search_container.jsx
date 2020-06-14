@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { requestQueriedVideos } from '../../actions/video_actions'
 import { requestQueriedChannel, requestQueriedChannels, createSubscription, deleteSubscription } from '../../actions/channel_actions'
-import { requestUser } from '../../actions/user_actions'
+import { requestCurrentUser } from '../../actions/user_actions'
 import Search from './search'
 
 const mstp = (state, ownProps) => {
@@ -16,7 +16,7 @@ const mdtp = dispatch => ({
     requestQueriedVideos: queryString => dispatch(requestQueriedVideos(queryString)),
     requestQueriedChannel: queryString => dispatch(requestQueriedChannel(queryString)),
     requestQueriedChannels: queryString => dispatch(requestQueriedChannels(queryString)),
-    requestUser: id => dispatch(requestUser(id)),
+    requestCurrentUser: id => dispatch(requestCurrentUser(id)),
     createSubscription: subscription => dispatch(createSubscription(subscription)),
     deleteSubscription: id => dispatch(deleteSubscription(id))
 })

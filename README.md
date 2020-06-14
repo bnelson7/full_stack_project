@@ -117,7 +117,7 @@ button.
 
 ```javascript
 mapNestedComments(comments) {
-        const { editComment, deleteComment, createComment, deleteCommentLike, createCommentLike, currentUser, requestUser, likes, requestComments } = this.props
+        const { editComment, deleteComment, createComment, deleteCommentLike, createCommentLike, currentUser, requestCurrentUser, likes, requestComments } = this.props
         const { videoId } = this.props.match.params
 
         let commentsAndReplies = comments.map(comment => {
@@ -134,7 +134,7 @@ mapNestedComments(comments) {
                             requestComments={requestComments}
                             videoId={videoId}
                             currentUser={currentUser}
-                            requestUser={requestUser}
+                            requestCurrentUser={requestCurrentUser}
                             like={likes && likes[comment.id] ? likes[comment.id] : null}
                             liked={likes && likes[comment.id] ? likes[comment.id].liked : false}
                             disliked={likes && likes[comment.id] ? likes[comment.id].disliked : false}

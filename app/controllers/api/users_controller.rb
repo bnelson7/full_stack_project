@@ -2,8 +2,9 @@ class Api::UsersController < ApplicationController
 
     def show
         @user = User.find_by(id: params[:id])
-
-        if @user
+        @subscriptions = Channel.where(id: @user.subscriptions.pluck(:channel_id))
+        
+        if @user    
             render :show
         else
             render json: @user.errors.full_messages, status: 422

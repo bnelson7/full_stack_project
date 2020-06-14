@@ -29,7 +29,7 @@ class VideoShow extends React.Component {
         this.props.requestVideos()
             .then(() => {
                 // this.props.currentUser && 
-                // this.props.requestUser(this.props.currentUser.id)
+                // this.props.requestCurrentUser(this.props.currentUser.id)
                 this.props.requestVideo(this.props.match.params.videoId)
                     // .then(() => {
                     //     
@@ -71,7 +71,7 @@ class VideoShow extends React.Component {
                     formData.append('video[likes]', like.like)
                     // formData.append('user[likes]', like.like)
                     this.props.updateVideo(formData, this.props.match.params.videoId)
-                    this.props.requestUser(this.props.currentUser.id)
+                    this.props.requestCurrentUser(this.props.currentUser.id)
                 })
             } else if ((clicked === 'liked' && liked) || (clicked === 'disliked' && disliked)) {
                 this.props.deleteVideoLike(this.props.like.id)
@@ -79,7 +79,7 @@ class VideoShow extends React.Component {
                     const formData = new FormData()
                     formData.append('video[likes]', null)
                     this.props.updateVideo(formData, this.props.match.params.videoId)
-                    this.props.requestUser(this.props.currentUser.id)
+                    this.props.requestCurrentUser(this.props.currentUser.id)
                 })
             } else {
                 this.props.deleteVideoLike(this.props.like.id)
@@ -92,7 +92,7 @@ class VideoShow extends React.Component {
                         formData.append('video[likes]', like.like)
                         // formData.append('user[likes]', like.like)
                         this.props.updateVideo(formData, this.props.match.params.videoId)
-                        this.props.requestUser(this.props.currentUser.id)
+                        this.props.requestCurrentUser(this.props.currentUser.id)
                     })
                 })
             }
