@@ -7,12 +7,15 @@ import VideoShow from './video_show'
 import { closeModal } from '../../actions/modal_actions'
 import { requestChannel, editChannel } from '../../actions/channel_actions'
 import { createSubscription, deleteSubscription } from '../../actions/channel_actions'
+import { requestCurrentChannel } from '../../actions/channel_actions'
 
 const mSTP = (state, ownProps) => {
     let videoId = ownProps.match.params.videoId
     let video = state.entities.videos[videoId]
     let currentUser = state.entities.users[state.session.id]
-    let like = currentUser && currentUser.liked && currentUser.liked.videos ? currentUser.liked.videos[videoId] : null
+    let currentChannel = state.entities.channels[state.session.channelId]
+    let like = currentChannel && currentChannel.liked && currentChannel.liked.videos ? currentChannel.liked.videos[videoId] : null
+
     if (like) {
         var liked = like.liked 
         var disliked = like.disliked   
@@ -21,12 +24,9 @@ const mSTP = (state, ownProps) => {
         var disliked = false
     }
     
-    // let channel = null
     let subscribed = false
     if (currentUser && video && video.channel) {
-        
-        // channel = state.entities.channels[video.channelId]
-        subscribed = video.channel.subscribers.find(subs => subs.id === currentUser.id) !== undefined
+        subscribed = video.channel.subscribers.find(subs => subs.id === state.session.channelId) !== undefined
     }
    
     return {
@@ -35,10 +35,10 @@ const mSTP = (state, ownProps) => {
         videos: Object.values(state.entities.videos),
         path: ownProps.location.pathname,
         currentUser: currentUser,
+        currentChannel: currentChannel,
         like: like,
         liked: liked,
         disliked: disliked,
-        // channel: channel,
         subscribed: subscribed
     }
 }
@@ -56,7 +56,8 @@ const mDTP = dispatch => ({
     requestChannel: channel => dispatch(requestChannel(channel)),
     editChannel: channel => dispatch(editChannel(channel)),
     createSubscription: subscription => dispatch(createSubscription(subscription)),
-    deleteSubscription: id => dispatch(deleteSubscription(id))
+    deleteSubscription: id => dispatch(deleteSubscription(id)),
+    requestCurrentChannel: channelId => dispatch(requestCurrentChannel(channelId))
 })
 
 export default connect(mSTP, mDTP)(VideoShow)

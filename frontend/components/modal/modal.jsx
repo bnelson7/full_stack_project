@@ -5,6 +5,7 @@ import { MdFileUpload, MdHome, MdHistory, MdMenu } from 'react-icons/md'
 import Sidebar from "../sidebar/sidebar_container"
 import { FaFire, FaGithub, FaLinkedin, FaUserCircle, FaYoutube } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
+import ChannelIndexItem from '../channels/channel_index_item'
 
 class Modal extends React.Component {
     constructor(props) {
@@ -344,7 +345,26 @@ class Modal extends React.Component {
                                     </Link>
                                 </div> 
                                 <hr id="sidebar-hr" />
-                            </div> : null}
+                            </div> : 
+                            <div className="sidebar-subscriptions-container">
+                                <h1 className="sidebar-subscriptions-title">
+                                    SUBSCRIPTIONS
+                                </h1>
+                                <ul className="sidebar-subscriptions-grid">
+                                    {this.props.currentChannel.subscriptions.map(subscription => {
+                                        return (
+                                            <li className="sidebar-subscriptions-grid-item-container" key={subscription.id}>
+                                                <ChannelIndexItem 
+                                                subscription={subscription} 
+                                                modal={this.props.modal} 
+                                                path={this.props.path}
+                                                />
+                                            </li>
+                                        )
+                                    })}
+                                </ul>
+                            </div>}
+                            {this.props.currentUser && <hr id="sidebar-hr" />}}
                         </div>
                     </div>
                     )

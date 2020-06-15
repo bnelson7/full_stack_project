@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom'
 const mstp = state => {
     return {
         currentUser: state.entities.users[state.session.id],
+        currentChannel: state.entities.channels[state.session.channelId],
         comments: Object.values(state.entities.comments)
     }
 }

@@ -14,6 +14,6 @@ if !comment.replies.empty?
 end
 
 json.author do
-    json.partial! "api/users/user", user: comment.author
+    json.partial! "api/channels/channel", channel: comment.author
 end
 

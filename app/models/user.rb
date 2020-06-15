@@ -23,14 +23,18 @@ class User < ApplicationRecord
     # has_one_attached :photo
 
     has_many :comments,
-        primary_key: :id,
-        foreign_key: :author_id,
-        class_name: :Comment
+        through: :channels,
+        source: :comments
+        # primary_key: :id,
+        # foreign_key: :author_id,
+        # class_name: :Comment
     
     has_many :likes,
-        primary_key: :id,
-        foreign_key: :liker_id,
-        class_name: :Like
+        through: :channels,
+        source: :likes
+        # primary_key: :id,
+        # foreign_key: :liker_id,
+        # class_name: :Like
 
     has_many :channels,
         primary_key: :id,
@@ -45,15 +49,11 @@ class User < ApplicationRecord
         # class_name: :Video
 
     has_many :subscriptions,
-        primary_key: :id,
-        foreign_key: :subscriber_id,
-        class_name: :Subscription
-
-    # add scope to find channels with just users id
-
-    # has_many :subscribed_channels,
-    #     through: :subscriptions,
-    #     source: :channel
+        through: :channels,
+        source: :subscriptions
+        # primary_key: :id,
+        # foreign_key: :subscriber_id,
+        # class_name: :Subscription
 
     def self.find_by_credentials(email, password)
         user = User.find_by(email: email)
@@ -77,14 +77,6 @@ class User < ApplicationRecord
         generate_unique_session_token
         save!
         self.session_token
-    end
-
-    def video_likes
-        self.likes.where(likeable_type: "Video")
-    end
-
-    def comment_likes
-        self.likes.where(likeable_type: "Comment")
     end
 
     private

@@ -21,6 +21,9 @@ class NavBar extends React.Component {
   componentDidMount() {
     this.props.currentUser && 
     this.props.requestCurrentUser(this.props.currentUser.id)
+      .then(() => {
+        this.props.requestCurrentChannel(this.props.currentUser.channels[0].id)
+      })
   }
 
   handleLogout(e) {

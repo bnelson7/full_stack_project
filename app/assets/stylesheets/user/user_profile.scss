@@ -382,10 +382,11 @@
     // flex: 2;
     max-width: 15vw;
     margin-left: 2.8vh;
+    width: 20vw;
 }
 
 .uploads-featured-channels h1 {
-    padding-top: 2.4vh;
+    padding: 2.4vh 0;
     font-size: 1.4vh;
     color: #606060;
     font-weight: 500;
@@ -393,28 +394,32 @@
 
 .channel-home-grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, 5.6vh);
-    // row-gap: 0.25rem;
+    grid-template-rows: repeat(auto-fill, 5.6vh);
+    row-gap: 2rem;
 }
 
-.channel-home-grid-item-conatiner {
-    width: 100%;
+.channel-home-grid-item-container {
+    // width: 100%;
+    display: flex;
+    // flex-direction: column;
+    // justify-content: center;
+    align-items: center;
+    height: 100%;
 }
 
 .channel-home-grid-item {
     display: flex;
     flex-direction: column;
-    // align-items: center;
-    padding-top: 2.4vh;
-    width: 100%
-    
+    align-items: center;
+    // width: 100%;
+    height: 100%;
 }
 
 .channel-logo-home-container {
     display: flex;
     align-items: center;
     // justify-content: center;
-    width: 20vw;
+    height: 100%;
 }
 
 .channel-logo-home-container h2 {

@@ -12,7 +12,7 @@
 #
 class Channel < ApplicationRecord
 
-    validates :creator_id, :subscribed, presence: true
+    validates :creator_id, presence: true
 
     has_one_attached :logo
     has_one_attached :banner
@@ -26,11 +26,41 @@ class Channel < ApplicationRecord
         primary_key: :id,
         foreign_key: :channel_id,
         class_name: :Video
+    
+    has_many :comments,
+        primary_key: :id,
+        foreign_key: :author_id,
+        class_name: :Comment
 
-    has_many :subscriptions
+    has_many :likes,
+        primary_key: :id,
+        foreign_key: :liker_id,
+        class_name: :Like        
+
+    has_many :channels_subscribed_to,
+        primary_key: :id,
+        foreign_key: :subscriber_id,
+        class_name: :Subscription
+        
+    has_many :subscribed_channels,
+        primary_key: :id,
+        foreign_key: :channel_id,
+        class_name: :Subscription
+
+    has_many :subscriptions,
+        through: :channels_subscribed_to,
+        source: :channel
 
     has_many :subscribers,
-        through: :subscriptions,
+        through: :subscribed_channels,
         source: :subscriber
+
+    def video_likes
+        self.likes.where(likeable_type: "Video")
+    end
+
+    def comment_likes
+        self.likes.where(likeable_type: "Comment")
+    end
 
 end

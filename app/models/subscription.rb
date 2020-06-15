@@ -10,10 +10,12 @@
 #
 class Subscription < ApplicationRecord
 
+    validates :channel_id, :subscriber_id, presence: true
+
     belongs_to :subscriber,
         primary_key: :id,
         foreign_key: :subscriber_id,
-        class_name: :User
+        class_name: :Channel
 
     belongs_to :channel,
         primary_key: :id,

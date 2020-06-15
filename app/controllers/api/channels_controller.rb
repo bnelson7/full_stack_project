@@ -1,7 +1,7 @@
 class Api::ChannelsController < ApplicationController
 
     def index
-        debugger
+        
         if params[:search_query]
             
             @channels = Channel.where(
@@ -19,7 +19,7 @@ class Api::ChannelsController < ApplicationController
         @channel.subscribed = 0
         
         if @channel.save
-            debugger
+            
             render :show
         else
             
@@ -28,7 +28,7 @@ class Api::ChannelsController < ApplicationController
     end
 
     def show
-        
+
         if params[:search_query]
             
             @channel = Channel.where(
@@ -40,7 +40,7 @@ class Api::ChannelsController < ApplicationController
         else
             @channel = Channel.find_by(id: params[:id])
             @channel.subscribed = @channel.subscribers.length
-            
+
             if @channel
                 render :show
             else

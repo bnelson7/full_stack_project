@@ -54,7 +54,7 @@ class VideoShow extends React.Component {
 
     handleLike(e) {
         e.preventDefault();
-        const { currentUser, history, match, liked, disliked } = this.props
+        const { currentUser, history, match, liked, disliked, currentChannel } = this.props
         const createLike = (liked, disliked) => {
             let like = { likeableId:  match.params.videoId, likeableType: 'Video', liked: liked, disliked: disliked}
             return like
@@ -67,11 +67,9 @@ class VideoShow extends React.Component {
                 this.props.createVideoLike(likedVideo)
                 .then(like => {
                     const formData = new FormData()
-                    // const user = new FormData()
                     formData.append('video[likes]', like.like)
-                    // formData.append('user[likes]', like.like)
                     this.props.updateVideo(formData, this.props.match.params.videoId)
-                    this.props.requestCurrentUser(this.props.currentUser.id)
+                    this.props.requestCurrentChannel(this.props.currentChannel.id)
                 })
             } else if ((clicked === 'liked' && liked) || (clicked === 'disliked' && disliked)) {
                 this.props.deleteVideoLike(this.props.like.id)
@@ -79,7 +77,7 @@ class VideoShow extends React.Component {
                     const formData = new FormData()
                     formData.append('video[likes]', null)
                     this.props.updateVideo(formData, this.props.match.params.videoId)
-                    this.props.requestCurrentUser(this.props.currentUser.id)
+                    this.props.requestCurrentChannel(this.props.currentChannel.id)
                 })
             } else {
                 this.props.deleteVideoLike(this.props.like.id)
@@ -88,11 +86,9 @@ class VideoShow extends React.Component {
                     this.props.createVideoLike(likedVideo)
                     .then(like => {
                         const formData = new FormData()
-                        // const user = new FormData()
                         formData.append('video[likes]', like.like)
-                        // formData.append('user[likes]', like.like)
                         this.props.updateVideo(formData, this.props.match.params.videoId)
-                        this.props.requestCurrentUser(this.props.currentUser.id)
+                        this.props.requestCurrentChannel(this.props.currentChannel.id)
                     })
                 })
             }

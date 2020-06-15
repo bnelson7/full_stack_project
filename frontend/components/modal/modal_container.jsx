@@ -4,11 +4,13 @@ import { createVideo, updateVideo } from '../../actions/video_actions'
 import Modal from './modal'
 import {withRouter} from 'react-router-dom'
 
-const mstp = state => {
+const mstp = (state, ownProps) => {
     return {
         modal: state.ui,
         video: state.ui.video,
-        currentUser: state.entities.users[state.session.id]
+        currentUser: state.entities.users[state.session.id],
+        currentChannel: state.entities.channels[state.session.channelId],
+        path: ownProps.location.pathname
     }
 }
 

@@ -2,7 +2,7 @@ class Api::UsersController < ApplicationController
 
     def show
         @user = User.find_by(id: params[:id])
-        @subscriptions = Channel.where(id: @user.subscriptions.pluck(:channel_id))
+        # @subscriptions = Channel.where(id: @user.subscriptions.pluck(:channel_id))
         
         if @user    
             render :show

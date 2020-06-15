@@ -43,10 +43,14 @@ class LoginForm extends React.Component {
     handleDemoLogin(e) {
         e.preventDefault();
         this.props.loginDemoUser()
-        .then(() => {
-            this.props.history.push('/')
-            this.props.closeModal()
-        })
+            .then(res => {
+                debugger
+                this.props.requestCurrentChannel(res.currentUser.channels[0].id)
+                    .then(() => {
+                        this.props.history.push('/')
+                        this.props.closeModal()
+                    })
+            })
     }
 
     renderErrors() {

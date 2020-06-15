@@ -3,6 +3,7 @@ import CommentFormContainer from './comment_form_container'
 import { IoMdThumbsUp, IoMdThumbsDown } from 'react-icons/io'
 import CommentDropdown from '../hooks/comment_dropdown'
 import Moment from 'react-moment';
+import { Link } from 'react-router-dom'
 
 class CommentIndexItem extends React.Component {
     constructor(props) {
@@ -88,7 +89,7 @@ class CommentIndexItem extends React.Component {
 
     handleLike(e) {
         e.preventDefault();
-        const { currentUser, history, liked, disliked, comment, like, videoId } = this.props
+        const { currentUser, history, liked, disliked, comment, like, videoId, currentChannel } = this.props
   
         const createLike = (liked, disliked) => {
             let like = { likeableId:  comment.id, likeableType: 'Comment', liked: liked, disliked: disliked}
@@ -103,14 +104,14 @@ class CommentIndexItem extends React.Component {
                 this.props.createCommentLike(likedComment)
                 .then(() => {
                     this.props.requestComments(videoId)
-                    this.props.requestCurrentUser(this.props.currentUser.id)
+                    this.props.requestCurrentChannel(this.props.currentChannel.id)
                 })
             } else if ((clicked === 'liked' && liked) || (clicked === 'disliked' && disliked)) {
                 
                 this.props.deleteCommentLike(like.id)
                 .then(() => {
                     this.props.requestComments(videoId)
-                    this.props.requestCurrentUser(this.props.currentUser.id)
+                    this.props.requestCurrentChannel(this.props.currentChannel.id)
                 })
             } else {
                 
@@ -121,7 +122,7 @@ class CommentIndexItem extends React.Component {
                     this.props.createCommentLike(likedComment)
                     .then(() => {
                         this.props.requestComments(videoId)
-                        this.props.requestCurrentUser(this.props.currentUser.id)
+                        this.props.requestCurrentChannel(this.props.currentChannel.id)
                     })
                 })
             }
@@ -141,13 +142,17 @@ class CommentIndexItem extends React.Component {
         if (comment.parentCommentId) {
             return (
                 <div className="profile-thumbnail-reply-item">
-                    <img src={comment.author.photoUrl} />
+                    <Link to={`/channels/${comment.author.id}`}>
+                        <img src={comment.author.logoUrl} />
+                    </Link>
                 </div>
             )
         } else {
             return (
                 <div className="profile-thumbnail-comment-item">
-                    <img src={comment.author.photoUrl} />
+                    <Link to={`/channels/${comment.author.id}`}>
+                        <img src={comment.author.logoUrl} />
+                    </Link>
                 </div>
             )
         }
@@ -170,13 +175,13 @@ class CommentIndexItem extends React.Component {
     }
 
     renderReply() {
-        const { comment, currentUser } = this.props
+        const { comment, currentUser, currentChannel } = this.props
         return (
             !this.state.editing && this.state.replying ?
             <form onSubmit={this.handleSubmit}>
                 <div className="comment-form-reply">
                     <div className="profile-thumbnail-comment-reply">
-                        <img src={currentUser.photoUrl} />
+                        <img src={currentChannel.logoUrl} />
                     </div>
                     {!this.state.clicked ? 
                     <input className="comment-form-input" type="text" value={this.state.body} onChange={this.update("body")} />
@@ -191,7 +196,7 @@ class CommentIndexItem extends React.Component {
     }
 
     render() {
-        const { comment, currentUser } = this.props
+        const { comment, currentUser, currentChannel } = this.props
         
         return (
             <div className="comment-container">
@@ -201,7 +206,7 @@ class CommentIndexItem extends React.Component {
                         <div className="comment-info-info-container">
                             <div className="comment-info-info">
                                 <div className="comment-author-date">
-                                    <strong>{comment.author.username}</strong>&nbsp; 
+                                    <strong>{comment.author.name}</strong>&nbsp; 
                                     {!this.state.edited ? 
                                     <span>
                                         <Moment fromNow>
@@ -221,7 +226,7 @@ class CommentIndexItem extends React.Component {
                             </div>
                             <CommentDropdown
                             comment={comment} 
-                            currentUser={currentUser} 
+                            currentChannel={currentChannel} 
                             handleDelete={this.handleDelete} 
                             handleEdit={this.handleEdit} 
                             editing={this.state.editing}

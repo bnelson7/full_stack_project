@@ -4,7 +4,7 @@ import { GoPrimitiveDot } from 'react-icons/go'
 import { MdCheckCircle, MdNotificationsNone } from 'react-icons/md'
 
 const ChannelIndexItem = props => {
-    debugger
+
     return (
         props.path.includes("/channels") && props.selected === "home" ? (
             <div className="channel-home-grid-item">
@@ -26,19 +26,19 @@ const ChannelIndexItem = props => {
             <div className="grid-item-channel-channels">
 
             </div>
-        ) : props.modal === "sidebar" ? (
-            <div className="sidebar-subscriptions-grid-item">
-                <div className="sidebar-subscription-info-container">
-                    <div className="channel-logo-home">
-                        <Link to={`/channels/${props.subscription.id}`}>
-                            <img src={props.subscription.logoUrl} />
-                        </Link>
+        ) : (props.modal === "sidebar" || props.modal.type === "sidebar") ? (
+            <Link to={`/channels/${props.subscription.id}`}>
+                <div className="sidebar-subscriptions-grid-item">
+                    <div className="sidebar-subscription-info-container">
+                        <div className="channel-logo-home">
+                                <img src={props.subscription.logoUrl} />
+                        </div>
+                        <h1 className="sidebar-subscription-name">
+                            {props.subscription.name}
+                        </h1>
                     </div>
-                    <h1 className="sidebar-subscription-name">
-                        {props.subscription.name}
-                    </h1>
                 </div>
-            </div>
+            </Link>
         ) : (
             <div className="grid-item-search-container">
                 <div className="channel-logo-search">

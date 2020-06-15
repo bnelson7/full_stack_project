@@ -18,7 +18,7 @@ class Comment < ApplicationRecord
     belongs_to :author,
         primary_key: :id,
         foreign_key: :author_id,
-        class_name: :User
+        class_name: :Channel
 
     belongs_to :video,
         primary_key: :id,
@@ -38,7 +38,8 @@ class Comment < ApplicationRecord
         dependent: :destroy
 
     has_many :likes,
-        as: :likeable
+        as: :likeable,
+        dependent: :destroy
 
     def number_liked(id)
         Like.all.where(liked: true, likeable_type: "Comment", likeable_id: id).length

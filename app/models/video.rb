@@ -36,7 +36,8 @@ class Video < ApplicationRecord
         class_name: :Comment
 
     has_many :likes,
-        as: :likeable
+        as: :likeable,
+        dependent: :destroy
 
     def number_liked(id)
         Like.all.where(liked: true, likeable_type: "Video", likeable_id: id).length

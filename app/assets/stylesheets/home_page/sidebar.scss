@@ -192,30 +192,43 @@
 }
 
 .sidebar-subscriptions-container {
-    padding: 0.8vh 2.4vh;
+    // padding: 0 2.4vh 0.8vh 2.4vh;
+    padding: 0 0 .8vh 0;
     width: 100%;
+    // max-height: 100%;
 }
 
 .sidebar-subscriptions-title {
+    display: flex;
+    align-items: center;
+    height: 3.2vh;
     font-size: 1.4vh;
     color: #606060;
     font-weight: 500;
-    text-size-adjust: 100%;
-    letter-spacing: 0.007px;
+    margin: 0 2.4vh;
 }
 
 .sidebar-subscriptions-grid {
+    // margin-top: 0.8vh;
     display: grid;
-    grid-template-rows: repeat(8, 4vh);
+    grid-template-rows: repeat(10, 4vh);
     color: #030303;
     font-size: 1.4vh;
     font-weight: 400;
     width: 100%;
-    margin-top: 1.2vh;
+    // max-height: 100%;
 }
 
 .sidebar-subscriptions-grid-item-container {
     width: 100%;
+    display: flex;
+    align-items: center;
+    // height: 100%;
+}
+
+.sidebar-subscriptions-grid-item-container:hover {
+    background: #F0F0F0;
+    cursor: pointer;
 }
 
 .sidebar-subscriptions-grid-item {
@@ -224,6 +237,8 @@
     font-size: 1.4vh;
     font-weight: 400;
     width: 100%;
+    margin: 0 2.4vh;
+    // height: 100%;
 }
 
 .sidebar-subscription-info-container {

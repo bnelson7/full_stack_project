@@ -15,12 +15,13 @@ const mstp = (state, ownProps) => {
     let video = channel && channel.uploads && channel.uploads[randomIdx]
     let videos = channel && channel.uploads && channel.uploads
     let currentUser = state.entities.users[state.session.id]
+    // let currentChannel = state.entities.channels[state.session.channelId]
     let subscribed = currentUser && Object.keys(state.entities.channels).length && 
-    channel && channel.subscribers.find(subs => subs.id === currentUser.id) !== undefined
-    debugger
+    channel && channel.subscribers.find(subs => subs.id === state.session.channelId) !== undefined
+    
     let creator = Object.keys(state.entities.users).length && channel && state.entities.users[channel.creatorId] 
     let channels = creator && creator.channels && channel && creator.channels.filter(chan => chan.id !== channel.id ) 
-    debugger
+    
     return {
         channels: channels,
         channel: channel,

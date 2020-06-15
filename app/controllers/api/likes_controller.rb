@@ -1,7 +1,11 @@
 class Api::LikesController < ApplicationController
 
     def create
-        @like = Like.create(liker_id: current_user.id, likeable_type: params[:like][:likeableType], likeable_id: params[:like][:likeableId], liked: params[:like][:liked], disliked: params[:like][:disliked])
+        @like = Like.create(liker_id: current_user.channels.first.id, 
+        likeable_type: params[:like][:likeableType], 
+        likeable_id: params[:like][:likeableId], 
+        liked: params[:like][:liked], 
+        disliked: params[:like][:disliked])
         
         if @like
             render :show

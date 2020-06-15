@@ -85,7 +85,7 @@ class CommentForm extends React.Component {
     }
 
     render() {
-        const { comments, currentUser } = this.props
+        const { comments, currentUser, currentChannel } = this.props
 
         return (
             <div className="comment-form-container">
@@ -101,7 +101,7 @@ class CommentForm extends React.Component {
                 <form onSubmit={this.handleComment}>
                     <div className="comment-form">
                         <div className="profile-thumbnail-comment">
-                            {currentUser && currentUser.photoUrl ? <img src={currentUser.photoUrl} /> : <img src={window.user}/>}
+                            {currentChannel && currentChannel.logoUrl ? <img src={currentChannel.logoUrl} /> : <img src={window.user}/>}
                         </div>
                         {!this.state.clicked ? <input className="comment-form-input" type="text" placeholder="Add a public comment..." value={this.state.body} onChange={this.update("body")} onClick={this.handleRedirect} />
                         : <input className="comment-form-input-clicked" type="text" placeholder="Add a public comment..." value={this.state.body} onChange={this.update("body")} onClick={this.handleRedirect} />}

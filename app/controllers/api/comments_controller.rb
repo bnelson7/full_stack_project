@@ -17,7 +17,7 @@ class Api::CommentsController < ApplicationController
 
     def create
         @comment = Comment.new(comment_params)
-        @comment.author_id = current_user.id
+        @comment.author_id = current_user.channels.first.id
         @comment.video_id = params[:comment][:videoId]
         
         if @comment.parent_comment_id.nil? && params[:comment][:id]

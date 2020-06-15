@@ -22,3 +22,29 @@ json.uploads do
         end
     end
 end
+
+json.comments @channel.comments, partial: 'api/comments/comment', as: :comment
+
+json.liked do
+    @channel.video_likes.each do |like|
+        json.videos do
+            json.set! like.likeable_id do
+                json.partial! 'api/likes/like', like: like
+            end
+        end
+    end
+
+    @channel.comment_likes.each do |like|
+        json.comments do
+            json.set! like.likeable_id do
+                json.partial! 'api/likes/like', like: like
+            end
+        end
+    end
+end
+
+json.subscriptions do
+    json.array! @channel.subscriptions do |subscription|
+        json.partial! 'api/channels/channel', channel: subscription
+    end
+end

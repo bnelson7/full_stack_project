@@ -3,6 +3,7 @@ import * as SubscriptionAPIUtil from '../util/subscription_api_util'
 
 export const RECEIVE_CHANNELS = 'RECEIVE_CHANNELS'
 export const RECEIVE_CHANNEL = 'RECEIVE_CHANNEL'
+export const RECEIVE_CURRENT_CHANNEL = 'RECEIVE_CURRENT_CHANNEL'
 export const REMOVE_CHANNEL = 'REMOVE_CHANNEL'
 
 const receiveChannels = channels => {
@@ -10,6 +11,14 @@ const receiveChannels = channels => {
     return {
         type: RECEIVE_CHANNELS,
         channels
+    }
+}
+
+const receiveCurrentChannel = currentChannel => {
+    debugger
+    return {
+        type: RECEIVE_CURRENT_CHANNEL,
+        currentChannel
     }
 }
 
@@ -33,6 +42,14 @@ export const requestChannel = id => dispatch => {
     return (
         ChannelAPIUtil.fetchChannel(id)
         .then(channel => dispatch(receiveChannel(channel)))
+    )
+}
+
+export const requestCurrentChannel = id => dispatch => {
+    
+    return (
+        ChannelAPIUtil.fetchChannel(id)
+        .then(channel => dispatch(receiveCurrentChannel(channel)))
     )
 }
 
