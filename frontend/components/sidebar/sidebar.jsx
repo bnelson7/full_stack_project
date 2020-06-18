@@ -7,7 +7,13 @@ import ChannelIndexItem from '../channels/channel_index_item';
 class Sidebar extends React.Component {
     constructor(props) {
         super(props)
+        
+        // this.selected = this.selected.bind(this)
     }
+
+    // selected() {
+
+    // }
 
     render() {
         
@@ -31,14 +37,14 @@ class Sidebar extends React.Component {
                                 Trending
                             </div>
                         </li>
-                        <li>
+                        {/* <li>
                             <div className="sidebar-icon-expanded">
                                 <MdHistory />
                             </div>
                             <div className="sidebar-text-expanded">
                                 History
                             </div>
-                        </li>
+                        </li> */}
                     </ul>
                     <hr id="sidebar-hr"/>
                     <ul className="sidebar-items-expanded">
@@ -132,10 +138,10 @@ class Sidebar extends React.Component {
                         <MdVideoLibrary />
                         <span>Library</span>
                     </div> */}
-                    <div className="sidebar-icon">
+                    {/* <div className="sidebar-icon">
                         <MdHistory />
                         <span>History</span>
-                    </div>
+                    </div> */}
                     <a href="https://github.com/bnelson7">
                         <div className="sidebar-icon">
                             <FaGithub id="icon-size" />

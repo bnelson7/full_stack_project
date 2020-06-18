@@ -136,16 +136,16 @@ class Channel extends React.Component {
         this.setState({ sortSelected: e.currentTarget.id })
     }
 
-    sortVideos(videos) {
+    sortVideos(channelVideos) {
         const { sortSelected } = this.state
         const { currentUser, path, deleteVideo, updateVideo, openModal } = this.props
-        let userVideos = videos.filter(video => video.creatorId === currentUser.id)
+        // let channelVideos = videos.filter(video => video.creatorId === currentUser.id)
 
         if (sortSelected === "popular") {
-            userVideos.sort((a, b) => b.views - a.views)
+            channelVideos.sort((a, b) => b.views - a.views)
             return (
                 <div className="profile-videos-grid-container">
-                    {userVideos.map(video => {
+                    {channelVideos.map(video => {
                         return (
                             <li className="profile-videos-grid-item" key={video.id}>
                                 <VideoIndexItem 
@@ -163,10 +163,10 @@ class Channel extends React.Component {
                 </div>
             )
         } else if (sortSelected === "date-old") {
-            userVideos.sort((a, b) => parseInt(b.createdAt.split(" ")[0]) - parseInt(a.createdAt.split(" ")[0]))
+            channelVideos.sort((a, b) => parseInt(b.createdAt.split(" ")[0]) - parseInt(a.createdAt.split(" ")[0]))
             return (
                 <div className="profile-videos-grid-container">
-                    {userVideos.map(video => {
+                    {channelVideos.map(video => {
                         return (
                             <li className="profile-videos-grid-item" key={video.id}>
                                 <VideoIndexItem 
@@ -184,10 +184,10 @@ class Channel extends React.Component {
                 </div>
             )
         } else {
-            userVideos.sort((a, b) => parseInt(a.createdAt.split(" ")[0]) - parseInt(b.createdAt.split(" ")[0]))
+            channelVideos.sort((a, b) => parseInt(a.createdAt.split(" ")[0]) - parseInt(b.createdAt.split(" ")[0]))
             return (
                 <div className="profile-videos-grid-container">
-                    {userVideos.map(video => {
+                    {channelVideos.map(video => {
                         return (
                             <li className="profile-videos-grid-item" key={video.id}>
                                 <VideoIndexItem 
@@ -287,6 +287,7 @@ debugger
                         </div>
                     )
                 } else {
+                    debugger
                     return (
                         <div className="profile-videos-container">
                             <div className="profile-videos">
@@ -360,52 +361,49 @@ debugger
                         </div>
                     )
                 }
-            case "discussion":
+            case "community":
                 return (
-                    <div className="profile-comment-form-container">
-                        <CommentFormContainer />
+                    <div className="profile-playlists">
+                        <h1>This channel hasn't posted yet</h1>
                     </div>
                 )
             case "about":
                 return (
                     <div className="channel-about-container">
-                        <div className="channel-about-info">
-                            <h1>
-                                Description
-                            </h1> 
-                            {channel.description}
-                            {this.state.customize &&
-                                <button onClick={this.handleEditForm}>
-                                    Channel description
-                                </button>}
-                            {this.state.customizing &&
-                            <form>
-                                <div className="channel-description-form-container">
-                                    <h3 className="channel-description-title">
-                                        CHANNEL DESCRIPTION
-                                    </h3>
-                                    <textarea 
-                                    className="channel-description-form" 
-                                    value={this.state.description} 
-                                    onChange={this.updateDescription("description")}
-                                    >
+                        <ul className="channel-about-info">
+                            <li>
+                                <h1 className="channel-about-title">Description</h1> 
+                                <span>{channel.description}</span>
+                                {this.state.customize &&
+                                    <button onClick={this.handleEditForm}>
+                                        Channel description
+                                    </button>}
+                                {this.state.customizing &&
+                                <form>
+                                    <div className="channel-description-form-container">
+                                        <h3 className="channel-description-title">
+                                            CHANNEL DESCRIPTION
+                                        </h3>
+                                        <textarea 
+                                        className="channel-description-form" 
+                                        value={this.state.description} 
+                                        onChange={this.updateDescription("description")}
+                                        >
 
-                                    </textarea>
-                                    <div>
-                                        <button onClick={this.handleEditForm}>
-                                            Cancel
-                                        </button>
-                                        <button onClick={this.handleEdit}>
-                                            Done
-                                        </button>
+                                        </textarea>
+                                        <div>
+                                            <button onClick={this.handleEditForm}>
+                                                Cancel
+                                            </button>
+                                            <button onClick={this.handleEdit}>
+                                                Done
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
-                            </form>}
-                        
-                            <div>
-                                <h1>
-                                    Details
-                                </h1>
+                                </form>}
+                            </li>
+                            <li>
+                                <h1 className="channel-about-title">Details</h1>
                                 <label htmlFor="file4">
                                     Edit channel art:
                                     {/* <button className="banner-btn"> */}
@@ -413,26 +411,41 @@ debugger
                                     {/* </button> */}
                                 </label>
                                 <input type="file" name="file4" id="file4" className="hidden-input" onChange={e => this.handleBanner(e)} />
-                            </div>
-                    
-                        </div>
-                        <ul className="profile-about">
-                            <li>Stats</li>
-                            <li>Joined {this.getDate()}</li>
-                            <li>{this.getViews()} views</li>
-                            <li><MdFlag /></li>
+                            </li>
+                            <li>
+                                <h1 className="channel-about-title">Links</h1>
+                                
+                            </li>
                         </ul>
-                        <div>
-                            <h1>
-                                FEATURED CHANNELS
-                            </h1>
-                                <ul>
-                                    {this.props.channels.map(channel => {
-                                        <li key={channel.id}>
-                                            <ChannelIndexItem path={path} />
-                                        </li>
+                        <div className="profile-about-container">
+                            <ul className="profile-about">
+                                <li>Stats</li>
+                                <li>Joined {this.getDate()}</li>
+                                <li>{this.getViews()} views</li>
+                                <li><MdFlag /></li>
+                            </ul>
+                            <div className="about-featured-channels">
+                                <h1>
+                                    FEATURED CHANNELS
+                                </h1>
+                                <ul className="channel-home-grid-container">
+                                    {channels.map(channel => {
+
+                                        return (
+                                            <li className="channel-home-grid-item-container" key={channel.id}>
+                                                <ChannelIndexItem
+                                                    path={path}
+                                                    selected={this.state.selected}
+                                                    channel={channel}
+                                                    handleSubscribe={this.handleSubscribe}
+                                                    handleUnsubscribe={this.handleUnsubscribe}
+                                                    currentChannel={currentChannel}
+                                                />
+                                            </li>
+                                        )
                                     })}
                                 </ul>
+                            </div>
                         </div>
                     </div>
                 )
@@ -633,8 +646,8 @@ debugger
                             <button onClick={this.handleToggle} className="profile-nav-item" id="channels">
                                 CHANNELS
                             </button>
-                            <button onClick={this.handleToggle} className="profile-nav-item" id="discussion">
-                                DISCUSSION
+                            <button onClick={this.handleToggle} className="profile-nav-item" id="community">
+                                COMMUNITY
                             </button>
                             <button onClick={this.handleToggle} className="profile-nav-item" id="about">
                                 ABOUT

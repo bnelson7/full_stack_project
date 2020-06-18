@@ -8,7 +8,8 @@ const mstp = (state, ownProps) => {
     
     return {
         path: ownProps.location.pathname,
-        currentUser: state.entities.users[state.session.id]
+        currentUser: state.entities.users[state.session.id],
+        modal: state.ui
     }
 }
 

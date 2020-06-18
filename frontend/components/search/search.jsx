@@ -406,7 +406,7 @@ class Search extends React.Component {
     }
 
     render() {
-        const { path } = this.props 
+        const { path, modal } = this.props 
                
         if (this.state.videos.length === 0 && !this.state.alreadyFiltered) return null
         let relevantChannel = this.state.channel && { key: this.state.channel }
@@ -472,6 +472,7 @@ class Search extends React.Component {
                                     path={path}
                                     handleSubscribe={this.handleSubscribe}
                                     handleUnsubscribe={this.handleUnsubscribe}
+                                    modal={modal}
                                 />
                                 <hr id="search-channel-hr"/>
                             </li>)}
@@ -491,6 +492,7 @@ class Search extends React.Component {
                                 channel={channel} 
                                 handleSubscribe={this.handleSubscribe} 
                                 handleUnsubscribe={this.handleUnsubscribe}
+                                modal={modal}
                                 />
                             </li>)}
                         </div> 
