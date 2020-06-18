@@ -49,10 +49,14 @@ class Channel extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        
+        debugger
         if (this.props.path !== prevProps.path) {
-            
+            debugger
             this.props.requestChannel(this.props.match.params.channelId)
+                .then(res => {
+
+                    this.props.requestUser(res.channel.creatorId)
+                })
         }
         // if (this.props.featuredChannel !== prevProps.featuredChannel) {
         //     
@@ -250,7 +254,7 @@ class Channel extends React.Component {
             this.props.createSubscription(subscription)
                 .then(res => {
                     
-                    this.props.requestChannel(res.channel.id)
+                    // this.props.requestChannel(res.channel.id)
                     this.props.requestCurrentChannel(this.props.currentChannel.id)
                 })
         }
@@ -263,15 +267,15 @@ class Channel extends React.Component {
         this.props.deleteSubscription(subscription)
             .then(res => {
 
-                this.props.requestChannel(res.channel.id)
+                // this.props.requestChannel(res.channel.id)
                 this.props.requestCurrentChannel(this.props.currentChannel.id)
             })
     }
 
     renderSelected() {
         const { selected, sortSelected } = this.state
-        const { videos, video, path, deleteVideo, updateVideo, openModal, currentUser, channel, currentChannel } = this.props
-
+        const { videos, video, path, deleteVideo, updateVideo, openModal, currentUser, channel, currentChannel, channels } = this.props
+debugger
         switch (selected) {
             case "videos":
                 if (!videos || videos.length === 0) {
@@ -325,11 +329,37 @@ class Channel extends React.Component {
                     </div>
                 )
             case "channels":
-                return (
-                    <div className="profile-channels">
-                        <h1>This channel doesn't feature any other channels.</h1>
-                    </div>
-                )
+                debugger
+                if (channels.length) {
+                    return (
+                        <div className="channels-featured-channels">
+                            <h1>Featured channels</h1>
+                            <ul className="channel-channels-grid-container">
+                                {channels.map(channel => {
+                                    debugger
+                                    return (
+                                        <li className="channel-channels-grid-item-container" key={channel.id}>
+                                            <ChannelIndexItem
+                                                path={path}
+                                                selected={this.state.selected}
+                                                channel={channel}
+                                                handleSubscribe={this.handleSubscribe}
+                                                handleUnsubscribe={this.handleUnsubscribe}
+                                                currentChannel={currentChannel}
+                                            />
+                                        </li>
+                                    )
+                                })}
+                            </ul>
+                        </div>
+                    )
+                } else {
+                    return (
+                        <div className="profile-channels">
+                            <h1>This channel doesn't feature any other channels.</h1>
+                        </div>
+                    )
+                }
             case "discussion":
                 return (
                     <div className="profile-comment-form-container">
@@ -413,7 +443,7 @@ class Channel extends React.Component {
                     </div>
                 )
             default:
-                if (!videos || videos.length === 0) {
+                if (!videos || videos.length === 0 && channel.creatorId === currentUser.id) {
                     return (
                     <div className="upload-container-default">
                         <div className="profile-upload">
@@ -429,7 +459,18 @@ class Channel extends React.Component {
                         </div>
                     </div>
                 )
-            } else {
+            } else if (!videos || videos.length === 0) {
+                debugger
+                return (
+                    <div className="profile-videos-default">
+                        <h1>
+                            This channel has no uploads.
+                        </h1>
+                    </div>
+                    )
+            }
+            else {
+                debugger
                 return (
                     <div className="upload-container-content">
                         <div className="upload-container-uploads">
@@ -491,7 +532,7 @@ class Channel extends React.Component {
                                 FEATURED CHANNELS
                             </h1>
                             <ul className="channel-home-grid-container">
-                                {this.props.channels.map(channel => {
+                                {channels.map(channel => {
                                     
                                     return (
                                         <li className="channel-home-grid-item-container" key={channel.id}>

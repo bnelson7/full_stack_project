@@ -27,8 +27,29 @@ debugger
                 </button>}
             </div> 
         ) : props.path.includes("/channels") && props.selected === "channels" ? (
-            <div className="grid-item-channel-channels">
-
+            <div className="channel-channels-grid-item-">
+                <div className="channel-logo-channels">
+                    <Link to={`/channels/${props.channel.id}`}>
+                        <img src={props.channel.logoUrl} />
+                    </Link>
+                </div>
+                <div className="channel-channels-info">
+                    <h1>{props.channel.name}</h1>
+                    <span>
+                        {props.channel.subscribers.length === 1 ?
+                        `${props.channel.subscribers.length} subscriber` :
+                        `${props.channel.subscribers.length} subscribers`}
+                    </span>
+                    <div className="channel-subscribe-btn-container">
+                        {props.channel.subscribers.find(subs => subs.id === props.currentChannel.id) !== undefined ? 
+                        <button className="channel-subscribe-btn" onClick={props.handleUnsubscribe} value={props.channel.id}>
+                            SUBSCRIBED
+                        </button> :
+                        <button className="channel-subscribe-btn" onClick={props.handleSubscribe} value={props.channel.id}>
+                            SUBSCRIBE
+                        </button>}
+                    </div>
+                </div>
             </div>
         ) : (props.modal === "sidebar" || props.modal.type === "sidebar") ? (
             <Link to={`/channels/${props.subscription.id}`}>
