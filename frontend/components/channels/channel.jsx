@@ -48,6 +48,17 @@ class Channel extends React.Component {
         // : this.props.requestCurrentUser(this.props.currentUser.id)
     }
 
+    componentDidUpdate(prevProps) {
+        
+        if (this.props.path !== prevProps.path) {
+            
+            this.props.requestChannel(this.props.match.params.channelId)
+        }
+        // if (this.props.featuredChannel !== prevProps.featuredChannel) {
+        //     
+        //     this.props.requestChannel(this.props.featuredChannel)
+        // }
+    }
 
     // shouldComponentUpdate(nextProps) {
     //     
@@ -55,10 +66,6 @@ class Channel extends React.Component {
     //         
     //         return false;
     //     } 
-    //     // else if (this.props.channel.subscribed !== nextProps.channel.subscribed) {
-    //     //     
-    //     //     return true
-    //     // }
     //      else {
     //          
     //         return true;
@@ -235,32 +242,35 @@ class Channel extends React.Component {
     handleSubscribe(e) {
         e.preventDefault();
         const { currentUser, history } = this.props
-        const subscription = { channelId: this.props.channel.id }
-
+        const subscription = { channelId: e.currentTarget.value, subscriber_id: this.props.currentChannel.id }
+        
         if (!currentUser) {
             history.push("/login")
         } else {
             this.props.createSubscription(subscription)
-                .then(() => {
-
-                    this.props.requestChannel(this.props.channel.id)
+                .then(res => {
+                    
+                    this.props.requestChannel(res.channel.id)
+                    this.props.requestCurrentChannel(this.props.currentChannel.id)
                 })
         }
     }
 
     handleUnsubscribe(e) {
         e.preventDefault();
+        const subscription = { id: e.currentTarget.value, subscriber_id: this.props.currentChannel.id }
+        
+        this.props.deleteSubscription(subscription)
+            .then(res => {
 
-        this.props.deleteSubscription(this.props.channel.id)
-            .then(() => {
-
-                this.props.requestChannel(this.props.channel.id)
+                this.props.requestChannel(res.channel.id)
+                this.props.requestCurrentChannel(this.props.currentChannel.id)
             })
     }
 
     renderSelected() {
         const { selected, sortSelected } = this.state
-        const { videos, video, path, deleteVideo, updateVideo, openModal, currentUser, channel } = this.props
+        const { videos, video, path, deleteVideo, updateVideo, openModal, currentUser, channel, currentChannel } = this.props
 
         switch (selected) {
             case "videos":
@@ -491,6 +501,7 @@ class Channel extends React.Component {
                                             channel={channel}
                                             handleSubscribe={this.handleSubscribe}
                                             handleUnsubscribe={this.handleUnsubscribe}
+                                            currentChannel={currentChannel}
                                             />
                                         </li>
                                     )
@@ -523,12 +534,25 @@ class Channel extends React.Component {
     }
 
     render() {
-        const { path, currentUser, channel, channels, subscribed, createSubscription, deleteSubscription, requestChannel, editChannel, history } = this.props
-        
+        const { path, 
+            currentUser, 
+            currentChannel,
+            featuredChannel, 
+            channel, 
+            channels,
+            videos, 
+            subscribed, 
+            createSubscription, 
+            deleteSubscription, 
+            requestChannel, 
+            editChannel, 
+            history,
+            requestCurrentChannel } = this.props
+        debugger
         // if (path.includes("/users") && !currentUser.uploads) return null
         // might need to check if && there's no creator return null 
-        if (!channel || !channels) return null
-        
+        if (!channel || !channels || !videos) return null
+        debugger
         return (
             <div className="channel-banner-profile-container">
 
@@ -542,16 +566,18 @@ class Channel extends React.Component {
                         <ChannelLogo 
                         currentUser={currentUser} 
                         path={path} 
-                        // updateUser={updateUser} 
                         channel={channel} 
                         subscribed={subscribed}
                         createSubscription={createSubscription}
                         deleteSubscription={deleteSubscription}
                         editChannel={editChannel}
-                        // updateSubscribed={this.updateSubscribed} 
                         requestChannel={requestChannel}
                         history={history}
                         handleCustomize={this.handleCustomize}
+                        handleSubscribe={this.handleSubscribe}
+                        handleUnsubscribe={this.handleUnsubscribe}
+                        currentChannel={currentChannel}
+                        requestCurrentChannel={requestCurrentChannel}
                         />
                         <div className="profile-nav">
                             <button onClick={this.handleToggle} className="selected-profile-nav-item" id="home">

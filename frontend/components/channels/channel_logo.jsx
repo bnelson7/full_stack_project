@@ -12,8 +12,6 @@ class ChannelLogo extends React.Component {
 
         this.handleLogo = this.handleLogo.bind(this)
         this.createChannel = this.createChannel.bind(this)
-        this.handleSubscribe = this.handleSubscribe.bind(this)
-        this.handleUnsubscribe = this.handleUnsubscribe.bind(this)
     }
 
     handleLogo(e) {
@@ -27,32 +25,6 @@ class ChannelLogo extends React.Component {
     createChannel() {
         
         this.props.history.push("/create_channel")
-    }
-
-    handleSubscribe(e) {
-        e.preventDefault();
-        const { currentUser, history } = this.props
-        const subscription = { channelId: this.props.channel.id }
-
-        if (!currentUser) {
-            history.push("/login")
-        } else {
-            this.props.createSubscription(subscription)
-                .then(() => {
-                    
-                    this.props.requestChannel(this.props.channel.id)
-                })
-        }
-    }
-
-    handleUnsubscribe(e) {
-        e.preventDefault();
-        
-        this.props.deleteSubscription(this.props.channel.id)
-            .then(() => {
-                
-                this.props.requestChannel(this.props.channel.id)
-            })
     }
 
     render() {
@@ -95,11 +67,11 @@ class ChannelLogo extends React.Component {
                         </button> 
                     </div> :
                     !this.props.subscribed ?
-                        <button className="subscribe-btn" onClick={this.handleSubscribe}>
+                        <button className="subscribe-btn" onClick={this.props.handleSubscribe} value={channel.id}>
                             SUBSCRIBE
                         </button> :
                     <div className="subscribed-btns-container">
-                        <button className="subscribed-btn" onClick={this.handleUnsubscribe}>
+                        <button className="subscribed-btn" onClick={this.props.handleUnsubscribe} value={channel.id}>
                             SUBSCRIBED
                         </button>
                         <button className="subscribed-notification">

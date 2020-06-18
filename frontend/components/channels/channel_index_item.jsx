@@ -4,7 +4,7 @@ import { GoPrimitiveDot } from 'react-icons/go'
 import { MdCheckCircle, MdNotificationsNone } from 'react-icons/md'
 
 const ChannelIndexItem = props => {
-
+debugger
     return (
         props.path.includes("/channels") && props.selected === "home" ? (
             <div className="channel-home-grid-item">
@@ -18,9 +18,13 @@ const ChannelIndexItem = props => {
                         {props.channel.name}
                     </h2>
                 </div>
+                {props.channel.subscribers.find(subs => subs.id === props.currentChannel.id) !== undefined ? 
+                <button className="channel-subscribe-btn" onClick={props.handleUnsubscribe} value={props.channel.id}>
+                    SUBSCRIBED
+                </button> :
                 <button className="channel-subscribe-btn" onClick={props.handleSubscribe} value={props.channel.id}>
                     SUBSCRIBE
-                </button>
+                </button>}
             </div> 
         ) : props.path.includes("/channels") && props.selected === "channels" ? (
             <div className="grid-item-channel-channels">

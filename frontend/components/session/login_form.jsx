@@ -44,7 +44,7 @@ class LoginForm extends React.Component {
         e.preventDefault();
         this.props.loginDemoUser()
             .then(res => {
-                debugger
+                
                 this.props.requestCurrentChannel(res.currentUser.channels[0].id)
                     .then(() => {
                         this.props.history.push('/')

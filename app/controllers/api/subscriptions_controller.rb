@@ -4,7 +4,7 @@ class Api::SubscriptionsController < ApplicationController
         
         @subscription = Subscription.create(
             channel_id: params[:channel_id], 
-            subscriber_id: current_user.channels.first.id
+            subscriber_id: params[:subscription][:subscriber_id]
         )
 
         @channel = Channel.find_by(id: params[:channel_id])
@@ -20,10 +20,12 @@ class Api::SubscriptionsController < ApplicationController
     end
 
     def destroy
+        
         @subscription = Subscription.find_by(
             channel_id: params[:id],
-            subscriber_id: current_user.channels.first.id    
+            subscriber_id: params[:subscription][:subscriber_id]    
         )
+        
         @subscription.destroy
 
         @channel = Channel.find_by(id: params[:id])

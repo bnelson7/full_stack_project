@@ -9,15 +9,6 @@ class Sidebar extends React.Component {
         super(props)
     }
 
-    // componentDidUpdate(prevProps) {
-    //     
-    //     if (this.props.currentUser.subscriptions !== prevProps.currentUser.subscriptions) {
-    //         
-    //         this.props.requestCurrentUser(this.props.currentUser.id4)
-    //     }
-
-    // }
-
     render() {
         
         return (
@@ -73,7 +64,7 @@ class Sidebar extends React.Component {
                         </li>
                     </ul>
                     <hr id="sidebar-hr" />
-                    {!this.props.currentUser ? 
+                    {!this.props.currentChannel ? 
                     <div>
                         <div className="sidebar-signin">
                             <p>
@@ -107,7 +98,7 @@ class Sidebar extends React.Component {
                             })}
                         </ul>
                     </div>}
-                    {this.props.currentUser && <hr id="sidebar-hr" />} 
+                    {this.props.currentChannel && <hr id="sidebar-hr" />} 
                 </div>
             ) : (
                 <div className="sidebar-container">

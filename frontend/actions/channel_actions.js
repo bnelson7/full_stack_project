@@ -15,7 +15,7 @@ const receiveChannels = channels => {
 }
 
 const receiveCurrentChannel = currentChannel => {
-    debugger
+    
     return {
         type: RECEIVE_CURRENT_CHANNEL,
         currentChannel
