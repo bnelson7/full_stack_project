@@ -109,7 +109,7 @@ class Sidebar extends React.Component {
             ) : (
                 <div className="sidebar-container">
                     {this.props.path ==="/" ?
-                        <Link>
+                        <Link to="/">
                             <div className="home-icon">
                                 <MdHome />
                                 <span>Home</span>
@@ -122,7 +122,7 @@ class Sidebar extends React.Component {
                             </div>
                         </Link>}
                     {this.props.path === "/trending" ? 
-                        <Link>
+                        <Link to="/trending">
                             <div className="sidebar-icon" id="sidebar-trending">
                                 <FaFire id="icon-size"/>
                                 <span>Trending</span>

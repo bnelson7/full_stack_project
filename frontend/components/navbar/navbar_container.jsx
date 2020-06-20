@@ -12,7 +12,8 @@ const mSTP = (state, ownProps) => {
     return {
         currentUser: state.entities.users[state.session.id],
         path: ownProps.location.pathname,
-        modal: state.ui.type
+        modal: state.ui.type,
+        currentChannel: state.entities.channels[state.session.channelId]
     }
 }
 
