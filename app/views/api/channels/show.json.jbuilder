@@ -48,3 +48,7 @@ json.subscriptions do
         json.partial! 'api/channels/channel', channel: subscription
     end
 end
+
+if @channel.links
+    json.links @channel.links
+end

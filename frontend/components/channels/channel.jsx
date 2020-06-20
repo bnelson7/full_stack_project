@@ -371,7 +371,7 @@ debugger
                 return (
                     <div className="channel-about-container">
                         <ul className="channel-about-info">
-                            <li>
+                            <li className="channel-about-info-item">
                                 <h1 className="channel-about-title">Description</h1> 
                                 <span>{channel.description}</span>
                                 {this.state.customize &&
@@ -402,7 +402,7 @@ debugger
                                     </div>
                                 </form>}
                             </li>
-                            <li>
+                            <li className="channel-about-info-item">
                                 <h1 className="channel-about-title">Details</h1>
                                 <label htmlFor="file4">
                                     Edit channel art:
@@ -412,8 +412,18 @@ debugger
                                 </label>
                                 <input type="file" name="file4" id="file4" className="hidden-input" onChange={e => this.handleBanner(e)} />
                             </li>
-                            <li>
+                            <li className="channel-about-info-item">
                                 <h1 className="channel-about-title">Links</h1>
+                                <ul>
+                                    {channel.links.map((link, i) => (
+                                        <li key={`link-${i}`}>
+                                            <a href={link}>
+                                                <span className="channel-about-info-link">
+                                                    {link}
+                                                </span>
+                                            </a>
+                                        </li>))}
+                                </ul>
                                 
                             </li>
                         </ul>

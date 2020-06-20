@@ -8,3 +8,4 @@ if channel.banner.attached?
     json.bannerUrl url_for(channel.banner)
 end
 
+

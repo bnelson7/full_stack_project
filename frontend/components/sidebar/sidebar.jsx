@@ -109,10 +109,12 @@ class Sidebar extends React.Component {
             ) : (
                 <div className="sidebar-container">
                     {this.props.path ==="/" ?
-                        <div className="home-icon">
-                            <MdHome />
-                            <span>Home</span>
-                        </div> :
+                        <Link>
+                            <div className="home-icon">
+                                <MdHome />
+                                <span>Home</span>
+                            </div> 
+                        </Link> :
                         <Link to="/">
                             <div className="sidebar-icon">
                                 <MdHome />
@@ -120,10 +122,12 @@ class Sidebar extends React.Component {
                             </div>
                         </Link>}
                     {this.props.path === "/trending" ? 
-                        <div className="sidebar-icon" id="sidebar-trending">
-                            <FaFire id="icon-size"/>
-                            <span>Trending</span>
-                        </div>: 
+                        <Link>
+                            <div className="sidebar-icon" id="sidebar-trending">
+                                <FaFire id="icon-size"/>
+                                <span>Trending</span>
+                            </div> 
+                        </Link> :
                         <Link to="/trending">
                             <div className="sidebar-icon" >
                                 <FaFire id="icon-size"/>
