@@ -18,7 +18,7 @@ debugger
                         {props.channel.name}
                     </h2>
                 </div>
-                {props.channel.subscribers.find(subs => subs.id === props.currentChannel.id) !== undefined ? 
+                {props.currentChannel.subscriptions.find(subs => subs.id === props.channel.id) !== undefined ? 
                 <button className="channel-subscribe-btn" onClick={props.handleUnsubscribe} value={props.channel.id}>
                     SUBSCRIBED
                 </button> :
@@ -41,7 +41,7 @@ debugger
                         `${props.channel.subscribers.length} subscribers`}
                     </span>
                     <div className="channel-subscribe-btn-container">
-                        {props.channel.subscribers.find(subs => subs.id === props.currentChannel.id) !== undefined ? 
+                        {props.currentChannel.subscriptions.find(subs => subs.id === props.channel.id) !== undefined ? 
                         <button className="channel-subscribe-btn" onClick={props.handleUnsubscribe} value={props.channel.id}>
                             SUBSCRIBED
                         </button> :

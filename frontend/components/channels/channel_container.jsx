@@ -14,14 +14,16 @@ const mstp = (state, ownProps) => {
     let video = channel && channel.uploads && channel.uploads[randomIdx]
     let videos = channel && channel.uploads && channel.uploads
     let currentUser = state.entities.users[state.session.id]
-    // let currentChannel = state.entities.channels[state.session.channelId]
+    let currentChannel = state.entities.channels[state.session.channelId]
     let subscribed = currentUser && Object.keys(state.entities.channels).length && 
     channel && channel.subscribers.find(subs => subs.id === state.session.channelId) !== undefined
     
     let creator = Object.keys(state.entities.users).length && channel && state.entities.users[channel.creatorId] 
     let channels = creator && creator.channels && channel && creator.channels.filter(chan => chan.id !== channel.id ) 
-    // let featuredChannel = Object.keys(state.entities.channels).length > 2 ? Object.values(state.entities.channels)[2] : null
-
+    let featuredChannel = Object.keys(state.entities.channels).length > 2 ? Object.values(state.entities.channels)[2] : null
+    debugger
+    let featuredChannelSubscribed = featuredChannel && currentChannel && currentChannel.subscriptions.find(subs => subs.id === featuredChannel.id) !== undefined
+    console.log(featuredChannelSubscribed) 
     return {
         channels: channels,
         channel: channel,
@@ -30,8 +32,9 @@ const mstp = (state, ownProps) => {
         videos: videos,
         video: video,
         subscribed: subscribed,
-        currentChannel: state.entities.channels[state.session.channelId],
-        // featuredChannel: featuredChannel
+        currentChannel: currentChannel,
+        featuredChannel: featuredChannel,
+        featuredChannelSubscribed
     }
 }
 

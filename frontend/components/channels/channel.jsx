@@ -602,7 +602,8 @@ debugger
         const { path, 
             currentUser, 
             currentChannel,
-            featuredChannel, 
+            featuredChannel,
+            featuredChannelSubscribed, 
             channel, 
             channels,
             videos, 
@@ -616,8 +617,9 @@ debugger
         debugger
         // if (path.includes("/users") && !currentUser.uploads) return null
         // might need to check if && there's no creator return null 
-        if (!channel || !channels || !videos || !currentChannel) return null
+        if (!channel || !channels || !videos || !currentChannel || (featuredChannel && !featuredChannelSubscribed)) return null
         debugger
+
         return (
             <div className="channel-banner-profile-container">
 

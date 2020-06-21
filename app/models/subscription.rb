@@ -11,7 +11,7 @@
 class Subscription < ApplicationRecord
 
     validates :channel, :subscriber, presence: true
-    validates :subscriber, uniqueness: true
+    # validates :channel, uniqueness: { scope: :subscriber }
     validate :subscribe_to_own_channel
 
     # want channels creator id cant be the same as subscribers (which is a channel) creator id
