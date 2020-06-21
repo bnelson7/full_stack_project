@@ -30,7 +30,7 @@ debugger
             <div className="channel-channels-grid-item-">
                 <div className="channel-logo-channels">
                     <Link to={`/channels/${props.channel.id}`}>
-                        <img src={props.channel.logoUrl} />
+                        <img src={props.channel.logoUrl} onClick={props.update}/>
                     </Link>
                 </div>
                 <div className="channel-channels-info">

@@ -40,7 +40,9 @@ const NavBarDropdown = (props) => {
                             <span>{props.currentUser.username}</span>
                             <span>{props.currentUser.email}</span>
                         </div>
-                        <Link to={`/users/${props.currentUser.id}`}><p>Manage your Google Account</p></Link>
+                        <Link to={`/channels/${props.currentUser.channels[0].id}`}>
+                            <p>Manage your Google Account</p>
+                        </Link>
                     </li>
                 </div>
                 <div className="nav-dropdown-info">

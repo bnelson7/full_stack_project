@@ -10,7 +10,12 @@
 #
 class Subscription < ApplicationRecord
 
-    validates :channel_id, :subscriber_id, presence: true
+    validates :channel, :subscriber, presence: true
+    validates :subscriber, uniqueness: true
+    validate :subscribe_to_own_channel
+
+    # want channels creator id cant be the same as subscribers (which is a channel) creator id
+    # also channels cant subscribe to same channel
 
     belongs_to :subscriber,
         primary_key: :id,
@@ -21,5 +26,13 @@ class Subscription < ApplicationRecord
         primary_key: :id,
         foreign_key: :channel_id,
         class_name: :Channel
+
+    private
+
+    def subscribe_to_own_channel
+        if self.subscriber.creator_id == self.channel.creator_id
+            errors[:subscriber] << "Can't subscribe to own channel"
+        end
+    end
 
 end

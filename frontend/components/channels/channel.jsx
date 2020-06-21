@@ -347,6 +347,7 @@ debugger
                                                 handleSubscribe={this.handleSubscribe}
                                                 handleUnsubscribe={this.handleUnsubscribe}
                                                 currentChannel={currentChannel}
+                                                update={this.update}
                                             />
                                         </li>
                                     )
@@ -615,7 +616,7 @@ debugger
         debugger
         // if (path.includes("/users") && !currentUser.uploads) return null
         // might need to check if && there's no creator return null 
-        if (!channel || !channels || !videos) return null
+        if (!channel || !channels || !videos || !currentChannel) return null
         debugger
         return (
             <div className="channel-banner-profile-container">

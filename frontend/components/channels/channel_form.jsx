@@ -39,7 +39,7 @@ class ChannelForm extends React.Component {
     }
 
     render() {
-        
+        debugger
         return (
             <div className="channel-form-background">
                 <header>
@@ -50,6 +50,7 @@ class ChannelForm extends React.Component {
                         currentUser={this.props.currentUser}
                         handleLogout={this.handleLogout}
                         path={this.props.path}
+                        currentChannel={this.props.currentChannel}
                     />
                 </header>
                 <div className="brand-accounts-container">
