@@ -20,7 +20,10 @@ class Channel extends React.Component {
             subscribed: null,
             customize: false,
             customizing: false,
-            description: ""
+            description: "",
+            addLinks: false,
+            addingLinks: true,
+            links: ""
         }
    
         this.handleToggle = this.handleToggle.bind(this)
@@ -35,7 +38,8 @@ class Channel extends React.Component {
         this.handleEditForm = this.handleEditForm.bind(this)
         this.handleSubscribe = this.handleSubscribe.bind(this)
         this.handleUnsubscribe = this.handleUnsubscribe.bind(this)
-        // this.updateSubscribed = this.updateSubscribed.bind(this)
+        this.handleLinks = this.handleLinks.bind(this)
+        this.addLinks = this.addLinks.bind(this)
     }
 
     componentDidMount() {
@@ -213,10 +217,10 @@ class Channel extends React.Component {
         this.props.openModal({ type: 'upload' })
     }
 
-    updateDescription(e) {
+    updateInfo(field) {
         
         return e => {
-            this.setState({ description: e.currentTarget.value })
+            this.setState({ [field]: e.currentTarget.value })
         }
     }
 
@@ -228,17 +232,38 @@ class Channel extends React.Component {
         })
     }
 
+    handleLinks(e) {
+        debugger
+        e.currentTarget.value === "cancel" 
+        ? this.setState({ addLinks: false})
+        : e.currentTarget.value === "add" ? this.setState({ addingLinks: true, links: this.props.channel.links }) 
+        : this.setState({ addLinks: true })
+    }
+
+    addLinks() {
+        debugger
+        return (
+            <input className="link-input" placeholder="URL" value={this.state.links}
+                onChange={this.updateInfo("links")}></input>
+        )
+    }
+
     handleEdit(e) {
         e.preventDefault();
-        const description = new FormData()
-        description.append('channel[description]', this.state.description)
-        
-        this.props.editChannel(description, this.props.channel.id)
+        const update = new FormData()
+        e.currentTarget.value === "description" ? 
+        update.append('channel[description]', this.state.description) :
+        update.append('channel[links]', this.state.links)
+        debugger
+        this.props.editChannel(update, this.props.channel.id)
         .then(() => {
             
                 this.setState({
                     customize: false,
-                    customizing: false
+                    customizing: false,
+                    addLinks: false,
+                    addingLinks: false,
+                    links: ""
                 })
             })
     }
@@ -389,14 +414,14 @@ debugger
                                         <textarea 
                                         className="channel-description-form" 
                                         value={this.state.description} 
-                                        onChange={this.updateDescription("description")}
+                                        onChange={this.updateInfo("description")}
                                         >
                                         </textarea>
                                         <div className="channel-descriptions-btns">
                                             <button className="channel-description-btn-cancel" onClick={this.handleEditForm}>
                                                 Cancel
                                             </button>
-                                            <button className="channel-description-btn-done" onClick={this.handleEdit}>
+                                            <button className="channel-description-btn-done" onClick={this.handleEdit} value="description">
                                                 Done
                                             </button>
                                         </div>
@@ -415,26 +440,38 @@ debugger
                             </li>
                             <li className="channel-about-info-item">
                                 <h1 className="channel-about-title">Links</h1>
-                                {this.state.customize ?
-                                    <button className="channel-description-btn-link">
+                                {(this.state.customize || this.state.customizing) && !this.state.addLinks ?
+                                    <button className="channel-description-btn-link" onClick={this.handleLinks}>
                                         <FaPlusCircle className="plus-icon" /> Links
                                     </button>
-                                : this.state.customizing ?
+                                : this.state.addLinks ?
                                     <form>
-                                        <div className="channel-description-form-container">
-                                            <input>
-                                            </input>
+                                        <ul className="channel-links">
+                                            {channel.links.map((link, i) => (
+                                                <li key={`link-${i}`}>
+                                                    <a href={link}>
+                                                        <span className="channel-about-info-link">
+                                                            {link}
+                                                        </span>
+                                                    </a>
+                                                </li>))}
+                                        </ul>
+                                        <div className="channel-link-form-container">
+                                            {this.state.addingLinks && this.addLinks()}
+                                            <button className="channel-description-btn-add" onClick={this.handleLinks} value="add">
+                                                <FaPlusCircle className="plus-icon" /> Add
+                                            </button>
                                             <div className="channel-descriptions-btns">
-                                                <button className="channel-description-btn-cancel" onClick={this.handleEditForm}>
+                                                <button className="channel-description-btn-cancel" onClick={this.handleLinks} value="cancel">
                                                     Cancel
-                                            </button>
-                                                <button className="channel-description-btn-done" onClick={this.handleEdit}>
+                                                </button>
+                                                <button className="channel-description-btn-done" onClick={this.handleEdit} value="link">
                                                     Done
-                                            </button>
+                                                </button>
                                             </div>
                                         </div>
                                     </form> :
-                                <ul>
+                                <ul className="channel-links">
                                     {channel.links.map((link, i) => (
                                         <li key={`link-${i}`}>
                                             <a href={link}>
@@ -637,7 +674,7 @@ debugger
         // might need to check if && there's no creator return null 
         if (!channel || !channels || !videos || !currentChannel || (featuredChannel && !featuredChannelSubscribed)) return null
         debugger
-
+            console.log(this.state)
         return (
             <div className="channel-banner-profile-container">
 

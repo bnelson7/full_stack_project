@@ -870,6 +870,21 @@ textarea {
     cursor: pointer;
 }
 
+.channel-description-btn-add {
+    height: 2.8vh;
+    width: 7vh;
+    border: 1px solid #D3D3D3;
+    border-radius: 2px;
+    color: #333333;
+    font-size: 1.1vh;
+    padding: 0 1vh;
+    display: flex;
+    align-items: center;
+    background: #F8F8F8;
+    cursor: pointer;
+    margin-top: 1vh;
+}
+
 .channel-description-btn-cancel {
     height: 2.8vh;
     width: 5.6vh;
@@ -893,3 +908,32 @@ textarea {
     border: 1px solid #167AC6;
 }
 
+.channel-links {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    min-height: 10vh;
+}
+
+.channel-link-form-container {
+    // height: 20vh;
+    width: 40vw;
+    // padding: 0 1.5vh 1.5vh 1.5vh;
+    color: #333333;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.1vh;
+    font-family: "YouTube Noto", Roboto, arial, sans-serif;
+}
+
+.link-input {
+    height: 2.8vh;
+    border: 1px solid #D3D3D3;
+    background: #FFFFFF;
+    font-size: 1.2vh;
+    padding: .5vh 1vh;
+}
+
+.link-input:focus {
+    border: 1px solid #167AC6;
+}

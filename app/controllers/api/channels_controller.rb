@@ -50,13 +50,16 @@ class Api::ChannelsController < ApplicationController
     end
 
     def update
+        debugger
         @channel = Channel.find_by(id: params[:id])
         @channel.subscribed = @channel.subscribers.length
         # remove null false constraint on subscribed
     
-        
-        
-        if @channel.update(channel_params)
+        if params[:channel][:links] && @channel.update(links: @channel.links.push(params[:channel][:links]))
+
+            debugger
+            render :show
+        elsif @channel.update(channel_params)
             
             render :show
         else
@@ -73,7 +76,7 @@ class Api::ChannelsController < ApplicationController
     end
 
     def channel_params
-        params.require(:channel).permit(:name, :description, :logo, :banner)
+        params.require(:channel).permit(:name, :description, :logo, :banner, :links)
     end
 
 end
