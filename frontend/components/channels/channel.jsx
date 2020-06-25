@@ -8,6 +8,7 @@ import { GoPrimitiveDot } from "react-icons/go";
 import { Link } from 'react-router-dom'
 import VideoSortDropdown from '../hooks/video_sort_dropdown'
 import ChannelIndexItem from './channel_index_item'
+import { FaPlusCircle } from "react-icons/fa"
 
 class Channel extends React.Component {
     constructor(props) {
@@ -232,7 +233,6 @@ class Channel extends React.Component {
         const description = new FormData()
         description.append('channel[description]', this.state.description)
         
-        
         this.props.editChannel(description, this.props.channel.id)
         .then(() => {
             
@@ -374,10 +374,11 @@ debugger
                         <ul className="channel-about-info">
                             <li className="channel-about-info-item">
                                 <h1 className="channel-about-title">Description</h1> 
-                                <span>{channel.description}</span>
+                                {!this.state.customize && !this.state.customizing && 
+                                <span>{channel.description}</span>}
                                 {this.state.customize &&
-                                    <button onClick={this.handleEditForm}>
-                                        Channel description
+                                    <button className="channel-description-btn" onClick={this.handleEditForm}>
+                                        <FaPlusCircle className="plus-icon"/> Channel description
                                     </button>}
                                 {this.state.customizing &&
                                 <form>
@@ -390,13 +391,12 @@ debugger
                                         value={this.state.description} 
                                         onChange={this.updateDescription("description")}
                                         >
-
                                         </textarea>
-                                        <div>
-                                            <button onClick={this.handleEditForm}>
+                                        <div className="channel-descriptions-btns">
+                                            <button className="channel-description-btn-cancel" onClick={this.handleEditForm}>
                                                 Cancel
                                             </button>
-                                            <button onClick={this.handleEdit}>
+                                            <button className="channel-description-btn-done" onClick={this.handleEdit}>
                                                 Done
                                             </button>
                                         </div>
@@ -405,16 +405,35 @@ debugger
                             </li>
                             <li className="channel-about-info-item">
                                 <h1 className="channel-about-title">Details</h1>
-                                <label htmlFor="file4">
-                                    Edit channel art:
-                                    {/* <button className="banner-btn"> */}
-                                        <MdModeEdit />
-                                    {/* </button> */}
-                                </label>
-                                <input type="file" name="file4" id="file4" className="hidden-input" onChange={e => this.handleBanner(e)} />
+                                {(this.state.customize || this.state.customizing) && 
+                                <div>
+                                    <label className="channel-description-btn-art" htmlFor="file4">
+                                        <FaPlusCircle className="plus-icon" /> Edit channel art
+                                    </label>
+                                    <input type="file" name="file4" id="file4" className="hidden-input" onChange={e => this.handleBanner(e)} />
+                                </div>}
                             </li>
                             <li className="channel-about-info-item">
                                 <h1 className="channel-about-title">Links</h1>
+                                {this.state.customize ?
+                                    <button className="channel-description-btn-link">
+                                        <FaPlusCircle className="plus-icon" /> Links
+                                    </button>
+                                : this.state.customizing ?
+                                    <form>
+                                        <div className="channel-description-form-container">
+                                            <input>
+                                            </input>
+                                            <div className="channel-descriptions-btns">
+                                                <button className="channel-description-btn-cancel" onClick={this.handleEditForm}>
+                                                    Cancel
+                                            </button>
+                                                <button className="channel-description-btn-done" onClick={this.handleEdit}>
+                                                    Done
+                                            </button>
+                                            </div>
+                                        </div>
+                                    </form> :
                                 <ul>
                                     {channel.links.map((link, i) => (
                                         <li key={`link-${i}`}>
@@ -424,8 +443,7 @@ debugger
                                                 </span>
                                             </a>
                                         </li>))}
-                                </ul>
-                                
+                                </ul>}
                             </li>
                         </ul>
                         <div className="profile-about-container">
@@ -582,7 +600,7 @@ debugger
     handleBanner(e) {
         e.preventDefault();
         const formData = new FormData();
-        
+        debugger
         formData.append('channel[banner]', e.currentTarget.files[0]);
         this.props.editChannel(formData, this.props.channel.id)
             .then(() => {

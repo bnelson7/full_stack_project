@@ -710,7 +710,7 @@ textarea {
 }
 
 .channel-about-info-item {
-    height: 14vh;
+    min-height: 14vh;
     border: 1px solid #D8D8D8;
     border-left-style: none;
     border-right-style: none;
@@ -786,3 +786,110 @@ textarea {
     color: #065FD4;
     // text-decoration: underline;
 }
+
+.channel-description-form-container {
+    height: 20vh;
+    width: 40vw;
+    // padding: 0 1.5vh 1.5vh 1.5vh;
+    color: #333333;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.1vh;
+    font-family: "YouTube Noto", Roboto, arial, sans-serif;
+}
+
+.channel-description-title {
+    height: 2vh;
+    font-weight: 500;
+}
+
+.channel-description-form {
+    height: 10.2vh;
+    width: 100%;
+    padding: .5vh 1vh;
+    background: #FFFFFF;
+    border: 1px solid #D3D3D3;
+    font-size: 1.3vh;
+}
+
+.channel-description-form:focus {
+    border: 1px solid #167AC6;
+}
+
+.plus-icon {
+    // background: #555555;
+    margin-right: 0.6vh;
+}
+
+.channel-descriptions-btns {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    padding-top: 1.5vh;
+        
+}
+
+.channel-description-btn {
+    height: 2.8vh;
+    width: 14vh;
+    border: 1px solid #D3D3D3;
+    border-radius: 2px;
+    color: #333333;
+    font-size: 1.1vh;
+    padding: 0 1vh;
+    display: flex;
+    align-items: center;
+    background: #F8F8F8;
+}
+
+.channel-description-btn-art {
+    height: 2.8vh;
+    width: 12vh;
+    border: 1px solid #D3D3D3;
+    border-radius: 2px;
+    color: #333333;
+    font-size: 1.1vh;
+    padding: 0 1vh;
+    display: flex;
+    align-items: center;
+    background: #F8F8F8;
+    cursor: pointer;
+}
+
+.channel-description-btn-link {
+    height: 2.8vh;
+    width: 7vh;
+    border: 1px solid #D3D3D3;
+    border-radius: 2px;
+    color: #333333;
+    font-size: 1.1vh;
+    padding: 0 1vh;
+    display: flex;
+    align-items: center;
+    background: #F8F8F8;
+    cursor: pointer;
+}
+
+.channel-description-btn-cancel {
+    height: 2.8vh;
+    width: 5.6vh;
+    padding: 0 1vh;
+    color: #333333;
+    background: #F8F8F8;
+    text-align: center;
+    margin-right: .5vh;
+    border-radius: 2px;
+    border: 1px solid #D3D3D3;
+}
+
+.channel-description-btn-done {
+    height: 2.8vh;
+    width: 5.6vh;
+    padding: 0 1vh;
+    color: #FFFFFF;
+    background: #167AC6;
+    text-align: center;
+    border-radius: 2px;
+    border: 1px solid #167AC6;
+}
+
