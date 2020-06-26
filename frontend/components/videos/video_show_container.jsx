@@ -15,6 +15,7 @@ const mSTP = (state, ownProps) => {
     let currentUser = state.entities.users[state.session.id]
     let currentChannel = state.entities.channels[state.session.channelId]
     let like = currentChannel && currentChannel.liked && currentChannel.liked.videos ? currentChannel.liked.videos[videoId] : null
+    let channel = video && video.channel && state.entities.channels[video.channel.id]
 
     if (like) {
         var liked = like.liked 
@@ -25,10 +26,15 @@ const mSTP = (state, ownProps) => {
     }
     
     let subscribed = false
-    if (currentUser && video && video.channel) {
+    let subscribers = []
+    if (currentChannel && channel) {
+        subscribed = channel.subscribers.find(subs => subs.id === state.session.channelId) !== undefined
+        subscribers = channel.subscribers.length
+    } else if (currentChannel && video && video.channel) {
         subscribed = video.channel.subscribers.find(subs => subs.id === state.session.channelId) !== undefined
+        subscribers = video.channel.subscribers.length
     }
-   
+   debugger
     return {
         videoId: videoId,
         video: video,
@@ -39,7 +45,8 @@ const mSTP = (state, ownProps) => {
         like: like,
         liked: liked,
         disliked: disliked,
-        subscribed: subscribed
+        subscribed: subscribed,
+        subscribers: subscribers
     }
 }
 

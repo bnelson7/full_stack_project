@@ -273,17 +273,30 @@ class VideoShow extends React.Component {
         e.preventDefault();
         const { currentUser, history, video } = this.props
         
+        
         if (!currentUser) {
             history.push("/login")
         } else {
-            const subscription = { channelId: video.channel.id }
+            const subscription = { channelId: video.channel.id, subscriber_id: this.props.currentChannel.id }
+
             this.props.createSubscription(subscription)
+                // .then(() => {
+                //     debugger
+                //     this.props.requestChannel(video.channel.id)
+                // })
         }
     }    
 
     handleUnsubscribe(e) {
         e.preventDefault();
-        this.props.deleteSubscription(video.channel.id)
+        const { video } = this.props
+        const subscription = { id: video.channel.id, subscriber_id: this.props.currentChannel.id }
+        
+        this.props.deleteSubscription(subscription)
+            // .then(() => {
+            //     debugger
+            //     this.props.requestChannel(video.channel.id)
+            // })
     }
 
     render() {
@@ -291,7 +304,7 @@ class VideoShow extends React.Component {
         if (!video || !video.clipUrl) return null
         
         const filteredVideos = videos.filter(video => video.id !== parseInt(videoId))
-     
+     debugger
         return (
             <div className="background">
                 <div className="page-container">
@@ -330,9 +343,9 @@ class VideoShow extends React.Component {
                                         </span>
                                     </h1>
                                     <span>
-                                        {video.channel.subscribers.length === 1 ? 
-                                        `${video.channel.subscribers.length} subscriber` :
-                                        `${video.channel.subscribers.length} subscribers`}
+                                        {this.props.subscribers === 1 ? 
+                                        `${this.props.subscribers} subscriber` :
+                                        `${this.props.subscribers} subscribers`}
                                     </span>
                                 </div>
                                 <div className="video-description">

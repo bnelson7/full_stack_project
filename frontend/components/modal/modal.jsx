@@ -364,7 +364,7 @@ class Modal extends React.Component {
                                     })}
                                 </ul>
                             </div>}
-                            {this.props.currentUser && <hr id="sidebar-hr" />}}
+                            {this.props.currentUser && <hr id="sidebar-hr" />}
                         </div>
                     </div>
                     )

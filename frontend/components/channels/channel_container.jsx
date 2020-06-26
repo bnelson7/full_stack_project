@@ -21,7 +21,7 @@ const mstp = (state, ownProps) => {
     let creator = Object.keys(state.entities.users).length && channel && state.entities.users[channel.creatorId] 
     let channels = creator && creator.channels && channel && creator.channels.filter(chan => chan.id !== channel.id ) 
     let featuredChannel = Object.keys(state.entities.channels).length > 2 ? Object.values(state.entities.channels)[2] : null
-    
+    debugger
     let featuredChannelSubscribed = featuredChannel && currentChannel && currentChannel.subscriptions.find(subs => subs.id === featuredChannel.id) !== undefined
     console.log(featuredChannelSubscribed) 
     return {
