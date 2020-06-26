@@ -39,7 +39,7 @@ class ChannelForm extends React.Component {
     }
 
     render() {
-        debugger
+        
         return (
             <div className="channel-form-background">
                 <header>

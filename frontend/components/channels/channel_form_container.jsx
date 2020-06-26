@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'
 import { createChannel } from '../../actions/channel_actions'
 
 const mstp = state => {
-    debugger
+    
     return {
         currentUser: state.entities.users[state.session.id],
         currentChannel: state.entities.channels[state.session.channelId]

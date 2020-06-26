@@ -54,9 +54,9 @@ class Channel extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        debugger
+        
         if (this.props.path !== prevProps.path) {
-            debugger
+            
             this.props.requestChannel(this.props.match.params.channelId)
                 .then(res => {
 
@@ -233,7 +233,7 @@ class Channel extends React.Component {
     }
 
     handleLinks(e) {
-        debugger
+        
         e.currentTarget.value === "cancel" 
         ? this.setState({ addLinks: false})
         : e.currentTarget.value === "add" ? this.setState({ addingLinks: true, links: this.props.channel.links }) 
@@ -241,7 +241,7 @@ class Channel extends React.Component {
     }
 
     addLinks() {
-        debugger
+        
         return (
             <input className="link-input" placeholder="URL" value={this.state.links}
                 onChange={this.updateInfo("links")}></input>
@@ -254,7 +254,7 @@ class Channel extends React.Component {
         e.currentTarget.value === "description" ? 
         update.append('channel[description]', this.state.description) :
         update.append('channel[links]', this.state.links)
-        debugger
+        
         this.props.editChannel(update, this.props.channel.id)
         .then(() => {
             
@@ -300,7 +300,7 @@ class Channel extends React.Component {
     renderSelected() {
         const { selected, sortSelected } = this.state
         const { videos, video, path, deleteVideo, updateVideo, openModal, currentUser, channel, currentChannel, channels } = this.props
-debugger
+
         switch (selected) {
             case "videos":
                 if (!videos || videos.length === 0) {
@@ -312,7 +312,7 @@ debugger
                         </div>
                     )
                 } else {
-                    debugger
+                    
                     return (
                         <div className="profile-videos-container">
                             <div className="profile-videos">
@@ -355,14 +355,14 @@ debugger
                     </div>
                 )
             case "channels":
-                debugger
+                
                 if (channels.length) {
                     return (
                         <div className="channels-featured-channels">
                             <h1>Featured channels</h1>
                             <ul className="channel-channels-grid-container">
                                 {channels.map(channel => {
-                                    debugger
+                                    
                                     return (
                                         <li className="channel-channels-grid-item-container" key={channel.id}>
                                             <ChannelIndexItem
@@ -539,7 +539,7 @@ debugger
                     </div>
                 )
             } else if (!videos || videos.length === 0) {
-                debugger
+                
                 return (
                     <div className="profile-videos-default">
                         <h1>
@@ -549,7 +549,7 @@ debugger
                     )
             }
             else {
-                debugger
+                
                 return (
                     <div className="upload-container-content">
                         <div className="upload-container-uploads">
@@ -637,7 +637,7 @@ debugger
     handleBanner(e) {
         e.preventDefault();
         const formData = new FormData();
-        debugger
+        
         formData.append('channel[banner]', e.currentTarget.files[0]);
         this.props.editChannel(formData, this.props.channel.id)
             .then(() => {
@@ -669,11 +669,11 @@ debugger
             editChannel, 
             history,
             requestCurrentChannel } = this.props
-        debugger
+        
         // if (path.includes("/users") && !currentUser.uploads) return null
         // might need to check if && there's no creator return null 
         if (!channel || !channels || !videos || !currentChannel || (featuredChannel && !featuredChannelSubscribed)) return null
-        debugger
+        
             console.log(this.state)
         return (
             <div className="channel-banner-profile-container">

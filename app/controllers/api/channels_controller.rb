@@ -50,14 +50,14 @@ class Api::ChannelsController < ApplicationController
     end
 
     def update
-        debugger
+        
         @channel = Channel.find_by(id: params[:id])
         @channel.subscribed = @channel.subscribers.length
         # remove null false constraint on subscribed
     
         if params[:channel][:links] && @channel.update(links: @channel.links.push(params[:channel][:links]))
 
-            debugger
+            
             render :show
         elsif @channel.update(channel_params)
             
