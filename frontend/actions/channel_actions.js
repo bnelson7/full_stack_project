@@ -46,7 +46,7 @@ export const requestChannel = id => dispatch => {
 }
 
 export const requestCurrentChannel = id => dispatch => {
-    
+    debugger
     return (
         ChannelAPIUtil.fetchChannel(id)
         .then(channel => dispatch(receiveCurrentChannel(channel)))

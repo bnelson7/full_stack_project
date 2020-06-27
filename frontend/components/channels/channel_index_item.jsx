@@ -56,7 +56,7 @@ const ChannelIndexItem = props => {
                 <div className="sidebar-subscriptions-grid-item">
                     <div className="sidebar-subscription-info-container">
                         <div className="channel-logo-home">
-                                <img src={props.subscription.logoUrl} />
+                            <img src={props.subscription.logoUrl} />
                         </div>
                         <h1 className="sidebar-subscription-name">
                             {props.subscription.name}

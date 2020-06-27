@@ -9,13 +9,17 @@ class NavBar extends React.Component {
     super(props)
 
     this.state = {
-      queryString: ""
+      queryString: "",
+      switchAccount: false
     }
 
     this.handleLogout = this.handleLogout.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
     this.handleModal = this.handleModal.bind(this)
     this.handleSidebar = this.handleSidebar.bind(this)
+    this.handleAccount = this.handleAccount.bind(this)
+    this.handleDefault = this.handleDefault.bind(this)
+    this.handleSwitchChannel = this.handleSwitchChannel.bind(this)
   }
 
   componentDidMount() {
@@ -40,6 +44,19 @@ class NavBar extends React.Component {
     this.props.openModal({type: 'upload'});
   }
 
+  handleAccount() {
+    this.setState({ switchAccount: true })
+  }
+
+  handleDefault() {
+    this.setState({ switchAccount: false })
+  }
+
+  handleSwitchChannel(channelId) {
+    debugger
+    this.props.requestCurrentChannel(channelId)
+  }
+
   loggedInNav() {
     return (
       <div className="right-navbar">
@@ -55,7 +72,12 @@ class NavBar extends React.Component {
           <NavBarDropdown 
           currentUser={this.props.currentUser} 
           handleLogout={this.handleLogout} 
-          path={this.props.path} 
+          path={this.props.path}
+          currentChannel={this.props.currentChannel} 
+          handleAccount={this.handleAccount}
+          switchAccount={this.state.switchAccount}
+          handleDefault={this.handleDefault}
+          handleSwitchChannel={this.handleSwitchChannel}
           />
       </div>
     )
@@ -105,8 +127,9 @@ class NavBar extends React.Component {
   }
 
   render() {
-    const { currentUser } = this.props
-
+    const { currentUser, currentChannel } = this.props
+debugger
+    if (currentUser && !currentChannel) return null
     return (
       <div className="header">
           <div className="navbar">
