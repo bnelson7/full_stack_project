@@ -36,7 +36,6 @@ class LoginForm extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         const user = Object.assign({}, this.state)
-        
         this.props.loginUser(user)
     }
 
@@ -44,9 +43,10 @@ class LoginForm extends React.Component {
         e.preventDefault();
         this.props.loginDemoUser()
             .then(res => {
-                
                 this.props.requestCurrentChannel(res.currentUser.channels[0].id)
-                    .then(() => {
+                    .then(res => {
+                        const currentChannel = res.currentChannel.id 
+                        localStorage.setItem('currentChannel', JSON.stringify(currentChannel))                        
                         this.props.history.push('/')
                         this.props.closeModal()
                     })

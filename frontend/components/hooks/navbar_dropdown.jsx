@@ -28,7 +28,6 @@ const NavBarDropdown = (props) => {
         };
     }, []);
 
-    debugger
     return (
         <div className="user-icon" ref={navbar}>
             <button className="profile-photo-nav" onClick={e => setOpen(!open)}>
@@ -46,7 +45,7 @@ const NavBarDropdown = (props) => {
                     </div>
                     <ul className="user-channels-nav-dropdown">
                         {props.currentUser.channels.map(channel => {
-                            debugger
+                            
                             return (
                                 <li key={channel.id} onClick={() => props.handleSwitchChannel(channel.id)}>
                                     <div className="channel-logo-nav-dropdown">
@@ -80,7 +79,6 @@ const NavBarDropdown = (props) => {
                             <span><BsBoxArrowRight className="nav-dropdown-info-item" /></span>
                             <span>Sign out</span>
                         </li>
-                    {/* <li><BsSun className="nav-dropdown-info-channel-item"/><span>Dark theme: Off</span></li> */}
                 </div>
             </ul>}
             {open && !props.switchAccount &&

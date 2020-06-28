@@ -281,7 +281,7 @@ class VideoShow extends React.Component {
 
             this.props.createSubscription(subscription)
                 // .then(() => {
-                //     debugger
+                //     
                 //     this.props.requestChannel(video.channel.id)
                 // })
         }
@@ -294,7 +294,7 @@ class VideoShow extends React.Component {
         
         this.props.deleteSubscription(subscription)
             // .then(() => {
-            //     debugger
+            //     
             //     this.props.requestChannel(video.channel.id)
             // })
     }
@@ -304,7 +304,7 @@ class VideoShow extends React.Component {
         if (!video || !video.clipUrl) return null
         
         const filteredVideos = videos.filter(video => video.id !== parseInt(videoId))
-     debugger
+     
         return (
             <div className="background">
                 <div className="page-container">

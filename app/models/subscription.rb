@@ -30,7 +30,7 @@ class Subscription < ApplicationRecord
     private
 
     def subscribe_to_own_channel
-        debugger
+        
         if self.subscriber.creator_id == self.channel.creator_id
             errors[:subscriber] << "Can't subscribe to own channel"
         end

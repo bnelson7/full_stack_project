@@ -1,7 +1,7 @@
 class Api::SubscriptionsController < ApplicationController
 
     def create
-        debugger
+        
         @subscription = Subscription.create(
             channel_id: params[:channel_id], 
             subscriber_id: params[:subscription][:subscriber_id]

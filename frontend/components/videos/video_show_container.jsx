@@ -34,7 +34,7 @@ const mSTP = (state, ownProps) => {
         subscribed = video.channel.subscribers.find(subs => subs.id === state.session.channelId) !== undefined
         subscribers = video.channel.subscribers.length
     }
-   debugger
+   
     return {
         videoId: videoId,
         video: video,

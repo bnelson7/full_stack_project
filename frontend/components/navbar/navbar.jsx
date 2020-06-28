@@ -26,7 +26,8 @@ class NavBar extends React.Component {
     this.props.currentUser && 
     this.props.requestCurrentUser(this.props.currentUser.id)
       .then(() => {
-        this.props.requestCurrentChannel(this.props.currentUser.channels[0].id)
+        const channelId = localStorage.getItem('currentChannel')
+        this.props.requestCurrentChannel(parseInt(channelId))
       })
   }
 
@@ -53,8 +54,11 @@ class NavBar extends React.Component {
   }
 
   handleSwitchChannel(channelId) {
-    debugger
     this.props.requestCurrentChannel(channelId)
+      .then(res => {
+        const currentChannel = res.currentChannel.id
+        localStorage.setItem('currentChannel', JSON.stringify(currentChannel))
+      })
   }
 
   loggedInNav() {
@@ -128,8 +132,9 @@ class NavBar extends React.Component {
 
   render() {
     const { currentUser, currentChannel } = this.props
-debugger
+
     if (currentUser && !currentChannel) return null
+
     return (
       <div className="header">
           <div className="navbar">

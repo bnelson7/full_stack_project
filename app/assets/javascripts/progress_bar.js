@@ -1,8 +1,8 @@
 document.onreadystatechange = function (e) {
-    debugger
+    
     if (document.readyState === "interactive") {
         let all = document.getElementsByTagName("*");
-        debugger
+        
         for (let i = 0; i < all.length; i++) {
             setEle(all[i]);
         }
