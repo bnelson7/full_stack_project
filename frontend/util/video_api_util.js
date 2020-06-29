@@ -55,7 +55,7 @@ export const deleteVideo = videoId => {
 }
 
 export const fetchQueriedVideos = queryString => {
-    
+    debugger
     return (
         $.ajax({
             url: `/api/videos/results${queryString}`,

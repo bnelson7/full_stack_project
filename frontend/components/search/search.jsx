@@ -28,15 +28,16 @@ class Search extends React.Component {
     }
 
     componentDidMount() {
-        
-        this.props.location.search.split("=")[1].length === 0 ?
+        const recentSearch = localStorage.getItem('recentSearch')
+        debugger
+        (recentSearch || this.props.location.search.split("=")[1].length === 0) ?
         this.props.requestQueriedVideos(this.props.location.search)
         .then(results => {
             this.setState({ videos: Object.values(results.videos) })
         }) :
         this.props.requestQueriedChannel(this.props.location.search) 
         .then(results => {
-            
+            debugger
             if (!Object.values(results.channel).length) {
                 
                 this.props.requestQueriedVideos(this.props.location.search)
@@ -57,14 +58,21 @@ class Search extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
+        const recentSearch = localStorage.getItem('recentSearch')
+        debugger
         if (prevProps.location.search !== this.props.location.search) {
-        this.props.location.search.split("=")[1].length === 0 ?
-        this.props.requestQueriedVideos(this.props.location.search)
-            .then(results => {
-                this.setState({ videos: Object.values(results.videos) })
-            }) :
+        if (recentSearch || this.props.location.search.split("=")[1].length === 0) {
+            // fetches video twice here on recent search after submit button search
+            
+            this.props.requestQueriedVideos(this.props.location.search)
+                .then(results => {
+                    this.setState({ videos: Object.values(results.videos) })
+                }) 
+        } else {
+
+            debugger
         this.props.requestQueriedChannel(this.props.location.search) 
-            .then(results => {
+        .then(results => {
                 
                 if (!Object.values(results.channel).length) {
                     
@@ -83,6 +91,7 @@ class Search extends React.Component {
                      })
                 }
             })
+        }
         }
     }
 

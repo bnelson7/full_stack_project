@@ -9,6 +9,9 @@ class Api::ChannelsController < ApplicationController
                 "%#{params[:search_query].downcase}%"
                 )
             render :index
+        else
+            @channels = Channel.all
+            render :index
         end 
     end
 
@@ -28,7 +31,6 @@ class Api::ChannelsController < ApplicationController
     end
 
     def show
-
         if params[:search_query]
             
             @channel = Channel.where(

@@ -36,7 +36,7 @@ const NavBarDropdown = (props) => {
             {open && props.switchAccount &&
             <ul className="profile-nav-dropdown">
                 <div className="nav-dropdown-user-accounts">
-                    <span onClick={props.handleDefault}><FiArrowLeft /></span>
+                    <span onClick={props.handleDefault}><FiArrowLeft/></span>
                     <span>Accounts</span>
                 </div>
                 <div className="nav-dropdown-user-channels-container">
@@ -107,7 +107,7 @@ const NavBarDropdown = (props) => {
                         <li onClick={props.handleAccount}>
                             <span><FaUserFriends className="nav-dropdown-info-channel" /></span>
                             <span id="switch-account">Switch account</span>
-                            <IoIosArrowForward />
+                            <IoIosArrowForward id="right-arrow"/>
                         </li>
                         <li id="signout" onClick={props.handleLogout}>
                             <span><BsBoxArrowRight className="nav-dropdown-info-item" /></span>

@@ -6,7 +6,6 @@ class Api::VideosController < ApplicationController
     end
     
     def show
-        
         if params[:search_query] 
             
             @videos = Video.where("lower(title) LIKE ? OR lower(description) LIKE ?", 

@@ -21,6 +21,8 @@ class NavBar extends React.Component {
     this.handleAccount = this.handleAccount.bind(this)
     this.handleDefault = this.handleDefault.bind(this)
     this.handleSwitchChannel = this.handleSwitchChannel.bind(this)
+    this.getQueryString = this.getQueryString.bind(this)
+    this.handleChannels = this.handleChannels.bind(this)
   }
 
   componentDidMount() {
@@ -114,17 +116,26 @@ class NavBar extends React.Component {
     )
   }
 
-  handleSearch(e) {
-    e.preventDefault();
+  handleSearch(e, queryString) {
     debugger
-    this.props.history.push(`/results?search_query=${this.state.queryString}`)
+    e.preventDefault();
+    if (queryString) {
+      debugger
+      localStorage.setItem('recentSearch', queryString)
+      // not sure why i can't push state here
+      this.props.history.push(`/results?search_query=${queryString}`)
+    } else {
+      debugger
+      this.props.history.push(`/results?search_query=${this.state.queryString}`)
+    }
   }
   
   getQueryString(e) {
-    localStorage.setItem('recentSearch', this.state.queryString)
-    return e => {
-      this.setState({ queryString: e.currentTarget.value })
-    }
+    // localStorage.setItem('recentSearch', this.state.queryString)
+    debugger
+    e.type === "click" ? 
+    this.setState({queryString: e.currentTarget.innerText}) : 
+    this.setState({ queryString: e.currentTarget.value })
   }
 
   handleSidebar() {
@@ -132,11 +143,17 @@ class NavBar extends React.Component {
     modal === 'sidebar' ? closeModal() : openModal({ type: 'sidebar' })
   }
 
+  handleChannels() {
+    debugger
+    !this.props.channels.length && this.props.requestChannels()
+  }
+
   render() {
     const { currentUser, currentChannel } = this.props
-
-    if (currentUser && !currentChannel) return null
+debugger
 console.log(this.state)
+    if (currentUser && !currentChannel) return null
+
     return (
       <div className="header">
           <div className="navbar">
@@ -154,7 +171,12 @@ console.log(this.state)
             <form onSubmit={this.handleSearch}>
               <div className="mid-navbar">
                   {/* <input type="text" className="search-bar" placeholder="Search" value={this.state.queryString} onChange={this.getQueryString('queryString')}/> */}
-                  <SearchSuggest value={this.state.queryString} onChange={this.getQueryString('queryString')}/>
+                  <div onClick={this.handleChannels}>
+                      <SearchSuggest 
+                      value={this.state.queryString}  
+                      getQueryString={this.getQueryString}
+                      handleSearch={this.handleSearch}/>
+                  </div>
                   <button onClick={this.handleSearch} type="submit" className="search-button">
                       <MdSearch />
                   </button>

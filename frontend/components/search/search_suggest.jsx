@@ -1,12 +1,15 @@
 import React from 'react';
 import Autosuggest from 'react-autosuggest';
 import { connect } from 'react-redux';
+import { requestVideos } from '../../actions/video_actions'
+import { requestChannels } from '../../actions/channel_actions'
 
 function escapeRegexCharacters(str) {
     return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
 function getSuggestions(value, videosAndChannels) {
+    debugger
     const escapedValue = escapeRegexCharacters(value.trim());
 
     if (escapedValue === '') {
@@ -28,14 +31,6 @@ function getSuggestionValue(suggestion) {
     return suggestion.name ? suggestion.name : suggestion.title;
 }
 
-function renderSuggestion(suggestion, { query, isHighlighted }) {
-    return (
-        <span>
-            <span id="auto-suggest-query">{query}</span>{suggestion.slice(query.length)} 
-        </span>
-    );
-}
-
 class SearchSuggest extends React.Component {
     constructor() {
         super();
@@ -46,10 +41,28 @@ class SearchSuggest extends React.Component {
         };
     }
 
+    // componentDidUpdate(prevProps) {
+    //     debugger
+    //     if (prevProps.videosAndChannels !== this.props.videosAndChannels) {
+    //         debugger
+    //         this.props.requestVideos()
+    //             .then(() => {
+    //                 this.props.requestChannels()
+    //             })
+    //     }
+    // }
+
     onChange = (event, { newValue, method }) => {
-        this.setState({
-            value: newValue
-        });
+        debugger
+        if (event.type === "change") {
+            this.setState({ value: newValue });
+            this.props.getQueryString(event) 
+        } else {
+            debugger
+            this.setState({ value: event.currentTarget.innerText })
+            this.props.getQueryString(event)
+            this.props.handleSearch(event, event.currentTarget.innerText)
+        }
     };
 
     onSuggestionsFetchRequested = ({ value }) => {
@@ -64,6 +77,14 @@ class SearchSuggest extends React.Component {
         });
     };
 
+    renderSuggestion = (suggestion, { query, isHighlighted }) => {
+        return (
+            <span>
+                <span id="auto-suggest-query">{query}</span>{suggestion.slice(query.length)} 
+            </span>
+        )
+    };
+
     render() {
         const { value, suggestions } = this.state;
         const inputProps = {
@@ -71,14 +92,15 @@ class SearchSuggest extends React.Component {
             value,
             onChange: this.onChange
         };
-
+        console.log(this.props.videosAndChannels)
+debugger
         return (
             <Autosuggest
                 suggestions={suggestions}
                 onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
                 onSuggestionsClearRequested={this.onSuggestionsClearRequested}
                 getSuggestionValue={getSuggestionValue}
-                renderSuggestion={renderSuggestion}
+                renderSuggestion={this.renderSuggestion}
                 inputProps={inputProps} />
         );
     }
@@ -97,4 +119,9 @@ const mstp = state => {
     }
 };
 
-export default connect(mstp, null)(SearchSuggest);
+const mdtp = dispatch => ({
+   requestVideos: () => dispatch(requestVideos()),
+   requestChannels: () => dispatch(requestChannels()) 
+});
+
+export default connect(mstp, mdtp)(SearchSuggest);

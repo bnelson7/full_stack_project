@@ -7,7 +7,7 @@ export const RECEIVE_CURRENT_CHANNEL = 'RECEIVE_CURRENT_CHANNEL'
 export const REMOVE_CHANNEL = 'REMOVE_CHANNEL'
 
 const receiveChannels = channels => {
-    
+    debugger
     return {
         type: RECEIVE_CHANNELS,
         channels
@@ -35,6 +35,14 @@ const removeChannel = channel => {
         type: REMOVE_CHANNEL,
         channel
     }
+}
+
+export const requestChannels = () => dispatch => {
+debugger
+    return (
+        ChannelAPIUtil.fetchChannels()
+            .then(channels => dispatch(receiveChannels(channels)))
+    )
 }
 
 export const requestChannel = id => dispatch => {
