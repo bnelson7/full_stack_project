@@ -116,6 +116,7 @@ class NavBar extends React.Component {
 
   handleSearch(e) {
     e.preventDefault();
+    debugger
     this.props.history.push(`/results?search_query=${this.state.queryString}`)
   }
   
@@ -135,7 +136,7 @@ class NavBar extends React.Component {
     const { currentUser, currentChannel } = this.props
 
     if (currentUser && !currentChannel) return null
-
+console.log(this.state)
     return (
       <div className="header">
           <div className="navbar">
@@ -152,8 +153,8 @@ class NavBar extends React.Component {
             </div>
             <form onSubmit={this.handleSearch}>
               <div className="mid-navbar">
-                  <input type="text" className="search-bar" placeholder="Search" value={this.state.queryString} onChange={this.getQueryString('queryString')}/>
-                  <SearchSuggest value={this.state.queryString}/>
+                  {/* <input type="text" className="search-bar" placeholder="Search" value={this.state.queryString} onChange={this.getQueryString('queryString')}/> */}
+                  <SearchSuggest value={this.state.queryString} onChange={this.getQueryString('queryString')}/>
                   <button onClick={this.handleSearch} type="submit" className="search-button">
                       <MdSearch />
                   </button>

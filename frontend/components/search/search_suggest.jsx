@@ -7,7 +7,6 @@ function escapeRegexCharacters(str) {
 }
 
 function getSuggestions(value, videosAndChannels) {
-    debugger
     const escapedValue = escapeRegexCharacters(value.trim());
 
     if (escapedValue === '') {
@@ -15,18 +14,25 @@ function getSuggestions(value, videosAndChannels) {
     }
 
     const regex = new RegExp('^' + escapedValue, 'i');
-debugger
-    return videosAndChannels.filter(vidchan => vidchan.title ? regex.test(vidchan.title) : regex.test(vidchan.name));
-    debugger
+
+    return videosAndChannels
+      .filter(vidchan =>
+        vidchan.title ? regex.test(vidchan.title) : regex.test(vidchan.name)
+      )
+      .map(vidchan =>
+        vidchan.title ? vidchan.title.toLowerCase() : vidchan.name.toLowerCase()
+      );
 }
 
 function getSuggestionValue(suggestion) {
     return suggestion.name ? suggestion.name : suggestion.title;
 }
 
-function renderSuggestion(suggestion) {
+function renderSuggestion(suggestion, { query, isHighlighted }) {
     return (
-        <span>{suggestion.name ? suggestion.name : suggestion.title}</span>
+        <span>
+            <span id="auto-suggest-query">{query}</span>{suggestion.slice(query.length)} 
+        </span>
     );
 }
 
@@ -41,14 +47,12 @@ class SearchSuggest extends React.Component {
     }
 
     onChange = (event, { newValue, method }) => {
-        debugger
         this.setState({
             value: newValue
         });
     };
 
     onSuggestionsFetchRequested = ({ value }) => {
-        debugger
         this.setState({
             suggestions: getSuggestions(value, this.props.videosAndChannels)
         });
@@ -63,10 +67,11 @@ class SearchSuggest extends React.Component {
     render() {
         const { value, suggestions } = this.state;
         const inputProps = {
+            placeholder: "Search",
             value,
             onChange: this.onChange
         };
-debugger
+
         return (
             <Autosuggest
                 suggestions={suggestions}
@@ -82,7 +87,7 @@ debugger
 const mstp = state => {
     let videosAndChannels = Object.values(state.entities.videos)
     let channels = Object.values(state.entities.channels)
-    debugger
+
     channels.forEach(channel => {
         videosAndChannels.push(channel)
     });
