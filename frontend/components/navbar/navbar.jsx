@@ -116,12 +116,19 @@ class NavBar extends React.Component {
     )
   }
 
-  handleSearch(e, queryString) {
+  handleSearch(e, queryString, type) {
     debugger
     e.preventDefault();
     if (queryString) {
       debugger
-      localStorage.setItem('recentSearch', queryString)
+      if (type === "channel") {
+        debugger
+        localStorage.setItem('recentChannelSearch', queryString) 
+        localStorage.removeItem('recentVideoSearch') 
+      } else {
+        localStorage.removeItem('recentChannelSearch')
+        localStorage.setItem('recentVideoSearch', queryString)
+      }
       // not sure why i can't push state here
       this.props.history.push(`/results?search_query=${queryString}`)
     } else {
@@ -145,7 +152,14 @@ class NavBar extends React.Component {
 
   handleChannels() {
     debugger
-    !this.props.channels.length && this.props.requestChannels()
+    (!this.props.channels.length || this.props.channels.length !== this.props.totalChannels) && 
+    this.props.requestChannels()
+      .then(res => {
+        const currentNumChannels = Object.values(res.channels).length
+        debugger
+        const totalChannels = localStorage.setItem('totalChannels', currentNumChannels)
+        console.log(localStorage)
+      })
   }
 
   render() {

@@ -23,7 +23,7 @@ function getSuggestions(value, videosAndChannels) {
         vidchan.title ? regex.test(vidchan.title) : regex.test(vidchan.name)
       )
       .map(vidchan =>
-        vidchan.title ? vidchan.title.toLowerCase() : vidchan.name.toLowerCase()
+        vidchan.title ? {video: vidchan.title.toLowerCase()} : { channel: vidchan.name.toLowerCase()}
       );
 }
 
@@ -58,10 +58,11 @@ class SearchSuggest extends React.Component {
             this.setState({ value: newValue });
             this.props.getQueryString(event) 
         } else {
+            const type = document.getElementById("suggestion-type").value
             debugger
             this.setState({ value: event.currentTarget.innerText })
             this.props.getQueryString(event)
-            this.props.handleSearch(event, event.currentTarget.innerText)
+            this.props.handleSearch(event, event.currentTarget.innerText, type)
         }
     };
 
@@ -78,10 +79,18 @@ class SearchSuggest extends React.Component {
     };
 
     renderSuggestion = (suggestion, { query, isHighlighted }) => {
+        let type = ""
+        if (suggestion.video) {
+            suggestion = suggestion.video
+            type = "video"
+        } else {
+            suggestion = suggestion.channel
+            type = "channel"
+        }
         return (
-            <span>
+            <button id="suggestion-type" value={type}>
                 <span id="auto-suggest-query">{query}</span>{suggestion.slice(query.length)} 
-            </span>
+            </button>
         )
     };
 

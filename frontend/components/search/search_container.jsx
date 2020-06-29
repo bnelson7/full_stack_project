@@ -10,7 +10,8 @@ const mstp = (state, ownProps) => {
         path: ownProps.location.pathname,
         currentUser: state.entities.users[state.session.id],
         modal: state.ui,
-        videos: Object.values(state.entities.videos)
+        videos: Object.values(state.entities.videos),
+        currentChannel: state.entities.channels[state.session.channelId],
     }
 }
 
