@@ -34,7 +34,8 @@ const mstp = (state, ownProps) => {
         subscribed: subscribed,
         currentChannel: currentChannel,
         featuredChannel: featuredChannel,
-        featuredChannelSubscribed
+        featuredChannelSubscribed,
+        creator: creator
     }
 }
 

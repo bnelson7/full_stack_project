@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { FaYoutube, FaUserCircle } from "react-icons/fa";
 import { MdMoreVert, MdNotifications, MdSearch, MdVideoCall, MdMenu, MdApps } from 'react-icons/md'
 import NavBarDropdown from '../hooks/navbar_dropdown';
+import SearchSuggest from '../search/search_suggest'
 
 class NavBar extends React.Component {
   constructor(props) {
@@ -152,6 +153,7 @@ class NavBar extends React.Component {
             <form onSubmit={this.handleSearch}>
               <div className="mid-navbar">
                   <input type="text" className="search-bar" placeholder="Search" value={this.state.queryString} onChange={this.getQueryString('queryString')}/>
+                  <SearchSuggest value={this.state.queryString}/>
                   <button onClick={this.handleSearch} type="submit" className="search-button">
                       <MdSearch />
                   </button>

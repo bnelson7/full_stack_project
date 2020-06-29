@@ -26,12 +26,14 @@ const mSTP = (state, ownProps) => {
     }
     
     let subscribed = false
-    let subscribers = []
+    let subscribers = 0
     if (currentChannel && channel) {
         subscribed = channel.subscribers.find(subs => subs.id === state.session.channelId) !== undefined
         subscribers = channel.subscribers.length
     } else if (currentChannel && video && video.channel) {
         subscribed = video.channel.subscribers.find(subs => subs.id === state.session.channelId) !== undefined
+        subscribers = video.channel.subscribers.length
+    } else if (!currentUser && video && video.channel) {
         subscribers = video.channel.subscribers.length
     }
    

@@ -343,8 +343,8 @@ class VideoShow extends React.Component {
                                         </span>
                                     </h1>
                                     <span>
-                                        {this.props.subscribers === 1 ? 
-                                        `${this.props.subscribers} subscriber` :
+                                        {this.props.subscribers === 0 ? "No subscribers" :
+                                        this.props.subscribers === 1 ? "1 subscriber" :
                                         `${this.props.subscribers} subscribers`}
                                     </span>
                                 </div>

@@ -271,11 +271,11 @@ class Channel extends React.Component {
     handleSubscribe(e) {
         e.preventDefault();
         const { currentUser, history } = this.props
-        const subscription = { channelId: e.currentTarget.value, subscriber_id: this.props.currentChannel.id }
-        
+
         if (!currentUser) {
             history.push("/login")
         } else {
+            const subscription = { channelId: e.currentTarget.value, subscriber_id: this.props.currentChannel.id }
             this.props.createSubscription(subscription)
                 .then(res => {
                     
@@ -668,12 +668,13 @@ class Channel extends React.Component {
             requestChannel, 
             editChannel, 
             history,
+            creator,
             requestCurrentChannel } = this.props
         
         // if (path.includes("/users") && !currentUser.uploads) return null
         // might need to check if && there's no creator return null 
-        if (!channel || !channels || !videos || !currentChannel || (featuredChannel && !featuredChannelSubscribed)) return null
         
+        if (!channel || !creator || !videos || (currentUser && !currentChannel) || (featuredChannel && !featuredChannelSubscribed)) return null
             
         return (
             <div className="channel-banner-profile-container">

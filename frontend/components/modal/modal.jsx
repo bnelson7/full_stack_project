@@ -310,12 +310,12 @@ class Modal extends React.Component {
                             <ul className="sidebar-items-expanded">
                                 <a href="https://github.com/bnelson7">
                                     <li>
-                                            <div className="sidebar-icon-expanded">
-                                                <FaGithub id="icon-size" />
-                                            </div>
-                                            <div className="sidebar-text-expanded">
-                                                Github
-                                            </div>
+                                        <div className="sidebar-icon-expanded">
+                                            <FaGithub id="icon-size" />
+                                        </div>
+                                        <div className="sidebar-text-expanded">
+                                            Github
+                                        </div>
                                     </li>
                                 </a>
                                 <a href="https://www.linkedin.com/in/brad-nelson-919b90a7/">

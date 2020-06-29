@@ -21,6 +21,7 @@ class Sidebar extends React.Component {
             this.props.modal === 'sidebar' ? (
                 <div className="sidebar-container-expanded">
                     <ul className="sidebar-items-expanded">
+                        {this.props.path === "/" ? 
                         <li className="home-item-expanded">
                             <div className="home-icon-expanded">
                                 <MdHome />
@@ -28,15 +29,36 @@ class Sidebar extends React.Component {
                             <div className="home-text-expanded">
                                 Home
                             </div>
-                        </li> 
-                        <li>
-                            <div className="sidebar-icon-expanded">
-                                <FaFire id="icon-size"/>
+                        </li> :
+                        <Link to='/'>
+                            <li>
+                                <div className="sidebar-icon-expanded">
+                                    <MdHome />
+                                </div> 
+                                <div className="sidebar-text-expanded">
+                                    Home
+                                </div>
+                            </li>
+                        </Link>}
+                        {this.props.path === "/trending" ?
+                        <li className="home-item-expanded">
+                            <div className="home-icon-expanded">
+                                <FaFire id="icon-size" />
                             </div>
-                            <div className="sidebar-text-expanded">
+                            <div className="home-text-expanded">
                                 Trending
-                            </div>
-                        </li>
+                                </div>
+                        </li> :
+                        <Link to="/trending">
+                            <li>
+                                <div className="sidebar-icon-expanded">
+                                    <FaFire id="icon-size"/>
+                                </div>
+                                <div className="sidebar-text-expanded">
+                                    Trending
+                                </div>
+                            </li>
+                        </Link>}
                         {/* <li>
                             <div className="sidebar-icon-expanded">
                                 <MdHistory />

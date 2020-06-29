@@ -37,6 +37,15 @@ class LoginForm extends React.Component {
         e.preventDefault();
         const user = Object.assign({}, this.state)
         this.props.loginUser(user)
+            .then(res => {
+                this.props.requestCurrentChannel(res.currentUser.channels[0].id)
+                    .then(res => {
+                        const currentChannel = res.currentChannel.id
+                        localStorage.setItem('currentChannel', JSON.stringify(currentChannel))
+                        this.props.history.push('/')
+                        this.props.closeModal()
+                    })
+            })
     }
 
     handleDemoLogin(e) {
