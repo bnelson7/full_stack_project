@@ -11,14 +11,14 @@ const mSTP = (state, ownProps) => {
     // set boolean here to determine if we need to fetch channels for autosuggest
     const totalChannels = localStorage.getItem('totalChannels')
     console.log(totalChannels)
-    debugger
+    
     return {
         currentUser: state.entities.users[state.session.id],
         path: ownProps.location.pathname,
         modal: state.ui.type,
         currentChannel: state.entities.channels[state.session.channelId],
         channels: Object.values(state.entities.channels),
-        totalChannels: totalChannels
+        totalChannels: parseInt(totalChannels)
     }
 }
 

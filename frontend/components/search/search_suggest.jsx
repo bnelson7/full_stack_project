@@ -9,7 +9,7 @@ function escapeRegexCharacters(str) {
 }
 
 function getSuggestions(value, videosAndChannels) {
-    debugger
+    
     const escapedValue = escapeRegexCharacters(value.trim());
 
     if (escapedValue === '') {
@@ -20,10 +20,10 @@ function getSuggestions(value, videosAndChannels) {
 
     return videosAndChannels
       .filter(vidchan =>
-        vidchan.title ? regex.test(vidchan.title) : regex.test(vidchan.name)
+            vidchan.title ? regex.test(vidchan.title) : regex.test(vidchan.name)
       )
-      .map(vidchan =>
-        vidchan.title ? {video: vidchan.title.toLowerCase()} : { channel: vidchan.name.toLowerCase()}
+      .map(vidchan => 
+            vidchan.hasOwnProperty("title") ? { video: vidchan.title.toLowerCase() } : { channel: vidchan.name.toLowerCase() }
       );
 }
 
@@ -42,9 +42,9 @@ class SearchSuggest extends React.Component {
     }
 
     // componentDidUpdate(prevProps) {
-    //     debugger
+    //     
     //     if (prevProps.videosAndChannels !== this.props.videosAndChannels) {
-    //         debugger
+    //         
     //         this.props.requestVideos()
     //             .then(() => {
     //                 this.props.requestChannels()
@@ -53,16 +53,18 @@ class SearchSuggest extends React.Component {
     // }
 
     onChange = (event, { newValue, method }) => {
-        debugger
+        
         if (event.type === "change") {
             this.setState({ value: newValue });
             this.props.getQueryString(event) 
         } else {
-            const type = document.getElementById("suggestion-type").value
-            debugger
+            
+            const idx = parseInt(event.currentTarget.dataset.suggestionIndex)
+            const type = document.getElementById(`suggestion-type-${idx}`)
+            
             this.setState({ value: event.currentTarget.innerText })
             this.props.getQueryString(event)
-            this.props.handleSearch(event, event.currentTarget.innerText, type)
+            this.props.handleSearch(event, event.currentTarget.innerText, type.value)
         }
     };
 
@@ -80,6 +82,8 @@ class SearchSuggest extends React.Component {
 
     renderSuggestion = (suggestion, { query, isHighlighted }) => {
         let type = ""
+        let idx = this.state.suggestions.indexOf(suggestion)
+
         if (suggestion.video) {
             suggestion = suggestion.video
             type = "video"
@@ -88,7 +92,7 @@ class SearchSuggest extends React.Component {
             type = "channel"
         }
         return (
-            <button id="suggestion-type" value={type}>
+            <button id={`suggestion-type-${idx}`} value={type}>
                 <span id="auto-suggest-query">{query}</span>{suggestion.slice(query.length)} 
             </button>
         )
@@ -101,8 +105,7 @@ class SearchSuggest extends React.Component {
             value,
             onChange: this.onChange
         };
-        console.log(this.props.videosAndChannels)
-debugger
+
         return (
             <Autosuggest
                 suggestions={suggestions}

@@ -28,8 +28,10 @@ class Search extends React.Component {
     }
 
     componentDidMount() {
-        const recentVideoSearch = localStorage.getItem('recentVideoSearch')
-        debugger
+        
+        const recentVideoSearch = localStorage.hasOwnProperty('recentVideoSearch') &&
+        localStorage.getItem('recentVideoSearch') 
+        
         (recentVideoSearch || this.props.location.search.split("=")[1].length === 0) ?
         this.props.requestQueriedVideos(this.props.location.search)
         .then(results => {
@@ -37,7 +39,7 @@ class Search extends React.Component {
         }) :
         this.props.requestQueriedChannel(this.props.location.search) 
         .then(results => {
-            debugger
+            
             if (!Object.values(results.channel).length) {
                 
                 this.props.requestQueriedVideos(this.props.location.search)
@@ -59,8 +61,9 @@ class Search extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        const recentVideoSearch = localStorage.getItem('recentVideoSearch')
-        debugger
+        const recentVideoSearch = localStorage.hasOwnProperty('recentVideoSearch') &&
+        localStorage.getItem('recentVideoSearch') 
+        
         if (prevProps.location.search !== this.props.location.search) {
         if (recentVideoSearch || this.props.location.search.split("=")[1].length === 0) {
             // fetches video twice here on recent search after submit button search
@@ -71,7 +74,7 @@ class Search extends React.Component {
                 }) 
         } else {
 
-            debugger
+            
         this.props.requestQueriedChannel(this.props.location.search) 
         .then(results => {
                 
@@ -82,10 +85,11 @@ class Search extends React.Component {
                             this.setState({ videos: Object.values(results.videos) })
                         });
                 } else {
-                    
-                    let subscribedChannel = results.channel.subscribers.find(subs =>
-                        subs.id === this.props.currentUser.id) !== undefined
-                    results.channel.isSubscribed = subscribedChannel
+                    if (this.props.currentChannel) {
+                        let subscribedChannel = results.channel.subscribers.find(subs =>
+                            subs.id === this.props.currentChannel.id) !== undefined
+                        results.channel.isSubscribed = subscribedChannel
+                    }
                     this.setState({ 
                         videos: Object.values(results.channel.uploads),
                         channel: results.channel

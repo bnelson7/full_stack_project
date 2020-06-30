@@ -69,7 +69,7 @@ export const deleteVideo = videoId => dispatch => {
 }
 
 export const requestQueriedVideos = queryString => dispatch => {
-    debugger
+    
     return (
         VideoAPIUtil.fetchQueriedVideos(queryString)
         .then(videos => dispatch(receiveVideos(videos)))

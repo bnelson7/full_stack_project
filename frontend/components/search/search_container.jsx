@@ -5,7 +5,7 @@ import { requestCurrentUser } from '../../actions/user_actions'
 import Search from './search'
 
 const mstp = (state, ownProps) => {
-    debugger
+    
     return {
         path: ownProps.location.pathname,
         currentUser: state.entities.users[state.session.id],

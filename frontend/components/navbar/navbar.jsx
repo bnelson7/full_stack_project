@@ -117,14 +117,14 @@ class NavBar extends React.Component {
   }
 
   handleSearch(e, queryString, type) {
-    debugger
+    
     e.preventDefault();
     if (queryString) {
-      debugger
+      
       if (type === "channel") {
-        debugger
-        localStorage.setItem('recentChannelSearch', queryString) 
+        
         localStorage.removeItem('recentVideoSearch') 
+        localStorage.setItem('recentChannelSearch', queryString) 
       } else {
         localStorage.removeItem('recentChannelSearch')
         localStorage.setItem('recentVideoSearch', queryString)
@@ -132,14 +132,14 @@ class NavBar extends React.Component {
       // not sure why i can't push state here
       this.props.history.push(`/results?search_query=${queryString}`)
     } else {
-      debugger
+      
       this.props.history.push(`/results?search_query=${this.state.queryString}`)
     }
   }
   
   getQueryString(e) {
     // localStorage.setItem('recentSearch', this.state.queryString)
-    debugger
+    
     e.type === "click" ? 
     this.setState({queryString: e.currentTarget.innerText}) : 
     this.setState({ queryString: e.currentTarget.value })
@@ -151,12 +151,13 @@ class NavBar extends React.Component {
   }
 
   handleChannels() {
-    debugger
+    
     (!this.props.channels.length || this.props.channels.length !== this.props.totalChannels) && 
     this.props.requestChannels()
       .then(res => {
+        
         const currentNumChannels = Object.values(res.channels).length
-        debugger
+        
         const totalChannels = localStorage.setItem('totalChannels', currentNumChannels)
         console.log(localStorage)
       })
@@ -164,8 +165,7 @@ class NavBar extends React.Component {
 
   render() {
     const { currentUser, currentChannel } = this.props
-debugger
-console.log(this.state)
+
     if (currentUser && !currentChannel) return null
 
     return (
