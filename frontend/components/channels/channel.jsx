@@ -43,20 +43,27 @@ class Channel extends React.Component {
     }
 
     componentDidMount() {
-        
-        // this.props.path.includes("/channels") ? 
+        debugger
+        this.props.channel && !this.props.creator && this.props.requestUser(this.props.channel.creatorId)
         !this.props.channel && this.props.requestChannel(this.props.match.params.channelId)
             .then(res => {
                 
                 this.props.requestUser(res.channel.creatorId)
             })
-        // : this.props.requestCurrentUser(this.props.currentUser.id)
     }
 
     componentDidUpdate(prevProps) {
-        
-        if (this.props.path !== prevProps.path) {
-            
+        debugger
+        // for now just refetch necessary info
+        // problem is because I fetch all channels
+        // on click of search bar for autosuggest
+        // possible future soln if that causes any global bugs
+        // in app would be to just save all channels in local storage 
+        // upon app loading
+        if ((this.props.path !== prevProps.path || !this.props.channel)) {
+            debugger
+            this.props.currentChannel && !this.props.currentChannel.hasOwnProperty('subscriptions') && 
+            this.props.requestCurrentChannel(this.props.currentChannel.id)
             this.props.requestChannel(this.props.match.params.channelId)
                 .then(res => {
 
@@ -79,10 +86,6 @@ class Channel extends React.Component {
     //          
     //         return true;
     //     }
-    // }
-
-    // updateSubscribed(updatedSubscribers) {
-    //     this.setState({ subscribed: updatedSubscribers })
     // }
 
     update() {
@@ -144,7 +147,6 @@ class Channel extends React.Component {
     sortVideos(channelVideos) {
         const { sortSelected } = this.state
         const { currentUser, path, deleteVideo, updateVideo, openModal } = this.props
-        // let channelVideos = videos.filter(video => video.creatorId === currentUser.id)
 
         if (sortSelected === "popular") {
             channelVideos.sort((a, b) => b.views - a.views)
@@ -673,9 +675,9 @@ class Channel extends React.Component {
         
         // if (path.includes("/users") && !currentUser.uploads) return null
         // might need to check if && there's no creator return null 
-        
+        debugger
         if (!channel || !creator || !videos || (currentUser && !currentChannel) || (featuredChannel && !featuredChannelSubscribed)) return null
-            
+            debugger
         return (
             <div className="channel-banner-profile-container">
 

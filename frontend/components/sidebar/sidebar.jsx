@@ -16,7 +16,7 @@ class Sidebar extends React.Component {
     // }
 
     render() {
-        
+
         return (
             this.props.modal === 'sidebar' ? (
                 <div className="sidebar-container-expanded">
@@ -113,7 +113,7 @@ class Sidebar extends React.Component {
                             SUBSCRIPTIONS
                         </h1>
                         <ul className="sidebar-subscriptions-grid">
-                            {this.props.currentChannel.subscriptions.map(subscription => {
+                            {this.props.currentChannel.hasOwnProperty('subscriptions') && this.props.currentChannel.subscriptions.map(subscription => {
                                 return (
                                     <li className="sidebar-subscriptions-grid-item-container" key={subscription.id}>
                                         <ChannelIndexItem 

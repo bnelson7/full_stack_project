@@ -4,7 +4,7 @@ import { GoPrimitiveDot } from 'react-icons/go'
 import { MdCheckCircle, MdNotificationsNone } from 'react-icons/md'
 
 const ChannelIndexItem = props => {
-
+debugger
     return (
         props.path.includes("/channels") && (props.selected === "home" || props.selected === "about") ? (
             <div className="channel-home-grid-item">
@@ -18,7 +18,7 @@ const ChannelIndexItem = props => {
                         {props.channel.name}
                     </h2>
                 </div>
-                {props.currentChannel && props.currentChannel.subscriptions.find(subs => subs.id === props.channel.id) !== undefined ? 
+                {props.currentChannel && props.currentChannel.hasOwnProperty('subscriptions') && props.currentChannel.subscriptions.find(subs => subs.id === props.channel.id) !== undefined ? 
                 <button className="channel-subscribe-btn" onClick={props.handleUnsubscribe} value={props.channel.id}>
                     SUBSCRIBED
                 </button> :
@@ -41,7 +41,7 @@ const ChannelIndexItem = props => {
                         `${props.channel.subscribers.length} subscribers`}
                     </span>
                     <div className="channel-subscribe-btn-container">
-                        {props.currentChannel && props.currentChannel.subscriptions.find(subs => subs.id === props.channel.id) !== undefined ? 
+                        {props.currentChannel && props.currentChannel.hasOwnProperty('subscriptions') && props.currentChannel.subscriptions.find(subs => subs.id === props.channel.id) !== undefined ? 
                         <button className="channel-subscribe-btn" onClick={props.handleUnsubscribe} value={props.channel.id}>
                             SUBSCRIBED
                         </button> :
@@ -82,7 +82,9 @@ const ChannelIndexItem = props => {
                             </div>
                             <div id="search-user">&nbsp;
                                 <span id="title-user-search">
-                                    {props.channel.subscribers.length} subscribers&nbsp;
+                                    {!props.channel.subscribers.length ? "No subscribers" : 
+                                    props.channel.subscribers.length === 1 ? "1 subscriber" :
+                                    `${props.channel.subscribers.length} subscribers`}&nbsp;
                                     <span>
                                         <GoPrimitiveDot />
                                     </span>

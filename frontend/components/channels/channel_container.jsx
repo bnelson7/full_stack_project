@@ -8,7 +8,8 @@ import { requestUser } from '../../actions/user_actions'
 
 const mstp = (state, ownProps) => {
     
-    let channel = Object.keys(state.entities.channels).length ? 
+    let channel = Object.keys(state.entities.channels).length && 
+    state.entities.channels[ownProps.match.params.channelId].hasOwnProperty('subscriptions') ? 
     state.entities.channels[ownProps.match.params.channelId] : null
     let randomIdx = channel && channel.uploads ? Math.floor(Math.random() * channel.uploads.length) : null
     let video = channel && channel.uploads && channel.uploads[randomIdx]
@@ -20,10 +21,14 @@ const mstp = (state, ownProps) => {
     
     let creator = Object.keys(state.entities.users).length && channel && state.entities.users[channel.creatorId] 
     let channels = creator && creator.channels && channel && creator.channels.filter(chan => chan.id !== channel.id ) 
-    let featuredChannel = Object.keys(state.entities.channels).length > 2 ? Object.values(state.entities.channels)[2] : null
+    debugger
+    let allChannels = Object.values(state.entities.channels)
+    let featuredChannel = currentChannel && Object.keys(state.entities.channels).length > 2 && 
+    currentChannel.subscriptions && allChannels.find(subs => subs.id === currentChannel.subscriptions[0].id) !== undefined ? 
+    currentChannel.subscriptions[0] : null
     
     let featuredChannelSubscribed = featuredChannel && currentChannel && currentChannel.subscriptions.find(subs => subs.id === featuredChannel.id) !== undefined
-     
+     debugger
     return {
         channels: channels,
         channel: channel,
@@ -35,7 +40,8 @@ const mstp = (state, ownProps) => {
         currentChannel: currentChannel,
         featuredChannel: featuredChannel,
         featuredChannelSubscribed,
-        creator: creator
+        creator: creator,
+        allChannels: allChannels
     }
 }
 

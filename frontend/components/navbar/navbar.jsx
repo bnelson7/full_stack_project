@@ -151,7 +151,7 @@ class NavBar extends React.Component {
   }
 
   handleChannels() {
-    
+    debugger
     (!this.props.channels.length || this.props.channels.length !== this.props.totalChannels) && 
     this.props.requestChannels()
       .then(res => {

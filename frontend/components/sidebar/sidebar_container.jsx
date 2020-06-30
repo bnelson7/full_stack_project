@@ -4,7 +4,7 @@ import { requestCurrentUser } from '../../actions/user_actions'
 import { requestCurrentChannel } from '../../actions/channel_actions'
 
 const mstp = (state, ownProps) => {
-    
+
     return {
         path: ownProps.location.pathname,
         modal: state.ui.type,
