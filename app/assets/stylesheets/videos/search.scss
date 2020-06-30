@@ -130,6 +130,13 @@
     align-items: flex-start;
 }
 
+.title-user-search {
+    height: 5vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
 #search-title {
     font-size: 1.8vh;
     font-weight: 400;
@@ -141,6 +148,8 @@
     font-size: 1.3vh;
     font-weight: 400;
     color: #606060;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 #title-user-search span {
@@ -151,6 +160,10 @@
     font-size: 1.3vh;
     font-weight: 400;
     color: #606060;
+}
+
+.description-search-container {
+    width: 45vh;
 }
 
 .search-filter-container {

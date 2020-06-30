@@ -74,13 +74,13 @@ const ChannelIndexItem = props => {
                 <div className="channel-search-info-container">
                     <div className="video-search-info">
                         <div className="title-user-search">
-                            <h1 id="search-title">
+                            <div id="search-title">
                                 {props.channel.name}&nbsp;&nbsp;
                                 <span className="verified">
                                     <MdCheckCircle />
                                 </span>
-                            </h1>
-                            <h1 id="search-user">{}&nbsp;
+                            </div>
+                            <div id="search-user">&nbsp;
                                 <span id="title-user-search">
                                     {props.channel.subscribers.length} subscribers&nbsp;
                                     <span>
@@ -88,9 +88,9 @@ const ChannelIndexItem = props => {
                                     </span>
                                     &nbsp;{props.channel.uploads.length} videos
                                 </span>
-                            </h1>
+                            </div>
                         </div>
-                        <div>
+                        <div className="description-search-container">
                             <span id="description-search">
                                 {props.channel.description}
                             </span>

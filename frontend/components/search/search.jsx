@@ -87,7 +87,7 @@ class Search extends React.Component {
                 } else {
                     if (this.props.currentChannel) {
                         let subscribedChannel = results.channel.subscribers.find(subs =>
-                            subs.id === this.props.currentChannel.id) !== undefined
+                        subs.id === this.props.currentChannel.id) !== undefined
                         results.channel.isSubscribed = subscribedChannel
                     }
                     this.setState({ 
