@@ -43,7 +43,7 @@ class Channel extends React.Component {
     }
 
     componentDidMount() {
-        debugger
+        
         this.props.channel && !this.props.creator && this.props.requestUser(this.props.channel.creatorId)
         !this.props.channel && this.props.requestChannel(this.props.match.params.channelId)
             .then(res => {
@@ -53,7 +53,7 @@ class Channel extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        debugger
+        
         // for now just refetch necessary info
         // problem is because I fetch all channels
         // on click of search bar for autosuggest
@@ -61,7 +61,7 @@ class Channel extends React.Component {
         // in app would be to just save all channels in local storage 
         // upon app loading
         if ((this.props.path !== prevProps.path || !this.props.channel)) {
-            debugger
+            
             this.props.currentChannel && !this.props.currentChannel.hasOwnProperty('subscriptions') && 
             this.props.requestCurrentChannel(this.props.currentChannel.id)
             this.props.requestChannel(this.props.match.params.channelId)

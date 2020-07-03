@@ -61,42 +61,45 @@ class Search extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
+        
+        this.props.currentChannel && !this.props.currentChannel.hasOwnProperty('subscriptions') &&
+        this.props.requestCurrentChannel(this.props.currentChannel.id)
+
         const recentVideoSearch = localStorage.hasOwnProperty('recentVideoSearch') &&
         localStorage.getItem('recentVideoSearch') 
         
         if (prevProps.location.search !== this.props.location.search) {
-        if (recentVideoSearch || this.props.location.search.split("=")[1].length === 0) {
-            // fetches video twice here on recent search after submit button search
-            
-            this.props.requestQueriedVideos(this.props.location.search)
-                .then(results => {
-                    this.setState({ videos: Object.values(results.videos) })
-                }) 
-        } else {
-
-            
-        this.props.requestQueriedChannel(this.props.location.search) 
-        .then(results => {
+            if (recentVideoSearch || this.props.location.search.split("=")[1].length === 0) {
+                // fetches video twice here on recent search after submit button search
                 
-                if (!Object.values(results.channel).length) {
+                this.props.requestQueriedVideos(this.props.location.search)
+                    .then(results => {
+                        this.setState({ videos: Object.values(results.videos) })
+                    }) 
+            } else {
+
+            this.props.requestQueriedChannel(this.props.location.search) 
+            .then(results => {
                     
-                    this.props.requestQueriedVideos(this.props.location.search)
-                        .then(results => {
-                            this.setState({ videos: Object.values(results.videos) })
-                        });
-                } else {
-                    if (this.props.currentChannel) {
-                        let subscribedChannel = results.channel.subscribers.find(subs =>
-                        subs.id === this.props.currentChannel.id) !== undefined
-                        results.channel.isSubscribed = subscribedChannel
+                    if (!Object.values(results.channel).length) {
+                        
+                        this.props.requestQueriedVideos(this.props.location.search)
+                            .then(results => {
+                                this.setState({ videos: Object.values(results.videos) })
+                            });
+                    } else {
+                        if (this.props.currentChannel) {
+                            let subscribedChannel = results.channel.subscribers.find(subs =>
+                            subs.id === this.props.currentChannel.id) !== undefined
+                            results.channel.isSubscribed = subscribedChannel
+                        }
+                        this.setState({ 
+                            videos: Object.values(results.channel.uploads),
+                            channel: results.channel
+                        })
                     }
-                    this.setState({ 
-                        videos: Object.values(results.channel.uploads),
-                        channel: results.channel
-                     })
-                }
-            })
-        }
+                })
+            }
         }
     }
 
@@ -163,7 +166,7 @@ class Search extends React.Component {
         }
         
         
-        if (!this.state.alreadyFiltered && !this.state.channel) {
+        if (!this.state.alreadyFiltered && this.state.channel) {
             if (key === "DURATION") {
               ;(async () => {
                 let addVideoDurations = this.state.videos;
@@ -176,17 +179,46 @@ class Search extends React.Component {
                 this.filterSearch(filtered, addVideoDurations);
               })();
             } else if (val === "Channel") {
+                // might just need to move current channel logic into .then
+                // like in component did update
+                // nvm
                 
-                this.props.currentUser ? this.props.requestCurrentUser(this.props.currentUser.id)
-                    .then(() => {
-                        this.props.requestQueriedChannels(this.props.location.search)
+                // maybe add if currentChannel has own property subscriptions
+                // this.props.currentChannel ? this.props.requestCurrentChannel(this.props.currentChannel.id)
+                    // .then(() => {
+                    
+                    this.props.currentChannel ? this.props.requestQueriedChannels(this.props.location.search)
                             .then(results => {
                                 let subscribedChannels = []
+                                const currentChannelId = parseInt(localStorage.getItem('currentChannel'))
+      
                                 Object.values(results.channels).forEach(channel => {
-                                    channel.isSubscribed = channel.subscribers.find(subs => 
-                                    subs.id === this.props.currentUser.id) !== undefined
+                                    channel.isSubscribed = channel.subscribers.find(subs => subs.id === currentChannelId) !== undefined
+                                    
+                                    subscribedChannels.push(channel)
+                                })
+                                
+                                // if results doesnt include curr channel
+                                this.props.requestCurrentChannel(currentChannelId)
+                                    .then(() => {
+                                                  
+                                        this.setState({
+                                            videos: [],
+                                            channels: subscribedChannels,
+                                            selectedFilters: filtered,
+                                            alreadyFiltered: true
+                                        })
+                                    })
+                            })
+                     : this.props.requestQueriedChannels(this.props.location.search)
+                            .then(results => {
+                                
+                                let subscribedChannels = []
+                                Object.values(results.channels).forEach(channel => {
+                                    channel.isSubscribed = false
                                     subscribedChannels.push(channel)
                                 });
+                                
                                 this.setState({
                                     videos: [],
                                     channels: subscribedChannels,
@@ -194,23 +226,6 @@ class Search extends React.Component {
                                     alreadyFiltered: true
                                 })
                             })
-                    }) :
-                    this.props.requestQueriedChannels(this.props.location.search)
-                        .then(results => {
-                            
-                            let subscribedChannels = []
-                            Object.values(results.channels).forEach(channel => {
-                                channel.isSubscribed = false
-                                subscribedChannels.push(channel)
-                            });
-                            
-                            this.setState({
-                                videos: [],
-                                channels: subscribedChannels,
-                                selectedFilters: filtered,
-                                alreadyFiltered: true
-                            })
-                        })
             } else {
                 this.filterSearch(filtered, this.state.videos)
             }
@@ -245,10 +260,11 @@ class Search extends React.Component {
                                         })
                                     });
                             } else {
-                                
-                                let subscribedChannel = results.channel.subscribers.find(subs =>
-                                    subs.id === this.props.currentUser.id) !== undefined
-                                results.channel.isSubscribed = subscribedChannel
+                                if (this.props.currentChannel) {
+                                    let subscribedChannel = results.channel.subscribers.find(subs =>
+                                    subs.id === this.props.currentChannel.id) !== undefined
+                                    results.channel.isSubscribed = subscribedChannel
+                                }
             
                                 this.setState({ 
                                     videos: Object.values(results.channel.uploads),
@@ -398,7 +414,6 @@ class Search extends React.Component {
                     
                     let nowSubscribed = this.state.channels.find(channel => channel.id === res.channel.id)
                     nowSubscribed.isSubscribed = true
-                    // nowSubscribed.subscribed += 1
                     
                     this.setState({ channels: this.state.channels })
                 })
@@ -413,16 +428,19 @@ class Search extends React.Component {
                 
                 let notSubscribed = this.state.channels.find(channel => channel.id === res.channel.id)
                 notSubscribed.isSubscribed = false
-                // nowSubscribed.subscribed -= 1
                 
                 this.setState({ channels: this.state.channels })
             })
     }
 
     render() {
-        const { path, modal } = this.props 
+        const { path, modal, currentChannel, channel } = this.props 
                
-        if (this.state.videos.length === 0 && !this.state.alreadyFiltered) return null
+               // maybe just change this to update only in sidebar when autosuggest fetches all
+               // same thing on channel home
+               // || (currentChannel && !currentChannel.hasOwnProperty('subscriptions'))
+               
+        if (this.state.videos.length === 0 && !this.state.alreadyFiltered && !channel) return null
         let relevantChannel = this.state.channel && { key: this.state.channel }
         
         return(
@@ -477,7 +495,7 @@ class Search extends React.Component {
                     </div>}
                     <hr id="search-hr"/>
 
-                    {this.state.videos.length > 0 ?
+                    {this.state.videos.length > 0 || (this.state.videos.length === 0 && this.state.channel && !this.state.channels) ?
                         <div className="search-grid-container">
                         {this.state.channel && Object.values(relevantChannel).map(channel =>
                             <li className="search-grid-item" key={channel.id}>
@@ -507,6 +525,7 @@ class Search extends React.Component {
                                 handleSubscribe={this.handleSubscribe} 
                                 handleUnsubscribe={this.handleUnsubscribe}
                                 modal={modal}
+                                path={path}
                                 />
                             </li>)}
                         </div> 

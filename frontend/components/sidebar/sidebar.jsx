@@ -11,8 +11,11 @@ class Sidebar extends React.Component {
         // this.selected = this.selected.bind(this)
     }
 
-    // selected() {
+    // componentDidUpdate(prevProps) {
+    //     
+    //     if (this.props.currentChannel && this.props.currentChannel.subscriptions !== prevProps.subscriptions) {
 
+    //     }
     // }
 
     render() {

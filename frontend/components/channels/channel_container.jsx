@@ -7,28 +7,32 @@ import { createVideo, deleteVideo, updateVideo } from '../../actions/video_actio
 import { requestUser } from '../../actions/user_actions'
 
 const mstp = (state, ownProps) => {
-    
-    let channel = Object.keys(state.entities.channels).length && 
-    state.entities.channels[ownProps.match.params.channelId].hasOwnProperty('subscriptions') ? 
-    state.entities.channels[ownProps.match.params.channelId] : null
+    debugger
+    let currentUser = state.entities.users[state.session.id]
+    let currentChannel = state.entities.channels[state.session.channelId]
+    let channel = Object.keys(state.entities.channels).length && state.entities.channels[ownProps.match.params.channelId]
+    debugger
+    if (channel && channel.hasOwnProperty('subscriptions')) {
+        channel = state.entities.channels[ownProps.match.params.channelId]
+    } else {
+        channel = null
+    }
     let randomIdx = channel && channel.uploads ? Math.floor(Math.random() * channel.uploads.length) : null
     let video = channel && channel.uploads && channel.uploads[randomIdx]
     let videos = channel && channel.uploads && channel.uploads
-    let currentUser = state.entities.users[state.session.id]
-    let currentChannel = state.entities.channels[state.session.channelId]
     let subscribed = currentUser && Object.keys(state.entities.channels).length && 
     channel && channel.subscribers.find(subs => subs.id === state.session.channelId) !== undefined
     
     let creator = Object.keys(state.entities.users).length && channel && state.entities.users[channel.creatorId] 
     let channels = creator && creator.channels && channel && creator.channels.filter(chan => chan.id !== channel.id ) 
-    debugger
+    
     let allChannels = Object.values(state.entities.channels)
     let featuredChannel = currentChannel && Object.keys(state.entities.channels).length > 2 && 
     currentChannel.subscriptions && allChannels.find(subs => subs.id === currentChannel.subscriptions[0].id) !== undefined ? 
     currentChannel.subscriptions[0] : null
     
     let featuredChannelSubscribed = featuredChannel && currentChannel && currentChannel.subscriptions.find(subs => subs.id === featuredChannel.id) !== undefined
-     debugger
+     
     return {
         channels: channels,
         channel: channel,

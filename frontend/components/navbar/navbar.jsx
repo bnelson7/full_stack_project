@@ -151,7 +151,7 @@ class NavBar extends React.Component {
   }
 
   handleChannels() {
-    debugger
+    
     (!this.props.channels.length || this.props.channels.length !== this.props.totalChannels) && 
     this.props.requestChannels()
       .then(res => {
@@ -159,7 +159,6 @@ class NavBar extends React.Component {
         const currentNumChannels = Object.values(res.channels).length
         
         const totalChannels = localStorage.setItem('totalChannels', currentNumChannels)
-        console.log(localStorage)
       })
   }
 

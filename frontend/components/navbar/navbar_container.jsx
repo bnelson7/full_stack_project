@@ -10,7 +10,6 @@ import { requestCurrentChannel, requestChannels } from '../../actions/channel_ac
 const mSTP = (state, ownProps) => {
     // set boolean here to determine if we need to fetch channels for autosuggest
     const totalChannels = localStorage.getItem('totalChannels')
-    console.log(totalChannels)
     
     return {
         currentUser: state.entities.users[state.session.id],
