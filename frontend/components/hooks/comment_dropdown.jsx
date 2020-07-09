@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { MdMoreVert, MdModeEdit, MdFlag } from 'react-icons/md'
 import { FaTrash } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
 
 const CommentDropdown = (props) => {
     const comment = useRef();
@@ -52,14 +53,16 @@ const CommentDropdown = (props) => {
                         </ul>
                 </div> :       
                 <div className="comment-dropdown-flag">
-                    <div className="comment-dropdown-flag-item">
-                        <span className="comment-dropdown-flag-icon">
-                            <MdFlag />
-                        </span>
-                        <span className="comment-dropdown-flag-text">
-                            Report
-                        </span>
-                    </div>
+                    <Link to="/login">
+                        <div className="comment-dropdown-flag-item">
+                            <span className="comment-dropdown-flag-icon">
+                                <MdFlag />
+                            </span>
+                            <span className="comment-dropdown-flag-text">
+                                Report
+                            </span>
+                        </div>
+                    </Link>
                 </div>}
             </div>}
         </div>

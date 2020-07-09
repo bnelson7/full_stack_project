@@ -58,11 +58,18 @@ video:focus {
     font-size: .6vh;
 }
 
+    // removed flex when removing dead links
+    // and added margin-right
 .video-title-icons {
-    flex: .5;
+    // flex: .5;
     display: flex;
     align-items: flex-end;
+
+    margin-right: 10vw;
 }
+
+// .temp-deadlinks-removal-container {
+// }
 
 .video-title-icons div {
     width: 100%;
@@ -322,12 +329,13 @@ video:focus {
     display: inline-block;
     position: relative;
 }
-
+// changed width from 40% - 90%
+// after removing dead links
 .liked-btns-border:after {
     position: absolute;
     content: '';
     border-bottom: 2px solid #909090;
-    width: 40%;
+    width: 90%;
     bottom: 0;
     left: 5%;
 }
@@ -336,12 +344,13 @@ video:focus {
     display: inline-block;
     position: relative;
 }
-
+// changed width from 40% - 90%
+// after removing dead links
 .liked-btns-border-liked:after {
     position: absolute;
     content: '';
     border-bottom: 2px solid #065FD4;
-    width: 40%;
+    width: 90%;
     bottom: 0;
     left: 5%;
 }

@@ -524,7 +524,7 @@ class Channel extends React.Component {
                     </div>
                 )
             default:
-                if (!videos || videos.length === 0 && channel.creatorId === currentUser.id) {
+                if (!videos || videos.length === 0 && currentUser && channel.creatorId === currentUser.id) {
                     return (
                     <div className="upload-container-default">
                         <div className="profile-upload">
@@ -675,9 +675,9 @@ class Channel extends React.Component {
         
         // if (path.includes("/users") && !currentUser.uploads) return null
         // might need to check if && there's no creator return null 
-        debugger
+        
         if (!channel || !creator || !videos || (currentUser && !currentChannel) || (featuredChannel && !featuredChannelSubscribed)) return null
-            debugger
+            
         return (
             <div className="channel-banner-profile-container">
 

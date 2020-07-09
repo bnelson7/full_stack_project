@@ -119,7 +119,7 @@ class VideoShow extends React.Component {
                                 {video.likes.dislike}
                             </span>
                         </button>
-                        <button>
+                        {/* <button>
                             <span id="video-title-icon">
                                 <IoMdShareAlt />
                             </span>
@@ -134,13 +134,13 @@ class VideoShow extends React.Component {
                             <span id="video-title-text">
                                 SAVE
                             </span>
-                        </button>
+                        </button> */}
                     </div>
-                    <button className="horiz-dots">
+                    {/* <button className="horiz-dots">
                         <span id="video-title-icon">
                             <MdMoreHoriz />
                         </span>
-                    </button>
+                    </button> */}
                </div>
            )
         } else if (disliked) {
@@ -163,7 +163,7 @@ class VideoShow extends React.Component {
                                 {video.likes.dislike}
                             </span>
                         </button>
-                        <button>
+                        {/* <button>
                             <span id="video-title-icon">
                                 <IoMdShareAlt />
                             </span>
@@ -178,13 +178,13 @@ class VideoShow extends React.Component {
                             <span id="video-title-text">
                                 SAVE
                             </span>
-                        </button>
+                        </button> */}
                     </div>
-                    <button className="horiz-dots">
+                    {/* <button className="horiz-dots">
                         <span id="video-title-icon">
                             <MdMoreHoriz />
                         </span>
-                    </button>
+                    </button> */}
                </div>
             )
         } else {
@@ -207,7 +207,7 @@ class VideoShow extends React.Component {
                                 {video.likes.dislike}
                             </span>
                         </button>
-                        <button>
+                        {/* <button>
                             <span id="video-title-icon">
                                 <IoMdShareAlt />
                             </span>
@@ -222,13 +222,13 @@ class VideoShow extends React.Component {
                             <span id="video-title-text">
                                 SAVE
                             </span>
-                        </button>
+                        </button> */}
                     </div>
-                    <button className="horiz-dots">
+                    {/* <button className="horiz-dots">
                         <span id="video-title-icon">
                             <MdMoreHoriz />
                         </span>
-                    </button>
+                    </button> */}
                 </div>
             )
         }

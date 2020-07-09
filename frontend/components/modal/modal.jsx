@@ -289,22 +289,24 @@ class Modal extends React.Component {
                                         </div>
                                     </li> 
                                 </Link>
-                                <li>
-                                    <div className="sidebar-icon-expanded">
-                                        <FaFire id="icon-size"/>
-                                    </div>
-                                    <div className="sidebar-text-expanded">
-                                        Trending
-                                    </div>
-                                </li>
-                                <li>
+                                <Link to="/trending">
+                                    <li>
+                                        <div className="sidebar-icon-expanded">
+                                            <FaFire id="icon-size"/>
+                                        </div>
+                                        <div className="sidebar-text-expanded">
+                                            Trending
+                                        </div>
+                                    </li>
+                                </Link>
+                                {/* <li>
                                     <div className="sidebar-icon-expanded">
                                         <MdHistory />
                                     </div>
                                     <div className="sidebar-text-expanded">
                                         History
                                     </div>
-                                </li>
+                                </li> */}
                             </ul>
                             <hr id="sidebar-hr"/>
                             <ul className="sidebar-items-expanded">

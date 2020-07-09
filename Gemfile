@@ -29,6 +29,8 @@ gem 'ez_download', git: 'https://github.com/OscarAlvarez8830/EZDownload.git'
 
 gem "aws-sdk-s3"
 
+gem 'redis-rails'
+
 gem 'sprockets-rails', '2.3.3'
 
 # Use ActiveStorage variant

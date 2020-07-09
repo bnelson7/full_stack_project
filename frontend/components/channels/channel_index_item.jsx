@@ -5,7 +5,6 @@ import { MdCheckCircle, MdNotificationsNone } from 'react-icons/md'
 
 const ChannelIndexItem = props => {
 
-console.log(props)
     return (
         props.path.includes("/channels") && (props.selected === "home" || props.selected === "about") ? (
             <div className="channel-home-grid-item">

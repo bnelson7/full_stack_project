@@ -73,26 +73,26 @@ class Sidebar extends React.Component {
                     </ul>
                     <hr id="sidebar-hr"/>
                     <ul className="sidebar-items-expanded">
-                        <li>
-                            {/* <a href="https://github.com/bnelson7"> */}
+                        <a href="https://github.com/bnelson7">
+                            <li>
                                 <div className="sidebar-icon-expanded">
                                     <FaGithub id="icon-size" />
                                 </div>
                                 <div className="sidebar-text-expanded">
                                     Github
                                 </div>
-                            {/* </a> */}
-                        </li>
-                        <li>
-                            {/* <a href="https://www.linkedin.com/in/brad-nelson-919b90a7/"> */}
+                            </li>
+                        </a>
+                        <a href="https://www.linkedin.com/in/brad-nelson-919b90a7/">
+                            <li>
                                 <div className="sidebar-icon-expanded">
                                     <FaLinkedin id="linkedin" />
                                 </div>
                                 <div className="sidebar-text-expanded">
                                     LinkedIn
                                 </div>
-                            {/* </a> */}
-                        </li>
+                            </li>
+                        </a>
                     </ul>
                     <hr id="sidebar-hr" />
                     {!this.props.currentChannel ? 

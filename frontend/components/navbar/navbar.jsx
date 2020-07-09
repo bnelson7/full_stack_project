@@ -70,12 +70,12 @@ class NavBar extends React.Component {
           <div className="right-nav-icon">
             <MdVideoCall onClick={this.handleModal}/>
           </div>
-          <div className="right-nav-icon">
+          {/* <div className="right-nav-icon">
             <MdApps />
           </div>
           <div className="right-nav-icon">
             <MdNotifications />
-          </div>
+          </div> */}
           <NavBarDropdown 
           currentUser={this.props.currentUser} 
           handleLogout={this.handleLogout} 
@@ -98,12 +98,12 @@ class NavBar extends React.Component {
                 <MdVideoCall />
             </div>
           </Link>
-          <div className="right-nav-icon">
+          {/* <div className="right-nav-icon">
               <MdApps />
           </div>
           <div className="right-nav-icon">
             <MdMoreVert />
-          </div>
+          </div> */}
           <div>
             <Link className="signin-button" to="/login">
               <span className="profile-icon">

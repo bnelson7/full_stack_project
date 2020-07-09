@@ -7,11 +7,11 @@ import { createVideo, deleteVideo, updateVideo } from '../../actions/video_actio
 import { requestUser } from '../../actions/user_actions'
 
 const mstp = (state, ownProps) => {
-    debugger
+    
     let currentUser = state.entities.users[state.session.id]
     let currentChannel = state.entities.channels[state.session.channelId]
     let channel = Object.keys(state.entities.channels).length && state.entities.channels[ownProps.match.params.channelId]
-    debugger
+    
     if (channel && channel.hasOwnProperty('subscriptions')) {
         channel = state.entities.channels[ownProps.match.params.channelId]
     } else {
