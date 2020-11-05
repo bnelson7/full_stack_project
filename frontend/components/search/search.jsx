@@ -28,10 +28,10 @@ class Search extends React.Component {
     }
 
     componentDidMount() {
-        debugger
+        
         const recentVideoSearch = localStorage.hasOwnProperty('recentVideoSearch') ?
         localStorage.getItem('recentVideoSearch') : null
-        debugger
+        
         (recentVideoSearch || this.props.location.search.split("=")[1].length === 0) ?
         this.props.requestQueriedVideos(this.props.location.search)
         .then(results => {

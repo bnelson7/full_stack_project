@@ -23,7 +23,7 @@ videos and comments. Users can also like videos and comments as well as search f
 
 ![](upload_photo_demo.gif)
 
-### Search for videos
+### Search for videos with video search dropdown and recent searches
 
 ![](search_demo.gif)
 
@@ -158,12 +158,11 @@ mapNestedComments(comments) {
     }
 ```
 ### Like your favorite videos
+### Create channels that other users can subscribe to
 
 ## **Possible Future Directions for the Site**
 
 * optimize overall website performance
-* add video search dropdown with recent searches
-* allow users to create channels that other users can subscribe to
 * allow users to create posts on their channel that other users can comment on and like
 * add playlists and video queue
 * allow users to share videos
