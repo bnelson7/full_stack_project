@@ -1,17 +1,17 @@
 document.onreadystatechange = function (e) {
     
     if (document.readyState === "interactive") {
-        let all = document.getElementsByTagName("*");
+        let getAll = document.getElementsByTagName("*");
         
-        for (let i = 0; i < all.length; i++) {
-            setEle(all[i]);
+        for (let i = 0; i < getAll.length; i++) {
+            setEle(getAll[i]);
         }
     }
 }
 
 function checkElement(ele) {
-    let all = document.getElementsByTagName("*");
-    let percentIncrease = 100 / all.length;
+    let getAll = document.getElementsByTagName("*");
+    let percentIncrease = 100 / getAll.length;
 
     if ($(ele).on()) {
         let progressWidth = percentIncrease + Number(document.getElementById("progress-width").value);
