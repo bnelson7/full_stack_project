@@ -1,7 +1,7 @@
 import React from 'react'
 import CommentIndexItem from './comment_index_item'
 import { FaCaretDown, FaCaretUp } from 'react-icons/fa'
-// import Moment from 'react-moment'
+// import Moment from 'react-moment';
 
 class CommentIndex extends React.Component {
     constructor(props) {
