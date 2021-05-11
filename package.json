@@ -11,7 +11,7 @@
     "get-video-duration": "^3.0.0-beta.1",
     "immutable": "^4.0.0-rc.12",
     "javascript-time-ago": "^2.0.7",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "moment": "^2.25.3",
     "moment-duration-format": "^2.3.2",
     "moment-timezone": "^0.5.31",
